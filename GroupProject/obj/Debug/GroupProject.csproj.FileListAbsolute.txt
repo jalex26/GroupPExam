@@ -6,3 +6,11 @@ C:\Users\veberly\Documents\GitHub\GroupPExam\GroupProject\bin\DAL_Project.dll
 C:\Users\veberly\Documents\GitHub\GroupPExam\GroupProject\bin\DAL_Project.pdb
 C:\Users\veberly\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.dll
 C:\Users\veberly\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.pdb
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.csprojResolveAssemblyReference.cache
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.dll
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.pdb
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\GroupProject.dll.config
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\GroupProject.dll
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\GroupProject.pdb
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\DAL_Project.dll
+C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\DAL_Project.pdb

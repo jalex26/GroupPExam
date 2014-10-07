@@ -24,7 +24,20 @@ namespace GroupProject
             {
                 pnlLogin.Visible = true;
             }
+            else
+            {
+                lblUserName.Visible = false;
+                lblPassword.Visible = false;
+                txtUserName.Visible = false;
+                txtPassword.Visible = false;
+                btnLogin.Visible = false;
+            }
+        }
 
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            Security mySecurity = new Security(txtUserName.Text, txtPassword.Text);
+            CheckSecurity();
         }
     }
 }
