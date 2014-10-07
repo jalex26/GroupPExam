@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 
 
+
 namespace GroupProject
 {
     public class Security
@@ -64,7 +65,19 @@ namespace GroupProject
                 Firstname = "Welcome" + ds.Tables[0].Rows[0]["FirstName"].ToString() + "!";
                 Userid = Convert.ToInt32(ds.Tables[0].Rows[0]["Userid"].ToString());
             }
-            HttpContext.Current.Session["Firstname"]
+            HttpContext.Current.Session["Firstname"] = Firstname;
+            HttpContext.Current.Session["SecurityLevel"] = SecurityLevel;
+            HttpContext.Current.Session["Userid"] = Userid;
+        }
+        //returns the value of the security Level
+        public int GetSecurityLevel()
+        {
+            return SecurityLevel();
+        }
+        //returns the value of the Userid
+        public string GetUserid()
+        {
+            return Userid.Tostring()
         }
     }
 }
