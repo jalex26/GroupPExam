@@ -16,6 +16,8 @@
             <div class="header_container">
                 <h2>Exam Site</h2>
             </div>
+             <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
+                            <a href="Home.aspx">Home</a>
         </div>
         <asp:Panel ID="pnlLogin" runat="server">
             <table>
@@ -47,8 +49,6 @@
                 </tr>
             </table>
         </asp:Panel>
-
-
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
    <%--DO NOT PUT ANYTHING HERE--%>
