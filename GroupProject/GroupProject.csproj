@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GroupPExam.css" />
+    <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
