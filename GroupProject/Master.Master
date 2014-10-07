@@ -1,0 +1,59 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.Master.cs" Inherits="GroupProject.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Exam Site</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <%--DO NOT PUT ANYTHING HERE--%>
+    </asp:ContentPlaceHolder>
+    <link href="GroupPExam.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div class="header_container">
+                <h2>Exam Site</h2>
+            </div>
+        </div>
+        <asp:Panel ID="pnlLogin" runat="server">
+            <table>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblFirstName" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblUserName" runat="server" Text="UserName:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Button ID="btnLogin" runat="server" Text="Log In" Height="26px" Width="74px" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+
+
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+   <%--DO NOT PUT ANYTHING HERE--%>
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
