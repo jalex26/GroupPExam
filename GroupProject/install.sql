@@ -50,23 +50,13 @@ as begin
 end
 go
 
-
-
 -- Collects all the Failed Login Attempts
 create procedure spFailedLoginAttempts(
 @Username varchar(60) = null,
 @Password varchar(60) = null
 )
 as begin 
-	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Username, tbFailedLoginAttempt.Password,DateAttempted)values  /*, tbFailedLoginAttempt.DateAttempted*/
+	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Username, tbFailedLoginAttempt.Password,DateAttempted)values
 									(@Username,@Password,GETDATE())
-	--where tbFailedLoginAttempt.Username = @Username and tbFailedLoginAttempt.Password= @Password and tbFailedLoginAttempt.DateAttempted=@DateAttempted
 end 
-go
---Loads the Failed Login Attempts
-create procedure spLoadFailedLoginAttempts
-as begin
-	select tbFailedLoginAttempt.Username, tbFailedLoginAttempt.Password,tbFailedLoginAttempt.DateAttempted
-	from tbFailedLoginAttempt
-end
 go
