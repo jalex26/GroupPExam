@@ -86,6 +86,7 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Security.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />

@@ -21,7 +21,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lblFirstName" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
