@@ -1,4 +1,4 @@
-use master
+﻿use master
 go
 drop database Exam
 go
@@ -12,6 +12,16 @@ Username varchar(60),
 Password varchar(60),
 SecurityLevel int 
 )
+go
+
+create table tbClass(
+Classid int primary key identity (0,1),
+Classname varchar(60)
+)
+go
+
+insert into tbClass(Classname)values
+('SD18'),('SD19'),('SD20'),('SD21'),('SD22')
 go
 
 create table tbUser(
