@@ -34,10 +34,17 @@ SecurityLevel int
 )
 go
 
+
 insert into tbUser(Firstname,Lastname,Username,Password,SecurityLevel)values
 ('Kevin','Coliat','Kevin1','Kevin1',2),('Nupur','Singh','Nupur1','Nupur1',1),
 ('Janry','Alex','Janry1','Janry1',1),('Adrian','Carter','Adrian1','Adrian1',1),
 ('Veberly','Carvalho','Veberly1','Veberly1',1)
+go
+
+create table tbResults(
+Resultid int primary key identity (0,1),
+Userid int foreign key references tbUser(Userid)
+)
 go
 
 --Login
