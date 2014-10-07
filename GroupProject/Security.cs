@@ -67,7 +67,7 @@ namespace GroupProject
             else
             {
                 SecurityLevel = Convert.ToInt32(ds.Tables[0].Rows[0]["SecurityLevel"].ToString());
-                Firstname = "Welcome" + ds.Tables[0].Rows[0]["FirstName"].ToString() + "!";
+                Firstname = "Welcome " + ds.Tables[0].Rows[0]["FirstName"].ToString() + "!";
                 Userid = Convert.ToInt32(ds.Tables[0].Rows[0]["Userid"].ToString());
             }
             HttpContext.Current.Session["Firstname"] = Firstname;
