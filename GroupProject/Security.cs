@@ -4,7 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using DAL_Project;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
 
 
@@ -20,7 +23,7 @@ namespace GroupProject
         {//class using//method for security
             if (HttpContext.Current.Session["SecurityLevel"] != null)
             {
-                SecurityLevel = (int)HttpContext.Current.Session["Security"];
+                SecurityLevel = (int)HttpContext.Current.Session["SecurityLevel"];
                 Userid = (int)HttpContext.Current.Session["Userid"];
                 Firstname = HttpContext.Current.Session["Firstname"].ToString();
             }
@@ -56,7 +59,7 @@ namespace GroupProject
                 Firstname = "Invalid Login";
                 Userid = -1;
 
-                myDal.Clearams();
+                myDal.ClearParams();
                 myDal.AddParam("Username", Username);
                 myDal.AddParam("Password", Password);
                 myDal.ExecuteProcedure("spFailedLoginAttempts");
@@ -74,12 +77,12 @@ namespace GroupProject
         //returns the value of the security Level
         public int GetSecurityLevel()
         {
-            return SecurityLevel();
+            return SecurityLevel;
         }
         //returns the value of the Userid
-        public string GetUserid()
+        public string GetId()
         {
-            return Userid.Tostring()
+            return Userid.ToString();
         }
     }
 }
