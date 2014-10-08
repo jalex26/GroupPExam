@@ -12,48 +12,52 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="header_container">
         <div>
-            <div class="header_container">
-                <h2>Exam Site</h2>
-            </div>
-             <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
-                            <a href="Home.aspx">Home</a>
+            <p class="Margin">Exam Site</p>
+            <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/robertson.png" />
         </div>
-        <asp:Panel ID="pnlLogin" runat="server">
+            </div>
+                    <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
+            <a href="Home.aspx">Home</a>
+        <br />
+        <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
+        <asp:Panel ID="pnlLogin" CssClass="LoginMargin" runat="server" Width="375px" Height="110px">
             <table>
+              <%--  <tr>
+                    <td></td>
+                </tr>--%>
                 <tr>
                     <td>
-                        <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="UserName:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                       <br />
+                        <asp:Label ID="lblPassword" CssClass="Text" runat="server" Text="Password:"></asp:Label>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblUserName" runat="server" Text="UserName:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnLogin" runat="server" Text="Log In" Height="26px" Width="74px" OnClick="btnLogin_Click" />
+                        <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
                     </td>
                 </tr>
             </table>
         </asp:Panel>
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-   <%--DO NOT PUT ANYTHING HERE--%>
-        </asp:ContentPlaceHolder>
-    </div>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <%--DO NOT PUT ANYTHING HERE--%>
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
 </body>
 </html>

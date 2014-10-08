@@ -61,6 +61,7 @@
     <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
     <Content Include="Navigation.xml" />
+    <Content Include="Pictures\robertson.png" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
