@@ -24,9 +24,6 @@
         <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
         <asp:Panel ID="pnlLogin" CssClass="LoginMargin" runat="server" Width="375px" Height="110px">
             <table>
-              <%--  <tr>
-                    <td></td>
-                </tr>--%>
                 <tr>
                     <td>
                         <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="UserName:"></asp:Label>
