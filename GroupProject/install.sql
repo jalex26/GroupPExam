@@ -209,7 +209,7 @@ go
 --spDeleteStudent @Userid=3
 --select * from tbUser
 
-<<<<<<< HEAD
+
 create procedure spGetQuizCategories(
 @Categoryid int
 )
@@ -244,7 +244,21 @@ go
 
 --spUpdateQuizCategories @Categoryid=1,@Categoryname = Bebz
 --select * from tbQuizCategories
-=======
+
+create procedure spDeleteQuizCategories(
+@Categoryid int = null
+)
+as begin
+ delete from tbQuizCategories
+ where tbQuizCategories.Categoryid = @Categoryid
+
+ delete from tbQuiz
+ where tbQuiz.QuizCategory =@Categoryid
+end 
+go
+
+
+ 
 --Difficulty
 create procedure spGetDifficulty(
 @Difficultyid int = null
@@ -278,7 +292,7 @@ create procedure spDeleteDifficulty(
 )
 as begin 
 	delete from tbQuiz
-	where 
+	where tbQuiz.Difficulty =@Difficultyid
 
 	delete from tbDifficulty 
 	where tbDifficulty.Difficultyid = @Difficultyid
@@ -286,4 +300,4 @@ as begin
 end 
 go
 
->>>>>>> origin/master
+
