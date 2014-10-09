@@ -73,9 +73,10 @@ Content XML
 )
 go
 
-insert into tbQuiz(QuizTitle,QuizSubject,QuizCategory,TimetoTake,Difficulty /*,XMLFileLocation*/)values
+insert into tbQuiz(QuizTitle,QuizSubject,QuizCategory,TimetoTake,Difficulty /*Content*/ /*,XMLFileLocation*/)values
 ('Sample Title','PHP',0,'00:20:00',1)
 go
+
 
 create table tbResults(
 Resultid int primary key identity (0,1),
@@ -206,4 +207,46 @@ end
 go
 
 --spDeleteStudent @Userid=3
-select * from tbUser
+--select * from tbUser
+
+--Difficulty
+create procedure spGetDifficulty(
+@Difficultyid int = null
+)
+as begin
+	select * from tbDifficulty where tbDifficulty.Difficultyid = @Difficultyid
+end 
+go
+
+create procedure spInsertDifficulty(
+@Difficultyname varchar(60)
+)
+as begin
+	insert into tbDifficulty(Difficultyname)values
+				(@Difficultyname)
+end
+go
+
+create procedure spUpdateDifficulty(
+@Difficultyid int = null,
+@Difficultyname varchar(60)
+)
+as begin
+	update tbDifficulty set Difficultyname = @Difficultyname
+	where Difficultyid =@Difficultyid
+end 
+go
+
+create procedure spDeleteDifficulty(
+@Difficultyid int = null
+)
+as begin 
+	delete from tbQuiz
+	where 
+
+	delete from tbDifficulty 
+	where tbDifficulty.Difficultyid = @Difficultyid
+
+end 
+go
+
