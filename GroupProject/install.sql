@@ -206,4 +206,39 @@ end
 go
 
 --spDeleteStudent @Userid=3
-select * from tbUser
+--select * from tbUser
+
+create procedure spGetQuizCategories(
+@Categoryid int
+)
+as begin
+select * from tbQuizCategories where tbQuizCategories.Categoryid = @Categoryid
+end
+go
+
+
+--insert QuizCategories
+create procedure spInsertQuizCategories(
+@Categoryname varchar(60)
+)
+as begin
+ insert into tbQuizCategories (Categoryname)values
+                              (@Categoryname)
+	
+end
+go
+--spInsertQuizCategories @Categoryname = George
+--update QuizCategories
+
+create procedure spUpdateQuizCategories(
+@Categoryid int = null,
+@Categoryname varchar (60)
+)
+as begin
+update tbQuizCategories set Categoryname =@Categoryname 
+		where tbQuizCategories.Categoryid = @Categoryid
+end
+go
+
+--spUpdateQuizCategories @Categoryid=1,@Categoryname = Bebz
+--select * from tbQuizCategories
