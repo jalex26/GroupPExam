@@ -241,12 +241,14 @@ create procedure spDeleteDifficulty(
 @Difficultyid int = null
 )
 as begin 
-	delete from tbQuiz
-	where 
-
 	delete from tbDifficulty 
 	where tbDifficulty.Difficultyid = @Difficultyid
-
+	
+	delete from tbQuiz
+	where tbQuiz.Difficulty = @Difficultyid
 end 
 go
+
+--spDeleteDifficulty @Difficulty=1
+select * from tbDifficulty
 
