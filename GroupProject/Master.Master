@@ -20,6 +20,7 @@
             </div>
                     <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
             <a href="Home.aspx">Home</a>
+            <a href="Admin.aspx">Admin</a>
         <br />
         <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
         <asp:Panel ID="pnlLogin" CssClass="LoginMargin" runat="server" Width="375px" Height="110px">

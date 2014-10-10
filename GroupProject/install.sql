@@ -252,15 +252,17 @@ go
 
 --Loads students by Class
 create procedure spGetStudents(
-@Classid int,
-@SecurityLevel int
+@Classid int = null,
+@SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = @Classid and 
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
+
+--spGetStudents @SecurityLevel=1
 
 
 --spGetStudents @Classid = 1, @SecurityLevel = 1
@@ -416,7 +418,11 @@ end
 go
 
 
+<<<<<<< HEAD
 --spDeleteClass @Classid=0
+=======
+--spDeleteClass @Classid=1
+>>>>>>> origin/master
 
 create procedure spGetCourse(
 @Courseid int
