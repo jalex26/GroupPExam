@@ -14,9 +14,20 @@ SecurityLevel int
 )
 go
 
+create table tbCourse(
+Courseid int primary key identity(0,1),
+Coursename varchar(60)
+)
+go
+
+insert into tbCourse(Coursename)values
+('Software Development'),('Networking')
+go
+
 create table tbClass(
 Classid int primary key identity (0,1),
-Classname varchar(60)
+Classname varchar(60),
+Courseid int foreign key references tbCourse(Courseid)
 )
 go
 
@@ -31,25 +42,19 @@ Lastname varchar(60),
 Username varchar(60),
 Password varchar(60),
 Classid int foreign key references tbClass(Classid),
-SecurityLevel int
+SecurityLevel int,
+UserPicture varchar(60),
+Email varchar(60)
 )
 go
 
 
-insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel)values
-('Kevin','Coliat','Kevin1','Kevin1',0,3),('Doug','Jackson','Doug1','pass',0,2),('Nupur','Singh','Nupur1','Nupur1',0,1),
-('Janry','Alex','Janry1','Janry1',1,1),('Adrian','Carter','Adrian1','Adrian1',0,1),
-('Veberly','Carvalho','Veberly1','Veberly1',0,1)
+insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,UserPicture,Email)values
+('Kevin','Coliat','Kevin1','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),('Doug','Jackson','Doug1','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
+('Nupur','Singh','Nupur1','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
+('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',0,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
+('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
-
-create table tbQuizCategories(
-Categoryid int primary key identity (0,1),
-Categoryname varchar(60)
-)
-go
-
-insert into tbQuizCategories(Categoryname)values
-('Programming'),('Accounting'),('Management'),('Health Care'),('Law Assistant'),('Networking')
 
 create table tbDifficulty(
 Difficultyid int primary key identity(0,1),
@@ -65,7 +70,7 @@ create table tbQuiz(
 Quizid int primary key identity (0,1),
 QuizTitle varchar(60),
 QuizSubject varchar(60),
-QuizCategory int foreign key references tbQuizCategories(Categoryid),
+Courseid int foreign key references tbCourse(Courseid),
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
 Content XML
@@ -73,38 +78,49 @@ Content XML
 )
 go
 
-insert into tbQuiz(QuizTitle,QuizSubject,QuizCategory,TimetoTake,Difficulty /*Content*/ /*,XMLFileLocation*/)values
+insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty /*Content*/ /*,XMLFileLocation*/)values
 ('Sample Title','PHP',0,'00:20:00',1)
 go
 
+create table tbQuizVersion(
+Versionid int primary key identity (0,1),
+Quizid int foreign key references tbQuiz(Quizid),
+Version int
+)
+go
+
+insert into tbQuizVersion(Quizid,Version)values
+(0,1),(0,1),(0,1)
 
 create table tbResults(
 Resultid int primary key identity (0,1),
 Userid int foreign key references tbUser(Userid),
-Quizid int foreign key references tbQuiz(Quizid), 
+Versionid int foreign key references tbQuizVersion(Versionid), 
 TotalScore decimal(10,5)
 )
 go
 
-insert into tbResults(Userid,Quizid,TotalScore)values 
+insert into tbResults(Userid,Versionid,TotalScore)values 
 (2,0,85.50),(3,0,90.00),(4,0,70.95)
 
-create table tbQuizTaken(
-QuizTakenid int primary key identity(0,1),
-Quizid int foreign key references tbQuiz(Quizid),
-QuizClass int foreign key references tbClass(Classid)
-)
-go
+--create table tbQuizTaken(
+--QuizTakenid int primary key identity(0,1),
+--Quizid int foreign key references tbQuiz(Quizid),
+--QuizClass int foreign key references tbClass(Classid)
+--)
+--go
 
-insert into tbQuizTaken(Quizid,QuizClass)values
-(0,0),(0,1),(0,2),(0,3),(0,4)
-go
+--insert into tbQuizTaken(Quizid,QuizClass)values
+--(0,0),(0,1),(0,2),(0,3),(0,4)
+--go
 
 create table tbQuizTaker(
 Takerid int primary key identity(0,1),
 Quizid int foreign key references tbQuiz(Quizid),
 Userid int foreign key references tbUser(Userid),
 Status int,
+Versionid int foreign key references tbQuizVersion(Versionid),
+DateAndTime Datetime
 )
 go
 
@@ -112,10 +128,101 @@ go
 --2-Rescheduled
 --3-Not taken
 
-insert into tbQuizTaker(Quizid,Userid,Status)values
-(0,2,1),(0,3,2),(0,4,3)
+insert into tbQuizTaker(Quizid,Userid,Status,Versionid,DateAndTime)values
+(0,2,1,0,'2014-01-26'),(0,3,2,0,'2014-03-14'),(0,4,3,0,'2014-05-13')
 go
 
+create table tbMultipleQuestions(
+MultipleQuestionsid int primary key identity (0,1),
+Question varchar(max),
+Choice1 varchar(150),
+Choice2 varchar(150),
+Choice3 varchar(150),
+Choice4 varchar(150),
+Answer varchar(150),
+Versionid int foreign key references tbQuizVersion(Versionid)
+)
+go
+
+insert into tbMultipleQuestions(Question,Choice1,Choice2,Choice3,Choice4,Answer,Versionid)values
+('What is the capital of Canada?','Montreal','Ontario','Ottawa','Winnipeg','Ottawa',1),
+('How old is the legal age to drink in Canada?','17','18','19','20','18',1),
+('How many colors are there in a rainbow?','4','6','9','7','7',1),
+('When is Remembrance Day celebrated?','July 1st','October 1st','November 11th','December 25th','November 11th',1),
+('How many sides are there in an Octagon','6','12','4','8','8',1)
+go
+
+create table tbMatchingQuestions(
+MatchingQuestionsid int primary key identity(0,1),
+Question varchar(150),
+Answers varchar(150),
+Versionid int foreign key references tbQuizVersion(Versionid)
+)
+go
+
+--Match the City with the Country
+insert into tbMatchingQuestions(Question,Answers,Versionid)values
+('London','Great Britain',1),
+('Paris','France',1),
+('Athens','Greece',1),
+('Moscow','Russia',1),
+('Madrid','Spain',1)
+go
+
+create table tbLongQuestions(
+LongQuestionsid int primary key identity(0,1),
+Question varchar(150),
+Versionid int foreign key references tbQuizVersion(Versionid)
+)
+go
+
+insert into tbLongQuestions(Question,Versionid)values
+('What is Equilibrium?',1),
+('What is time?',1),
+('Why do we need sleep?',1),
+('Which has more power, love or fear?',1),
+('What is Science?',1)
+go
+
+create table tbMultipleAnswers(
+MultipleAnswersid int primary key identity(0,1),
+Userid int foreign key references tbUser(Userid),
+MultipleQuestionsid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
+UserAnswer varchar(150)
+)
+go
+
+insert into tbMultipleAnswers(Userid,MultipleQuestionsid,UserAnswer)values
+(3,0,'Ottawa'),(3,1,'17'),(3,2,'7'),(3,3,'November 11th'),(3,4,'8')
+go
+
+create table tbMatchingAnswers(
+MatchingAnswersid int primary key identity(0,1),
+MatchingQuestionsid int foreign key references tbMatchingQuestions(MatchingQuestionsid),
+Userid int foreign key references tbUser(Userid),
+UserAnswer varchar(150)
+)
+go
+
+insert into tbMatchingAnswers(MatchingQuestionsid,Userid,UserAnswer)values
+(0,4,'Great Britain'),(1,4,'France'),(2,4,'Greece'),(3,4,'Russia'),(4,4,'Spain')
+go
+
+create table tbLongAnswers(
+LongAnswersid int primary key identity (0,1),
+Userid int foreign key references tbUser(Userid),
+LongQuestionsid int foreign key references  tbLongQuestions(LongQuestionsid),
+UserAnswer varchar(max)
+)
+go
+
+insert into tbLongAnswers(Userid,LongQuestionsid,UserAnswer)values
+(5,0,'State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.'),
+(5,1,'Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.'),
+(5,2,'Sleep gives your body a rest and allows it to prepare for the next day.'),
+(5,3,'Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.'),
+(5,4,'the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.')
+go
 --Login
 create procedure spLogin(
 @Username varchar(60),
@@ -206,56 +313,6 @@ as begin
 end
 go
 
---spDeleteStudent @Userid=3
---select * from tbUser
-
-
-create procedure spGetQuizCategories(
-@Categoryid int
-)
-as begin
-select * from tbQuizCategories where tbQuizCategories.Categoryid = @Categoryid
-end
-go
-
-
---insert QuizCategories
-create procedure spInsertQuizCategories(
-@Categoryname varchar(60)
-)
-as begin
- insert into tbQuizCategories (Categoryname)values
-                              (@Categoryname)
-	
-end
-go
---spInsertQuizCategories @Categoryname = George
---update QuizCategories
-
-create procedure spUpdateQuizCategories(
-@Categoryid int = null,
-@Categoryname varchar (60)
-)
-as begin
-update tbQuizCategories set Categoryname =@Categoryname 
-		where tbQuizCategories.Categoryid = @Categoryid
-end
-go
-
---spUpdateQuizCategories @Categoryid=1,@Categoryname = Bebz
---select * from tbQuizCategories
-
-create procedure spDeleteQuizCategories(
-@Categoryid int = null
-)
-as begin
- delete from tbQuizCategories
- where tbQuizCategories.Categoryid = @Categoryid
-
- delete from tbQuiz
- where tbQuiz.QuizCategory =@Categoryid
-end 
-go
 
 
  
@@ -291,12 +348,12 @@ create procedure spDeleteDifficulty(
 @Difficultyid int = null
 )
 as begin 
-<<<<<<< HEAD
-=======
+
+
 	delete from tbQuiz
 	where tbQuiz.Difficulty =@Difficultyid
 
->>>>>>> origin/master
+
 	delete from tbDifficulty 
 	where tbDifficulty.Difficultyid = @Difficultyid
 	
@@ -305,9 +362,8 @@ as begin
 end 
 go
 
-<<<<<<< HEAD
+
 --spDeleteDifficulty @Difficulty=1
-select * from tbDifficulty
-=======
->>>>>>> origin/master
+--select * from tbDifficulty
+
 
