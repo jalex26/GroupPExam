@@ -27,12 +27,12 @@ go
 create table tbClass(
 Classid int primary key identity (0,1),
 Classname varchar(60),
-Courseid int foreign key references tbCourse(Courseid)
+Courseid int foreign key references tbCourse(Courseid) 
 )
 go
 
-insert into tbClass(Classname)values
-('SD18'),('SD19'),('SD20'),('SD21'),('SD22')
+insert into tbClass(Classname,Courseid)values
+('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0)
 go
 
 create table tbUser(
@@ -41,7 +41,7 @@ Firstname varchar(60),
 Lastname varchar(60),
 Username varchar(60),
 Password varchar(60),
-Classid int foreign key references tbClass(Classid),
+Classid int foreign key references tbClass(Classid)on delete cascade,
 SecurityLevel int,
 UserPicture varchar(60),
 Email varchar(60)
@@ -313,9 +313,6 @@ as begin
 end
 go
 
-
-
- 
 --Difficulty
 create procedure spGetDifficulty(
 @Difficultyid int = null
@@ -366,4 +363,55 @@ go
 --spDeleteDifficulty @Difficulty=1
 --select * from tbDifficulty
 
+--Loads Class
+create procedure spGetClass(
+@Classid int = null
+)
+as begin
+	select * from tbClass where tbClass.Classid = @Classid
+end
+go
 
+--spGetClass @Classid = 1
+
+--select * from tbClass where tbClass.Classid = 1 
+
+
+----Insert Class
+create procedure spInsertClass(
+@Classname varchar(60),
+@Courseid int
+
+)
+as begin
+	insert into tbClass(Classname,Courseid)values
+					  (@Classname,@Courseid)
+end
+go
+
+--Update Class
+create procedure spUpdateClass(
+@Classid int = null,
+@Classname varchar (60),
+@Courseid int
+)
+as begin
+update tbClass set Classname =@Classname, Courseid=@Courseid
+			 where tbClass.Classid = @Classid
+end
+go
+
+--spUpdateClass @
+--Delete Class
+
+create procedure spDeleteClass(
+@Classid int
+)
+as begin
+	
+	delete from tbClass 
+	where tbClass.Classid = @Classid
+end
+go
+
+--spDeleteClass @Classid=1
