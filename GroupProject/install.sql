@@ -27,7 +27,7 @@ go
 create table tbClass(
 Classid int primary key identity (0,1),
 Classname varchar(60),
-Courseid int foreign key references tbCourse(Courseid)
+Courseid int foreign key references tbCourse(Courseid)on delete cascade
 )
 go
 
@@ -70,7 +70,7 @@ create table tbQuiz(
 Quizid int primary key identity (0,1),
 QuizTitle varchar(60),
 QuizSubject varchar(60),
-Courseid int foreign key references tbCourse(Courseid),
+Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
 Content XML
@@ -223,6 +223,8 @@ insert into tbLongAnswers(Userid,LongQuestionsid,UserAnswer)values
 (5,3,'Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.'),
 (5,4,'the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.')
 go
+
+
 --Login
 create procedure spLogin(
 @Username varchar(60),
@@ -254,10 +256,12 @@ create procedure spGetStudents(
 @SecurityLevel int
 )
 as begin
-	select * from tbUser where tbUser.Classid = @Classid and 
+	select './Pictures/' + UserPicture as UserPicture,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = @Classid and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
+
 
 --spGetStudents @Classid = 1, @SecurityLevel = 1
 
@@ -366,4 +370,40 @@ go
 --spDeleteDifficulty @Difficulty=1
 --select * from tbDifficulty
 
+
+create procedure spGetCourse(
+@Courseid int
+)
+as begin 
+	select * from tbCourse where Courseid= @Courseid
+end
+go
+
+create procedure spInsertCourse(
+@Coursename varchar(60)
+)
+as begin 
+	insert into tbCourse (Coursename) values
+						 (@Coursename)
+end
+go
+
+create procedure spUpdateCourse(
+@Courseid int = null,
+@Coursename varchar(60)
+)
+as begin
+	update tbCourse set Coursename = @Coursename 
+	where Courseid=@Courseid
+end
+go
+
+create procedure spDeleteCourse(
+@Courseid int
+)
+as begin 
+	delete from tbCourse 
+	where tbCourse.Courseid =@Courseid
+end 
+go
 
