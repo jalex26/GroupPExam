@@ -27,11 +27,7 @@ go
 create table tbClass(
 Classid int primary key identity (0,1),
 Classname varchar(60),
-<<<<<<< HEAD
-Courseid int foreign key references tbCourse(Courseid) 
-=======
 Courseid int foreign key references tbCourse(Courseid)on delete cascade
->>>>>>> origin/master
 )
 go
 
@@ -353,11 +349,8 @@ create procedure spDeleteDifficulty(
 @Difficultyid int = null
 )
 as begin 
-
-
 	delete from tbQuiz
 	where tbQuiz.Difficulty =@Difficultyid
-
 
 	delete from tbDifficulty 
 	where tbDifficulty.Difficultyid = @Difficultyid
@@ -422,9 +415,9 @@ as begin
 end
 go
 
-<<<<<<< HEAD
---spDeleteClass @Classid=1
-=======
+
+--spDeleteClass @Classid=0
+
 create procedure spGetCourse(
 @Courseid int
 )
@@ -461,4 +454,4 @@ as begin
 end 
 go
 
->>>>>>> origin/master
+
