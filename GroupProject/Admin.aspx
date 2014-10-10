@@ -3,8 +3,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:GridView ID="GVUsers" runat="server"
-         CssClass="mGrid">
+         CssClass="mGrid" AutoGenerateColumns="False">
     <Columns>
+        <asp:ImageField DataImageUrlField="UserPicture" HeaderText="Student Image" ControlStyle-Height="65" ControlStyle-Width="65" />
         <asp:BoundField DataField="Userid" HeaderText="User ID" />
         <asp:BoundField DataField="Firstname" HeaderText="First Name" />
         <asp:BoundField DataField="Lastname" HeaderText="Last Name" />

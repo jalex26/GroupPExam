@@ -27,11 +27,7 @@ go
 create table tbClass(
 Classid int primary key identity (0,1),
 Classname varchar(60),
-<<<<<<< HEAD
-Courseid int foreign key references tbCourse(Courseid) 
-=======
 Courseid int foreign key references tbCourse(Courseid)on delete cascade
->>>>>>> origin/master
 )
 go
 
@@ -256,15 +252,17 @@ go
 
 --Loads students by Class
 create procedure spGetStudents(
-@Classid int,
-@SecurityLevel int
+@Classid int = null,
+@SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = @Classid and 
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
+
+--spGetStudents @SecurityLevel=1
 
 
 --spGetStudents @Classid = 1, @SecurityLevel = 1
@@ -422,9 +420,9 @@ as begin
 end
 go
 
-<<<<<<< HEAD
+
 --spDeleteClass @Classid=1
-=======
+
 create procedure spGetCourse(
 @Courseid int
 )
@@ -461,4 +459,4 @@ as begin
 end 
 go
 
->>>>>>> origin/master
+
