@@ -61,7 +61,10 @@
     <Content Include="GroupPExam.css" />
     <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
-    <Content Include="Navigation.xml" />
+    <Content Include="MentorPage.aspx" />
+    <Content Include="Navigation.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Pictures\robertson.png" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
@@ -74,12 +77,20 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Globals.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MentorPage.aspx.cs">
+      <DependentUpon>MentorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MentorPage.aspx.designer.cs">
+      <DependentUpon>MentorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master.Master.cs">

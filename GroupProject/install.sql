@@ -52,7 +52,7 @@ go
 insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),('Doug','Jackson','Doug1','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Nupur','Singh','Nupur1','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
-('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',0,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
+('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
 ('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
 
@@ -73,24 +73,26 @@ QuizSubject varchar(60),
 Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
-Content XML
+FileLocation varchar(max)
 --XMLfileLocation varchar(max)
 )
 go
 
-insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty /*Content*/ /*,XMLFileLocation*/)values
-('Sample Title','PHP',0,'00:20:00',1)
+insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation /*,XMLFileLocation*/)values
+('Sample Title','PHP',0,'00:20:00',1,'c:/'),('Sample Title Version 2','PHP',1,'00:20:00',1,'c:/'),
+('Sample 3','PHP',0,'00:20:00',1,'c:/'),('Sample 4','PHP',1,'00:20:00',1,'c:/')
+
 go
 
 create table tbQuizVersion(
-Versionid int primary key identity (0,1),
+Versionid int primary key identity (1,1),
 Quizid int foreign key references tbQuiz(Quizid),
 Version int
 )
 go
 
 insert into tbQuizVersion(Quizid,Version)values
-(0,1),(0,1),(0,1)
+(0,1),(1,2),(2,1),(3,1)
 
 create table tbResults(
 Resultid int primary key identity (0,1),
@@ -101,7 +103,7 @@ TotalScore decimal(10,5)
 go
 
 insert into tbResults(Userid,Versionid,TotalScore)values 
-(2,0,85.50),(3,0,90.00),(4,0,70.95)
+(2,1,85.50),(3,1,90.00),(4,1,70.95)
 
 --create table tbQuizTaken(
 --QuizTakenid int primary key identity(0,1),
@@ -129,7 +131,7 @@ go
 --3-Not taken
 
 insert into tbQuizTaker(Quizid,Userid,Status,Versionid,DateAndTime)values
-(0,2,1,0,'2014-01-26'),(0,3,2,0,'2014-03-14'),(0,4,3,0,'2014-05-13')
+(0,2,1,1,'2014-01-26'),(0,3,2,1,'2014-03-14'),(0,4,3,1,'2014-05-13')
 go
 
 create table tbMultipleQuestions(
@@ -262,6 +264,29 @@ as begin
 end
 go
 
+create procedure spGetStudents2(
+@Classid int = null,
+@SecurityLevel int 
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+end
+go
+
+create procedure spGetStudents3(
+@Classid int,
+@SecurityLevel int 
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = @Classid and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+end
+go
+--spGetStudents3 @Classid = 2, @SecurityLevel = 1
+
 --spGetStudents @SecurityLevel=1
 
 
@@ -367,6 +392,13 @@ go
 --select * from tbDifficulty
 
 --Loads Class
+
+create procedure spLoadClass
+as begin
+	select * from tbClass
+end
+go
+
 create procedure spGetClass(
 @Classid int = null
 )
@@ -418,11 +450,11 @@ end
 go
 
 
-<<<<<<< HEAD
+
 --spDeleteClass @Classid=0
-=======
+
 --spDeleteClass @Classid=1
->>>>>>> origin/master
+
 
 create procedure spGetCourse(
 @Courseid int
@@ -460,4 +492,39 @@ as begin
 end 
 go
 
+create procedure spLoadCourse(
+@Classid int
+)
+as begin
+	select Courseid from tbClass where Classid=@Classid
+end	
+go
+
+create procedure spLoadQuiz2(
+@Courseid int
+)
+as begin 
+	select * from tbQuiz where Courseid=@Courseid
+end 
+go
+
+create procedure spLoadQuiz
+as begin 
+	select * from tbQuiz
+end 
+go
+
+create procedure spLoadVersion
+as begin 
+	select * from tbQuizVersion
+end 
+go
+
+create procedure spViewQuiz
+as begin 
+	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation, Version from tbQuiz,tbQuizVersion
+	where tbQuiz.Quizid = tbQuizVersion.Quizid
+	
+end 
+go
 

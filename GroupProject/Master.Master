@@ -19,8 +19,13 @@
         </div>
             </div>
                     <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
-            <a href="Home.aspx">Home</a>
-            <a href="Admin.aspx">Admin</a>
+            <%--<a href="Home.aspx">Home</a>
+            <a href="MentorPage.aspx">Mentor</a>
+            <a href="Admin.aspx">Admin</a>--%>
+        <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton> 
+        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx">Mentor</asp:LinkButton>
+        <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
+
         <br />
         <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
         <asp:Panel ID="pnlLogin" CssClass="LoginMargin" runat="server" Width="375px" Height="110px">
