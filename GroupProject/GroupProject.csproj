@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Pictures\robertson.png" />
+    <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
@@ -108,6 +109,13 @@
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="ViewQuestions.aspx.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewQuestions.aspx.designer.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
