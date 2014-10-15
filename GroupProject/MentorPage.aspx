@@ -35,8 +35,7 @@
             <td>
                 <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
                 <asp:DropDownList ID="ddlSelectQuiz" runat="server"></asp:DropDownList> 
-                <asp:Button ID="btnLoadQuestions" runat="server" Text="View Questions" />
-                
+             
                 <%--<input type="button" value="New Window!" onclick="window.open('http://localhost:49966/ViewQuestions.aspx', 'mywindow', 'width=400,height=200')" />--%>
                 
 
@@ -51,7 +50,7 @@
   
 
   <div data-role="main" class="ui-content">
-    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show Popup</a>
+    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">View Questions</a>
 
     <div data-role="popup" id="myPopup" class="ui-content" data-dismissible="false" style="max-width:400px;">
       <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
