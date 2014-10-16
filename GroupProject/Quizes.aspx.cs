@@ -57,5 +57,20 @@ namespace GroupProject
             gvPendingQuiz.Visible = true;
             gvViewResults.Visible = false;
         }
+
+       
+       
+
+        protected void gvPendingQuiz_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            gvPendingQuiz.SelectedIndex = Convert.ToInt32(e.CommandArgument);
+
+            if (e.CommandName.ToString() == "StartQuiz")
+            {
+                string Quizid = gvPendingQuiz.SelectedDataKey.Value.ToString();
+                Response.Redirect("StartQuizes.aspx?Quizid=" + Quizid);                
+            }
+            
+        }
     }
 }
