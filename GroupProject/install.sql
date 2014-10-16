@@ -52,7 +52,7 @@ go
 insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),('Doug','Jackson','Doug1','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Nupur','Singh','Nupur1','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
-('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',0,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
+('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
 ('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
 
@@ -73,24 +73,26 @@ QuizSubject varchar(60),
 Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
-Content XML
+FileLocation varchar(max)
 --XMLfileLocation varchar(max)
 )
 go
 
-insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty /*Content*/ /*,XMLFileLocation*/)values
-('Sample Title','PHP',0,'00:20:00',1)
+insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation /*,XMLFileLocation*/)values
+('Sample Title','PHP',0,'00:20:00',1,'c:/'),('Sample Title Version 2','PHP',1,'00:20:00',1,'c:/'),
+('Sample 3','PHP',0,'00:20:00',1,'c:/'),('Sample 4','PHP',1,'00:20:00',1,'c:/')
+
 go
 
 create table tbQuizVersion(
-Versionid int primary key identity (0,1),
+Versionid int primary key identity (1,1),
 Quizid int foreign key references tbQuiz(Quizid),
 Version int
 )
 go
 
 insert into tbQuizVersion(Quizid,Version)values
-(0,1),(0,1),(0,1)
+(0,1),(1,2),(2,1),(3,1)
 
 create table tbResults(
 Resultid int primary key identity (0,1),
@@ -101,7 +103,7 @@ TotalScore decimal(10,5)
 go
 
 insert into tbResults(Userid,Versionid,TotalScore)values 
-(2,0,85.50),(3,0,90.00),(4,0,70.95)
+(2,1,85.50),(3,1,90.00),(4,1,70.95)
 
 --create table tbQuizTaken(
 --QuizTakenid int primary key identity(0,1),
@@ -129,7 +131,7 @@ go
 --3-Not taken
 
 insert into tbQuizTaker(Quizid,Userid,Status,Versionid,DateAndTime)values
-(0,2,1,0,'2014-01-26'),(0,3,2,0,'2014-03-14'),(0,4,3,0,'2014-05-13')
+(0,2,1,1,'2014-01-26'),(0,3,2,1,'2014-03-14'),(0,4,3,1,'2014-05-13')
 go
 
 create table tbMultipleQuestions(
@@ -172,16 +174,17 @@ go
 create table tbLongQuestions(
 LongQuestionsid int primary key identity(0,1),
 Question varchar(150),
+Answer varchar(max),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
 
-insert into tbLongQuestions(Question,Versionid)values
-('What is Equilibrium?',1),
-('What is time?',1),
-('Why do we need sleep?',1),
-('Which has more power, love or fear?',1),
-('What is Science?',1)
+insert into tbLongQuestions(Question,Answer,Versionid)values
+('What is Equilibrium?','State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.',1),
+('What is time?','Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.',1),
+('Why do we need sleep?','Sleep gives your body a rest and allows it to prepare for the next day.',1),
+('Which has more power, love or fear?','Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.',1),
+('What is Science?','the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.',1)
 go
 
 create table tbMultipleAnswers(
@@ -261,6 +264,29 @@ as begin
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
+
+create procedure spGetStudents2(
+@Classid int = null,
+@SecurityLevel int 
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+end
+go
+
+create procedure spGetStudents3(
+@Classid int,
+@SecurityLevel int 
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = @Classid and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+end
+go
+--spGetStudents3 @Classid = 2, @SecurityLevel = 1
 
 --spGetStudents @SecurityLevel=1
 
@@ -351,11 +377,8 @@ create procedure spDeleteDifficulty(
 @Difficultyid int = null
 )
 as begin 
-
-
 	delete from tbQuiz
 	where tbQuiz.Difficulty =@Difficultyid
-
 
 	delete from tbDifficulty 
 	where tbDifficulty.Difficultyid = @Difficultyid
@@ -370,6 +393,13 @@ go
 --select * from tbDifficulty
 
 --Loads Class
+
+create procedure spLoadClass
+as begin
+	select * from tbClass
+end
+go
+
 create procedure spGetClass(
 @Classid int = null
 )
@@ -421,7 +451,11 @@ end
 go
 
 
+
+--spDeleteClass @Classid=0
+
 --spDeleteClass @Classid=1
+
 
 create procedure spGetCourse(
 @Courseid int
@@ -459,4 +493,46 @@ as begin
 end 
 go
 
+create procedure spLoadCourse(
+@Classid int
+)
+as begin
+	select Courseid from tbClass where Classid=@Classid
+end	
+go
 
+create procedure spLoadQuiz2(
+@Courseid int
+)
+as begin 
+	select * from tbQuiz where Courseid=@Courseid
+end 
+go
+
+create procedure spLoadQuiz
+as begin 
+	select * from tbQuiz
+end 
+go
+
+create procedure spLoadVersion
+as begin 
+	select * from tbQuizVersion
+end 
+go
+
+create procedure spViewQuiz
+as begin 
+	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation, Version from tbQuiz,tbQuizVersion
+	where tbQuiz.Quizid = tbQuizVersion.Quizid
+	
+end 
+go
+
+create procedure spLoadQuestions
+as begin
+	select Question,Choice1,Choice2,Choice3,Choice4,Answer from tbMultipleQuestions
+	select Question,Answers from tbMatchingQuestions
+	select Question,Answer from tbLongQuestions
+end
+go

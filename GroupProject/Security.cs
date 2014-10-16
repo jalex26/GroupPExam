@@ -4,10 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using DAL_Project;
-//<<<<<<< HEAD
 
-//=======
-//>>>>>>> origin/master
 
 
 

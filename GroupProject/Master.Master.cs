@@ -32,6 +32,20 @@ namespace GroupProject
                 txtPassword.Visible = false;
                 btnLogin.Visible = false;
             }
+
+            //Adjust links visible according to Security Level(Admin or Regular)
+            if (mySecurity.GetSecurityLevel() < 2)
+            {
+                //lbTest.Visible = false;
+                lbMentorPage.Visible = false;
+                
+                
+            }
+            else
+            {
+                //lbTest.Visible = true;
+                lbMentorPage.Visible = true;
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

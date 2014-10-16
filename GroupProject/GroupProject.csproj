@@ -61,10 +61,18 @@
     <Content Include="GroupPExam.css" />
     <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
+<<<<<<< HEAD
     <Content Include="Navigation.xml" />
     <Content Include="Pictures\Green Up.png" />
     <Content Include="Pictures\GreenDown.png" />
+=======
+    <Content Include="MentorPage.aspx" />
+    <Content Include="Navigation.xml">
+      <SubType>Designer</SubType>
+    </Content>
+>>>>>>> origin/master
     <Content Include="Pictures\robertson.png" />
+    <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
@@ -76,12 +84,20 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Globals.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MentorPage.aspx.cs">
+      <DependentUpon>MentorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MentorPage.aspx.designer.cs">
+      <DependentUpon>MentorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master.Master.cs">
@@ -99,6 +115,13 @@
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="ViewQuestions.aspx.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewQuestions.aspx.designer.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
