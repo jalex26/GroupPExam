@@ -19,7 +19,6 @@ namespace GroupProject
             if(!IsPostBack)
             {
                 LoadUsers();
-                LoadInfo();
             }
         }
         private void LoadUsers()
@@ -29,14 +28,6 @@ namespace GroupProject
             myDal.AddParam("SecurityLevel","1");
             GVUsers.DataSource = myDal.ExecuteProcedure("spGetStudents");
             GVUsers.DataBind();
-        }
-        private void LoadInfo()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("SecurityLevel", "1");
-            GVInfo.DataSource = myDal.ExecuteProcedure("spGetStudents");
-            GVInfo.DataBind();
         }
     }
 }
