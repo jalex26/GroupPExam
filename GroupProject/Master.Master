@@ -31,7 +31,8 @@
 
         <br />
         <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
-        <asp:Panel ID="pnlLogin" CssClass="LoginMargin" runat="server" Width="375px" Height="110px">
+        <br />
+        <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
             <table>
                 <tr>
                     <td>
@@ -41,7 +42,6 @@
                         <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server"></asp:TextBox>
                     </td>
                 </tr>
-                
                 <tr>
                     <td>
                        <br />
@@ -58,7 +58,6 @@
                     </td>
                 </tr>
             </table>
-        </asp:Panel>
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <%--DO NOT PUT ANYTHING HERE--%>

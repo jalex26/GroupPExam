@@ -53,19 +53,7 @@
             <button id="say_it">Say "Hello!"</button>
                 <div id="hello" title="Hello  World!"><p><font face="Georgia" size="4">
 Hey, world, I just said "Hello!"</font></p></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+               <%-- <div id="hello" title="ohter page"><iframe width="100%" height="300px" src="demo_iframe.htm" name="hello"></iframe></div>--%>
             </td>
         </tr>
         <tr>
@@ -93,7 +81,6 @@ Hey, world, I just said "Hello!"</font></p></div>
         </tr>
     </table>
     </asp:Panel>  
-
     <asp:Panel ID="pnlUploadQuiz" runat="server" Visible="false">
         <table>
             <tr>
@@ -107,10 +94,7 @@ Hey, world, I just said "Hello!"</font></p></div>
                     <asp:FileUpload ID="fuploadQuiz" runat="server" />
                 </td>
             </tr>
-        
         </table>
-
-
     </asp:Panel>
     <asp:Panel ID="pnlViewQuiz" runat="server">
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>

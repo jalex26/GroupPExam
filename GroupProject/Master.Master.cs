@@ -22,7 +22,7 @@ namespace GroupProject
             lblFirstname.Text = mySecurity.Firstname;
             if(mySecurity.GetSecurityLevel() ==0)
             {
-                pnlLogin.Visible = true;
+                //pnlLogin.Visible = true;
             }
             else
             {
@@ -52,6 +52,13 @@ namespace GroupProject
         {
             Security mySecurity = new Security(txtUserName.Text, txtPassword.Text);
             CheckSecurity();
+            btnLogout.Visible = true;
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("Home.aspx");
         }
     }
 }

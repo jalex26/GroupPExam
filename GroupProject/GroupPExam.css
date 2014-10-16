@@ -23,12 +23,14 @@
     box-shadow: 10px 10px 5px #ad0e0e;
 }
 
-.LoginMargin {
+/*.LoginMargin {
     margin-top: 200px;
     margin-left: 500px;
-}
+}*/
 .Text{
     color:#f70303;
+    margin-top:  500px;
+    margin-left: 500px;
 }
 .header_container {
     width: 100%;
@@ -40,6 +42,8 @@
     box-shadow: 10px 10px 5px #ad0e0e;
 }
 .button {
+
+   margin-left: 500px;
    border-top: 1px solid #ffffff;
    background: #f70000;
    background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#f70000));
@@ -119,8 +123,39 @@
     line-height: 12px;   
  }     
 .mGrid .pgr a { color: #666; text-decoration: none; }  
-.mGrid .pgr a:hover { color: #000; text-decoration: none; }  
-
+.mGrid .pgr a:hover { color: #000; text-decoration: none; } 
+ 
+.button2 {
+   border-top: 1px solid #ffffff;
+   background: #f70000;
+   background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#f70000));
+   background: -webkit-linear-gradient(top, #f70303, #f70000);
+   background: -moz-linear-gradient(top, #f70303, #f70000);
+   background: -ms-linear-gradient(top, #f70303, #f70000);
+   background: -o-linear-gradient(top, #f70303, #f70000);
+   padding: 4px 8px;
+   -webkit-border-radius: 40px;
+   -moz-border-radius: 40px;
+   border-radius: 40px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #f7f7f7;
+   font-size: 16px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button2:hover {
+   border-top-color: #ffffff;
+   background: #ffffff;
+   color: #fc0000;
+   }
+.button2:active {
+   border-top-color: #ffffff;
+   background: #ffffff;
+   }
 
 
 
