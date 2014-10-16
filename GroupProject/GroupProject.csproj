@@ -67,6 +67,7 @@
     </Content>
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
+    <Content Include="StartQuizes.aspx" />
     <Content Include="TestForm.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
@@ -118,6 +119,13 @@
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="StartQuizes.aspx.cs">
+      <DependentUpon>StartQuizes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartQuizes.aspx.designer.cs">
+      <DependentUpon>StartQuizes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TestForm.aspx.cs">
       <DependentUpon>TestForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
