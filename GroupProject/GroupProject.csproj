@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Pictures\robertson.png" />
+    <Content Include="Quizes.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
@@ -106,6 +107,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quizes.aspx.cs">
+      <DependentUpon>Quizes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quizes.aspx.designer.cs">
+      <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
   </ItemGroup>

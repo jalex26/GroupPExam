@@ -103,7 +103,7 @@ TotalScore decimal(10,5)
 go
 
 insert into tbResults(Userid,Versionid,TotalScore)values 
-(2,1,85.50),(3,1,90.00),(4,1,70.95)
+(2,1,85.50),(3,1,90.00),(4,1,70.95),(5,1,99.9)
 
 --create table tbQuizTaken(
 --QuizTakenid int primary key identity(0,1),
@@ -131,7 +131,7 @@ go
 --3-Not taken
 
 insert into tbQuizTaker(Quizid,Userid,Status,Versionid,DateAndTime)values
-(0,2,1,1,'2014-01-26'),(0,3,2,1,'2014-03-14'),(0,4,3,1,'2014-05-13')
+(0,2,1,1,'2014-01-26'),(0,3,2,1,'2014-03-14'),(0,4,3,1,'2014-05-13'),(0,5,3,1,'2014-07-01')
 go
 
 create table tbMultipleQuestions(
@@ -528,3 +528,39 @@ as begin
 end 
 go
 
+create procedure spViewQuizResults(
+@Userid int
+)
+
+as begin 
+	select * from tbResults 
+	where Userid=@Userid 
+end 
+go
+
+--spViewQuizResults @Userid = 5
+
+create procedure spViewQuizResults2
+
+as begin 
+	select * from tbResults 
+	
+end 
+go
+
+--spViewQuizResults @Userid =4
+
+
+ --spViewPendingQuiz
+ create procedure spViewPendingQuiz2(
+ @Userid int
+ )
+
+as begin 
+	select * from tbQuizTaker,tbQuiz,tbDifficulty
+	where tbQuizTaker.Quizid = tbQuiz.Quizid and Userid=@Userid and tbQuiz.Difficulty = tbDifficulty.Difficultyid
+	
+end 
+go
+
+--spViewPendingQuiz2 @Userid=3
