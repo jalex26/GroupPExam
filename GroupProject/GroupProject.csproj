@@ -61,10 +61,16 @@
     <Content Include="GroupPExam.css" />
     <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
+<<<<<<< HEAD
+    <Content Include="Navigation.xml" />
+    <Content Include="Pictures\Green Up.png" />
+    <Content Include="Pictures\GreenDown.png" />
+=======
     <Content Include="MentorPage.aspx" />
     <Content Include="Navigation.xml">
       <SubType>Designer</SubType>
     </Content>
+>>>>>>> origin/master
     <Content Include="Pictures\robertson.png" />
     <Content Include="TestForm.aspx" />
     <Content Include="ViewQuestions.aspx" />
