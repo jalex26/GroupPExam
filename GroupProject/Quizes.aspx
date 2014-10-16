@@ -17,7 +17,7 @@
         <Columns>
             <%--<asp:ButtonField CommandName="Del" Text="Delete" ButtonType="Button" />--%>
             <asp:ButtonField CommandName="StartQuiz" Text="Start Quiz" ButtonType="Button" />
-             <asp:BoundField DataField="QuizTitle" HeaderText="Title" />
+            <asp:BoundField DataField="QuizTitle" HeaderText="Title" />
             <asp:BoundField DataField="QuizSubject" HeaderText="Subject" />
             <asp:BoundField DataField="Difficultyname" HeaderText="Difficulty" />
             <asp:BoundField DataField="TimetoTake" HeaderText="Time Limit" />
