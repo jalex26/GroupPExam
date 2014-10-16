@@ -174,16 +174,17 @@ go
 create table tbLongQuestions(
 LongQuestionsid int primary key identity(0,1),
 Question varchar(150),
+Answer varchar(max),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
 
-insert into tbLongQuestions(Question,Versionid)values
-('What is Equilibrium?',1),
-('What is time?',1),
-('Why do we need sleep?',1),
-('Which has more power, love or fear?',1),
-('What is Science?',1)
+insert into tbLongQuestions(Question,Answer,Versionid)values
+('What is Equilibrium?','State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.',1),
+('What is time?','Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.',1),
+('Why do we need sleep?','Sleep gives your body a rest and allows it to prepare for the next day.',1),
+('Which has more power, love or fear?','Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.',1),
+('What is Science?','the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.',1)
 go
 
 create table tbMultipleAnswers(
@@ -528,6 +529,7 @@ as begin
 end 
 go
 
+<<<<<<< HEAD
 create procedure spViewQuizResults(
 @Userid int
 )
@@ -564,3 +566,12 @@ end
 go
 
 --spViewPendingQuiz2 @Userid=3
+=======
+create procedure spLoadQuestions
+as begin
+	select Question,Choice1,Choice2,Choice3,Choice4,Answer from tbMultipleQuestions
+	select Question,Answers from tbMatchingQuestions
+	select Question,Answer from tbLongQuestions
+end
+go
+>>>>>>> origin/master

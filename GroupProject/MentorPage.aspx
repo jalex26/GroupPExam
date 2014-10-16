@@ -2,13 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <div>
         <asp:Button ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" />
         <asp:Button ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click"/>
         <asp:Button ID="btnCreateQuiz" runat="server" Text="Create Quiz" />
         <asp:Button ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" />
     </div>
-
+    
     <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
         <table>
         
@@ -34,6 +35,37 @@
             <td>
                 <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
                 <asp:DropDownList ID="ddlSelectQuiz" runat="server"></asp:DropDownList> 
+             
+                <%--<input type="button" value="New Window!" onclick="window.open('http://localhost:49966/ViewQuestions.aspx', 'mywindow', 'width=400,height=200')" />--%>
+                
+              
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script>
+    $(document).ready(function () {
+        $("#hello").dialog({ autoOpen: false });
+        $("#say_it").click(function () {
+            $("#hello").dialog("open");
+        });
+    });
+</script>
+            <button id="say_it">Say "Hello!"</button>
+                <div id="hello" title="Hello  World!"><p><font face="Georgia" size="4">
+Hey, world, I just said "Hello!"</font></p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             </td>
         </tr>
         <tr>

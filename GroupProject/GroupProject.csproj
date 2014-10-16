@@ -66,7 +66,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Pictures\robertson.png" />
+<<<<<<< HEAD
     <Content Include="Quizes.aspx" />
+=======
+    <Content Include="TestForm.aspx" />
+    <Content Include="ViewQuestions.aspx" />
+>>>>>>> origin/master
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
@@ -116,6 +121,20 @@
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="TestForm.aspx.cs">
+      <DependentUpon>TestForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestForm.aspx.designer.cs">
+      <DependentUpon>TestForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewQuestions.aspx.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewQuestions.aspx.designer.cs">
+      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />

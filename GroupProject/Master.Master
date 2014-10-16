@@ -24,8 +24,12 @@
             <a href="Admin.aspx">Admin</a>--%>
         <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton> 
         <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx">Mentor</asp:LinkButton>
+<<<<<<< HEAD
         <asp:LinkButton ID="lblQuizes" runat="server" PostBackUrl="~/Quizes.aspx">Quizes</asp:LinkButton>
         <asp:LinkButton ID="lbManageProfile" runat="server">ManageProfile</asp:LinkButton>
+=======
+        <asp:LinkButton ID="lbTestPage" runat="server" PostBackUrl="~/TestForm.aspx">TestPage</asp:LinkButton>
+>>>>>>> origin/master
         <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
 
         <br />
