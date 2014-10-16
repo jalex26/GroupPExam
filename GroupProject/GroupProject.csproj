@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Pictures\robertson.png" />
+    <Content Include="TestForm.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
@@ -109,6 +110,13 @@
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
+    <Compile Include="TestForm.aspx.cs">
+      <DependentUpon>TestForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestForm.aspx.designer.cs">
+      <DependentUpon>TestForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewQuestions.aspx.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
