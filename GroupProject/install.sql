@@ -131,7 +131,7 @@ go
 --3-Not taken
 
 insert into tbQuizTaker(Quizid,Userid,Status,Versionid,DateAndTime)values
-(0,2,1,1,'2014-01-26'),(0,3,2,1,'2014-03-14'),(0,4,3,1,'2014-05-13'),(0,5,3,1,'2014-07-01')
+(1,2,1,1,'2014-01-26'),(1,3,2,1,'2014-03-14'),(1,4,3,1,'2014-05-13'),(1,5,3,1,'2014-07-01')
 go
 
 create table tbMultipleQuestions(
@@ -142,89 +142,96 @@ Choice2 varchar(150),
 Choice3 varchar(150),
 Choice4 varchar(150),
 Answer varchar(150),
+Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
 
-insert into tbMultipleQuestions(Question,Choice1,Choice2,Choice3,Choice4,Answer,Versionid)values
-('What is the capital of Canada?','Montreal','Ontario','Ottawa','Winnipeg','Ottawa',1),
-('How old is the legal age to drink in Canada?','17','18','19','20','18',1),
-('How many colors are there in a rainbow?','4','6','9','7','7',1),
-('When is Remembrance Day celebrated?','July 1st','October 1st','November 11th','December 25th','November 11th',1),
-('How many sides are there in an Octagon','6','12','4','8','8',1)
+insert into tbMultipleQuestions(Question,Choice1,Choice2,Choice3,Choice4,Answer,Quizid,Versionid)values
+('What is the capital of Canada?','Montreal','Ontario','Ottawa','Winnipeg','Ottawa',1,1),
+('How old is the legal age to drink in Canada?','17','18','19','20','18',1,1),
+('How many colors are there in a rainbow?','4','6','9','7','7',1,1),
+('When is Remembrance Day celebrated?','July 1st','October 1st','November 11th','December 25th','November 11th',1,1),
+('How many sides are there in an Octagon','6','12','4','8','8',1,1)
 go
 
 create table tbMatchingQuestions(
 MatchingQuestionsid int primary key identity(0,1),
 Question varchar(150),
+Choices varchar(150),
 Answers varchar(150),
+Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
 
 --Match the City with the Country
-insert into tbMatchingQuestions(Question,Answers,Versionid)values
-('London','Great Britain',1),
-('Paris','France',1),
-('Athens','Greece',1),
-('Moscow','Russia',1),
-('Madrid','Spain',1)
+insert into tbMatchingQuestions(Question,Choices,Answers,Quizid,Versionid)values
+('London','France','Great Britain',1,1),
+('Paris','Russia','France',1,1),
+('Athens','Great Britain','Greece',1,1),
+('Moscow','Spain','Russia',1,1),
+('Madrid','Greece','Spain',1,1)
 go
 
 create table tbLongQuestions(
 LongQuestionsid int primary key identity(0,1),
 Question varchar(150),
 Answer varchar(max),
+Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
 
-insert into tbLongQuestions(Question,Answer,Versionid)values
-('What is Equilibrium?','State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.',1),
-('What is time?','Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.',1),
-('Why do we need sleep?','Sleep gives your body a rest and allows it to prepare for the next day.',1),
-('Which has more power, love or fear?','Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.',1),
-('What is Science?','the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.',1)
+insert into tbLongQuestions(Question,Answer,Quizid,Versionid)values
+('What is Equilibrium?','State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.',1,1),
+('What is time?','Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.',1,1),
+('Why do we need sleep?','Sleep gives your body a rest and allows it to prepare for the next day.',1,1),
+('Which has more power, love or fear?','Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.',1,1),
+('What is Science?','the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.',1,1)
 go
 
 create table tbMultipleAnswers(
 MultipleAnswersid int primary key identity(0,1),
 Userid int foreign key references tbUser(Userid),
 MultipleQuestionsid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
+Quizid int foreign key references tbQuiz(Quizid),
 UserAnswer varchar(150)
 )
 go
 
-insert into tbMultipleAnswers(Userid,MultipleQuestionsid,UserAnswer)values
-(3,0,'Ottawa'),(3,1,'17'),(3,2,'7'),(3,3,'November 11th'),(3,4,'8')
+insert into tbMultipleAnswers(Userid,MultipleQuestionsid,Quizid,UserAnswer)values
+(3,0,1,'Ottawa'),(3,1,1,'17'),(3,2,1,'7'),(3,3,1,'November 11th'),(3,4,1,'8')
 go
 
 create table tbMatchingAnswers(
 MatchingAnswersid int primary key identity(0,1),
 MatchingQuestionsid int foreign key references tbMatchingQuestions(MatchingQuestionsid),
 Userid int foreign key references tbUser(Userid),
+Quizid int foreign key references tbQuiz(Quizid),
 UserAnswer varchar(150)
 )
 go
 
-insert into tbMatchingAnswers(MatchingQuestionsid,Userid,UserAnswer)values
-(0,4,'Great Britain'),(1,4,'France'),(2,4,'Greece'),(3,4,'Russia'),(4,4,'Spain')
+insert into tbMatchingAnswers(MatchingQuestionsid,Userid,Quizid,UserAnswer)values
+(0,4,1,'Great Britain'),(1,4,1,'France'),(2,4,1,'Greece'),(3,4,1,'Russia'),(4,4,1,'Spain')
 go
 
 create table tbLongAnswers(
 LongAnswersid int primary key identity (0,1),
 Userid int foreign key references tbUser(Userid),
 LongQuestionsid int foreign key references  tbLongQuestions(LongQuestionsid),
+Quizid int foreign key references tbQuiz(Quizid),
 UserAnswer varchar(max)
 )
 go
 
-insert into tbLongAnswers(Userid,LongQuestionsid,UserAnswer)values
-(5,0,'State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.'),
-(5,1,'Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.'),
-(5,2,'Sleep gives your body a rest and allows it to prepare for the next day.'),
-(5,3,'Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.'),
-(5,4,'the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.')
+insert into tbLongAnswers(Userid,LongQuestionsid,Quizid,UserAnswer)values
+(5,0,1,'State of stable conditions in which all significant factors remain more or less constant over a period, and there is little or no inherent tendency for change.'),
+(5,1,1,'Time is the fourth dimension and a measure in which events can be ordered from the past through the present into the future, and also the measure of durations of events and the intervals between them.'),
+(5,2,1,'Sleep gives your body a rest and allows it to prepare for the next day.'),
+(5,3,1,'Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.'),
+(5,4,1,'the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.')
 go
 
 
@@ -584,3 +591,15 @@ end
 go
 
 --spViewPendingQuiz2 @Userid=3
+create procedure spQuizForm(
+@Quizid int
+)
+as begin
+	select Question,Choice1,Choice2,Choice3,Choice4 from tbMultipleQuestions where tbMultipleQuestions.Quizid = @Quizid
+	select Question,Choices from tbMatchingQuestions where tbMatchingQuestions.Quizid = @Quizid
+	select Question from tbLongQuestions where tbLongQuestions.Quizid = @Quizid
+end
+go
+
+
+

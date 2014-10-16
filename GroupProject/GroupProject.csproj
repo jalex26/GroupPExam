@@ -67,6 +67,7 @@
     </Content>
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
+    <Content Include="QuizForm.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="TestForm.aspx" />
     <Content Include="ViewQuestions.aspx" />
@@ -117,6 +118,13 @@
     </Compile>
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QuizForm.aspx.cs">
+      <DependentUpon>QuizForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuizForm.aspx.designer.cs">
+      <DependentUpon>QuizForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
     <Compile Include="StartQuizes.aspx.cs">

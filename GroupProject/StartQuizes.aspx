@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:DataList ID="dlSelectedQuiz" runat="server" RepeatColumns="4">
+        <asp:DataList ID="dlSelectedQuiz" runat="server" RepeatColumns="4" OnSelectedIndexChanged="dlSelectedQuiz_SelectedIndexChanged">
             <ItemTemplate>
                   <div >
                     <table>
