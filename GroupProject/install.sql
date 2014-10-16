@@ -541,6 +541,16 @@ as begin
 end 
 go
 
+create procedure spLoadQuiz3(
+@Quizid int
+)
+as begin 
+	select * from tbQuiz,tbDifficulty where tbQuiz.Quizid = @Quizid and tbDifficulty.Difficultyid = tbQuiz.Difficulty
+end 
+go
+
+--spLoadQuiz3 @Quizid=0
+
 create procedure spLoadVersion
 as begin 
 	select * from tbQuizVersion
