@@ -40,11 +40,13 @@ namespace GroupProject
                 lbMentorPage.Visible = false;
                 
                 
+                
             }
             else
             {
                 //lbTest.Visible = true;
                 lbMentorPage.Visible = true;
+                
             }
         }
 
