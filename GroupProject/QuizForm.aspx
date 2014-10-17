@@ -9,6 +9,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+<<<<<<< HEAD
 <asp:DataList ID="DataList1" runat="server" DataKeyField="NationalityID"
             DataSourceID="SqlDataSource1" onitemdatabound="DataList1_ItemDataBound" Width="313px">
             <ItemTemplate>
@@ -28,5 +29,10 @@
       
         </div>
      </form>
+=======
+        
+    </div>
+    </form>
+>>>>>>> origin/master
 </body>
 </html>

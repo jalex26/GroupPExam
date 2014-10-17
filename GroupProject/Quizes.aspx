@@ -21,7 +21,8 @@
             <asp:BoundField DataField="QuizSubject" HeaderText="Subject" />
             <asp:BoundField DataField="Difficultyname" HeaderText="Difficulty" />
             <asp:BoundField DataField="TimetoTake" HeaderText="Time Limit" />
-            <asp:BoundField DataField="DateAndTime" HeaderText="Date&Time" />            
+            <asp:BoundField DataField="DateAndTime" HeaderText="Date&Time" /> 
+            <asp:BoundField DataField="Version" HeaderText="Version" />           
         </Columns>
     </asp:GridView> 
         <div>
