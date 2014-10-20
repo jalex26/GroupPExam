@@ -33,5 +33,10 @@ namespace GroupProject
             dlMultipleChoice.DataSource = ds;
             dlMultipleChoice.DataBind();
         }
+        public void loadMatchingQuestions()
+        {
+            //myDal.ClearParams();
+            //myDal.AddParam()
+        }
     }
 }
