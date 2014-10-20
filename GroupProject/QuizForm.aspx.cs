@@ -19,7 +19,6 @@ namespace GroupProject
                 if (Request.QueryString["xmlQuizid"] != null || Request.QueryString["Version"] != null)
                 {
                     loadQuestions(Request.QueryString["xmlQuizid"].ToString(), Request.QueryString["Version"].ToString());
-                    
                 }
             }
         }
@@ -33,8 +32,10 @@ namespace GroupProject
 
             dlMultipleChoice.DataSource = ds.Tables[0];
             dlMatching.DataSource = ds.Tables[1];
+            dlLongAnswers.DataSource = ds.Tables[2];
             dlMultipleChoice.DataBind();
             dlMatching.DataBind();
+            dlLongAnswers.DataBind();
         }
         
     }

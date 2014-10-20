@@ -43,11 +43,19 @@
                     </tr>
 
                 </table>
-                
-                <br />
-                <br />
-                
-                
+                </ItemTemplate>
+        </asp:DataList>
+<asp:DataList ID="dlLongAnswers" runat="server" Width="313px">
+            <ItemTemplate>
+                <table>
+                    <tr>
+                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                     
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' /></td>
+                    </tr>
+
+                </table>
                 </ItemTemplate>
         </asp:DataList>
         </div>
