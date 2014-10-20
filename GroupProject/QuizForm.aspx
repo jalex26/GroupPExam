@@ -18,10 +18,10 @@
                 <br />
                 <br />
 
-                <asp:RadioButton ID="Choice1" runat="server" /><asp:Label ID="lblChoice1" runat="server" Text="A."></asp:Label><%# Eval("Choice1") %><br />
-                <asp:RadioButton ID="Choice2" runat="server" /><asp:Label ID="lblChoice2" runat="server" Text="B."></asp:Label><%# Eval("Choice2") %><br />
-                <asp:RadioButton ID="Choice3" runat="server" /><asp:Label ID="lblChoice3" runat="server" Text="C."></asp:Label><%# Eval("Choice3") %><br />
-                <asp:RadioButton ID="Choice4" runat="server" /><asp:Label ID="lblChoice4" runat="server" Text="D."></asp:Label><%# Eval("Choice4") %><br />
+                <asp:RadioButton ID="Choice1" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice1" runat="server" Text="A."></asp:Label><%# Eval("Choice1") %><br />
+                <asp:RadioButton ID="Choice2" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice2" runat="server" Text="B."></asp:Label><%# Eval("Choice2") %><br />
+                <asp:RadioButton ID="Choice3" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice3" runat="server" Text="C."></asp:Label><%# Eval("Choice3") %><br />
+                <asp:RadioButton ID="Choice4" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice4" runat="server" Text="D."></asp:Label><%# Eval("Choice4") %><br />
                 <br />
                 </ItemTemplate>
         </asp:DataList>

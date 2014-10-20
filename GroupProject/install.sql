@@ -464,7 +464,7 @@ as begin
 end 
 go
 
---Loads Multiple Choice Questions into QuizForm
+--Loads Multiple Choice,Matching,and Long Questions into QuizForm
 create procedure spQuizForm(
 @xmlQuizid varchar(60),
 @Version varchar(60)
