@@ -16,16 +16,17 @@ namespace GroupProject
         {
             if(!IsPostBack)
             {
-                if(Request.QueryString["Quizid"]!=null)
+                if (Request.QueryString["xmlQuizid"] != null || Request.QueryString["Version"] != null)
                 {
-                    loadSelectedQuiz(Request.QueryString["Quizid"].ToString());
+                    loadSelectedQuiz(Request.QueryString["xmlQuizid"].ToString(), Request.QueryString["Version"]);
                 }
             }
         }
-        public void loadSelectedQuiz(string Quizid)
+        public void loadSelectedQuiz(string xmlQuizid, string Version)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Quizid", Quizid);
+            myDal.AddParam("@xmlQuizid", xmlQuizid);
+            myDal.AddParam("@Version", Version);
 
             DataSet ds = myDal.ExecuteProcedure("spLoadQuiz3");
 
@@ -33,6 +34,26 @@ namespace GroupProject
             dlSelectedQuiz.DataBind();
 
             
+        }
+
+        protected void dlSelectedQuiz_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "StartQuiz")
+            {
+                               
+
+                myDal.ClearParams();
+                myDal.AddParam("xmlQuizid", Request.QueryString["xmlQuizid"].ToString());
+                myDal.AddParam("Version", Request.QueryString["Version"].ToString());
+                DataSet ds = myDal.ExecuteProcedure("spLoadQuiz3");
+
+                string xmlQuizid = ds.Tables[0].Rows[0]["xmlQuizid"].ToString();
+                string Version = ds.Tables[0].Rows[0]["Version"].ToString();
+                
+                
+                Response.Redirect("QuizForm.aspx?xmlQuizid=" + xmlQuizid + "&Version=" + Version);  
+                
+            }
         }
 
        

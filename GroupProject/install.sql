@@ -74,13 +74,13 @@ Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
 FileLocation varchar(max),
-xmlQuizId varchar(60)
+xmlQuizid varchar(60)
 --XMLfileLocation varchar(max)
 
 )
 go
 
-insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation,xmlQuizId)values
+insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation,xmlQuizid)values
 ('Sample Title','PHP',0,'00:20:00',1,'c:/','555'),('Sample Title Version 2','PHP',1,'00:20:00',1,'c:/','555'),
 ('Sample 3','PHP',0,'00:20:00',1,'c:/','44'),('Sample 4','PHP',1,'00:20:00',1,'c:/','33')
 
@@ -536,6 +536,12 @@ as begin
 end	
 go
 
+create procedure spLoadQuiz
+as begin 
+	select * from tbQuiz
+end 
+go
+
 create procedure spLoadQuiz2(
 @Courseid int
 )
@@ -544,13 +550,7 @@ as begin
 end 
 go
 
-create procedure spLoadQuiz
-as begin 
-	select * from tbQuiz
-end 
-go
-
-create procedure spLoadQuiz3(
+create procedure spLoadQuiz5(
 @Quizid int
 )
 as begin 
@@ -559,6 +559,24 @@ end
 go
 
 --spLoadQuiz3 @Quizid=0
+
+create procedure spLoadQuiz4
+as begin
+	select * from tbQuiz, tbQuizVersion where tbQuiz.Quizid = tbQuizVersion.Quizid
+end
+go
+
+create procedure spLoadQuiz3(
+@xmlQuizid varchar(60),
+@Version int
+)
+as begin 
+	select * from tbQuiz,tbQuizVersion,tbDifficulty where tbQuiz.Quizid = tbQuizVersion.Quizid and 
+	tbQuiz.xmlQuizid = @xmlQuizid and tbQuizVersion.Version = @Version and tbDifficulty.Difficultyid = tbQuiz.Difficulty
+end
+go
+
+--spLoadQuiz3 @xmlQuizid= 555, @Version = 2
 
 create procedure spLoadVersion
 as begin 
@@ -628,15 +646,15 @@ create procedure spQuizForm(
 as begin
 	select Question,Choice1,Choice2,Choice3,Choice4 from tbMultipleQuestions,tbQuizVersion,tbQuiz
 	where tbMultipleQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version = @Version and 
-			tbQuiz.xmlQuizId = @xmlQuizid
+			tbQuiz.xmlQuizid = @xmlQuizid
 	
 	select Question,Choices from tbMatchingQuestions,tbQuizVersion,tbQuiz 
 	where tbMatchingQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
-		  tbQuiz.xmlQuizId = @xmlQuizid
+		  tbQuiz.xmlQuizid = @xmlQuizid
 	
 	select Question from tbLongQuestions,tbQuizVersion,tbQuiz
 	where tbLongQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version = @Version and 
-		  tbQuiz.xmlQuizId = @xmlQuizid
+		  tbQuiz.xmlQuizid = @xmlQuizid
 end
 go
 

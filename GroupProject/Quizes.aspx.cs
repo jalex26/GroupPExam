@@ -67,8 +67,21 @@ namespace GroupProject
 
             if (e.CommandName.ToString() == "StartQuiz")
             {
-                string Quizid = gvPendingQuiz.SelectedDataKey.Value.ToString();
-                Response.Redirect("StartQuizes.aspx?Quizid=" + Quizid);                
+                string xmlQuizid = gvPendingQuiz.SelectedDataKey.Value.ToString();
+
+                DataSet ds = new DataSet();
+                myDal.ClearParams();
+                myDal.AddParam("Userid", HttpContext.Current.Session["Userid"].ToString());
+                ds = myDal.ExecuteProcedure("spViewPendingQuiz2");
+
+
+               
+                string Version = ds.Tables[0].Rows[0]["Version"].ToString();
+                
+                           
+
+                
+                Response.Redirect("StartQuizes.aspx?xmlQuizid=" + xmlQuizid + "&Version=" +  Version);                
             }
             
         }
