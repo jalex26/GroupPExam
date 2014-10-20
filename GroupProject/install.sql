@@ -262,6 +262,7 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Irving','Evans','05-26-2014')
 go
 
+-----------------------------PROCEDURES-----------------------------------------
 
 --Login
 create procedure spLogin(
@@ -284,9 +285,7 @@ as begin
 end 
 go
 
-
---select * from tbClass,tbDifficulty,tbExamCategories,tbExams,tbExamTaken,tbExamTaker,tbResults,tbUser
-
+-----------SELECTS------------
 
 --Loads students by Class
 create procedure spGetStudents(
@@ -321,64 +320,6 @@ as begin
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
---spGetStudents3 @Classid = 2, @SecurityLevel = 1
-
---spGetStudents @SecurityLevel=1
-
-
---spGetStudents @Classid = 1, @SecurityLevel = 1
-
---select * from tbUser where tbUser.Classid = 1 
-
-
---Insert students
-create procedure spInsertStudent(
-@Firstname varchar(60),
-@Lastname varchar(60),
-@Username varchar(60),
-@Password varchar(60),
-@Classid int,
-@SecurityLevel int
-)
-as begin
-	insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname,@Username,@Password,@Classid,@SecurityLevel)
-end
-go
-
---Update Students
-create procedure spUpdateStudent(
-@Userid int = null,
-@Firstname varchar (60),
-@Lastname varchar (60),
-@Username varchar (60),
-@Password varchar (60),
-@Classid int,
-@SecurityLevel int
-)
-as begin
-update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel
-			 where tbUser.Userid = @Userid
-end
-go
-
---Delete Students
-
-create procedure spDeleteStudent(
-@Userid int = null
-)
-as begin
-	delete from tbResults
-	where tbResults.Userid = @Userid
-
-	delete from tbQuizTaker
-	where tbQuizTaker.Userid = @Userid
-
-	delete from tbUser 
-	where tbUser.Userid = @Userid
-end
-go
 
 --Difficulty
 create procedure spGetDifficulty(
@@ -389,52 +330,14 @@ as begin
 end 
 go
 
-create procedure spInsertDifficulty(
-@Difficultyname varchar(60)
-)
-as begin
-	insert into tbDifficulty(Difficultyname)values
-				(@Difficultyname)
-end
-go
-
-create procedure spUpdateDifficulty(
-@Difficultyid int = null,
-@Difficultyname varchar(60)
-)
-as begin
-	update tbDifficulty set Difficultyname = @Difficultyname
-	where Difficultyid =@Difficultyid
-end 
-go
-
-create procedure spDeleteDifficulty(
-@Difficultyid int = null
-)
-as begin 
-	delete from tbQuiz
-	where tbQuiz.Difficulty =@Difficultyid
-
-	delete from tbDifficulty 
-	where tbDifficulty.Difficultyid = @Difficultyid
-	
-	delete from tbQuiz
-	where tbQuiz.Difficulty = @Difficultyid
-end 
-go
-
-
---spDeleteDifficulty @Difficulty=1
---select * from tbDifficulty
-
 --Loads Class
-
 create procedure spLoadClass
 as begin
 	select * from tbClass
 end
 go
 
+--Loads Class
 create procedure spGetClass(
 @Classid int = null
 )
@@ -443,55 +346,7 @@ as begin
 end
 go
 
---spGetClass @Classid = 1
-
---select * from tbClass where tbClass.Classid = 1 
-
-
-----Insert Class
-create procedure spInsertClass(
-@Classname varchar(60),
-@Courseid int
-
-)
-as begin
-	insert into tbClass(Classname,Courseid)values
-					  (@Classname,@Courseid)
-end
-go
-
---Update Class
-create procedure spUpdateClass(
-@Classid int = null,
-@Classname varchar (60),
-@Courseid int
-)
-as begin
-update tbClass set Classname =@Classname, Courseid=@Courseid
-			 where tbClass.Classid = @Classid
-end
-go
-
---spUpdateClass @
---Delete Class
-
-create procedure spDeleteClass(
-@Classid int
-)
-as begin
-	
-	delete from tbClass 
-	where tbClass.Classid = @Classid
-end
-go
-
-
-
---spDeleteClass @Classid=0
-
---spDeleteClass @Classid=1
-
-
+--Loads Course by Courseid
 create procedure spGetCourse(
 @Courseid int
 )
@@ -500,34 +355,7 @@ as begin
 end
 go
 
-create procedure spInsertCourse(
-@Coursename varchar(60)
-)
-as begin 
-	insert into tbCourse (Coursename) values
-						 (@Coursename)
-end
-go
-
-create procedure spUpdateCourse(
-@Courseid int = null,
-@Coursename varchar(60)
-)
-as begin
-	update tbCourse set Coursename = @Coursename 
-	where Courseid=@Courseid
-end
-go
-
-create procedure spDeleteCourse(
-@Courseid int
-)
-as begin 
-	delete from tbCourse 
-	where tbCourse.Courseid =@Courseid
-end 
-go
-
+--Load Course by Classid
 create procedure spLoadCourse(
 @Classid int
 )
@@ -536,12 +364,14 @@ as begin
 end	
 go
 
+--Load Quiz
 create procedure spLoadQuiz
 as begin 
 	select * from tbQuiz
 end 
 go
 
+--Load Quiz by Courseid
 create procedure spLoadQuiz2(
 @Courseid int
 )
@@ -550,6 +380,7 @@ as begin
 end 
 go
 
+--Load Quiz by Quizid
 create procedure spLoadQuiz5(
 @Quizid int
 )
@@ -558,14 +389,14 @@ as begin
 end 
 go
 
---spLoadQuiz3 @Quizid=0
-
+--Loads Quiz
 create procedure spLoadQuiz4
 as begin
 	select * from tbQuiz, tbQuizVersion where tbQuiz.Quizid = tbQuizVersion.Quizid
 end
 go
 
+--Loads Quiz by xmlQuizid and Version
 create procedure spLoadQuiz3(
 @xmlQuizid varchar(60),
 @Version int
@@ -576,14 +407,15 @@ as begin
 end
 go
 
---spLoadQuiz3 @xmlQuizid= 555, @Version = 2
 
+--Loads Version
 create procedure spLoadVersion
 as begin 
 	select * from tbQuizVersion
 end 
 go
 
+--Loads the Quiz 
 create procedure spViewQuiz
 as begin 
 	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation, Version from tbQuiz,tbQuizVersion
@@ -592,6 +424,7 @@ as begin
 end 
 go
 
+--Loads Questions for the (Mentor side)
 create procedure spLoadQuestions
 as begin
 	select Question,Choice1,Choice2,Choice3,Choice4,Answer from tbMultipleQuestions
@@ -600,7 +433,7 @@ as begin
 end
 go
 
-
+--Loads the Quiz Result (User side)
 create procedure spViewQuizResults(
 @Userid int
 )
@@ -611,10 +444,7 @@ as begin
 end 
 go
 
---spViewQuizResults @Userid=4
-
---spViewQuizResults @Userid = 5
-
+--Loads the Quiz Result of all students
 create procedure spViewQuizResults2
 
 as begin 
@@ -623,14 +453,10 @@ as begin
 end 
 go
 
---spViewQuizResults @Userid =4
-
-
- --spViewPendingQuiz
+--Loads Pending Quiz (student side)
  create procedure spViewPendingQuiz2(
  @Userid int
  )
-
 as begin 
 	select * from tbQuizTaker,tbQuiz,tbDifficulty,tbQuizVersion
 	where tbQuizTaker.Quizid = tbQuiz.Quizid and Userid=@Userid and tbQuiz.Difficulty = tbDifficulty.Difficultyid and tbQuizTaker.Versionid = tbQuizVersion.Versionid
@@ -638,7 +464,7 @@ as begin
 end 
 go
 
---spViewPendingQuiz2 @Userid=3
+--Loads Multiple Choice Questions into QuizForm
 create procedure spQuizForm(
 @xmlQuizid varchar(60),
 @Version varchar(60)
@@ -658,17 +484,164 @@ as begin
 end
 go
 
---spQuizForm @Version = 2, @xmlQuizid= 555
 
---create procedure spQuizForm2(
---@Quizid int,
---@Versionid int
---)
---as begin
---	select Question,Choice1,Choice2,Choice3,Choice4 from tbMultipleQuestions where tbMultipleQuestions.Quizid = @Quizid
---	select Question,Choices from tbMatchingQuestions where tbMatchingQuestions.Quizid = @Quizid
---	select Question from tbLongQuestions where tbLongQuestions.Quizid = @Quizid
---end 
---go
+--------------INSERTS-----------------
+
+--Insert students
+create procedure spInsertStudent(
+@Firstname varchar(60),
+@Lastname varchar(60),
+@Username varchar(60),
+@Password varchar(60),
+@Classid int,
+@SecurityLevel int
+)
+as begin
+	insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel)values
+					  (@Firstname,@Lastname,@Username,@Password,@Classid,@SecurityLevel)
+end
+go
+
+--Insert Difficulty
+create procedure spInsertDifficulty(
+@Difficultyname varchar(60)
+)
+as begin
+	insert into tbDifficulty(Difficultyname)values
+				(@Difficultyname)
+end
+go
+
+----Insert Class
+create procedure spInsertClass(
+@Classname varchar(60),
+@Courseid int
+
+)
+as begin
+	insert into tbClass(Classname,Courseid)values
+					  (@Classname,@Courseid)
+end
+go
+
+--Insert Course
+create procedure spInsertCourse(
+@Coursename varchar(60)
+)
+as begin 
+	insert into tbCourse (Coursename) values
+						 (@Coursename)
+end
+go
+
+----------------UPDATES-------------
+
+--Update Students
+create procedure spUpdateStudent(
+@Userid int = null,
+@Firstname varchar (60),
+@Lastname varchar (60),
+@Username varchar (60),
+@Password varchar (60),
+@Classid int,
+@SecurityLevel int
+)
+as begin
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+		Classid=@Classid, SecurityLevel=@SecurityLevel
+			 where tbUser.Userid = @Userid
+end
+go
+
+--Update Difficulty
+create procedure spUpdateDifficulty(
+@Difficultyid int = null,
+@Difficultyname varchar(60)
+)
+as begin
+	update tbDifficulty set Difficultyname = @Difficultyname
+	where Difficultyid =@Difficultyid
+end 
+go
+
+--Update Class
+create procedure spUpdateClass(
+@Classid int = null,
+@Classname varchar (60),
+@Courseid int
+)
+as begin
+update tbClass set Classname =@Classname, Courseid=@Courseid
+			 where tbClass.Classid = @Classid
+end
+go
+
+--Update Course
+create procedure spUpdateCourse(
+@Courseid int = null,
+@Coursename varchar(60)
+)
+as begin
+	update tbCourse set Coursename = @Coursename 
+	where Courseid=@Courseid
+end
+go
+
+
+-----------------DELETES----------------
+
+--Delete Students
+
+create procedure spDeleteStudent(
+@Userid int = null
+)
+as begin
+	delete from tbResults
+	where tbResults.Userid = @Userid
+
+	delete from tbQuizTaker
+	where tbQuizTaker.Userid = @Userid
+
+	delete from tbUser 
+	where tbUser.Userid = @Userid
+end
+go
+
+--Delete Difficulty
+create procedure spDeleteDifficulty(
+@Difficultyid int = null
+)
+as begin 
+	delete from tbQuiz
+	where tbQuiz.Difficulty =@Difficultyid
+
+	delete from tbDifficulty 
+	where tbDifficulty.Difficultyid = @Difficultyid
+	
+	delete from tbQuiz
+	where tbQuiz.Difficulty = @Difficultyid
+end 
+go
+
+--Delete Class
+create procedure spDeleteClass(
+@Classid int
+)
+as begin
+	
+	delete from tbClass 
+	where tbClass.Classid = @Classid
+end
+go
+
+--Delete Course
+create procedure spDeleteCourse(
+@Courseid int
+)
+as begin 
+	delete from tbCourse 
+	where tbCourse.Courseid =@Courseid
+end 
+go
 
 

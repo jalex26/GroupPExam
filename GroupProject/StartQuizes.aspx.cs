@@ -36,11 +36,11 @@ namespace GroupProject
             
         }
 
-        protected void dlSelectedQuiz_ItemCommand(object source, DataListCommandEventArgs e)
+        protected void dlSelectedQuiz_ItemCommand1(object source, DataListCommandEventArgs e)
         {
             if (e.CommandName == "StartQuiz")
             {
-                               
+
 
                 myDal.ClearParams();
                 myDal.AddParam("xmlQuizid", Request.QueryString["xmlQuizid"].ToString());
@@ -49,10 +49,10 @@ namespace GroupProject
 
                 string xmlQuizid = ds.Tables[0].Rows[0]["xmlQuizid"].ToString();
                 string Version = ds.Tables[0].Rows[0]["Version"].ToString();
-                
-                
-                Response.Redirect("QuizForm.aspx?xmlQuizid=" + xmlQuizid + "&Version=" + Version);  
-                
+
+
+                Response.Redirect("QuizForm.aspx?xmlQuizid=" + xmlQuizid + "&Version=" + Version);
+
             }
         }
 
