@@ -13,7 +13,7 @@
         <%--<asp:GridView ID="gvPendingQuiz" runat="server" Visible="false"></asp:GridView>--%>
 
 
-        <asp:GridView ID="gvPendingQuiz" runat="server" AutoGenerateColumns="False" Visible="false" DataKeyNames="Quizid" Height="20px" Width="20px" AllowPaging="True" ShowFooter="true" PageSize="5" BackColor="#CCCCCC" OnRowCommand="gvPendingQuiz_RowCommand" >
+        <asp:GridView ID="gvPendingQuiz" runat="server" AutoGenerateColumns="False" Visible="false" DataKeyNames="xmlQuizid" Height="20px" Width="20px" AllowPaging="True" ShowFooter="true" PageSize="5" BackColor="#CCCCCC" OnRowCommand="gvPendingQuiz_RowCommand" >
         <Columns>
             <%--<asp:ButtonField CommandName="Del" Text="Delete" ButtonType="Button" />--%>
             <asp:ButtonField CommandName="StartQuiz" Text="Start Quiz" ButtonType="Button" />
@@ -22,7 +22,7 @@
             <asp:BoundField DataField="Difficultyname" HeaderText="Difficulty" />
             <asp:BoundField DataField="TimetoTake" HeaderText="Time Limit" />
             <asp:BoundField DataField="DateAndTime" HeaderText="Date&Time" /> 
-            <asp:BoundField DataField="Version" HeaderText="Version" />           
+            <asp:BoundField DataField="Version" HeaderText="Version"/>           
         </Columns>
     </asp:GridView> 
         <div>
