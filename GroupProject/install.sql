@@ -74,8 +74,7 @@ Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
 FileLocation varchar(max),
-xmlQuizId varchar(60),
-Quizfile xml null     --this will hold the entire xml file sent from the site
+xmlQuizId varchar(60)
 --XMLfileLocation varchar(max)
 
 )
