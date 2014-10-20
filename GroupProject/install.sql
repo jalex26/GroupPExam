@@ -105,7 +105,7 @@ TotalScore decimal(10,5)
 go
 
 insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
-(2,1,0,85.50),(3,1,0,90.00),(4,1,0,70.95),(5,1,0,99.9)
+(2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
 
 --create table tbQuizTaken(
 --QuizTakenid int primary key identity(0,1),
