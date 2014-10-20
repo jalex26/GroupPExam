@@ -28,6 +28,9 @@
                     <%#Eval("Difficultyname") %>
                     <br />
                     <br />
+                    <%#Eval("Version") %>
+                    <br />
+                    <br />
                     <asp:Button ID="btnBegintheQuiz" runat="server" Text="Begin the Quiz" CommandArgument='<%#Eval("Quizid") %>' CommandName="StartQuiz"/>
                     </td>
                     <td></td>                   

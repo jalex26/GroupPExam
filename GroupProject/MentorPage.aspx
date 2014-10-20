@@ -91,10 +91,12 @@ Hey, world, I just said "Hello!"</font></p></div>
             <tr>
                 <td></td>
                 <td>
-                    <asp:FileUpload ID="fuploadQuiz" runat="server" />
+                    
+                    <asp:FileUpload ID="fuploadQuiz" runat="server" />                  
+                    <asp:Button ID="btnUploadFile" runat="server" Text="Upload" OnClick="btnUploadFile_Click" />
                 </td>
             </tr>
-        </table>
+        </table>         
     </asp:Panel>
     <asp:Panel ID="pnlViewQuiz" runat="server">
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>

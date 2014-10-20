@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Serialization;
 using System.Data;
 using DAL_Project;
+using System.IO;
 
 namespace GroupProject
 {
@@ -124,7 +126,7 @@ namespace GroupProject
             myDal.ClearParams();
             ds = myDal.ExecuteProcedure("spViewQuiz");
 
-            
+
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
         }
@@ -149,9 +151,26 @@ namespace GroupProject
             gvViewQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
-            
         }
 
-  
+        // this button validates xml file and then saves it in a temporary folder 'tempXML'
+        protected void btnUploadFile_Click(object sender, EventArgs e)
+        {
+            string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
+            
+            string serverPath = Server.MapPath(".") + "\\tempXML\\";
+            fuploadQuiz.PostedFile.SaveAs(serverPath + fuploadQuiz.PostedFile.FileName.ToString());
+            string fullFilePath;
+            fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
+
+            string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
+            OpenValidate OV = new OpenValidate();
+            OV.ValidateXml(fullFilePath, xsd);
+            if (OV.failed)
+            {
+                Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
+            }
+
+        }
     }
 }

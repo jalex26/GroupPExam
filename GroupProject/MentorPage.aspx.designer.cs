@@ -193,6 +193,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.FileUpload fuploadQuiz;
         
         /// <summary>
+        /// btnUploadFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadFile;
+        
+        /// <summary>
         /// pnlViewQuiz control.
         /// </summary>
         /// <remarks>
