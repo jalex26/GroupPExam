@@ -25,7 +25,31 @@
                 <br />
                 </ItemTemplate>
         </asp:DataList>
-      
+
+<asp:DataList ID="dlMatching" runat="server" Width="313px">
+            <ItemTemplate>
+                <table>
+                    <tr>
+                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                <asp:DropDownList ID="ddlMatching" runat="server"></asp:DropDownList>      
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' /></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><%# Eval("Choices") %></td>
+                    </tr>
+
+                </table>
+                
+                <br />
+                <br />
+                
+                
+                </ItemTemplate>
+        </asp:DataList>
         </div>
      </form>
 

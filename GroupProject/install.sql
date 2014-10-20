@@ -483,7 +483,7 @@ as begin
 		  tbQuiz.xmlQuizid = @xmlQuizid
 end
 go
-
+--spQuizForm @xmlQuizid= 555, @Version=2
 
 --------------INSERTS-----------------
 
