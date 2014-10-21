@@ -394,7 +394,13 @@ as begin
 end
 go
 
+
+
+
+
+
 -----------------------------PROCEDURES-----------------------------------------
+
 
 
 --Login
@@ -779,6 +785,7 @@ go
 --Delete Course
 create procedure spDeleteCourse(
 @Courseid int
+
 )
 as begin 
 	delete from tbCourse 
@@ -786,11 +793,31 @@ as begin
 end 
 go
 
+
+----------------Settings-------------
+
+--Update---
+create procedure spUpdateSettings(
+@Userid int = null,
+@Firstname varchar (60),
+@Lastname varchar (60),
+@Username varchar (60),
+@Password varchar (60),
+@Classid int,
+@SecurityLevel int
+)
+as begin
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+		Classid=@Classid, SecurityLevel=@SecurityLevel
+			 where tbUser.Userid = @Userid
+end
+go
 create procedure spGetCountAlbums
 as begin 
 	select Count(*) as Count from tbMultipleQuestions
 	select Count(*) as Count from tbMatchingQuestions
 	select Count(*) as Count from tbLongQuestions
 end 
+
 go
 
