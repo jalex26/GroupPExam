@@ -167,11 +167,11 @@ namespace GroupProject
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 
-           // string xml = File.ReadAllText(fullFilePath);
+            string xml = File.ReadAllText(fullFilePath);
            
-            byte[] allBytes = File.ReadAllBytes(fullFilePath);
+            //byte[] allBytes = File.ReadAllBytes(fullFilePath);
             
-            string xml = System.Text.Encoding.UTF8.GetString(allBytes);
+            //string xml = System.Text.Encoding.UTF8.GetString(allBytes);
 
             //string xmlSingle = xml.Replace("\r\n", "");
             //string xmlRemoveSlash = xmlSingle.Replace(@"\", "");
@@ -192,7 +192,7 @@ namespace GroupProject
             if (ds.Tables.Count != 0)
             {
                 myDal.ClearParams();            
-                myDal.AddParam("@xml", allBytes);
+                //myDal.AddParam("@xml", allBytes);
                 myDal.ExecuteProcedure("spInsertXMLContent");
                
             }

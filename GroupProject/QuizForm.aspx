@@ -10,8 +10,14 @@
     <form id="form1" runat="server">
     <div>
 
+        <br />
+        <br />
+<asp:Label ID="lblMultipleChoice" runat="server" Text="MULTIPLE CHOICE:"></asp:Label><asp:Button ID="btnPrev" runat="server" Text="Prev" /><asp:Button ID="btnNext" runat="server" Text="Next" />
+                <br />
+                <br />
 <asp:DataList ID="dlMultipleChoice" runat="server" Width="313px">
             <ItemTemplate>
+                
                 <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
                 <asp:Label ID="Question" runat="server"
                     Text='<%# Eval("Question") %>' />
@@ -26,11 +32,17 @@
                 </ItemTemplate>
         </asp:DataList>
 
+        <br />
+        <br />
+<asp:Label ID="lblMatchingType" runat="server" Text="MATCHING TYPE:"></asp:Label>
+                <br />
+                <br />
 <asp:DataList ID="dlMatching" runat="server" Width="313px">
             <ItemTemplate>
                 <table>
                     <tr>
-                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                        <td>
+                            <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
                 <asp:DropDownList ID="ddlMatching" runat="server"></asp:DropDownList>      
                 <asp:Label ID="Question" runat="server"
                     Text='<%# Eval("Question") %>' /></td>
@@ -45,11 +57,65 @@
                 </table>
                 </ItemTemplate>
         </asp:DataList>
+
+        <br />
+        <br />
+<asp:Label ID="lblTrueOrFalse" runat="server" Text="TRUE OR FALSE:"></asp:Label>
+                <br />
+                <br />
+<asp:DataList ID="dlTrueOrFalse" runat="server" Width="313px">
+            <ItemTemplate>
+                <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' />
+                <br />
+                <br />
+
+                <asp:RadioButton ID="True" runat="server" GroupName="Choices"/><asp:Label ID="lblTrue" runat="server" Text="A. "></asp:Label><%# Eval("True") %><br />
+                <asp:RadioButton ID="False" runat="server" GroupName="Choices"/><asp:Label ID="lblFalse" runat="server" Text="B. "></asp:Label><%# Eval("False") %><br />
+                
+                <br />
+                </ItemTemplate>
+        </asp:DataList>
+
+        <br />
+        <br />
+<asp:Label ID="lblFInBlanks" runat="server" Text="Fill in the Blanks:"></asp:Label>
+                <br />
+                <br />
+<asp:DataList ID="dlFInBlanks" runat="server" Width="313px">
+            <ItemTemplate>
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                     
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' /></td>
+                    </tr>
+                    <%--<br />
+                    <br />
+                        <asp:Label ID="lblPossibleAnswers" runat="server" Text="Possible Answers:"></asp:Label>
+                    <br />
+                    <br />
+                    <tr>
+                        <%# Eval("Answers") %>
+                    </tr>--%>
+                </table>
+                </ItemTemplate>
+        </asp:DataList>
+
+        <br />
+        <br />
+<asp:Label ID="lblLongAnswers" runat="server" Text="LONG ANSWERS:"></asp:Label>
+                <br />
+                <br />
 <asp:DataList ID="dlLongAnswers" runat="server" Width="313px">
             <ItemTemplate>
                 <table>
                     <tr>
-                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                        <td>
+                            <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
                      
                 <asp:Label ID="Question" runat="server"
                     Text='<%# Eval("Question") %>' /></td>
@@ -58,6 +124,7 @@
                 </table>
                 </ItemTemplate>
         </asp:DataList>
+
         </div>
      </form>
 
