@@ -12,7 +12,7 @@
 
         <br />
         <br />
-<asp:Label ID="lblMultipleChoice" runat="server" Text="MULTIPLE CHOICE:"></asp:Label>
+<asp:Label ID="lblMultipleChoice" runat="server" Text="MULTIPLE CHOICE:"></asp:Label><asp:Button ID="btnPrev" runat="server" Text="Prev" /><asp:Button ID="btnNext" runat="server" Text="Next" />
                 <br />
                 <br />
 <asp:DataList ID="dlMultipleChoice" runat="server" Width="313px">
