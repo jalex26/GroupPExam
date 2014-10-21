@@ -262,7 +262,7 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Irving','Evans','05-26-2014')
 go
 
-<<<<<<< HEAD
+
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
 QuizId int primary key,    --extract it from the XML file
@@ -322,9 +322,8 @@ insert into tbXMLtest(XMLContent) values
 end
 go
 
-=======
 -----------------------------PROCEDURES-----------------------------------------
->>>>>>> origin/master
+
 
 --Login
 create procedure spLogin(
