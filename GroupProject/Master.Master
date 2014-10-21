@@ -15,7 +15,7 @@
         <div class="header_container">
         <div>
             <p class="Margin">Exam Site</p>
-            <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/robertson.png" />
+            <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/college.jpg" />
         </div>
             </div>
                     <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>

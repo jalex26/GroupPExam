@@ -65,6 +65,7 @@
     <Content Include="Navigation.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Pictures\college.jpg" />
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="QuizForm.aspx" />

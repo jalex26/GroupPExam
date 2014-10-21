@@ -9,9 +9,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
-<<<<<<< HEAD
-<asp:DataList ID="DataList1" runat="server" DataKeyField="NationalityID"
-            DataSourceID="SqlDataSource1" onitemdatabound="DataList1_ItemDataBound" Width="313px">
+
+<asp:DataList ID="dlMultipleChoice" runat="server" Width="313px">
             <ItemTemplate>
                 <asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
                 <asp:Label ID="Question" runat="server"
@@ -19,20 +18,48 @@
                 <br />
                 <br />
 
-                <asp:Label ID="Label1" runat="server" Text="a."></asp:Label><asp:RadioButton ID="Choice1" runat="server" /><%# Eval("Choice1") %><br />
-                <asp:Label ID="Label2" runat="server" Text="b."></asp:Label><asp:RadioButton ID="Choice2" runat="server" /><%# Eval("Choice2") %><br />
-                <asp:Label ID="Label3" runat="server" Text="c."></asp:Label><asp:RadioButton ID="Choice3" runat="server" /><%# Eval("Choice3") %><br />
-                <asp:Label ID="Label4" runat="server" Text="d."></asp:Label><asp:RadioButton ID="Choice4" runat="server" /><%# Eval("Choice4") %><br />
+                <asp:RadioButton ID="Choice1" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice1" runat="server" Text="A."></asp:Label><%# Eval("Choice1") %><br />
+                <asp:RadioButton ID="Choice2" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice2" runat="server" Text="B."></asp:Label><%# Eval("Choice2") %><br />
+                <asp:RadioButton ID="Choice3" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice3" runat="server" Text="C."></asp:Label><%# Eval("Choice3") %><br />
+                <asp:RadioButton ID="Choice4" runat="server" GroupName="Choices"/><asp:Label ID="lblChoice4" runat="server" Text="D."></asp:Label><%# Eval("Choice4") %><br />
                 <br />
                 </ItemTemplate>
         </asp:DataList>
-      
+
+<asp:DataList ID="dlMatching" runat="server" Width="313px">
+            <ItemTemplate>
+                <table>
+                    <tr>
+                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                <asp:DropDownList ID="ddlMatching" runat="server"></asp:DropDownList>      
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' /></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><%# Eval("Choices") %></td>
+                    </tr>
+
+                </table>
+                </ItemTemplate>
+        </asp:DataList>
+<asp:DataList ID="dlLongAnswers" runat="server" Width="313px">
+            <ItemTemplate>
+                <table>
+                    <tr>
+                        <td><asp:Label ID="lblnum" runat="server" Text=""></asp:Label>
+                     
+                <asp:Label ID="Question" runat="server"
+                    Text='<%# Eval("Question") %>' /></td>
+                    </tr>
+
+                </table>
+                </ItemTemplate>
+        </asp:DataList>
         </div>
      </form>
-=======
-        
-    </div>
-    </form>
->>>>>>> origin/master
+
 </body>
 </html>
