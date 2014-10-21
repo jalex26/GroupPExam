@@ -32,9 +32,13 @@ namespace GroupProject
 
             dlMultipleChoice.DataSource = ds.Tables[0];
             dlMatching.DataSource = ds.Tables[1];
-            dlLongAnswers.DataSource = ds.Tables[2];
+            dlTrueOrFalse.DataSource = ds.Tables[2];
+            dlFInBlanks.DataSource = ds.Tables[3];
+            dlLongAnswers.DataSource = ds.Tables[4];
             dlMultipleChoice.DataBind();
             dlMatching.DataBind();
+            dlTrueOrFalse.DataBind();
+            dlFInBlanks.DataBind();
             dlLongAnswers.DataBind();
         }
         

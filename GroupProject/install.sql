@@ -144,7 +144,6 @@ Choice2 varchar(150),
 Choice3 varchar(150),
 Choice4 varchar(150),
 Answer varchar(150),
---Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
@@ -154,7 +153,9 @@ insert into tbMultipleQuestions(Question,Choice1,Choice2,Choice3,Choice4,Answer,
 ('How old is the legal age to drink in Canada?','17','18','19','20','18',1),
 ('How many colors are there in a rainbow?','4','6','9','7','7',1),
 ('When is Remembrance Day celebrated?','July 1st','October 1st','November 11th','December 25th','November 11th',1),
-('How many sides are there in an Octagon','6','12','4','8','8',1)
+('How many sides are there in an Octagon','6','12','4','8','8',1),
+('If I say seventy five is the correct answer to this question but I say it backwards, what is the correct answer to this question?',
+	'75','Seventy Five','evif ytneves','Is this a trick question?','evif ytneves',1)
 go
 
 create table tbMatchingQuestions(
@@ -162,7 +163,6 @@ MatchingQuestionsid int primary key identity(0,1),
 Question varchar(150),
 Choices varchar(150),
 Answers varchar(150),
---Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
@@ -180,7 +180,6 @@ create table tbLongQuestions(
 LongQuestionsid int primary key identity(0,1),
 Question varchar(150),
 Answer varchar(max),
---Quizid int foreign key references tbQuiz(Quizid),
 Versionid int foreign key references tbQuizVersion(Versionid)
 )
 go
@@ -193,11 +192,45 @@ insert into tbLongQuestions(Question,Answer,Versionid)values
 ('What is Science?','the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.',1)
 go
 
+create table tbTrueOrFalseQuestions(
+TrueOrFalseQuestionsid int primary key identity(0,1),
+Question varchar(150),
+True varchar(60),
+False varchar(60),
+Answers varchar(60),
+Versionid int foreign key references tbQuizVersion(Versionid)
+)
+go
+
+insert into tbTrueOrFalseQuestions(Question,True,False,Answers,Versionid)values
+('In the weightlessness of space, if a frozen pea touches pepsi it will blow up.','True','False','True',1),
+('The worlds smartest pig memorized the multiplication table up to 12.','True','False','True',1),
+('Monkeys are related to fish because if need be they can breathe underwater.','True','False','False',1),
+('Men are 4 times more likely to be struck by lightening than women','True','False','True',1),
+('In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.','True','False','True',1)
+go
+
+create table tbFInBlanksQuestion(
+FInBlanksid int primary key identity(0,1),
+Question varchar(150),
+Answers varchar(150),
+Versionid int foreign key references tbQuizVersion(Versionid)
+)
+go
+
+insert into tbFInBlanksQuestion(Question,Answers,Versionid)values 
+('Walt Disney, creator of Mickey Mouse was afraid of _____.','mice',1),
+('Most dust particles in your house are made from dead _____.','skin',1),
+('The chances of you dying on the way to the lottery tickets is ______ than your chances of winning','greater',1),
+('Koalas sleep for ___ hours a day','22',1),
+('Sea ______ hold hands in their sleep so they dont drift away from each other','otters',1)
+go
+
+--User's Answers
 create table tbMultipleAnswers(
 MultipleAnswersid int primary key identity(0,1),
 Userid int foreign key references tbUser(Userid),
 MultipleQuestionsid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
---Quizid int foreign key references tbQuiz(Quizid),
 UserAnswer varchar(150)
 )
 go
@@ -206,6 +239,7 @@ insert into tbMultipleAnswers(Userid,MultipleQuestionsid,UserAnswer)values
 (3,0,'Ottawa'),(3,1,'17'),(3,2,'7'),(3,3,'November 11th'),(3,4,'8')
 go
 
+--User's Answers
 create table tbMatchingAnswers(
 MatchingAnswersid int primary key identity(0,1),
 MatchingQuestionsid int foreign key references tbMatchingQuestions(MatchingQuestionsid),
@@ -219,6 +253,7 @@ insert into tbMatchingAnswers(MatchingQuestionsid,Userid,Quizid,UserAnswer)value
 (0,4,1,'Great Britain'),(1,4,1,'France'),(2,4,1,'Greece'),(3,4,1,'Russia'),(4,4,1,'Spain')
 go
 
+--User's Answers
 create table tbLongAnswers(
 LongAnswersid int primary key identity (0,1),
 Userid int foreign key references tbUser(Userid),
@@ -234,6 +269,34 @@ insert into tbLongAnswers(Userid,LongQuestionsid,Quizid,UserAnswer)values
 (5,2,1,'Sleep gives your body a rest and allows it to prepare for the next day.'),
 (5,3,1,'Love. Fear will only have people obeying you until they can get away. Love will have people willing to die for each other and for you.'),
 (5,4,1,'the intellectual and practical activity encompassing the systematic study of the structure and behavior of the physical and natural world through observation and experiment.')
+go
+
+--User's Answers
+create table tbTrueOrFalseAnswers(
+TrueOrFalseAnswersid int primary key identity(0,1),
+Userid int foreign key references tbUser(Userid),
+TrueOrFalseQuestionsid int foreign key references tbTrueOrFalseQuestions(TrueOrFalseQuestionsid),
+UserAnswer varchar(150)
+)
+go
+
+insert into tbTrueOrFalseAnswers(Userid,TrueOrFalseQuestionsid,UserAnswer)values
+(3,0,'True'),(3,1,'True'),(3,2,'False'),(3,3,'True'),(3,4,'False')
+go
+
+
+
+--User's Answers
+create table tbFInBlanksAnswers(
+FInBlanksAnswersid int primary key identity(0,1),
+Userid int foreign key references tbUser(Userid),
+FInBlanksQuestionid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
+UserAnswer varchar(150)
+)
+go
+
+insert into tbFInBlanksAnswers(Userid,FInBlanksQuestionid,UserAnswer)values
+(3,0,'mice'),(3,1,'skin'),(3,2,'less'),(3,3,'20'),(3,4,'otters')
 go
 
 --Failed Login Attempts
@@ -322,13 +385,8 @@ insert into tbXMLtest(XMLContent) values
 end
 go
 
-<<<<<<< HEAD
 -----------------------------PROCEDURES-----------------------------------------
 
-=======
-
------------------------------PROCEDURES-----------------------------------------
->>>>>>> origin/master
 
 --Login
 create procedure spLogin(
@@ -496,6 +554,7 @@ as begin
 	select Question,Choice1,Choice2,Choice3,Choice4,Answer from tbMultipleQuestions
 	select Question,Answers from tbMatchingQuestions
 	select Question,Answer from tbLongQuestions
+	select Question,Answers from tbTrueOrFalse
 end
 go
 
@@ -543,7 +602,15 @@ as begin
 	select Question,Choices from tbMatchingQuestions,tbQuizVersion,tbQuiz 
 	where tbMatchingQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
 		  tbQuiz.xmlQuizid = @xmlQuizid
+
+	select Question,True,False from tbTrueOrFalseQuestions,tbQuizVersion,tbQuiz
+	where tbTrueOrFalseQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
+		  tbQuiz.xmlQuizid = @xmlQuizid
 	
+	select Question from tbFInBlanksQuestion,tbQuizVersion,tbQuiz
+	where tbFInBlanksQuestion.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
+		  tbQuiz.xmlQuizid = @xmlQuizid
+
 	select Question from tbLongQuestions,tbQuizVersion,tbQuiz
 	where tbLongQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version = @Version and 
 		  tbQuiz.xmlQuizid = @xmlQuizid
@@ -710,4 +777,11 @@ as begin
 end 
 go
 
+create procedure spGetCountAlbums
+as begin 
+	select Count(*) as Count from tbMultipleQuestions
+	select Count(*) as Count from tbMatchingQuestions
+	select Count(*) as Count from tbLongQuestions
+end 
+go
 
