@@ -8,12 +8,16 @@ using System.Xml.Serialization;
 using System.Data;
 using DAL_Project;
 using System.IO;
+using System.Data.SqlClient;
+using System.Xml;
 
 namespace GroupProject
 {
     public partial class MentorPage : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -157,11 +161,20 @@ namespace GroupProject
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
-            
+
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
             fuploadQuiz.PostedFile.SaveAs(serverPath + fuploadQuiz.PostedFile.FileName.ToString());
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
+
+           // string xml = File.ReadAllText(fullFilePath);
+           
+            byte[] allBytes = File.ReadAllBytes(fullFilePath);
+            
+            string xml = System.Text.Encoding.UTF8.GetString(allBytes);
+
+            //string xmlSingle = xml.Replace("\r\n", "");
+            //string xmlRemoveSlash = xmlSingle.Replace(@"\", "");
 
             string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
             OpenValidate OV = new OpenValidate();
@@ -171,6 +184,20 @@ namespace GroupProject
                 Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
             }
 
+            // saving xml data in database if file is in correct format
+            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);            
+            DataSet ds = new DataSet();
+            ds.ReadXml(xmlreader);
+            xmlreader.Close();
+            if (ds.Tables.Count != 0)
+            {
+                myDal.ClearParams();            
+                myDal.AddParam("@xml", allBytes);
+                myDal.ExecuteProcedure("spInsertXMLContent");
+               
+            }
+
         }
+   
     }
 }

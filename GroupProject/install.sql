@@ -262,6 +262,65 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Irving','Evans','05-26-2014')
 go
 
+----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
+create table tbXMLQuizContent(
+QuizId int primary key,    --extract it from the XML file
+Title varchar(60),
+Subject varchar(60),
+Course varchar(60),
+Time int,
+Difficulty varchar(20)
+)
+go
+
+create table tbXMLtest(
+XMLContent varchar(max)
+)
+go
+
+create table tbMultipleChoice(
+QuestionID int primary key identity (1,1),
+XMLQuestionID int,    -- get this id from xml file
+Question varchar(255),
+OptionOne varchar(60),
+OptionTwo varchar(60),
+OptionThree varchar(60),
+OptionFour varchar(60),
+CorrectAnswer varchar(20) null,
+QuizId int foreign key references tbXMLQuizContent(QuizId)
+)
+go
+
+------------------------STORED PROCEDURES-----------------------
+
+create procedure spinsertXMLContent(
+@xml xml
+)
+as begin
+ set nocount on;
+ insert into tbXMLQuizContent
+ select 
+-- t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
+ t.value('(@QuizId)[1]','int') as QuizId,
+ t.value('(Title/text())[1]','VARCHAR(60)') as Title,   
+ t.value('(Subject/text())[1]','VARCHAR(60)') as Subject,   
+ t.value('(Course/text())[1]','VARCHAR(60)') as Course,   
+ t.value('(Time/text())[1]','int') as Time,   
+ t.value('(Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
+ from
+ @xml.nodes('/Quiz/Details')AS TempTable(t)
+end
+go
+
+create procedure spTEST(
+@xml varchar(max)
+)
+as begin
+insert into tbXMLtest(XMLContent) values
+                     (@xml)
+end
+go
+
 
 --Login
 create procedure spLogin(
