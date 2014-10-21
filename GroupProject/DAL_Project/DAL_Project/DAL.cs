@@ -61,7 +61,7 @@ namespace DAL_Project
         }
         public void AddParam(string paramName, byte[] paramValue)
         {
-            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters
+            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters         
         }
 
         /// <summary>

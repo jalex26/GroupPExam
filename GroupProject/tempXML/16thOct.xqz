@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
+﻿<Quiz QuizId="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema">
   <Details>
     <Title>16th October Quiz </Title>
     <Subject>test</Subject>
@@ -16,24 +15,6 @@
           <Option Correct="yes">lajksdakljf</Option>
           <Option>klsjbfdkjbf</Option>
           <Option>sldfblsj</Option>
-        </Options>
-      </Question>
-      <Question ID="2">
-        <Questi>wdwdwfsfsfsfsf11111</Questi>
-        <Options>
-          <Option>vvfv</Option>
-          <Option Correct="yes">d;flgjsd;l</Option>
-          <Option>;dfgjs;d</Option>
-          <Option>jkhkj</Option>
-        </Options>
-      </Question>
-      <Question ID="3">
-        <Questi>wdwdwvv</Questi>
-        <Options>
-          <Option>vvfv</Option>
-          <Option Correct="yes">d;flgjsd;l</Option>
-          <Option>;dfgjs;d</Option>
-          <Option>jkhkj</Option>
         </Options>
       </Question>
     </MultipleChoice>

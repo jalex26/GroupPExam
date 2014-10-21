@@ -18,11 +18,11 @@ namespace GroupProject
             {
                 if (Request.QueryString["xmlQuizid"] != null || Request.QueryString["Version"] != null)
                 {
-                    loadMultipleQuestions(Request.QueryString["xmlQuizid"].ToString(), Request.QueryString["Version"].ToString());
+                    loadQuestions(Request.QueryString["xmlQuizid"].ToString(), Request.QueryString["Version"].ToString());
                 }
             }
         }
-        public void loadMultipleQuestions(string xmlQuizid, string Version)
+        public void loadQuestions(string xmlQuizid, string Version)
         {
             myDal.ClearParams();
             myDal.AddParam("@xmlQuizid", xmlQuizid);
@@ -30,8 +30,17 @@ namespace GroupProject
 
             DataSet ds = myDal.ExecuteProcedure("spQuizForm");
 
-            dlMultipleChoice.DataSource = ds;
+            dlMultipleChoice.DataSource = ds.Tables[0];
+            dlMatching.DataSource = ds.Tables[1];
+            dlTrueOrFalse.DataSource = ds.Tables[2];
+            dlFInBlanks.DataSource = ds.Tables[3];
+            dlLongAnswers.DataSource = ds.Tables[4];
             dlMultipleChoice.DataBind();
+            dlMatching.DataBind();
+            dlTrueOrFalse.DataBind();
+            dlFInBlanks.DataBind();
+            dlLongAnswers.DataBind();
         }
+        
     }
 }
