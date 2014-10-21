@@ -99,6 +99,7 @@
       <DependentUpon>MentorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="OpenValidate.cs" />
+    <Compile Include="PageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
