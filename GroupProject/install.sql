@@ -607,7 +607,7 @@ as begin
 	where tbTrueOrFalseQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
 		  tbQuiz.xmlQuizid = @xmlQuizid
 	
-	select Question from tbFInBlanksQuestion,tbQuizVersion,tbQuiz
+	select Question,Answers from tbFInBlanksQuestion,tbQuizVersion,tbQuiz
 	where tbFInBlanksQuestion.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
 		  tbQuiz.xmlQuizid = @xmlQuizid
 

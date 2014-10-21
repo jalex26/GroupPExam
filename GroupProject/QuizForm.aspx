@@ -93,7 +93,14 @@
                 <asp:Label ID="Question" runat="server"
                     Text='<%# Eval("Question") %>' /></td>
                     </tr>
-
+                    <%--<br />
+                    <br />
+                        <asp:Label ID="lblPossibleAnswers" runat="server" Text="Possible Answers:"></asp:Label>
+                    <br />
+                    <br />
+                    <tr>
+                        <%# Eval("Answers") %>
+                    </tr>--%>
                 </table>
                 </ItemTemplate>
         </asp:DataList>
