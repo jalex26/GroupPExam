@@ -265,7 +265,7 @@ go
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
-QuizId int primary key,    --extract it from the XML file
+XMLQuizID int primary key,    --extracting it from the XML file    
 Title varchar(60),
 Subject varchar(60),
 Course varchar(60),
@@ -274,10 +274,6 @@ Difficulty varchar(20)
 )
 go
 
-create table tbXMLtest(
-XMLContent varchar(max)
-)
-go
 
 create table tbMultipleChoice(
 QuestionID int primary key identity (1,1),
@@ -288,40 +284,52 @@ OptionTwo varchar(60),
 OptionThree varchar(60),
 OptionFour varchar(60),
 CorrectAnswer varchar(20) null,
-QuizId int foreign key references tbXMLQuizContent(QuizId)
+XMLQuizID int foreign key references tbXMLQuizContent(XMLQuizID)
 )
 go
 
 ------------------------STORED PROCEDURES-----------------------
 
-create procedure spinsertXMLContent(
+create procedure spInsertXMLContent(
 @xml xml
 )
 as begin
  set nocount on;
  insert into tbXMLQuizContent
  select 
--- t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
- t.value('(@QuizId)[1]','int') as QuizId,
- t.value('(Title/text())[1]','VARCHAR(60)') as Title,   
- t.value('(Subject/text())[1]','VARCHAR(60)') as Subject,   
- t.value('(Course/text())[1]','VARCHAR(60)') as Course,   
- t.value('(Time/text())[1]','int') as Time,   
- t.value('(Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
+ t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
+ t.value('(Details/Title/text())[1]','VARCHAR(60)') as Title,   
+ t.value('(Details/Subject/text())[1]','VARCHAR(60)') as Subject,   
+ t.value('(Details/Course/text())[1]','VARCHAR(60)') as Course,   
+ t.value('(Details/Time/text())[1]','int') as Time,   
+ t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
  from
- @xml.nodes('/Quiz/Details')AS TempTable(t)
+ @xml.nodes('/Quiz')AS TempTable(t)
+  select @@identity as 'XMLQuizID'
 end
 go
 
-create procedure spTEST(
-@xml varchar(max)
+
+create procedure spinsertMultipleChoice(
+@xml xml
 )
 as begin
-insert into tbXMLtest(XMLContent) values
-                     (@xml)
+ set nocount on;
+ insert into tbMultipleChoice
+ select
+ t.value('../@QuizId','int') as XMLQuizID,
+ --t.value('@ID','int') as XMLQuestionID,   
+ t.value('(Questions/MultipleChoice/Question/ID/text())[1]','INT') as XMLQuestionID,
+ t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
+ from
+ @xml.nodes('/Quiz')AS TempTable(t)
 end
 go
-
 
 -----------------------------PROCEDURES-----------------------------------------
 
