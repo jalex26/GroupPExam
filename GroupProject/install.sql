@@ -322,8 +322,13 @@ insert into tbXMLtest(XMLContent) values
 end
 go
 
+<<<<<<< HEAD
 -----------------------------PROCEDURES-----------------------------------------
 
+=======
+
+-----------------------------PROCEDURES-----------------------------------------
+>>>>>>> origin/master
 
 --Login
 create procedure spLogin(
