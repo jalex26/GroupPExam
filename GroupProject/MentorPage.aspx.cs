@@ -157,13 +157,32 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
         }
+
+        // method to remove all namespaces from xml document
+        private void RemoveNamespaceAttributes(XmlNode node)
+        {
+
+            if (node.Attributes != null)
+            {
+                for (int i = node.Attributes.Count - 1; i >= 0; i--)
+                {
+                    if (node.Attributes[i].Name.Contains(':') || node.Attributes[i].Name == "xmlns")
+                        node.Attributes.Remove(node.Attributes[i]);
+                }
+            }
+
+            foreach (XmlNode n in node.ChildNodes)
+            {
+                RemoveNamespaceAttributes(n);
+            }
+        }
      
 
         // this button validates xml file and then saves it in a temporary folder 'tempXML'
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
+            XmlDocument fullXml;
             
-
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
@@ -171,8 +190,10 @@ namespace GroupProject
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 
-            string xml = File.ReadAllText(fullFilePath);         
-
+            // saving xml file content in a string to pass it to stored proc later
+            string xml = File.ReadAllText(fullFilePath);
+        
+            // validating xml file here before inserting into database
             string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
             OpenValidate OV = new OpenValidate();
             OV.ValidateXml(fullFilePath, xsd);
@@ -180,9 +201,13 @@ namespace GroupProject
             {
                 Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
             }
-            
-           
-                // saving xml data in database if file is in correct format
+
+            // after validation removing al namespaces from xml file before inserting in database
+            fullXml = new XmlDocument();
+            fullXml.LoadXml(xml);
+            RemoveNamespaceAttributes(fullXml.DocumentElement);
+
+            // saving xml data in database if file is in correct format
                 XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
                 DataSet ds = new DataSet();
                 ds.ReadXml(xmlreader);

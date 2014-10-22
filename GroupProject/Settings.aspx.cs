@@ -39,6 +39,14 @@ namespace GroupProject
 
             //using Griedview row command
             pn1Upd.Visible = true;
+            gvSettings.SelectedIndex = Convert.ToInt32(e.CommandArgument);
+
+            if(e.CommandName.ToString()=="Upd")
+            {
+                string Userid = gvSettings.SelectedDataKey.Value.ToString();
+                loadUpdSettings(Userid);
+                
+            }
         }
         private void loadUpdSettings(string Userid)
         {
@@ -49,32 +57,54 @@ namespace GroupProject
                 mydal.AddParam("@Userid", Userid);
                 mydal.AddParam("@SecurityLevel","1");
                 DataSet ds = new DataSet();
-                ds = mydal.ExecuteProcedure("spGetStudents");
+                ds = mydal.ExecuteProcedure("spGetStudentsUpdate");
 
-                txtUserid.Text = ds.Tables[0].Rows[0]["Userid"].ToString();
+                txtUserid.Text = Userid;
                 txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
                 txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
                 txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
-                txtClassid.Text = ds.Tables[0].Rows[0]["Classid"].ToString();
-                txtSecurityLevel.Text = ds.Tables[0].Rows[0]["SecurityLevel"].ToString();
+                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
+<<<<<<< HEAD
+                txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+                
+               
             }
 
         }
-
-        protected void btnInsert_Click(object sender, EventArgs e)
+        private void saveCustomers(string Userid)
         {
+                mydal.ClearParams();
+                mydal.AddParam("@Userid", Userid);
+                mydal.AddParam("@SecurityLevel", "1");
+                DataSet ds = new DataSet();
+                ds = mydal.ExecuteProcedure("spGetStudent3");
+                //mydal.AddParam("@id", id);
+                mydal.AddParam("@Userid", txtUserid.Text);
+                txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
+                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
+                txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
+                txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
+                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
+            
+        }
+        
+
+=======
+            }
 
         }
+>>>>>>> origin/master
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
+            saveCustomers(txtUserid.Text);
+            pn1Upd.Visible = false;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            pn1Upd.Visible = false;
         }
       } 
     }

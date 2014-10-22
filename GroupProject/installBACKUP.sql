@@ -1,11 +1,11 @@
-﻿use master
-go
-drop database Exam
-go
-create database Exam
-go
-use Exam
-go
+﻿--use master
+--go
+--drop database Exam
+--go
+--create database Exam
+--go
+--use Exam
+--go
 
 create table tbLogin(
 Username varchar(60),
@@ -35,16 +35,6 @@ insert into tbClass(Classname,Courseid)values
 ('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0)
 go
 
-create table tbDifficulty(
-Difficultyid int primary key identity(0,1),
-Difficultyname varchar(60)
-)
-go
-
-insert into tbDifficulty(Difficultyname)values
-('Beginner'),('Intermediate'),('Advanced')
-go
-
 create table tbUser(
 Userid int primary key identity (0,1),
 Firstname varchar(60),
@@ -66,7 +56,15 @@ insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,Us
 ('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
 
+create table tbDifficulty(
+Difficultyid int primary key identity(0,1),
+Difficultyname varchar(60)
+)
+go
 
+insert into tbDifficulty(Difficultyname)values
+('Beginner'),('Intermediate'),('Advanced')
+go
 
 create table tbQuiz(
 Quizid int primary key identity (0,1),
@@ -75,10 +73,18 @@ QuizSubject varchar(60),
 Courseid int foreign key references tbCourse(Courseid) on delete cascade,
 TimetoTake time,
 Difficulty int foreign key references tbDifficulty(Difficultyid),
-XMLQuizFile xml
+FileLocation varchar(max),
+xmlQuizid varchar(60)
+--XMLfileLocation varchar(max)
+
 )
 go
 
+insert into tbQuiz(QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation,xmlQuizid)values
+('Sample Title','PHP',0,'00:20:00',1,'c:/','555'),('Sample Title Version 2','PHP',1,'00:20:00',1,'c:/','555'),
+('Sample 3','PHP',0,'00:20:00',1,'c:/','44'),('Sample 4','PHP',1,'00:20:00',1,'c:/','33')
+
+go
 create table tbQuizVersion(
 Versionid int primary key identity (0,1),
 Quizid int foreign key references tbQuiz(Quizid),
@@ -86,8 +92,8 @@ Version int
 )
 go
 
---insert into tbQuizVersion(Quizid,Version)values
---(0,1),(1,2),(2,1),(3,1)
+insert into tbQuizVersion(Quizid,Version)values
+(0,1),(1,2),(2,1),(3,1)
 
 create table tbResults(
 Resultid int primary key identity (0,1),
@@ -227,7 +233,6 @@ Userid int foreign key references tbUser(Userid),
 MultipleQuestionsid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
 UserAnswer varchar(150)
 )
-
 go
 
 insert into tbMultipleAnswers(Userid,MultipleQuestionsid,UserAnswer)values
@@ -293,6 +298,7 @@ go
 insert into tbFInBlanksAnswers(Userid,FInBlanksQuestionid,UserAnswer)values
 (3,0,'mice'),(3,1,'skin'),(3,2,'less'),(3,3,'20'),(3,4,'otters')
 go
+
 --Failed Login Attempts
 create table tbFailedLoginAttempt(
 Username varchar(60),
@@ -319,51 +325,31 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Irving','Evans','05-26-2014')
 go
 
-create table tbTest(
-Testid int primary key identity (0,1),
-TestDate date,
-Userid int foreign key references tbUser(Userid),  ---Mentor
-Quizid int foreign key references tbQuiz(Quizid) null,   ---INSERT FROM STORED PROCEDURE
-Status int
-)
-go
-
---1-Open
---2-Close
-
-insert into tbTest(TestDate,Userid,Status)values
-('2014-03-14',1,1),('2014-01-23',1,1),('2014-11-13',1,1)
-go
-
-create table tbTestStudent(
-TestStudentid int primary key identity (0,1),
-Testid int foreign key references tbTest(Testid),
-Userid int foreign key references tbUser(Userid),  ---Student
-XMLAnswers xml null
-)
-
-insert into tbTestStudent(Testid,Userid)values
-(0,3),
-(1,4),
-(2,5)
-go
-
-
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
-QuizID int primary key identity (1,1),
-XMLQuizID int,    --extracting it from the XML file    
+XMLQuizID int primary key,    --extracting it from the XML file    
 Title varchar(60),
 Subject varchar(60),
 Course varchar(60),
 Time int,
-Difficulty varchar(20),
-XMLFileContent xml
+Difficulty varchar(20)
 )
 go
 
 
+create table tbMultipleChoice(
+QuestionID int primary key identity (1,1),
+XMLQuestionID int,    -- get this id from xml file
+Question varchar(255),
+OptionOne varchar(60),
+OptionTwo varchar(60),
+OptionThree varchar(60),
+OptionFour varchar(60),
+CorrectAnswer varchar(20) null,
+XMLQuizID int foreign key references tbXMLQuizContent(XMLQuizID)
+)
+go
 
 ------------------------STORED PROCEDURES-----------------------
 
@@ -379,8 +365,7 @@ as begin
  t.value('(Details/Subject/text())[1]','VARCHAR(60)') as Subject,   
  t.value('(Details/Course/text())[1]','VARCHAR(60)') as Course,   
  t.value('(Details/Time/text())[1]','int') as Time,   
- t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty,   
- @xml as XMLFileContent
+ t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
  from
  @xml.nodes('/Quiz')AS TempTable(t)
   select @@identity as 'XMLQuizID'
@@ -388,29 +373,35 @@ end
 go
 
 
---create procedure spinsertMultipleChoice(
---@xml xml
---)
---as begin
--- set nocount on;
--- --insert into tbMultipleChoice
--- select
--- t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
+create procedure spinsertMultipleChoice(
+@xml xml
+)
+as begin
+ set nocount on;
+ insert into tbMultipleChoice
+ select
+ t.value('../@QuizId','int') as XMLQuizID,
+ --t.value('@ID','int') as XMLQuestionID,   
+ t.value('(Questions/MultipleChoice/Question/ID/text())[1]','INT') as XMLQuestionID,
+ t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
+ t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
+ t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
+ from
+ @xml.nodes('/Quiz')AS TempTable(t)
+end
+go
 
--- t.value('(/Questions/MultipleChoice/Question/@ID)[1]','int') as XMLQuestionID,   
 
--- t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
--- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
--- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
--- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
--- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
--- t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
--- from
--- @xml.nodes('/Quiz')AS TempTable(t)
---end
---go
+
+
+
 
 -----------------------------PROCEDURES-----------------------------------------
+
+
 
 --Login
 create procedure spLogin(
@@ -441,13 +432,12 @@ create procedure spGetStudents(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
-    from tbUser,tbClass where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
 
---spGetStudents @Classid=0, @SecurityLevel=1
 create procedure spGetStudents2(
 @Classid int = null,
 @SecurityLevel int 
@@ -545,6 +535,17 @@ as begin
 end
 go
 
+--Loads Quiz by xmlQuizid and Version
+create procedure spLoadQuiz3(
+@xmlQuizid varchar(60),
+@Version int
+)
+as begin 
+	select * from tbQuiz,tbQuizVersion,tbDifficulty where tbQuiz.Quizid = tbQuizVersion.Quizid and 
+	tbQuiz.xmlQuizid = @xmlQuizid and tbQuizVersion.Version = @Version and tbDifficulty.Difficultyid = tbQuiz.Difficulty
+end
+go
+
 
 --Loads Version
 create procedure spLoadVersion
@@ -556,12 +557,21 @@ go
 --Loads the Quiz 
 create procedure spViewQuiz
 as begin 
-	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty, Version from tbQuiz,tbQuizVersion
+	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation, Version from tbQuiz,tbQuizVersion
 	where tbQuiz.Quizid = tbQuizVersion.Quizid
 	
 end 
 go
 
+--Loads Questions for the (Mentor side)
+create procedure spLoadQuestions
+as begin
+	select Question,Choice1,Choice2,Choice3,Choice4,Answer from tbMultipleQuestions
+	select Question,Answers from tbMatchingQuestions
+	select Question,Answer from tbLongQuestions
+	select Question,Answers from tbTrueOrFalse
+end
+go
 
 --Loads the Quiz Result (User side)
 create procedure spViewQuizResults(
@@ -588,13 +598,40 @@ go
  @Userid int
  )
 as begin 
-	select * from tbTest,tbQuiz,tbDifficulty
-	where tbTest.Quizid = tbQuiz.Quizid and Userid=@Userid and tbQuiz.Difficulty = tbDifficulty.Difficultyid
+	select * from tbQuizTaker,tbQuiz,tbDifficulty,tbQuizVersion
+	where tbQuizTaker.Quizid = tbQuiz.Quizid and Userid=@Userid and tbQuiz.Difficulty = tbDifficulty.Difficultyid and tbQuizTaker.Versionid = tbQuizVersion.Versionid
 	
 end 
 go
 
---spViewPendingQuiz2 @Userid=3
+--Loads Multiple Choice,Matching,and Long Questions into QuizForm
+create procedure spQuizForm(
+@xmlQuizid varchar(60),
+@Version varchar(60)
+)
+as begin
+	select Question,Choice1,Choice2,Choice3,Choice4 from tbMultipleQuestions,tbQuizVersion,tbQuiz
+	where tbMultipleQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version = @Version and 
+			tbQuiz.xmlQuizid = @xmlQuizid
+	
+	select Question,Choices from tbMatchingQuestions,tbQuizVersion,tbQuiz 
+	where tbMatchingQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
+		  tbQuiz.xmlQuizid = @xmlQuizid
+
+	select Question,True,False from tbTrueOrFalseQuestions,tbQuizVersion,tbQuiz
+	where tbTrueOrFalseQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
+		  tbQuiz.xmlQuizid = @xmlQuizid
+	
+	select Question,Answers from tbFInBlanksQuestion,tbQuizVersion,tbQuiz
+	where tbFInBlanksQuestion.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version=@Version and
+		  tbQuiz.xmlQuizid = @xmlQuizid
+
+	select Question from tbLongQuestions,tbQuizVersion,tbQuiz
+	where tbLongQuestions.Versionid = tbQuizVersion.Versionid and tbQuiz.Quizid = tbQuizVersion.Quizid and tbQuizVersion.Version = @Version and 
+		  tbQuiz.xmlQuizid = @xmlQuizid
+end
+go
+--spQuizForm @xmlQuizid= 555, @Version=2
 
 --------------INSERTS-----------------
 
@@ -767,17 +804,14 @@ create procedure spUpdateSettings(
 @Username varchar (60),
 @Password varchar (60),
 @Classid int,
-@SecurityLevel int,
-@Email varchar(60)
+@SecurityLevel int
 )
 as begin
-update tbUser set Firstname=@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel,Email=@Email
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+		Classid=@Classid, SecurityLevel=@SecurityLevel
 			 where tbUser.Userid = @Userid
 end
 go
---spUpdateSettings @Userid=3,@Firstname=Jaren,@Lastname=Bryant,@Username=Kobe,@Password=hello,@Classid=0,@SecurityLevel=1,@Email=helloworld@yahoo.com
-
 create procedure spGetCountAlbums
 as begin 
 	select Count(*) as Count from tbMultipleQuestions
@@ -786,16 +820,3 @@ as begin
 end 
 
 go
-
-
-create procedure spGetStudentsUpdate(
-@Userid int ,
-@SecurityLevel int 
-)
-as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
-    from tbUser,tbClass where tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid and tbUser.Userid=@Userid
-end
-go
-
---spGetStudentsUpdate @Userid = 3 , @SecurityLevel=1

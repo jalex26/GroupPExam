@@ -72,6 +72,7 @@
     <Content Include="Settings.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="TestForm.aspx" />
+    <Content Include="installBACKUP.sql" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
