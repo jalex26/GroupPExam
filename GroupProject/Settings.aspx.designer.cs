@@ -76,22 +76,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
         
         /// <summary>
-        /// txtClassid control.
+        /// txtClassname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClassid;
-        
-        /// <summary>
-        /// txtSecurityLevel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSecurityLevel;
+        protected global::System.Web.UI.WebControls.TextBox txtClassname;
         
         /// <summary>
         /// btnSave control.
