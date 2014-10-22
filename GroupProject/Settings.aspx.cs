@@ -65,7 +65,6 @@ namespace GroupProject
                 txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
                 txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
-<<<<<<< HEAD
                 txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
                 
                
@@ -88,20 +87,12 @@ namespace GroupProject
                 txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
             
         }
-        
-
-=======
-            }
-
-        }
->>>>>>> origin/master
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             saveCustomers(txtUserid.Text);
             pn1Upd.Visible = false;
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             pn1Upd.Visible = false;

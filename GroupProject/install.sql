@@ -98,6 +98,7 @@ TotalScore decimal(10,5)
 )
 go
 
+<<<<<<< HEAD
 insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
 (2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
 
@@ -293,6 +294,11 @@ go
 insert into tbFInBlanksAnswers(Userid,FInBlanksQuestionid,UserAnswer)values
 (3,0,'mice'),(3,1,'skin'),(3,2,'less'),(3,3,'20'),(3,4,'otters')
 go
+=======
+--insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
+--(2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
+
+>>>>>>> 1a717f304bc92739bf09fe74defa5c159a13c4d1
 --Failed Login Attempts
 create table tbFailedLoginAttempt(
 Username varchar(60),
@@ -359,7 +365,11 @@ Subject varchar(60),
 Course varchar(60),
 Time int,
 Difficulty varchar(20),
+<<<<<<< HEAD
 XMLFileContent xml
+=======
+XmlFile xml
+>>>>>>> 1a717f304bc92739bf09fe74defa5c159a13c4d1
 )
 go
 
@@ -372,17 +382,27 @@ create procedure spInsertXMLContent(
 )
 as begin
  set nocount on;
+ WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
  insert into tbXMLQuizContent
  select 
  t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
+<<<<<<< HEAD
  t.value('(Details/Title/text())[1]','VARCHAR(60)') as Title,   
  t.value('(Details/Subject/text())[1]','VARCHAR(60)') as Subject,   
  t.value('(Details/Course/text())[1]','VARCHAR(60)') as Course,   
  t.value('(Details/Time/text())[1]','int') as Time,   
  t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty,   
  @xml as XMLFileContent
+=======
+ t.value('(ns:Details/ns:Title/text())[1]','VARCHAR(60)') as Title,   
+ t.value('(ns:Details/ns:Subject/text())[1]','VARCHAR(60)') as Subject,   
+ t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)') as Course,   
+ t.value('(ns:Details/ns:Time/text())[1]','int') as Time,   
+ t.value('(ns:Details/ns:Difficulty/text())[1]','VARCHAR(60)') as Difficulty,
+ @xml as XmlFile   
+>>>>>>> 1a717f304bc92739bf09fe74defa5c159a13c4d1
  from
- @xml.nodes('/Quiz')AS TempTable(t)
+ @xml.nodes('/ns:Quiz')AS TempTable(t)
   select @@identity as 'XMLQuizID'
 end
 go
@@ -410,7 +430,14 @@ go
 --end
 --go
 
+
+
+
+
+
 -----------------------------PROCEDURES-----------------------------------------
+
+
 
 --Login
 create procedure spLogin(
@@ -441,13 +468,12 @@ create procedure spGetStudents(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
-    from tbUser,tbClass where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
 
---spGetStudents @Classid=0, @SecurityLevel=1
 create procedure spGetStudents2(
 @Classid int = null,
 @SecurityLevel int 
@@ -767,17 +793,14 @@ create procedure spUpdateSettings(
 @Username varchar (60),
 @Password varchar (60),
 @Classid int,
-@SecurityLevel int,
-@Email varchar(60)
+@SecurityLevel int
 )
 as begin
-update tbUser set Firstname=@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel,Email=@Email
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+		Classid=@Classid, SecurityLevel=@SecurityLevel
 			 where tbUser.Userid = @Userid
 end
 go
---spUpdateSettings @Userid=3,@Firstname=Jaren,@Lastname=Bryant,@Username=Kobe,@Password=hello,@Classid=0,@SecurityLevel=1,@Email=helloworld@yahoo.com
-
 create procedure spGetCountAlbums
 as begin 
 	select Count(*) as Count from tbMultipleQuestions
@@ -786,16 +809,3 @@ as begin
 end 
 
 go
-
-
-create procedure spGetStudentsUpdate(
-@Userid int ,
-@SecurityLevel int 
-)
-as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
-    from tbUser,tbClass where tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid and tbUser.Userid=@Userid
-end
-go
-
---spGetStudentsUpdate @Userid = 3 , @SecurityLevel=1
