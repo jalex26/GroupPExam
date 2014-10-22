@@ -56,7 +56,7 @@ namespace GroupProject
                 txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
                 txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
-                txtClassname.Text = ds.Tables[0].Rows[0]["Classid"].ToString();
+                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
             }
 
         }

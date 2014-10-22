@@ -17,7 +17,7 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Panel ID="pn1Upd" runat="server" Visible="false" ScrollBars="Horizontal" BackColor="#CCCCCC" Height="308px" Width="376px">
+    <asp:Panel ID="pn1Upd" runat="server" Visible="false" ScrollBars="Horizontal" Height="308px" Width="376px">
         <table>
             <tr>
                 <td>Userid</td>
@@ -50,7 +50,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Classid</td>
+                <td>Classname</td>
                 <td>
                     <asp:TextBox ID="txtClassname" runat="server" ForeColor="Black"></asp:TextBox>
                 </td>
