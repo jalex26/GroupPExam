@@ -165,7 +165,8 @@ Title varchar(60),
 Subject varchar(60),
 Course varchar(60),
 Time int,
-Difficulty varchar(20)
+Difficulty varchar(20),
+XmlFile xml
 )
 go
 
@@ -190,16 +191,18 @@ create procedure spInsertXMLContent(
 )
 as begin
  set nocount on;
+ WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
  insert into tbXMLQuizContent
  select 
  t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
- t.value('(Details/Title/text())[1]','VARCHAR(60)') as Title,   
- t.value('(Details/Subject/text())[1]','VARCHAR(60)') as Subject,   
- t.value('(Details/Course/text())[1]','VARCHAR(60)') as Course,   
- t.value('(Details/Time/text())[1]','int') as Time,   
- t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
+ t.value('(ns:Details/ns:Title/text())[1]','VARCHAR(60)') as Title,   
+ t.value('(ns:Details/ns:Subject/text())[1]','VARCHAR(60)') as Subject,   
+ t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)') as Course,   
+ t.value('(ns:Details/ns:Time/text())[1]','int') as Time,   
+ t.value('(ns:Details/ns:Difficulty/text())[1]','VARCHAR(60)') as Difficulty,
+ @xml as XmlFile   
  from
- @xml.nodes('/Quiz')AS TempTable(t)
+ @xml.nodes('/ns:Quiz')AS TempTable(t)
   select @@identity as 'XMLQuizID'
 end
 go
