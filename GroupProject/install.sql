@@ -233,6 +233,7 @@ Userid int foreign key references tbUser(Userid),
 MultipleQuestionsid int foreign key references tbMultipleQuestions(MultipleQuestionsid),
 UserAnswer varchar(150)
 )
+
 go
 
 insert into tbMultipleAnswers(Userid,MultipleQuestionsid,UserAnswer)values
@@ -394,14 +395,7 @@ as begin
 end
 go
 
-
-
-
-
-
 -----------------------------PROCEDURES-----------------------------------------
-
-
 
 --Login
 create procedure spLogin(
@@ -432,12 +426,13 @@ create procedure spGetStudents(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
+    from tbUser,tbClass where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid
 end
 go
 
+--spGetStudents @Classid=0, @SecurityLevel=1
 create procedure spGetStudents2(
 @Classid int = null,
 @SecurityLevel int 
@@ -804,14 +799,17 @@ create procedure spUpdateSettings(
 @Username varchar (60),
 @Password varchar (60),
 @Classid int,
-@SecurityLevel int
+@SecurityLevel int,
+@Email varchar(60)
 )
 as begin
-update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel
+update tbUser set Firstname=@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+		Classid=@Classid, SecurityLevel=@SecurityLevel,Email=@Email
 			 where tbUser.Userid = @Userid
 end
 go
+--spUpdateSettings @Userid=3,@Firstname=Jaren,@Lastname=Bryant,@Username=Kobe,@Password=hello,@Classid=0,@SecurityLevel=1,@Email=helloworld@yahoo.com
+
 create procedure spGetCountAlbums
 as begin 
 	select Count(*) as Count from tbMultipleQuestions
@@ -821,3 +819,15 @@ end
 
 go
 
+
+create procedure spGetStudentsUpdate(
+@Userid int ,
+@SecurityLevel int 
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,tbClass.Classname,SecurityLevel,Email
+    from tbUser,tbClass where tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel and tbUser.Classid=tbClass.Classid and tbUser.Userid=@Userid
+end
+go
+
+--spGetStudentsUpdate @Userid = 3 , @SecurityLevel=1
