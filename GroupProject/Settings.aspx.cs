@@ -56,14 +56,8 @@ namespace GroupProject
                 txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
                 txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
-                txtClassid.Text = ds.Tables[0].Rows[0]["Classid"].ToString();
-                txtSecurityLevel.Text = ds.Tables[0].Rows[0]["SecurityLevel"].ToString();
+                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
             }
-
-        }
-
-        protected void btnInsert_Click(object sender, EventArgs e)
-        {
 
         }
 
