@@ -121,6 +121,7 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
         
         /// <summary>
+<<<<<<< HEAD
         /// lblClass control.
         /// </summary>
         /// <remarks>
@@ -140,11 +141,15 @@ namespace GroupProject {
         
         /// <summary>
         /// lblEmail control.
+=======
+        /// txtClassname control.
+>>>>>>> origin/master
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+<<<<<<< HEAD
         protected global::System.Web.UI.WebControls.Label lblEmail;
         
         /// <summary>
@@ -155,6 +160,9 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+=======
+        protected global::System.Web.UI.WebControls.TextBox txtClassname;
+>>>>>>> origin/master
         
         /// <summary>
         /// btnSave control.
