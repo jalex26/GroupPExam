@@ -9,6 +9,7 @@
         <asp:Button ID="btnCreateQuiz" runat="server" Text="Create Quiz" />
         <asp:Button ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" />
     </div>
+
     
     <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
         <table>
@@ -101,5 +102,7 @@ Hey, world, I just said "Hello!"</font></p></div>
     <asp:Panel ID="pnlViewQuiz" runat="server">
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
     </asp:Panel>
+
+    
 
 </asp:Content>

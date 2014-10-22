@@ -157,7 +157,35 @@
    background: #ffffff;
    }
 
+/*Design and Layout Changes- Please don't delete yet Thanks Nupur*/
 
+#footer { height:51px; background:#ebebeb; white-space:nowrap; line-height:50px; padding:0 15px; color:#7b7b7b; margin-top:10px;}
+#footer a{ color:#7b7b7b; text-decoration: none;}
+#footer a:hover{ color:#000;}
+#footer span{ padding:0 2px;}
+
+.left, .alignleft { float:left; display:inline; }
+.right, .alignright { float:right; display:inline; }
+
+body {
+	background:#fff url(images/body.gif) repeat-x 0 0;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size:14px;
+	line-height:16px;
+	color:#636363;
+}
+
+input, textarea, select { font-family: "Trebuchet MS", Arial, sans-serif; font-size:12px; }
+
+.field { background:#ebebeb; border:solid 1px #dedede; padding:2px;}
+
+#content { float:right; width:600px; align-content:center}
+
+#main { padding:10px 0 0 0; }
+
+#sidebar { float:left; width:226px;
+    height: 326px;
+}
 
 
 

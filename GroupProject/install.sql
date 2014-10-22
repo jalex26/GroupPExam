@@ -328,28 +328,18 @@ go
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
-XMLQuizID int primary key,    --extracting it from the XML file    
+QuizID int primary key identity (1,1),
+XMLQuizID int,    --extracting it from the XML file    
 Title varchar(60),
 Subject varchar(60),
 Course varchar(60),
 Time int,
-Difficulty varchar(20)
+Difficulty varchar(20),
+XMLFileContent xml
 )
 go
 
 
-create table tbMultipleChoice(
-QuestionID int primary key identity (1,1),
-XMLQuestionID int,    -- get this id from xml file
-Question varchar(255),
-OptionOne varchar(60),
-OptionTwo varchar(60),
-OptionThree varchar(60),
-OptionFour varchar(60),
-CorrectAnswer varchar(20) null,
-XMLQuizID int foreign key references tbXMLQuizContent(XMLQuizID)
-)
-go
 
 ------------------------STORED PROCEDURES-----------------------
 
@@ -365,7 +355,8 @@ as begin
  t.value('(Details/Subject/text())[1]','VARCHAR(60)') as Subject,   
  t.value('(Details/Course/text())[1]','VARCHAR(60)') as Course,   
  t.value('(Details/Time/text())[1]','int') as Time,   
- t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty   
+ t.value('(Details/Difficulty/text())[1]','VARCHAR(60)') as Difficulty,   
+ @xml as XMLFileContent
  from
  @xml.nodes('/Quiz')AS TempTable(t)
   select @@identity as 'XMLQuizID'
@@ -373,26 +364,27 @@ end
 go
 
 
-create procedure spinsertMultipleChoice(
-@xml xml
-)
-as begin
- set nocount on;
- insert into tbMultipleChoice
- select
- t.value('../@QuizId','int') as XMLQuizID,
- --t.value('@ID','int') as XMLQuestionID,   
- t.value('(Questions/MultipleChoice/Question/ID/text())[1]','INT') as XMLQuestionID,
- t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
- from
- @xml.nodes('/Quiz')AS TempTable(t)
-end
-go
+--create procedure spinsertMultipleChoice(
+--@xml xml
+--)
+--as begin
+-- set nocount on;
+-- --insert into tbMultipleChoice
+-- select
+-- t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
+
+-- t.value('(/Questions/MultipleChoice/Question/@ID)[1]','int') as XMLQuestionID,   
+
+-- t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
+-- from
+-- @xml.nodes('/Quiz')AS TempTable(t)
+--end
+--go
 
 
 

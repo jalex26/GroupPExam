@@ -10,6 +10,7 @@ using DAL_Project;
 using System.IO;
 using System.Data.SqlClient;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace GroupProject
 {
@@ -156,10 +157,13 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
         }
+     
 
         // this button validates xml file and then saves it in a temporary folder 'tempXML'
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
+            
+
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
@@ -167,14 +171,7 @@ namespace GroupProject
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 
-            string xml = File.ReadAllText(fullFilePath);
-           
-            //byte[] allBytes = File.ReadAllBytes(fullFilePath);
-            
-            //string xml = System.Text.Encoding.UTF8.GetString(allBytes);
-
-            //string xmlSingle = xml.Replace("\r\n", "");
-            //string xmlRemoveSlash = xmlSingle.Replace(@"\", "");
+            string xml = File.ReadAllText(fullFilePath);         
 
             string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
             OpenValidate OV = new OpenValidate();
@@ -183,19 +180,21 @@ namespace GroupProject
             {
                 Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
             }
+            
+           
+                // saving xml data in database if file is in correct format
+                XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
+                DataSet ds = new DataSet();
+                ds.ReadXml(xmlreader);
+                xmlreader.Close();
+                if (ds.Tables.Count != 0)
+                {
+                    myDal.ClearParams();
+                    myDal.AddParam("@xml", xml);
+                    myDal.ExecuteProcedure("spInsertXMLContent");
 
-            // saving xml data in database if file is in correct format
-            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);            
-            DataSet ds = new DataSet();
-            ds.ReadXml(xmlreader);
-            xmlreader.Close();
-            if (ds.Tables.Count != 0)
-            {
-                myDal.ClearParams();            
-                //myDal.AddParam("@xml", allBytes);
-                myDal.ExecuteProcedure("spInsertXMLContent");
-               
-            }
+                }
+            
 
         }
    

@@ -28,7 +28,7 @@
         <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx">Settings</asp:LinkButton>
         <asp:LinkButton ID="lbTestPage" runat="server" PostBackUrl="~/TestForm.aspx">TestPage</asp:LinkButton>
         <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
-
+       
         <br />
         <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
         <br />
@@ -63,6 +63,27 @@
                 <%--DO NOT PUT ANYTHING HERE--%>
             </asp:ContentPlaceHolder>
         </div>
+
+        
     </form>
+
+      <!-- Footer -->
+    <div id="footer">
+        <p class="left">
+            <a href="Home.aspx">Home</a>
+            <span>|</span>
+            <a href="Quizes.aspx">Quizes</a>
+            <span>|</span>
+            <a href="MentorPage.aspx">Mentor Page</a>
+            <span>|</span>
+            <a href="Settings.aspx">Settings</a>            
+        </p>
+        <p class="right">
+            &copy; 2014 Robertson College|
+			Design by <a href="http://robertsoncollege.com" target="_blank" title="Design By Software Development Class 18">Software Development Class 18</a>
+        </p>
+    </div>
+    <!-- End Footer -->
+
 </body>
 </html>
