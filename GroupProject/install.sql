@@ -119,18 +119,10 @@ go
 --)
 go
 
---1-Open
---2-Close
-
---insert into tbTest(TestDate,Userid,Status)values
---('2014-03-14',1,1),('2014-01-23',1,1),('2014-11-13',1,1)
---go
-
-
-
-
-
-
+create table tbQuizStatus(
+StatusId int primary key identity (0,1),
+StatusName varchar(10)
+)
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
@@ -152,23 +144,21 @@ XmlFile xml
 )
 go
 
-create table tbTestStudent(
-TestStudentid int primary key identity (0,1),
+create table tbIssuedTest(		-- issued quiz and its statuses
+IssuedTestId int primary key identity(0,1),
 Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
+StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
+DateIssued date,
+TestStatus int foreign key references tbQuizStatus(StatusId)
+)
+
+create table tbTestStudent(			
+TestStudentid int primary key identity (0,1), -- just the id nothing else
+IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLAnswers xml
 )
 
-
-
---insert into tbTestStudent(Testid,Userid)values
---(0,3),
---(1,4),
---(2,5)
---go
-
---insert into tbQuizVersion(Quizid,Version)values
---(0,1),(1,2),(2,1),(3,1)
 go
 
 
