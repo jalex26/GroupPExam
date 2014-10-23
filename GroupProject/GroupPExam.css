@@ -1,6 +1,7 @@
 ﻿.header_container {
     width: 100%;
-    background: #191919;
+    background: #FF3333;
+        /*#191919;*/
     height: 100px;
     overflow: hidden;
     margin: 0 0 27px 0;
@@ -185,6 +186,14 @@ input, textarea, select { font-family: "Trebuchet MS", Arial, sans-serif; font-s
 
 #sidebar { float:left; width:226px;
     height: 326px;
+}
+
+.TopRight {
+    position: absolute;
+    float: right;
+    top: 20px;
+    right: 0;
+    width: 150px;  
 }
 
 

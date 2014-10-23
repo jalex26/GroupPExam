@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Customers>
+  <Customer>
+    <Name>Shawpnendu Bikash Maloroy</Name>
+    <Address>Uttara, Dhaka</Address>
+    <City>Dhaka</City>
+    <Phone>011789657</Phone>
+  </Customer>
+  <Customer>
+    <Name>Bimolandu Bikash Maloroy</Name>
+    <Address>Sonaimuri, Noakhali</Address>
+    <City>Noakhali</City>
+    <Phone>019789687</Phone>
+  </Customer>
+  <Customer>
+    <Name>Purnendu Bikash Maloroy</Name>
+    <Address>FirmGate, Dhaka</Address>
+    <City>Dhaka</City>
+    <Phone>018788767</Phone>
+  </Customer>
+  <Customer>
+    <Name>Shadesh Chandra Chanda</Name>
+    <Address>Maijdee, Noakhali</Address>
+    <City>Noakhali</City>
+    <Phone>015787597</Phone>
+  </Customer>
+  <Customer>
+    <Name>Sajal Chandra Chanda</Name>
+    <Address>Maijdee, Noakhali</Address>
+    <City>Noakhali</City>
+    <Phone>019734557</Phone>
+  </Customer>
+</Customers>
