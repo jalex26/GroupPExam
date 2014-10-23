@@ -36,7 +36,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="UserName:"></asp:Label>
+                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server"></asp:TextBox>
