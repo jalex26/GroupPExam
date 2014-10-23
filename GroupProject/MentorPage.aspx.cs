@@ -25,7 +25,6 @@ namespace GroupProject
             {
                 loadCourse();
                 loadQuiz();
-                loadVersion();
                 loadStudents();
                 ViewQuiz();
             }
@@ -53,56 +52,6 @@ namespace GroupProject
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
-        }
-        public void loadVersion()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadVersion");
-
-            //Binds to the dropdownlist
-            ddlVersion.DataTextField = "Version";
-            ddlVersion.DataValueField = "Versionid";
-            ddlVersion.DataSource = ds;
-            ddlVersion.DataBind();
-            ddlVersion.Items.Insert(0, new ListItem("-Select Version", String.Empty));
-            ddlVersion.SelectedIndex = 0;
-        }
-
-        protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //DataSet ds = new DataSet();
-            //myDal.ClearParams();
-            //ds = myDal.ExecuteProcedure("spLoadCourse");
-
-            //lbCourseid.Text = ds.Tables[0].Rows[0]["Courseid"].ToString();
-
-
-            //DataSet ds2 = new DataSet();
-            //myDal.ClearParams();
-            //myDal.AddParam("Courseid", lbCourseid.Text);
-            //ds2 = myDal.ExecuteProcedure("spLoadQuiz2");
-
-            //ddlSelectQuiz.DataTextField = "Title";
-            //ddlSelectQuiz.DataValueField = "Quizid";
-            //ddlSelectQuiz.DataSource = ds2;
-            //ddlSelectQuiz.DataBind();
-            //ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
-            //ddlSelectQuiz.SelectedIndex = 0;
-
-            //DataSet ds3 = new DataSet();
-            //myDal.ClearParams();
-            //myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
-            //myDal.AddParam("SecurityLevel", "1");
-            //ds3 = myDal.ExecuteProcedure("spGetStudents3");
-
-            //cblStudents.DataTextField = "Studentname";
-            //cblStudents.DataValueField = "Userid";
-            //cblStudents.DataSource = ds3;
-            //cblStudents.DataBind();
-
-
-
         }
         public void loadStudents()
         {
@@ -232,6 +181,17 @@ namespace GroupProject
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
+        }
+  
+        protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = LB.LoadQuizVersions(ddlSelectQuiz.SelectedValue.ToString());
+            ddlVersion.DataTextField = "Version";
+            ddlVersion.DataValueField = "Versionid";
+            ddlVersion.DataSource = ds;
+            ddlVersion.DataBind();
+            ddlVersion.Items.Insert(0,new ListItem("-Select Quiz-", String.Empty));
+            ddlVersion.SelectedIndex=0;
         }
 
     }

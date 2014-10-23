@@ -373,10 +373,14 @@ as begin
 end
 go
 --Loads Version
-create procedure spLoadVersion
+create procedure spLoadVersion(
+@QuizId int
+)
 as begin 
-	select * from tbQuizVersion
+	select * from tbQuizVersion where Quizid = @QuizId
 end 
+go
+spLoadVersion @QuizId = 111230123
 go
 
 --Loads the Quiz 

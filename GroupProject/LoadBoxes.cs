@@ -34,5 +34,13 @@ namespace GroupProject
             DataSet ds = myDal.ExecuteProcedure("spLoadQuizes");
             return ds;
         }
+        public DataSet LoadQuizVersions(string QuizId)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@QuizId", QuizId);
+            DataSet ds = myDal.ExecuteProcedure("spLoadVersion");
+            return ds;
+            
+        }
     }
 }

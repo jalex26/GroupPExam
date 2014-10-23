@@ -43,7 +43,7 @@
             </td>
             <td>
                 <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
-                <asp:DropDownList ID="ddlSelectQuiz" runat="server"></asp:DropDownList> 
+                <asp:DropDownList ID="ddlSelectQuiz" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSelectQuiz_SelectedIndexChanged"></asp:DropDownList> 
              
                 <%--<input type="button" value="New Window!" onclick="window.open('http://localhost:49966/ViewQuestions.aspx', 'mywindow', 'width=400,height=200')" />--%>
                 
