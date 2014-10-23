@@ -333,7 +333,7 @@ create procedure spLoadQuiz2(
 @Courseid int
 )
 as begin 
-	select * from tbQuiz where Courseid=@Courseid
+	select * from tbXMLQuizContent where tbXMLQuizContent.CourseID =@Courseid
 end 
 go
 
@@ -342,14 +342,18 @@ create procedure spLoadQuiz5(
 @Quizid int
 )
 as begin 
-	select * from tbQuiz,tbDifficulty,tbQuizVersion where tbQuiz.Quizid = @Quizid and tbDifficulty.Difficultyid = tbQuiz.Difficulty and tbQuiz.Quizid = tbQuizVersion.Quizid
+	select * from tbXMLQuizContent,tbDifficulty,tbQuizVersion 
+	where tbXMLQuizContent.XMLQuizID = @Quizid and 
+	tbDifficulty.Difficultyid = tbXMLQuizContent.DifficultyId and 
+	tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 end 
 go
 
 --Loads Quiz
 create procedure spLoadQuiz4
 as begin
-	select * from tbQuiz, tbQuizVersion where tbQuiz.Quizid = tbQuizVersion.Quizid
+	select * from tbXMLQuizContent, tbQuizVersion 
+	where tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 end
 go
 
@@ -364,8 +368,10 @@ go
 --Loads the Quiz 
 create procedure spViewQuiz
 as begin 
-	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty, Version from tbQuiz,tbQuizVersion
-	where tbQuiz.Quizid = tbQuizVersion.Quizid
+	select tbXMLQuizContent.XMLQuizID, tbXMLQuizContent.Subject, tbXMLQuizContent.Time,
+	       tbXMLQuizContent.DifficultyId, tbQuizVersion.Version, tbQuizVersion.Versionid
+	from tbXMLQuizContent,tbQuizVersion
+	where tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 	
 end 
 go
@@ -377,8 +383,10 @@ create procedure spViewQuizResults(
 )
 
 as begin 
-	select * from tbResults,tbQuiz
-	where tbResults.Userid=@Userid and tbQuiz.Quizid = tbResults.Quizid
+	select * from tbQuizVersion, tbTestStudent 
+	where tbTestStudent.TestStudentid = @Userid and
+	      tbQuizVersion.Versionid = tbIssuedTest.Versionid and
+		  tbIssuedTest.IssuedTestId = tbTestStudent.IssuedTestId
 end 
 go
 
@@ -396,10 +404,11 @@ go
  @Userid int
  )
 as begin 
-	select * from tbTest,tbQuiz,tbDifficulty
-	where tbTest.Quizid = tbQuiz.Quizid and Userid=@Userid and tbQuiz.Difficulty = tbDifficulty.Difficultyid
-	
-end 
+	select * from tbTestStudent,tbXMLQuizContent,tbDifficulty, tbIssuedTest
+	where  Userid=@Userid and
+	       tbTestStudent.IssuedTestId = tbIssuedTest.IssuedTestId and	      
+	      tbXMLQuizContent.DifficultyId = tbDifficulty.Difficultyid
+	end 
 go
 
 --spViewPendingQuiz2 @Userid=3
