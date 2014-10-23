@@ -21,7 +21,7 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
-('Software Development'),('Networking')
+('Software Developer'),('Networking')
 go
 
 create table tbClass(
@@ -163,7 +163,7 @@ create table tbXMLQuizContent(
 XMLQuizID int primary key,    --extracting it from the XML file    
 Title varchar(60),
 Subject varchar(60),
-Course varchar(60),
+CourseID int foreign key references tbCourse(Courseid),
 Time int,
 Difficulty varchar(20),
 XmlFile xml
@@ -171,17 +171,17 @@ XmlFile xml
 go
 
 
-create table tbMultipleChoice(
-QuestionID int primary key identity (1,1),
-XMLQuestionID int,    -- get this id from xml file
-Question varchar(255),
-OptionOne varchar(60),
-OptionTwo varchar(60),
-OptionThree varchar(60),
-OptionFour varchar(60),
-CorrectAnswer varchar(20) null,
-XMLQuizID int foreign key references tbXMLQuizContent(XMLQuizID)
-)
+--create table tbMultipleChoice(
+--QuestionID int primary key identity (1,1),
+--XMLQuestionID int,    -- get this id from xml file
+--Question varchar(255),
+--OptionOne varchar(60),
+--OptionTwo varchar(60),
+--OptionThree varchar(60),
+--OptionFour varchar(60),
+--CorrectAnswer varchar(20) null,
+--XMLQuizID int foreign key references tbXMLQuizContent(XMLQuizID)
+--)
 go
 
 ------------------------STORED PROCEDURES-----------------------
@@ -196,8 +196,9 @@ as begin
  select 
  t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
  t.value('(ns:Details/ns:Title/text())[1]','VARCHAR(60)') as Title,   
- t.value('(ns:Details/ns:Subject/text())[1]','VARCHAR(60)') as Subject,   
- t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)') as Course,   
+ t.value('(ns:Details/ns:Subject/text())[1]','VARCHAR(60)') as Subject,
+ (select Courseid from tbCourse where Coursename in (t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)'))) as CourseID,
+ --t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)') as CourseID,
  t.value('(ns:Details/ns:Time/text())[1]','int') as Time,   
  t.value('(ns:Details/ns:Difficulty/text())[1]','VARCHAR(60)') as Difficulty,
  @xml as XmlFile   
@@ -206,30 +207,31 @@ as begin
   -- select @@identity as 'XMLQuizID'
 end
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949201" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949230111" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
-go
-create procedure spinsertMultipleChoice(
-@xml xml
-)
-as begin
- set nocount on;
- insert into tbMultipleChoice
- select
- t.value('../@QuizId','int') as XMLQuizID,
- --t.value('@ID','int') as XMLQuestionID,   
- t.value('(Questions/MultipleChoice/Question/ID/text())[1]','INT') as XMLQuestionID,
- t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
- t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
- from
- @xml.nodes('/Quiz')AS TempTable(t)
-end
-go
+select * from tbCourse
+--go
+--create procedure spinsertMultipleChoice(
+--@xml xml
+--)
+--as begin
+-- set nocount on;
+-- insert into tbMultipleChoice
+-- select
+-- t.value('../@QuizId','int') as XMLQuizID,
+-- --t.value('@ID','int') as XMLQuestionID,   
+-- t.value('(Questions/MultipleChoice/Question/ID/text())[1]','INT') as XMLQuestionID,
+-- t.value('(Questions/Questi/text())[1]','VARCHAR(255)') as Question,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[1]','VARCHAR(60)') as OptionOne,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[2]','VARCHAR(60)') as OptionTwo,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[3]','VARCHAR(60)') as OptionThree, 
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/text())[4]','VARCHAR(60)') as OptionFour,   
+-- t.value('(Questions/MultipleChoice/Question/Options/Option/Correct/text())[1]','VARCHAR(20)') as CorrectAnswer
+-- from
+-- @xml.nodes('/Quiz')AS TempTable(t)
+--end
+--go
 
 
 
@@ -239,7 +241,7 @@ go
 -----------------------------PROCEDURES-----------------------------------------
 
 
-
+go
 --Login
 create procedure spLogin(
 @Username varchar(60),
