@@ -59,19 +59,6 @@ insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,Us
 ('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
 
-
-
---create table tbQuiz(
---Quizid int primary key identity (0,1),
---QuizTitle varchar(60),
---QuizSubject varchar(60),
---Courseid int foreign key references tbCourse(Courseid) on delete cascade,
---TimetoTake time,
---Difficulty int foreign key references tbDifficulty(Difficultyid),
---XMLQuizFile xml
---)
-go
-
 --create table tbResults(
 --Resultid int primary key identity (0,1),
 --Userid int foreign key references tbUser(Userid),
@@ -108,15 +95,6 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Melody','Allison','05-13-2014'),
 ('Lee','Hopkins','05-20-2014'),
 ('Irving','Evans','05-26-2014')
-go
-
---create table tbTest(
---Testid int primary key identity (0,1),
---TestDate date,
---Userid int foreign key references tbUser(Userid),  ---Mentor
---Quizid int foreign key references tbQuiz(Quizid) null,   ---INSERT FROM STORED PROCEDURE
---Status int
---)
 go
 
 create table tbQuizStatus(
@@ -156,11 +134,11 @@ create table tbTestStudent(
 TestStudentid int primary key identity (0,1), -- just the id nothing else
 IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
 Userid int foreign key references tbUser(Userid),  ---Student
-XMLAnswers xml
+XMLStudentResponse xml, 
+Status varchar(20),
+Points int   -- results or number of correct responses by each student
 )
-
 go
-
 
 
 ------------------------STORED PROCEDURES-----------------------
@@ -232,7 +210,7 @@ else
 
 end
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
 select * from tbCourse
@@ -342,10 +320,11 @@ as begin
 end	
 go
 
---Load Quiz
+--Load Quiz get it from versioning table and join it on tbXMLcontent
 create procedure spLoadQuiz
 as begin 
-	select * from tbQuiz
+	select * from tbXMLQuizContent, tbQuizVersion
+	where tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 end 
 go
 
