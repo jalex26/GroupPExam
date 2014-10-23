@@ -22,7 +22,7 @@ namespace GroupProject
             lblFirstname.Text = mySecurity.Firstname;
             if(mySecurity.GetSecurityLevel() ==0)
             {
-                //pnlLogin.Visible = true;
+                //pnlLogin.Visible = true;//
             }
             else
             {
