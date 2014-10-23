@@ -14,7 +14,7 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
-('Software Developer'),('Networking')
+('Software Developer'),('Network Engineering')
 go
 
 create table tbClass(
@@ -216,7 +216,7 @@ spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="1
 go
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
 select * from tbCourse
@@ -236,16 +236,6 @@ as begin
 end
 go
 
--- Collects all the Failed Login Attempts
---create procedure spFailedLoginAttempts(
---@Email varchar(60) = null,
---@Password varchar(60) = null
---)
---as begin 
---	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Email, tbFailedLoginAttempt.Password,DateAttempted)values
---									(@Username,@Password,GETDATE())
---end 
---go
 
 -----------SELECTS------------
 
@@ -331,6 +321,21 @@ end
 go
 
 go
+
+create procedure spLoadQuizes(
+@Courseid int
+)
+as begin
+	select XMLQuizID,Title,Subject,tbXMLQuizContent.CourseID,Time,DifficultyId from tbXMLQuizContent
+	left join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
+	where tbXMLQuizContent.CourseID = @Courseid
+end
+
+go
+-- spLoadQuizes @Courseid = 0;
+go
+
+
 --Load Quiz get it from versioning table and join it on tbXMLcontent
 create procedure spLoadQuiz
 as begin 

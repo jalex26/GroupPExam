@@ -26,5 +26,13 @@ namespace GroupProject
             DataSet ds = myDal.ExecuteProcedure("spLoadClass");
             return ds;
         }
+
+        public DataSet LoadQuizes(string CourseId)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@CourseId", CourseId);
+            DataSet ds = myDal.ExecuteProcedure("spLoadQuizes");
+            return ds;
+        }
     }
 }

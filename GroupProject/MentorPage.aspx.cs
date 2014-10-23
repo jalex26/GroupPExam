@@ -71,36 +71,35 @@ namespace GroupProject
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
-            ds = myDal.ExecuteProcedure("spLoadCourse");
+            //DataSet ds = new DataSet();
+            //myDal.ClearParams();
+            //ds = myDal.ExecuteProcedure("spLoadCourse");
 
-            lbCourseid.Text = ds.Tables[0].Rows[0]["Courseid"].ToString();
+            //lbCourseid.Text = ds.Tables[0].Rows[0]["Courseid"].ToString();
 
 
-            DataSet ds2 = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Courseid", lbCourseid.Text);
-            ds2 = myDal.ExecuteProcedure("spLoadQuiz2");
+            //DataSet ds2 = new DataSet();
+            //myDal.ClearParams();
+            //myDal.AddParam("Courseid", lbCourseid.Text);
+            //ds2 = myDal.ExecuteProcedure("spLoadQuiz2");
 
-            ddlSelectQuiz.DataTextField = "Title";
-            ddlSelectQuiz.DataValueField = "Quizid";
-            ddlSelectQuiz.DataSource = ds2;
-            ddlSelectQuiz.DataBind();
-            ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
-            ddlSelectQuiz.SelectedIndex = 0;
+            //ddlSelectQuiz.DataTextField = "Title";
+            //ddlSelectQuiz.DataValueField = "Quizid";
+            //ddlSelectQuiz.DataSource = ds2;
+            //ddlSelectQuiz.DataBind();
+            //ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
+            //ddlSelectQuiz.SelectedIndex = 0;
 
-            DataSet ds3 = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
-            myDal.AddParam("SecurityLevel", "1");
-            ds3 = myDal.ExecuteProcedure("spGetStudents3");
+            //DataSet ds3 = new DataSet();
+            //myDal.ClearParams();
+            //myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
+            //myDal.AddParam("SecurityLevel", "1");
+            //ds3 = myDal.ExecuteProcedure("spGetStudents3");
 
-            cblStudents.DataTextField = "Studentname";
-            cblStudents.DataValueField = "Userid";
-            cblStudents.DataSource = ds3;
-            cblStudents.DataBind();
+            //cblStudents.DataTextField = "Studentname";
+            //cblStudents.DataValueField = "Userid";
+            //cblStudents.DataSource = ds3;
+            //cblStudents.DataBind();
 
 
 
@@ -171,13 +170,13 @@ namespace GroupProject
                 RemoveNamespaceAttributes(n);
             }
         }
-     
+
 
         // this button validates xml file and then saves it in a temporary folder 'tempXML'
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
             XmlDocument fullXml;
-            
+
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
@@ -187,7 +186,7 @@ namespace GroupProject
 
             // saving xml file content in a string to pass it to stored proc later
             string xml = File.ReadAllText(fullFilePath);
-        
+
             // validating xml file here before inserting into database
             string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
             OpenValidate OV = new OpenValidate();
@@ -203,17 +202,17 @@ namespace GroupProject
             RemoveNamespaceAttributes(fullXml.DocumentElement);
 
             // saving xml data in database if file is in correct format
-                XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
-                DataSet ds = new DataSet();
-                ds.ReadXml(xmlreader);
-                xmlreader.Close();
-                if (ds.Tables.Count != 0)
-                {
-                    myDal.ClearParams();
-                    myDal.AddParam("@xml", xml);
-                    myDal.ExecuteProcedure("spInsertXMLContent");
+            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
+            DataSet ds = new DataSet();
+            ds.ReadXml(xmlreader);
+            xmlreader.Close();
+            if (ds.Tables.Count != 0)
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@xml", xml);
+                myDal.ExecuteProcedure("spInsertXMLContent");
 
-                }
+            }
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
@@ -225,7 +224,15 @@ namespace GroupProject
             ddlClass.DataBind();
             ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
             ddlClass.SelectedIndex = 0;
+
+            DataSet ds1 = LB.LoadQuizes(ddlCourse.SelectedValue.ToString());
+            ddlSelectQuiz.DataTextField = "Title";
+            ddlSelectQuiz.DataValueField = "XMLQuizID";
+            ddlSelectQuiz.DataSource = ds1;
+            ddlSelectQuiz.DataBind();
+            ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
+            ddlSelectQuiz.SelectedIndex = 0;
         }
-   
+
     }
 }
