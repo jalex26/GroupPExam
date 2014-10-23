@@ -23,10 +23,10 @@
             <a href="MentorPage.aspx">Mentor</a>
             <a href="Admin.aspx">Admin</a>--%>
         <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton> 
-        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx">Mentor</asp:LinkButton>
-        <asp:LinkButton ID="lblQuizes" runat="server" PostBackUrl="~/Quizes.aspx">Quizes</asp:LinkButton>
-        <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx">Settings</asp:LinkButton>
-        <asp:LinkButton ID="lbTestPage" runat="server" PostBackUrl="~/TestForm.aspx">TestPage</asp:LinkButton>
+        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx" Visible="false">Mentor</asp:LinkButton>
+        <asp:LinkButton ID="lbQuizes" runat="server" PostBackUrl="~/Quizes.aspx" Visible="false">Quizes</asp:LinkButton>
+        <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx" Visible="false">Settings</asp:LinkButton>
+        
         <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
        
         <br />

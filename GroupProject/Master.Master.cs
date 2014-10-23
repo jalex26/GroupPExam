@@ -34,19 +34,28 @@ namespace GroupProject
             }
 
             //Adjust links visible according to Security Level(Admin or Regular)
-            if (mySecurity.GetSecurityLevel() < 2)
+            if (mySecurity.GetSecurityLevel() < 2 && mySecurity.GetSecurityLevel() != 0)
             {
                 //lbTest.Visible = false;
-                lbMentorPage.Visible = false;
                 
-                
+                lbQuizes.Visible = true;
+                lbSettings.Visible = false;
                 
             }
+            
+            else if (mySecurity.GetSecurityLevel() == 0)
+            {
+                lbMentorPage.Visible = false;
+                lbQuizes.Visible = false;
+                lbSettings.Visible = false;
+            }
+
             else
             {
-                //lbTest.Visible = true;
+              
                 lbMentorPage.Visible = true;
-                
+                lbQuizes.Visible = false;
+                lbSettings.Visible = false;
             }
         }
 
