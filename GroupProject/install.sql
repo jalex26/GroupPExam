@@ -61,34 +61,24 @@ go
 
 
 
-create table tbQuiz(
-Quizid int primary key identity (0,1),
-QuizTitle varchar(60),
-QuizSubject varchar(60),
-Courseid int foreign key references tbCourse(Courseid) on delete cascade,
-TimetoTake time,
-Difficulty int foreign key references tbDifficulty(Difficultyid),
-XMLQuizFile xml
-)
+--create table tbQuiz(
+--Quizid int primary key identity (0,1),
+--QuizTitle varchar(60),
+--QuizSubject varchar(60),
+--Courseid int foreign key references tbCourse(Courseid) on delete cascade,
+--TimetoTake time,
+--Difficulty int foreign key references tbDifficulty(Difficultyid),
+--XMLQuizFile xml
+--)
 go
 
-create table tbQuizVersion(
-Versionid int primary key identity (0,1),
-Quizid int foreign key references tbQuiz(Quizid),
-Version int
-)
-go
-
---insert into tbQuizVersion(Quizid,Version)values
---(0,1),(1,2),(2,1),(3,1)
-
-create table tbResults(
-Resultid int primary key identity (0,1),
-Userid int foreign key references tbUser(Userid),
-Versionid int foreign key references tbQuizVersion(Versionid), 
-Quizid int foreign key references tbQuiz(Quizid),
-TotalScore decimal(10,5)
-)
+--create table tbResults(
+--Resultid int primary key identity (0,1),
+--Userid int foreign key references tbUser(Userid),
+--Versionid int foreign key references tbQuizVersion(Versionid), 
+--Quizid int foreign key references tbQuiz(Quizid),
+--TotalScore decimal(10,5)
+--)
 go
 
 --insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
@@ -120,34 +110,25 @@ insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
 ('Irving','Evans','05-26-2014')
 go
 
-create table tbTest(
-Testid int primary key identity (0,1),
-TestDate date,
-Userid int foreign key references tbUser(Userid),  ---Mentor
-Quizid int foreign key references tbQuiz(Quizid) null,   ---INSERT FROM STORED PROCEDURE
-Status int
-)
+--create table tbTest(
+--Testid int primary key identity (0,1),
+--TestDate date,
+--Userid int foreign key references tbUser(Userid),  ---Mentor
+--Quizid int foreign key references tbQuiz(Quizid) null,   ---INSERT FROM STORED PROCEDURE
+--Status int
+--)
 go
 
 --1-Open
 --2-Close
 
-insert into tbTest(TestDate,Userid,Status)values
-('2014-03-14',1,1),('2014-01-23',1,1),('2014-11-13',1,1)
-go
+--insert into tbTest(TestDate,Userid,Status)values
+--('2014-03-14',1,1),('2014-01-23',1,1),('2014-11-13',1,1)
+--go
 
-create table tbTestStudent(
-TestStudentid int primary key identity (0,1),
-Testid int foreign key references tbTest(Testid),
-Userid int foreign key references tbUser(Userid),  ---Student
-XMLAnswers xml null
-)
 
-insert into tbTestStudent(Testid,Userid)values
-(0,3),
-(1,4),
-(2,5)
-go
+
+
 
 
 
@@ -159,19 +140,60 @@ Subject varchar(60),
 CourseID int foreign key references tbCourse(Courseid),
 Time int,
 DifficultyId int foreign key references tbDifficulty(Difficultyid),
+
+)
+go
+
+create table tbQuizVersion(
+Versionid int primary key identity (0,1),
+Quizid int foreign key references tbXMLQuizContent(XMLQuizID),
+Version int,
 XmlFile xml
 )
 go
+
+create table tbTestStudent(
+TestStudentid int primary key identity (0,1),
+Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
+Userid int foreign key references tbUser(Userid),  ---Student
+XMLAnswers xml
+)
+
+
+
+--insert into tbTestStudent(Testid,Userid)values
+--(0,3),
+--(1,4),
+--(2,5)
+--go
+
+--insert into tbQuizVersion(Quizid,Version)values
+--(0,1),(1,2),(2,1),(3,1)
 go
+
+
 
 ------------------------STORED PROCEDURES-----------------------
 
 create procedure spInsertXMLContent(
 @xml xml
 )
-as begin
+as declare
+@QuizIdDuplicate int,
+@getQuizVersionOccurence int
+ begin
+begin transaction
  set nocount on;
- WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+ -- check first for duplicates, if so then make a new version of it...
+ ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+ select @QuizIdDuplicate = (select t.value('@QuizId','int') as XMLQuizID
+ from
+ @xml.nodes('/ns:Quiz')AS TempTable(t))
+
+ if not EXISTS(select 1 from tbXMLQuizContent where XMLQuizID = @QuizIdDuplicate)
+ begin
+ --- insert if no duplicate quizid
+ ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
  insert into tbXMLQuizContent
  select 
  t.value('@QuizId','int') as XMLQuizID,    --attribute from xml file
@@ -179,16 +201,52 @@ as begin
  t.value('(ns:Details/ns:Subject/text())[1]','VARCHAR(60)') as Subject,
  (select Courseid from tbCourse where Coursename in (t.value('(ns:Details/ns:Course/text())[1]','VARCHAR(60)'))) as CourseID,
  t.value('(ns:Details/ns:Time/text())[1]','int') as Time,   
- (select Difficultyid from tbDifficulty where Difficultyname in (t.value('(ns:Details/ns:Difficulty/text())[1]','VARCHAR(60)'))) as Difficulty,
- @xml as XmlFile   
+ (select Difficultyid from tbDifficulty where Difficultyname in (t.value('(ns:Details/ns:Difficulty/text())[1]','VARCHAR(60)'))) as Difficulty  
  from
  @xml.nodes('/ns:Quiz')AS TempTable(t)
+ --- and insert new quizversion, set to version 1, first version of quiz
+ ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+ insert into tbQuizVersion(Quizid,Version,XmlFile)
+ select
+ t.value('@QuizId','int') as Quizid,
+ 1 as Version,
+ @xml as XmlFile
+ from
+ @xml.nodes('/ns:Quiz')AS TempTable(t)
+ end
+ else --- if there is a version exists in the database, then addnew version and the path of xml file
+	begin
+ ---- insert into tbQuizVersion
+ set @getQuizVersionOccurence = (select COUNT(Versionid) from tbQuizVersion where Quizid = @QuizIdDuplicate)
+ set @getQuizVersionOccurence += 1;
+ ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+ insert into tbQuizVersion(Quizid,Version,XmlFile)
+ select
+ t.value('@QuizId','int') as Quizid,
+ @getQuizVersionOccurence as Version,
+ @xml as XmlFile
+ from
+ @xml.nodes('/ns:Quiz')AS TempTable(t)
+	end
+
+ if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+
 end
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949230111" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
 select * from tbCourse
+select * from tbQuizVersion
 go
 -----------------------------PROCEDURES-----------------------------------------
 
@@ -376,10 +434,6 @@ end
 go
 
 --spViewPendingQuiz2 @Userid=3
-
---------------INSERTS-----------------
-
---Insert students
 create procedure spInsertStudent(
 @Firstname varchar(60),
 @Lastname varchar(60),
