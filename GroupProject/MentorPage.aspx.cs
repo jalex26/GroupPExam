@@ -25,7 +25,6 @@ namespace GroupProject
             {
                 loadCourse();
                 loadQuiz();
-                loadStudents();
                 ViewQuiz();
             }
         }
@@ -55,15 +54,12 @@ namespace GroupProject
         }
         public void loadStudents()
         {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("SecurityLevel", "1");
-            ds = myDal.ExecuteProcedure("spGetStudents2");
-
+            DataSet ds = LB.LoadStudents(ddlClass.SelectedValue.ToString());
             cblStudents.DataTextField = "Studentname";
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
+            
 
         }
 

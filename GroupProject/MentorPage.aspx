@@ -34,7 +34,7 @@
                 <asp:Label ID="lbClass" runat="server" Text="Class"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlClass" runat="server" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList> 
+                <asp:DropDownList ID="ddlClass" runat="server" AutoPostBack="True"></asp:DropDownList> 
             </td>
         </tr>
         <tr>
@@ -78,7 +78,7 @@ Hey, world, I just said "Hello!"</font></p></div>
                 <asp:Label ID="lbStudents" runat="server" Text="Students"></asp:Label>
             </td>
             <td>
-                <asp:CheckBoxList ID="cblStudents" runat="server"></asp:CheckBoxList>    
+                <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns ="5"></asp:CheckBoxList>    
             </td>
         </tr> 
         <tr>

@@ -58,8 +58,12 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Nupur','Singh','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
 ('Janry','Alex','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),
 ('Adrian','Carter','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
-('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
+('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com'),
+('OtherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin0@yahoo.com'),
+('AnotherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin9@yahoo.com')
 go
+
+--select * from tbClass
 
 --create table tbResults(
 --Resultid int primary key identity (0,1),
@@ -240,25 +244,24 @@ go
 -----------SELECTS------------
 
 --Loads students by Class
-create procedure spGetStudents(
-@Classid int = null,
-@SecurityLevel int 
-)
-as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
-end
-go
+--create procedure spGetStudents(
+--@Classid int = null,
+--@SecurityLevel int 
+--)
+--as begin
+--	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
+--    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+--	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+--end
+--go
 
-create procedure spGetStudents2(
-@Classid int = null,
-@SecurityLevel int 
+create procedure spGetStudents(
+@Classid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
     from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+	tbUser.SecurityLevel =1 -- students
 end
 go
 

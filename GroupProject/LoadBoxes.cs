@@ -40,6 +40,15 @@ namespace GroupProject
             myDal.AddParam("@QuizId", QuizId);
             DataSet ds = myDal.ExecuteProcedure("spLoadVersion");
             return ds;
+        }
+
+        public DataSet LoadStudents(string ClassId)
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            myDal.AddParam("@Classid", ClassId);
+            ds = myDal.ExecuteProcedure("spGetStudents");
+            return ds;
             
         }
     }
