@@ -20,13 +20,21 @@
             </td>
             <td></td>
         </tr>
+            <tr>
+                <td>
+                    Course:
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlCourse" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged"></asp:DropDownList>
+                </td>
+            </tr>
             
         <tr>
             <td>
                 <asp:Label ID="lbClass" runat="server" Text="Class"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlClass" runat="server" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList> 
+                <asp:DropDownList ID="ddlClass" runat="server" AutoPostBack="True"></asp:DropDownList> 
             </td>
         </tr>
         <tr>
@@ -35,7 +43,7 @@
             </td>
             <td>
                 <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
-                <asp:DropDownList ID="ddlSelectQuiz" runat="server"></asp:DropDownList> 
+                <asp:DropDownList ID="ddlSelectQuiz" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSelectQuiz_SelectedIndexChanged"></asp:DropDownList> 
              
                 <%--<input type="button" value="New Window!" onclick="window.open('http://localhost:49966/ViewQuestions.aspx', 'mywindow', 'width=400,height=200')" />--%>
                 
@@ -70,7 +78,7 @@ Hey, world, I just said "Hello!"</font></p></div>
                 <asp:Label ID="lbStudents" runat="server" Text="Students"></asp:Label>
             </td>
             <td>
-                <asp:CheckBoxList ID="cblStudents" runat="server"></asp:CheckBoxList>    
+                <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns ="5"></asp:CheckBoxList>    
             </td>
         </tr> 
         <tr>

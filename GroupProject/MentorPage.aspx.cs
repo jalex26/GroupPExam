@@ -17,34 +17,26 @@ namespace GroupProject
     public partial class MentorPage : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
-
+        LoadBoxes LB = new LoadBoxes();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                loadClass();
+                loadCourse();
                 loadQuiz();
-                loadVersion();
-                loadStudents();
                 ViewQuiz();
             }
         }
-        public void loadClass()
+        private void loadCourse()
         {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadClass");
-
-            //Binds to the dropdownlist
-            ddlClass.DataTextField = "Classname";
-            ddlClass.DataValueField = "Classid";
-            ddlClass.DataSource = ds;
-            ddlClass.DataBind();
-            ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
-            ddlClass.SelectedIndex = 0;
-
-
+            DataSet ds = LB.LoadCourse();
+            ddlCourse.DataTextField = "Coursename";
+            ddlCourse.DataValueField = "Courseid";
+            ddlCourse.DataSource = ds;
+            ddlCourse.DataBind();
+            ddlCourse.Items.Insert(0, new ListItem("-Select Course-", String.Empty));
+            ddlCourse.SelectedIndex = 0;
         }
 
         public void loadQuiz()
@@ -60,68 +52,14 @@ namespace GroupProject
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
         }
-        public void loadVersion()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadVersion");
-
-            //Binds to the dropdownlist
-            ddlVersion.DataTextField = "Version";
-            ddlVersion.DataValueField = "Versionid";
-            ddlVersion.DataSource = ds;
-            ddlVersion.DataBind();
-            ddlVersion.Items.Insert(0, new ListItem("-Select Version", String.Empty));
-            ddlVersion.SelectedIndex = 0;
-        }
-
-        protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
-            ds = myDal.ExecuteProcedure("spLoadCourse");
-
-            lbCourseid.Text = ds.Tables[0].Rows[0]["Courseid"].ToString();
-
-
-            DataSet ds2 = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Courseid", lbCourseid.Text);
-            ds2 = myDal.ExecuteProcedure("spLoadQuiz2");
-
-            ddlSelectQuiz.DataTextField = "QuizTitle";
-            ddlSelectQuiz.DataValueField = "Quizid";
-            ddlSelectQuiz.DataSource = ds2;
-            ddlSelectQuiz.DataBind();
-            ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
-            ddlSelectQuiz.SelectedIndex = 0;
-
-            DataSet ds3 = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Classid", ddlClass.SelectedValue.ToString());
-            myDal.AddParam("SecurityLevel", "1");
-            ds3 = myDal.ExecuteProcedure("spGetStudents3");
-
-            cblStudents.DataTextField = "Studentname";
-            cblStudents.DataValueField = "Userid";
-            cblStudents.DataSource = ds3;
-            cblStudents.DataBind();
-
-
-
-        }
         public void loadStudents()
         {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("SecurityLevel", "1");
-            ds = myDal.ExecuteProcedure("spGetStudents2");
-
+            DataSet ds = LB.LoadStudents(ddlClass.SelectedValue.ToString());
             cblStudents.DataTextField = "Studentname";
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
+            
 
         }
 
@@ -138,6 +76,7 @@ namespace GroupProject
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
         {
+
             pnlIssueQuiz.Visible = true;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
@@ -176,13 +115,13 @@ namespace GroupProject
                 RemoveNamespaceAttributes(n);
             }
         }
-     
+
 
         // this button validates xml file and then saves it in a temporary folder 'tempXML'
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
             XmlDocument fullXml;
-            
+
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
@@ -192,7 +131,7 @@ namespace GroupProject
 
             // saving xml file content in a string to pass it to stored proc later
             string xml = File.ReadAllText(fullFilePath);
-        
+
             // validating xml file here before inserting into database
             string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
             OpenValidate OV = new OpenValidate();
@@ -208,20 +147,48 @@ namespace GroupProject
             RemoveNamespaceAttributes(fullXml.DocumentElement);
 
             // saving xml data in database if file is in correct format
-                XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
-                DataSet ds = new DataSet();
-                ds.ReadXml(xmlreader);
-                xmlreader.Close();
-                if (ds.Tables.Count != 0)
-                {
-                    myDal.ClearParams();
-                    myDal.AddParam("@xml", xml);
-                    myDal.ExecuteProcedure("spInsertXMLContent");
+            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
+            DataSet ds = new DataSet();
+            ds.ReadXml(xmlreader);
+            xmlreader.Close();
+            if (ds.Tables.Count != 0)
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@xml", xml);
+                myDal.ExecuteProcedure("spInsertXMLContent");
 
-                }
-            
-
+            }
         }
-   
+
+        protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = LB.LoadClasses(ddlCourse.SelectedValue.ToString());
+            ddlClass.DataTextField = "Classname";
+            ddlClass.DataValueField = "Classid";
+            ddlClass.DataSource = ds;
+            ddlClass.DataBind();
+            ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
+            ddlClass.SelectedIndex = 0;
+
+            DataSet ds1 = LB.LoadQuizes(ddlCourse.SelectedValue.ToString());
+            ddlSelectQuiz.DataTextField = "Title";
+            ddlSelectQuiz.DataValueField = "XMLQuizID";
+            ddlSelectQuiz.DataSource = ds1;
+            ddlSelectQuiz.DataBind();
+            ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
+            ddlSelectQuiz.SelectedIndex = 0;
+        }
+  
+        protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = LB.LoadQuizVersions(ddlSelectQuiz.SelectedValue.ToString());
+            ddlVersion.DataTextField = "Version";
+            ddlVersion.DataValueField = "Versionid";
+            ddlVersion.DataSource = ds;
+            ddlVersion.DataBind();
+            ddlVersion.Items.Insert(0,new ListItem("-Select Quiz-", String.Empty));
+            ddlVersion.SelectedIndex=0;
+        }
+
     }
 }

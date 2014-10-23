@@ -96,6 +96,7 @@
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="LoadBoxes.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -155,6 +156,7 @@
     <Compile Include="QuizFormTEST.aspx.designer.cs">
       <DependentUpon>QuizFormTEST.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QuizToSession.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
@@ -184,6 +186,7 @@
     <Compile Include="ViewQuestions.aspx.designer.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="XMLQuizContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
