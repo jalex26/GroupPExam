@@ -53,8 +53,8 @@ namespace GroupProject
             myDal.ClearParams();
             ds = myDal.ExecuteProcedure("spLoadQuiz");
 
-            ddlSelectQuiz.DataTextField = "Title";
-            ddlSelectQuiz.DataValueField = "XMLQuizID";
+            ddlSelectQuiz.DataTextField = "QuizTitle";
+            ddlSelectQuiz.DataValueField = "Quizid";
             ddlSelectQuiz.DataSource = ds;
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));

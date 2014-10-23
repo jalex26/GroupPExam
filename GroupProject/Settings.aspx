@@ -11,9 +11,9 @@
             <asp:BoundField DataField="Userid" HeaderText="User ID" />
             <asp:BoundField DataField="Firstname" HeaderText="First Name" />
             <asp:BoundField DataField="Lastname" HeaderText="Last Name" />
-            <asp:BoundField DataField="Email" HeaderText="Email" />
+            <asp:BoundField DataField="Username" HeaderText="User Name" />
             <asp:BoundField DataField="Password" HeaderText="Password" />
-            <asp:BoundField DataField="Classid" HeaderText="Classid" />
+            <asp:BoundField DataField="Classname" HeaderText="Class Name" />
         </Columns>
     </asp:GridView>
     <asp:Panel ID="pn1Upd" runat="server" Visible="false" ScrollBars="Horizontal" BackColor="#CCCCCC" Height="308px" Width="376px">
@@ -26,6 +26,9 @@
         <br />
         <asp:Label ID="lblLastname" runat="server" Text="Lastname"></asp:Label>
         <asp:TextBox ID="txtLastname" runat="server" ForeColor="Black"></asp:TextBox>
+        <br />
+        <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
+        <asp:TextBox ID="txtUsername" runat="server" ForeColor="Black"></asp:TextBox>
         <br />
         <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
         <asp:TextBox ID="txtPassword" runat="server" ForeColor="Black"></asp:TextBox>

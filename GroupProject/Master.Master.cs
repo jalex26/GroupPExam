@@ -31,33 +31,22 @@ namespace GroupProject
                 txtUserName.Visible = false;
                 txtPassword.Visible = false;
                 btnLogin.Visible = false;
-                
             }
 
             //Adjust links visible according to Security Level(Admin or Regular)
-            if (mySecurity.GetSecurityLevel() < 2 && mySecurity.GetSecurityLevel() != 0)
+            if (mySecurity.GetSecurityLevel() < 2)
             {
                 //lbTest.Visible = false;
-                
-                lbQuizes.Visible = true;
-                lbSettings.Visible = false;
-                
-            }
-            
-            else if (mySecurity.GetSecurityLevel() == 0)
-            {
                 lbMentorPage.Visible = false;
-                lbQuizes.Visible = false;
-                lbSettings.Visible = false;
-                btnLogout.Visible = false;
+                
+                
+                
             }
-
             else
             {
-              
+                //lbTest.Visible = true;
                 lbMentorPage.Visible = true;
-                lbQuizes.Visible = false;
-                lbSettings.Visible = false;
+                
             }
         }
 

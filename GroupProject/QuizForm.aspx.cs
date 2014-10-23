@@ -14,9 +14,33 @@ namespace GroupProject
         DAL myDal = new DAL(Globals.conn);
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["xmlQuizid"] != null || Request.QueryString["Version"] != null)
+                {
+                    loadQuestions(Request.QueryString["xmlQuizid"].ToString(), Request.QueryString["Version"].ToString());
+                }
+            }
         }
-      
+        public void loadQuestions(string xmlQuizid, string Version)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@xmlQuizid", xmlQuizid);
+            myDal.AddParam("@Version", Version);
+
+            DataSet ds = myDal.ExecuteProcedure("spQuizForm");
+
+            dlMultipleChoice.DataSource = ds.Tables[0];
+            dlMatching.DataSource = ds.Tables[1];
+            dlTrueOrFalse.DataSource = ds.Tables[2];
+            dlFInBlanks.DataSource = ds.Tables[3];
+            dlLongAnswers.DataSource = ds.Tables[4];
+            dlMultipleChoice.DataBind();
+            dlMatching.DataBind();
+            dlTrueOrFalse.DataBind();
+            dlFInBlanks.DataBind();
+            dlLongAnswers.DataBind();
+        }
 
 
         

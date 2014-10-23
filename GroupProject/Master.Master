@@ -23,26 +23,20 @@
             <a href="MentorPage.aspx">Mentor</a>
             <a href="Admin.aspx">Admin</a>--%>
         <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton> 
-        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx" Visible="false">Mentor</asp:LinkButton>
-        <asp:LinkButton ID="lbQuizes" runat="server" PostBackUrl="~/Quizes.aspx" Visible="false">Quizes</asp:LinkButton>
-        <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx" Visible="false">Settings</asp:LinkButton>
-        
+        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx">Mentor</asp:LinkButton>
+        <asp:LinkButton ID="lblQuizes" runat="server" PostBackUrl="~/Quizes.aspx">Quizes</asp:LinkButton>
+        <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx">Settings</asp:LinkButton>
+        <asp:LinkButton ID="lbTestPage" runat="server" PostBackUrl="~/TestForm.aspx">TestPage</asp:LinkButton>
         <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
        
         <br />
-        <div class="TopRight">
-        <asp:Panel ID="pnlLogout" runat="server">
-        <asp:Label ID="lblFirstname" Font-Size="Medium" Font-Italic="true" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblFirstname" runat="server" Text=""></asp:Label>
         <br />
-         <br />
         <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
-            </asp:Panel>
-            </div>
-
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
+                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="UserName:"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server"></asp:TextBox>

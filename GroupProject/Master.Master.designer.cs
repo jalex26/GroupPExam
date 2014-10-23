@@ -67,13 +67,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.LinkButton lbMentorPage;
         
         /// <summary>
-        /// lbQuizes control.
+        /// lblQuizes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbQuizes;
+        protected global::System.Web.UI.WebControls.LinkButton lblQuizes;
         
         /// <summary>
         /// lbSettings control.
@@ -85,13 +85,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.LinkButton lbSettings;
         
         /// <summary>
-        /// pnlLogout control.
+        /// lbTestPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLogout;
+        protected global::System.Web.UI.WebControls.LinkButton lbTestPage;
         
         /// <summary>
         /// lblFirstname control.
