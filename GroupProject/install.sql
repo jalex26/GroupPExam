@@ -42,21 +42,22 @@ create table tbUser(
 Userid int primary key identity (0,1),
 Firstname varchar(60),
 Lastname varchar(60),
-Username varchar(60),
 Password varchar(60),
 Classid int foreign key references tbClass(Classid)on delete cascade,
 SecurityLevel int,
 UserPicture varchar(60),
-Email varchar(60)
+Email varchar(60) Unique
 )
 go
 
 
-insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),('Doug','Jackson','Doug1','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
-('Nupur','Singh','Nupur1','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
-('Janry','Alex','Janry1','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),('Adrian','Carter','Adrian1','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
-('Veberly','Carvalho','Veberly1','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
+insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
+('Kevin','Coliat','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),
+('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
+('Nupur','Singh','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
+('Janry','Alex','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),
+('Adrian','Carter','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
+('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
 go
 
 --create table tbResults(
@@ -72,30 +73,30 @@ go
 --(2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
 
 --Failed Login Attempts
-create table tbFailedLoginAttempt(
-Username varchar(60),
-Password varchar(60),
-DateAttempted date
-)
-go
+--create table tbFailedLoginAttempt(
+--Email varchar(60),
+--Password varchar(60),
+--DateAttempted date
+--)
+--go
 
-insert into tbFailedLoginAttempt(Username,Password,DateAttempted)values
-('Geoffrey','Smith','01-12-2014'),
-('Ian','Morgan','02-24-2014'),
-('Katie','Hunter','06-16-2014'),
-('Elmer','Sherman','06-25-2014'),
-('Isabel','Holland','07-03-2014'),
-('Andrea','Barrett','07-08-2014'),
-('Whitney','Woods','07-10-2014'),
-('Abraham','Washington','08-13-2013'),
-('Sophia','Roy','08-14-2013'),
-('Lester','Tran','04-06-2014'),
-('Tasha','Nguyen','04-15-2014'),
-('Desiree','Mcbride','04-20-2014'),
-('Melody','Allison','05-13-2014'),
-('Lee','Hopkins','05-20-2014'),
-('Irving','Evans','05-26-2014')
-go
+--insert into tbFailedLoginAttempt(Email,Password,DateAttempted)values
+--('Geoffrey','Smith','01-12-2014'),
+--('Ian','Morgan','02-24-2014'),
+--('Katie','Hunter','06-16-2014'),
+--('Elmer','Sherman','06-25-2014'),
+--('Isabel','Holland','07-03-2014'),
+--('Andrea','Barrett','07-08-2014'),
+--('Whitney','Woods','07-10-2014'),
+--('Abraham','Washington','08-13-2013'),
+--('Sophia','Roy','08-14-2013'),
+--('Lester','Tran','04-06-2014'),
+--('Tasha','Nguyen','04-15-2014'),
+--('Desiree','Mcbride','04-20-2014'),
+--('Melody','Allison','05-13-2014'),
+--('Lee','Hopkins','05-20-2014'),
+--('Irving','Evans','05-26-2014')
+--go
 
 create table tbQuizStatus(
 StatusId int primary key identity (0,1),
@@ -222,24 +223,24 @@ go
 go
 --Login
 create procedure spLogin(
-@Username varchar(60),
+@Email varchar(60),
 @Password varchar(60)
 )
 as begin
-	select * from tbUser where tbUser.Username = @Username and tbUser.Password = @Password
+	select * from tbUser where tbUser.Email = @Email and tbUser.Password = @Password
 end
 go
 
 -- Collects all the Failed Login Attempts
-create procedure spFailedLoginAttempts(
-@Username varchar(60) = null,
-@Password varchar(60) = null
-)
-as begin 
-	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Username, tbFailedLoginAttempt.Password,DateAttempted)values
-									(@Username,@Password,GETDATE())
-end 
-go
+--create procedure spFailedLoginAttempts(
+--@Email varchar(60) = null,
+--@Password varchar(60) = null
+--)
+--as begin 
+--	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Email, tbFailedLoginAttempt.Password,DateAttempted)values
+--									(@Username,@Password,GETDATE())
+--end 
+--go
 
 -----------SELECTS------------
 
@@ -249,7 +250,7 @@ create procedure spGetStudents(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Username,Password,Classid,SecurityLevel,Email
+	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
     from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
@@ -260,7 +261,7 @@ create procedure spGetStudents2(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
     from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
@@ -271,7 +272,7 @@ create procedure spGetStudents3(
 @SecurityLevel int 
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Username,Password,Classid,SecurityLevel,Email
+	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
     from tbUser where tbUser.Classid = @Classid and 
 	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
@@ -328,32 +329,6 @@ as begin
 end 
 go
 
---Load Quiz by Courseid
-create procedure spLoadQuiz2(
-@Courseid int
-)
-as begin 
-	select * from tbQuiz where Courseid=@Courseid
-end 
-go
-
---Load Quiz by Quizid
-create procedure spLoadQuiz5(
-@Quizid int
-)
-as begin 
-	select * from tbQuiz,tbDifficulty,tbQuizVersion where tbQuiz.Quizid = @Quizid and tbDifficulty.Difficultyid = tbQuiz.Difficulty and tbQuiz.Quizid = tbQuizVersion.Quizid
-end 
-go
-
---Loads Quiz
-create procedure spLoadQuiz4
-as begin
-	select * from tbQuiz, tbQuizVersion where tbQuiz.Quizid = tbQuizVersion.Quizid
-end
-go
-
-
 --Loads Version
 create procedure spLoadVersion
 as begin 
@@ -406,14 +381,13 @@ go
 create procedure spInsertStudent(
 @Firstname varchar(60),
 @Lastname varchar(60),
-@Username varchar(60),
 @Password varchar(60),
 @Classid int,
 @SecurityLevel int
 )
 as begin
-	insert into tbUser(Firstname,Lastname,Username,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname,@Username,@Password,@Classid,@SecurityLevel)
+	insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel)values
+					  (@Firstname,@Lastname,@Password,@Classid,@SecurityLevel)
 end
 go
 
@@ -428,16 +402,6 @@ end
 go
 
 ----Insert Class
-create procedure spInsertClass(
-@Classname varchar(60),
-@Courseid int
-
-)
-as begin
-	insert into tbClass(Classname,Courseid)values
-					  (@Classname,@Courseid)
-end
-go
 
 --Insert Course
 create procedure spInsertCourse(
@@ -456,13 +420,12 @@ create procedure spUpdateStudent(
 @Userid int = null,
 @Firstname varchar (60),
 @Lastname varchar (60),
-@Username varchar (60),
 @Password varchar (60),
 @Classid int,
 @SecurityLevel int
 )
 as begin
-update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Password=@Password, 
 		Classid=@Classid, SecurityLevel=@SecurityLevel
 			 where tbUser.Userid = @Userid
 end
@@ -568,13 +531,12 @@ create procedure spUpdateSettings(
 @Userid int = null,
 @Firstname varchar (60),
 @Lastname varchar (60),
-@Username varchar (60),
 @Password varchar (60),
 @Classid int,
 @SecurityLevel int
 )
 as begin
-update tbUser set Firstname =@Firstname, Lastname=@Lastname, Username=@Username, Password=@Password, 
+update tbUser set Firstname =@Firstname, Lastname=@Lastname, Password=@Password, 
 		Classid=@Classid, SecurityLevel=@SecurityLevel
 			 where tbUser.Userid = @Userid
 end
