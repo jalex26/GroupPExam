@@ -203,11 +203,13 @@ as begin
  @xml as XmlFile   
  from
  @xml.nodes('/ns:Quiz')AS TempTable(t)
-  select @@identity as 'XMLQuizID'
+  -- select @@identity as 'XMLQuizID'
 end
 go
-
-
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="949201" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
+select * from tbXMLQuizContent
+go
 create procedure spinsertMultipleChoice(
 @xml xml
 )
