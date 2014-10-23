@@ -574,11 +574,9 @@ update tbUser set Firstname =@Firstname, Lastname=@Lastname, Password=@Password,
 			 where tbUser.Userid = @Userid
 end
 go
-create procedure spGetCountAlbums
-as begin 
-	select Count(*) as Count from tbMultipleQuestions
-	select Count(*) as Count from tbMatchingQuestions
-	select Count(*) as Count from tbLongQuestions
-end 
 
+create procedure spGetXml
+as begin
+select * from tbQuizVersion
+end
 go
