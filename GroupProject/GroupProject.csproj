@@ -95,6 +95,7 @@
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="LoadBoxes.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

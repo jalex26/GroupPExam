@@ -17,34 +17,28 @@ namespace GroupProject
     public partial class MentorPage : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
-
+        LoadBoxes LB = new LoadBoxes();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                loadClass();
+                loadCourse();
                 loadQuiz();
                 loadVersion();
                 loadStudents();
                 ViewQuiz();
             }
         }
-        public void loadClass()
+        private void loadCourse()
         {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadClass");
-
-            //Binds to the dropdownlist
-            ddlClass.DataTextField = "Classname";
-            ddlClass.DataValueField = "Classid";
-            ddlClass.DataSource = ds;
-            ddlClass.DataBind();
-            ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
-            ddlClass.SelectedIndex = 0;
-
-
+            DataSet ds = LB.LoadCourse();
+            ddlCourse.DataTextField = "Coursename";
+            ddlCourse.DataValueField = "Courseid";
+            ddlCourse.DataSource = ds;
+            ddlCourse.DataBind();
+            ddlCourse.Items.Insert(0, new ListItem("-Select Course-", String.Empty));
+            ddlCourse.SelectedIndex = 0;
         }
 
         public void loadQuiz()
@@ -90,7 +84,7 @@ namespace GroupProject
             myDal.AddParam("Courseid", lbCourseid.Text);
             ds2 = myDal.ExecuteProcedure("spLoadQuiz2");
 
-            ddlSelectQuiz.DataTextField = "QuizTitle";
+            ddlSelectQuiz.DataTextField = "Title";
             ddlSelectQuiz.DataValueField = "Quizid";
             ddlSelectQuiz.DataSource = ds2;
             ddlSelectQuiz.DataBind();
@@ -138,6 +132,7 @@ namespace GroupProject
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
         {
+
             pnlIssueQuiz.Visible = true;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
@@ -219,8 +214,17 @@ namespace GroupProject
                     myDal.ExecuteProcedure("spInsertXMLContent");
 
                 }
-            
+        }
 
+        protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = LB.LoadClasses(ddlCourse.SelectedValue.ToString());
+            ddlClass.DataTextField = "Classname";
+            ddlClass.DataValueField = "Classid";
+            ddlClass.DataSource = ds;
+            ddlClass.DataBind();
+            ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
+            ddlClass.SelectedIndex = 0;
         }
    
     }

@@ -25,7 +25,8 @@ Courseid int foreign key references tbCourse(Courseid)on delete cascade
 go
 
 insert into tbClass(Classname,Courseid)values
-('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0)
+('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0),
+('NT03',1),('NT04',1)
 go
 
 create table tbDifficulty(
@@ -213,6 +214,10 @@ end
 go
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
 select * from tbXMLQuizContent
 select * from tbCourse
 select * from tbQuizVersion
@@ -288,10 +293,16 @@ end
 go
 
 --Loads Class
-create procedure spLoadClass
+create procedure spLoadClass(
+@CourseId int
+)
 as begin
-	select * from tbClass
+	select tbClass.Classid, tbClass.Classname from tbClass
+	left join tbCourse on tbCourse.Courseid = @CourseId
+	where tbClass.Courseid = @CourseId
 end
+go
+-- spLoadClass @CourseId = 1
 go
 
 --Loads Class
@@ -313,14 +324,13 @@ end
 go
 
 --Load Course by Classid
-create procedure spLoadCourse(
-@Classid int
-)
+create procedure spLoadCourse
 as begin
-	select Courseid from tbClass where Classid=@Classid
+	select * from tbCourse
 end	
 go
 
+go
 --Load Quiz get it from versioning table and join it on tbXMLcontent
 create procedure spLoadQuiz
 as begin 

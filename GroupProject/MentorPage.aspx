@@ -20,6 +20,14 @@
             </td>
             <td></td>
         </tr>
+            <tr>
+                <td>
+                    Course:
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlCourse" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged"></asp:DropDownList>
+                </td>
+            </tr>
             
         <tr>
             <td>
