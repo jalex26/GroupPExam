@@ -41,12 +41,12 @@ namespace GroupProject
             }
         }
         //Load the login Procedure to get the UserName and Password (SESSION)
-        public Security (string Username, String Password)
+        public Security (string Email, String Password)
         {
             DataSet ds = new DataSet();
             DAL myDal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
             myDal.ClearParams();
-            myDal.AddParam("@Username", Username);
+            myDal.AddParam("@Email", Email);
             myDal.AddParam("@Password", Password);
             ds = myDal.ExecuteProcedure("spLogin");
 
@@ -56,10 +56,6 @@ namespace GroupProject
                 Firstname = "Invalid Login";
                 Userid = -1;
 
-                myDal.ClearParams();
-                myDal.AddParam("Username", Username);
-                myDal.AddParam("Password", Password);
-                myDal.ExecuteProcedure("spFailedLoginAttempts");
             }
             else
             {

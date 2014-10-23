@@ -58,6 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
+    <Content Include="App_Data\Bookstore.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\cdcatalog.xml" />
+    <Content Include="App_Data\XMLFileTEST.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="GroupPExam.css" />
     <Content Include="install.sql" />
     <Content Include="LoginPage.aspx" />
@@ -69,10 +76,11 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="QuizForm.aspx" />
+    <Content Include="QuizFormTEST.aspx" />
     <Content Include="Settings.aspx" />
     <Content Include="StartQuizes.aspx" />
-    <Content Include="TestForm.aspx" />
     <Content Include="installBACKUP.sql" />
+    <Content Include="Testing.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
@@ -131,7 +139,17 @@
     <Compile Include="QuizForm.aspx.designer.cs">
       <DependentUpon>QuizForm.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="QuizToSession.cs" />
+=======
+    <Compile Include="QuizFormTEST.aspx.cs">
+      <DependentUpon>QuizFormTEST.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuizFormTEST.aspx.designer.cs">
+      <DependentUpon>QuizFormTEST.aspx</DependentUpon>
+    </Compile>
+>>>>>>> origin/master
     <Compile Include="Security.cs" />
     <Compile Include="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
@@ -147,12 +165,12 @@
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TestForm.aspx.cs">
-      <DependentUpon>TestForm.aspx</DependentUpon>
+    <Compile Include="Testing.aspx.cs">
+      <DependentUpon>Testing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TestForm.aspx.designer.cs">
-      <DependentUpon>TestForm.aspx</DependentUpon>
+    <Compile Include="Testing.aspx.designer.cs">
+      <DependentUpon>Testing.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewQuestions.aspx.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>
