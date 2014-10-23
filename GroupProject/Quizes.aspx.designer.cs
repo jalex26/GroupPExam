@@ -13,48 +13,30 @@ namespace GroupProject {
     public partial class Quizes {
         
         /// <summary>
-        /// Panel1 control.
+        /// XMLBINDINGTEST control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Button XMLBINDINGTEST;
         
         /// <summary>
-        /// btnViewQuizResult control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewQuizResult;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// btnPendingQuiz control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPendingQuiz;
-        
-        /// <summary>
-        /// gvViewResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvViewResults;
-        
-        /// <summary>
-        /// gvPendingQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPendingQuiz;
+        protected global::System.Web.UI.WebControls.Button Button2;
     }
 }

@@ -61,8 +61,7 @@ namespace GroupProject
 
                 txtUserid.Text = Userid;
                 txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
-                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
-                txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
+                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();             
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
                 txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
                 txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
@@ -81,8 +80,7 @@ namespace GroupProject
                 //mydal.AddParam("@id", id);
                 mydal.AddParam("@Userid", txtUserid.Text);
                 txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
-                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
-                txtUsername.Text = ds.Tables[0].Rows[0]["Username"].ToString();
+                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();               
                 txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
                 txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
             
