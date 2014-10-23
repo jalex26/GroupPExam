@@ -131,6 +131,7 @@
     <Compile Include="QuizForm.aspx.designer.cs">
       <DependentUpon>QuizForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QuizToSession.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
@@ -160,6 +161,7 @@
     <Compile Include="ViewQuestions.aspx.designer.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="XMLQuizContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
