@@ -216,7 +216,7 @@ begin transaction
  @getQuizVersionOccurence as Version,
  @xml as XmlFile
  from
- @xml.nodes('/ns:Quiz')AS TempTable(t)
+ @xml.nodes('/ns:Quiz') AS TempTable(t)
 	end
 
  if @@ERROR != 0
