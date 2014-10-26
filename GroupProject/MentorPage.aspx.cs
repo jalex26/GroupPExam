@@ -211,5 +211,12 @@ namespace GroupProject
             lblQuizDuration.Text = ds.Tables[0].Rows[0]["Time"].ToString();
         }
 
+        protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
+        {
+            RenderXML RX = new RenderXML();
+            RX.XMLContent(ddlSelectQuiz.SelectedValue.ToString());
+            
+        }
+
     }
 }

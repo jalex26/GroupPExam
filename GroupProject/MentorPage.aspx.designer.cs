@@ -130,6 +130,24 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectQuiz;
         
         /// <summary>
+        /// TSM1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager TSM1;
+        
+        /// <summary>
+        /// btnViewDemoQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewDemoQuiz;
+        
+        /// <summary>
         /// lblVersion control.
         /// </summary>
         /// <remarks>
@@ -245,5 +263,14 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlViewExam;
+        
+        /// <summary>
+        /// MPE1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE1;
     }
 }

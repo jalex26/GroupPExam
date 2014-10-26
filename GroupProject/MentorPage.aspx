@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="MentorPage.aspx.cs" Inherits="GroupProject.MentorPage" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -90,7 +92,8 @@
                         <td>
                             <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
                             <asp:DropDownList ID="ddlSelectQuiz" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSelectQuiz_SelectedIndexChanged"></asp:DropDownList>
-                            <button id="say_it">Say "Hello!"</button>
+                            <asp:ToolkitScriptManager ID="TSM1" runat="server"></asp:ToolkitScriptManager>
+                            <asp:Button Id="btnViewDemoQuiz" runat="server" Text="View Quiz" OnClick="btnViewDemoQuiz_Click" ></asp:Button>
                         </td>
                     </tr>
                     <tr>
@@ -147,9 +150,11 @@
     <asp:Panel ID="pnlViewQuiz" runat="server">
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
     </asp:Panel>
-    <asp:Panel ID="pnlViewExam" runat="server">
+
+    
+    <asp:Panel ID="pnlViewExam" BorderColor="Red" runat="server" CssClass="ModalPopUp">
 
     </asp:Panel>
-
+    <asp:ModalPopupExtender ID="MPE1" TargetControlID="btnViewDemoQuiz" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
 </asp:Content>
