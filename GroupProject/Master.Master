@@ -8,10 +8,11 @@
     <!--[if IE 6]>
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
 <![endif]-->
+    <link href="styles/GroupPExam.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
-    <link href="GroupPExam.css" rel="stylesheet" type="text/css" />
+    
 </head>
 <body>
     <form id="form1" runat="server">

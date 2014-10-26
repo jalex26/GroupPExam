@@ -6,39 +6,39 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            function deselect() {
-                $('.pop').slideFadeToggle(function () {
-                    $("#aGetStudents").removeClass('selected');
-                });
-            }
+           
+        });
+        function deselect(e) {
+            $('.pop').slideFadeToggle(function () {
+                //$("#aGetStudents").removeClass('selected');
+                e.removeClass('selected');
+            });
+        }
 
-            $(function () {
-                $('#aGetStudents').on('click', function () {
-                    if ($(this).hasClass('selected')) {
-                        deselect($(this));
-                    } else {
-                        $(this).addClass('selected');
-                        $('.pop').slideFadeToggle();
-                    }
-                    return false;
-                });
-
-                $('.close').on('click', function () {
-                    deselect($('#aGetStudents'));
-                    return false;
-                });
+        $(function () {
+            $('#aGetStudents').on('click', function () {
+                if ($(this).hasClass('selected')) {
+                    deselect($(this));
+                } else {
+                    $(this).addClass('selected');
+                    $('.pop').slideFadeToggle();
+                }
+                return false;
             });
 
-            $.fn.slideFadeToggle = function (easing, callback) {
-                return this.animate({
-                    opacity: 'toggle',
-                    height: 'toggle'
-                }, 'slow', easing, callback);
-            };
-
-            deselect();
+            $('.close').on('click', function () {
+                deselect($('#aGetStudents'));
+                return false;
+            });
         });
-        
+
+        $.fn.slideFadeToggle = function (easing, callback) {
+            return this.animate({
+                opacity: 'toggle',
+                height: 'toggle'
+            }, 'slow', easing, callback);
+        };
+        deselect($('#aGetStudents'));
 
 
     </script>
@@ -52,6 +52,11 @@
         <asp:Button ID="btnCreateQuiz" runat="server" Text="Create Quiz" />
         <asp:Button ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" />
     </div>
+    <div class="messagepop pop">
+
+                                <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
+                                <a class="close" href="/">Close</a>
+                            </div>
     <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
         <div style="text-align: center;">
             <div style="width: 50%; margin: 0 auto; text-align: left;">
@@ -101,12 +106,8 @@
                             <asp:Label ID="lbStudents" runat="server" Text="Students"></asp:Label>
                         </td>
                         <td>
-                            <%-- <input type="button" name="btnGetStudents" value="Select Students" />--%>
                             <a href="/" id="aGetStudents">Select Students</a>
-                            <div class="messagepop pop" style="display: none;">
-                                <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
-                               <%-- <a class="close" href="/">Close</a>--%>
-                            </div>
+                            
                             
                         </td>
                     </tr>
@@ -146,7 +147,9 @@
     <asp:Panel ID="pnlViewQuiz" runat="server">
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
     </asp:Panel>
+    <asp:Panel ID="pnlViewExam" runat="server">
 
+    </asp:Panel>
 
 
 </asp:Content>
