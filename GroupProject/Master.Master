@@ -5,6 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Exam Site</title>
+    <!--[if IE 6]>
+	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
+<![endif]-->
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
@@ -13,77 +16,76 @@
 <body>
     <form id="form1" runat="server">
         <div class="header_container">
-        <div>
-            <p class="Margin">Exam Site</p>
-            <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/college.jpg" />
-        </div>
+            <div>
+                <p class="Margin">Exam Site</p>
+                <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/college.jpg" />
             </div>
-                    <asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>
-            <%--<a href="Home.aspx">Home</a>
+        </div>
+        <%--<asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>--%>
+        <%--<a href="Home.aspx">Home</a>
             <a href="MentorPage.aspx">Mentor</a>
             <a href="Admin.aspx">Admin</a>--%>
-        <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton> 
+        <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton>
         <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx" Visible="false">Mentor</asp:LinkButton>
-         <asp:LinkButton ID="lbMyAccount" runat="server" PostBackUrl="~/MyAccount.aspx" >My Account</asp:LinkButton>
+        <asp:LinkButton ID="lbMyAccount" runat="server" PostBackUrl="~/MyAccount.aspx">My Account</asp:LinkButton>
         <asp:LinkButton ID="lbQuizes" runat="server" PostBackUrl="~/Quizes.aspx" Visible="false">Quizes</asp:LinkButton>
         <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx" Visible="false">Settings</asp:LinkButton>
 
-        
+
         <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
-       
+
         <br />
         <div class="TopRight">
-        <asp:Panel ID="pnlLogout" runat="server">
-        <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="DarkSlateGray" Font-Bold="true" Font-Italic="true" runat="server" Text=""></asp:Label>
-        <br />
-         <br />
-        <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
+            <asp:Panel ID="pnlLogout" runat="server">
+                <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="DarkSlateGray" Font-Bold="true" Font-Italic="true" runat="server" Text=""></asp:Label>
+                <br />
+                <br />
+                <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
             </asp:Panel>
-            </div>
+        </div>
 
-            <table>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                       <br />
-                        <asp:Label ID="lblPassword" CssClass="Text" runat="server" Text="Password:"></asp:Label>
-                    </td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
-                    </td>
-                </tr>
-            </table>
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Kevin@yahoo.com"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+                    <asp:Label ID="lblPassword" CssClass="Text" runat="server" Text="Password:"></asp:Label>
+                </td>
+                <td>
+                    <br />
+                    <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server" Text="Kevin1"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
+                </td>
+            </tr>
+        </table>
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <%--DO NOT PUT ANYTHING HERE--%>
             </asp:ContentPlaceHolder>
         </div>
-
-        
     </form>
 
-      <!-- Footer -->
+
+    <!-- Footer -->
     <div id="footer">
         <p class="left">
             <a href="Home.aspx">Home</a>
-            <span>|</span>            
+            <span>|</span>
             <a href="MyAccount.aspx">My Account</a>
             <span>|</span>
             <a href="Quizes.aspx">Quizes</a>
-                       
+
         </p>
         <p class="right">
             &copy; 2014 Robertson College|

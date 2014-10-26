@@ -67,7 +67,16 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="GroupPExam.css" />
+    <Content Include="img\ajaxLoader.gif" />
+    <Content Include="img\close.gif" />
+    <Content Include="img\next.gif" />
+    <Content Include="img\prev.gif" />
     <Content Include="install.sql" />
+    <Content Include="js\jquery-2.1.1.js" />
+    <Content Include="js\jquery.nyroModal-ie6.js" />
+    <Content Include="js\jquery.nyroModal-ie6.min.js" />
+    <Content Include="js\jquery.nyroModal.custom.js" />
+    <Content Include="js\jquery.nyroModal.custom.min.js" />
     <Content Include="LoginPage.aspx" />
     <Content Include="MentorPage.aspx" />
     <Content Include="MyAccount.aspx" />
@@ -82,6 +91,7 @@
     <Content Include="Settings.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
+    <Content Include="styles\nyroModal.css" />
     <Content Include="Testing.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
@@ -94,6 +104,9 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GHLoadStudents.ashx.cs">
+      <DependentUpon>GHLoadStudents.ashx</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="LoadBoxes.cs" />
@@ -190,6 +203,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
+    <Content Include="img\Thumbs.db" />
+    <Content Include="GHLoadStudents.ashx" />
     <None Include="validator.xsd">
       <SubType>Designer</SubType>
     </None>
