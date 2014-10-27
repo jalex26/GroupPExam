@@ -233,7 +233,7 @@ create procedure spGetQuizAndInfo(
 @versionid int
 )
 as begin
-select * from tbXMLQuizContent where XMLQuizID in (select top 1 Quizid from tbQuizVersion where Versionid = @versionid)
+select XMLQuizID,Title,Subject,CourseID,Time,DifficultyId,XmlFile from tbXMLQuizContent,tbQuizVersion where XMLQuizID in (select top 1 Quizid from tbQuizVersion where Versionid = @versionid) and tbXMLQuizContent.XMLQuizID=tbQuizVersion.Quizid and tbQuizVersion.Versionid =@versionid
 end
 go
 -- spGetQuizAndInfo @versionid=1

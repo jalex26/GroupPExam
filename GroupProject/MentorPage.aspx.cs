@@ -215,6 +215,7 @@ namespace GroupProject
         {
             RenderXML RX = new RenderXML();
             RX.XMLContent(ddlSelectQuiz.SelectedValue.ToString());
+
             
         }
 
