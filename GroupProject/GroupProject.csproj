@@ -122,6 +122,7 @@
     <Content Include="styles\nyroModal.css" />
     <Content Include="Testing.aspx" />
     <Content Include="ViewQuestions.aspx" />
+    <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
     <Content Include="XSLT Files\QuestionX.xslt" />
