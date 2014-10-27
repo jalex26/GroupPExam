@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\cdcatalog.xml" />
+    <Content Include="App_Data\XMLFile.xml" />
     <Content Include="App_Data\XMLFileTEST.xml">
       <SubType>Designer</SubType>
     </Content>
