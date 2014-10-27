@@ -10,7 +10,7 @@ namespace GroupProject
 {
     public partial class Site1 : System.Web.UI.MasterPage
     {
-        DAL myDal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
+        DAL myDal = new DAL(Globals.conn);
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -14,7 +14,7 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
-('Software Developer'),('Networking')
+('Software Developer'),('Network Engineering')
 go
 
 create table tbClass(
@@ -25,7 +25,8 @@ Courseid int foreign key references tbCourse(Courseid)on delete cascade
 go
 
 insert into tbClass(Classname,Courseid)values
-('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0)
+('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0),
+('NT03',1),('NT04',1)
 go
 
 create table tbDifficulty(
@@ -57,8 +58,12 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Nupur','Singh','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
 ('Janry','Alex','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),
 ('Adrian','Carter','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
-('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com')
+('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com'),
+('OtherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin0@yahoo.com'),
+('AnotherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin9@yahoo.com')
 go
+
+--select * from tbClass
 
 --create table tbResults(
 --Resultid int primary key identity (0,1),
@@ -211,7 +216,11 @@ else
 
 end
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
 select * from tbCourse
@@ -220,6 +229,14 @@ go
 -----------------------------PROCEDURES-----------------------------------------
 
 
+create procedure spGetQuizAndInfo(
+@versionid int
+)
+as begin
+select * from tbXMLQuizContent where XMLQuizID in (select top 1 Quizid from tbQuizVersion where Versionid = @versionid)
+end
+go
+-- spGetQuizAndInfo @versionid=1
 go
 --Login
 create procedure spLogin(
@@ -231,39 +248,28 @@ as begin
 end
 go
 
--- Collects all the Failed Login Attempts
---create procedure spFailedLoginAttempts(
---@Email varchar(60) = null,
---@Password varchar(60) = null
---)
---as begin 
---	insert into tbFailedLoginAttempt(tbFailedLoginAttempt.Email, tbFailedLoginAttempt.Password,DateAttempted)values
---									(@Username,@Password,GETDATE())
---end 
---go
 
 -----------SELECTS------------
 
 --Loads students by Class
-create procedure spGetStudents(
-@Classid int = null,
-@SecurityLevel int 
-)
-as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
-end
-go
+--create procedure spGetStudents(
+--@Classid int = null,
+--@SecurityLevel int 
+--)
+--as begin
+--	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
+--    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
+--	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+--end
+--go
 
-create procedure spGetStudents2(
-@Classid int = null,
-@SecurityLevel int 
+create procedure spGetStudents(
+@Classid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
     from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+	tbUser.SecurityLevel =1 -- students
 end
 go
 
@@ -288,10 +294,16 @@ end
 go
 
 --Loads Class
-create procedure spLoadClass
+create procedure spLoadClass(
+@CourseId int
+)
 as begin
-	select * from tbClass
+	select tbClass.Classid, tbClass.Classname from tbClass
+	left join tbCourse on tbCourse.Courseid = @CourseId
+	where tbClass.Courseid = @CourseId
 end
+go
+-- spLoadClass @CourseId = 1
 go
 
 --Loads Class
@@ -313,13 +325,27 @@ end
 go
 
 --Load Course by Classid
-create procedure spLoadCourse(
-@Classid int
-)
+create procedure spLoadCourse
 as begin
-	select Courseid from tbClass where Classid=@Classid
+	select * from tbCourse
 end	
 go
+
+go
+
+create procedure spLoadQuizes(
+@Courseid int
+)
+as begin
+	select XMLQuizID,Title,Subject,tbXMLQuizContent.CourseID,Time,DifficultyId from tbXMLQuizContent
+	left join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
+	where tbXMLQuizContent.CourseID = @Courseid
+end
+
+go
+-- spLoadQuizes @Courseid = 0;
+go
+
 
 --Load Quiz get it from versioning table and join it on tbXMLcontent
 create procedure spLoadQuiz
@@ -358,10 +384,14 @@ as begin
 end
 go
 --Loads Version
-create procedure spLoadVersion
+create procedure spLoadVersion(
+@QuizId int
+)
 as begin 
-	select * from tbQuizVersion
+	select * from tbQuizVersion where Quizid = @QuizId
 end 
+go
+spLoadVersion @QuizId = 111230123
 go
 
 --Loads the Quiz 

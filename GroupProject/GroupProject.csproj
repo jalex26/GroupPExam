@@ -38,7 +38,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\packages\AjaxControlToolkit.7.1213\lib\45\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.2.1.0.3\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -62,11 +90,21 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\cdcatalog.xml" />
+    <Content Include="App_Data\XMLFile.xml" />
     <Content Include="App_Data\XMLFileTEST.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="GroupPExam.css" />
+    <Content Include="styles\GroupPExam.css" />
+    <Content Include="img\ajaxLoader.gif" />
+    <Content Include="img\close.gif" />
+    <Content Include="img\next.gif" />
+    <Content Include="img\prev.gif" />
     <Content Include="install.sql" />
+    <Content Include="js\jquery-2.1.1.js" />
+    <Content Include="js\jquery.nyroModal-ie6.js" />
+    <Content Include="js\jquery.nyroModal-ie6.min.js" />
+    <Content Include="js\jquery.nyroModal.custom.js" />
+    <Content Include="js\jquery.nyroModal.custom.min.js" />
     <Content Include="LoginPage.aspx" />
     <Content Include="MentorPage.aspx" />
     <Content Include="MyAccount.aspx" />
@@ -81,10 +119,12 @@
     <Content Include="Settings.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
+    <Content Include="styles\nyroModal.css" />
     <Content Include="Testing.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
+    <Content Include="XSLT Files\QuestionX.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.aspx.cs">
@@ -94,7 +134,11 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GHLoadStudents.ashx.cs">
+      <DependentUpon>GHLoadStudents.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="LoadBoxes.cs" />
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -155,6 +199,7 @@
       <DependentUpon>QuizFormTEST.aspx</DependentUpon>
     </Compile>
     <Compile Include="QuizToSession.cs" />
+    <Compile Include="RenderXML.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Settings.aspx.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
@@ -188,6 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
+    <Content Include="img\Thumbs.db" />
+    <Content Include="GHLoadStudents.ashx" />
+    <Content Include="packages.config" />
     <None Include="validator.xsd">
       <SubType>Designer</SubType>
     </None>
