@@ -3,14 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Import Namespace="System.Xml" %>
 <%@ Import Namespace="System.ComponentModel" %>
-<script runat="server">
-    //protected XmlNamespaceManager xmlNS;
-    protected void Page_Load()
-    {
-        
-      
-    }
-</script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -169,7 +161,7 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <div>
-                        Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:ItemAttributes//ns:Title", nsmgr).InnerText%><br />
+                        Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:Quiz//ns:Questions//ns:MultipleChoice//ns:Question//ns:Questi", ns).InnerText%><br />
                     </div>
                 </ItemTemplate>
             </asp:DataList>

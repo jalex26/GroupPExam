@@ -13,7 +13,7 @@ namespace GroupProject
         XmlDocument XmlDoc = new XmlDocument();
         DAL myDal = new DAL(Globals.conn);
 
-        public void XMLContent (string QuizVersionId)
+        public DataSet XMLContent(string QuizVersionId)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
@@ -21,14 +21,14 @@ namespace GroupProject
             myDal.AddParam("@versionid", QuizVersionId);
             DataSet ds = new DataSet();
             ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+            return ds;
 
+            //XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+            //XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
+            //foreach (XmlNode xn in nodes)
+            //{
 
-            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
-            XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
-            foreach (XmlNode xn in nodes)
-            {
-                
-            }
+            //}
         }
     }
 }
