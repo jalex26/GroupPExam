@@ -51,5 +51,13 @@ namespace GroupProject
             return ds;
             
         }
+        public DataSet LoadQuizInfo(string quizversionid)
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            myDal.AddParam("@versionid", quizversionid);
+            ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+            return ds;  
+        }
     }
 }

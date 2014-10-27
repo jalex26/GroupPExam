@@ -49,6 +49,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Button btnUploadQuiz;
         
         /// <summary>
+        /// cblStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblStudents;
+        
+        /// <summary>
         /// pnlIssueQuiz control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,24 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectQuiz;
         
         /// <summary>
+        /// TSM1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager TSM1;
+        
+        /// <summary>
+        /// btnViewDemoQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewDemoQuiz;
+        
+        /// <summary>
         /// lblVersion control.
         /// </summary>
         /// <remarks>
@@ -148,13 +175,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Label lbStudents;
         
         /// <summary>
-        /// cblStudents control.
+        /// lblQuizDuration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblStudents;
+        protected global::System.Web.UI.WebControls.Label lblQuizDuration;
         
         /// <summary>
         /// btnSubmit control.
@@ -227,5 +254,23 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvViewQuiz;
+        
+        /// <summary>
+        /// pnlViewExam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlViewExam;
+        
+        /// <summary>
+        /// MPE1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE1;
     }
 }

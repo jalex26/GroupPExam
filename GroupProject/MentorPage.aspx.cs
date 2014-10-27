@@ -51,6 +51,7 @@ namespace GroupProject
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
+            
         }
         public void loadStudents()
         {
@@ -59,8 +60,8 @@ namespace GroupProject
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
-            
 
+            
         }
 
         public void ViewQuiz()
@@ -162,6 +163,7 @@ namespace GroupProject
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cblStudents.Items.Clear();
             DataSet ds = LB.LoadClasses(ddlCourse.SelectedValue.ToString());
             ddlClass.DataTextField = "Classname";
             ddlClass.DataValueField = "Classid";
@@ -177,10 +179,12 @@ namespace GroupProject
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
+            lblQuizDuration.Text = "Select quiz first";
         }
   
         protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblQuizDuration.Text = "Select quiz first";
             DataSet ds = LB.LoadQuizVersions(ddlSelectQuiz.SelectedValue.ToString());
             ddlVersion.DataTextField = "Version";
             ddlVersion.DataValueField = "Versionid";
@@ -188,6 +192,30 @@ namespace GroupProject
             ddlVersion.DataBind();
             ddlVersion.Items.Insert(0,new ListItem("-Select Quiz-", String.Empty));
             ddlVersion.SelectedIndex=0;
+        }
+
+        protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadStudents();
+            //ScriptManager.RegisterStartupScript(this, GetType(), "CheckAll", "CheckAll('btnUploadFile');", true);
+            foreach (ListItem item in cblStudents.Items)
+            {//default: all Students are selected
+                item.Selected = true;
+            }
+        }
+
+        protected void ddlVersion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            ds = LB.LoadQuizInfo(ddlVersion.SelectedValue.ToString());
+            lblQuizDuration.Text = ds.Tables[0].Rows[0]["Time"].ToString();
+        }
+
+        protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
+        {
+            RenderXML RX = new RenderXML();
+            RX.XMLContent(ddlSelectQuiz.SelectedValue.ToString());
+            
         }
 
     }

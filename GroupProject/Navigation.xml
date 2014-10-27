@@ -3,5 +3,4 @@
 <Items>
   <MenuItems NavitgateUrl="~/Home.aspx" Text="Home"></MenuItems> 
   <MenuItems NavitgateUrl="~/Admin.aspx" Text="Admin"></MenuItems> 
- 
 </Items>
