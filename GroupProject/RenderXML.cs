@@ -22,6 +22,13 @@ namespace GroupProject
             DataSet ds = new DataSet();
             ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
 
+
+            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+            XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
+            foreach (XmlNode xn in nodes)
+            {
+                
+            }
         }
     }
 }

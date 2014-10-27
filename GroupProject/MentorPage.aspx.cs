@@ -18,9 +18,13 @@ namespace GroupProject
     {
         DAL myDal = new DAL(Globals.conn);
         LoadBoxes LB = new LoadBoxes();
+        protected XmlNamespaceManager xmlNS;
+        protected XmlDocument XmlDoc = new XmlDocument();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!IsPostBack)
             {
                 loadCourse();
@@ -215,6 +219,10 @@ namespace GroupProject
         {
             RenderXML RX = new RenderXML();
             RX.XMLContent(ddlSelectQuiz.SelectedValue.ToString());
+
+            XmlDoc.LoadXml("");
+            xmlNS = new XmlNamespaceManager(XmlDoc.NameTable);
+            xmlNS.AddNamespace("ns", "urn:Question-Schema");
             
         }
 
