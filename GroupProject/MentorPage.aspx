@@ -162,16 +162,32 @@
                   
                 </ItemTemplate>
             </asp:Repeater>--%>
-            <asp:DataList ID="DLExamDemo" RepeatColumns="1" runat="server">
+            <asp:DataList ID="DLExamDemo" runat="server">
                 <HeaderTemplate>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# XPathSelect("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                    <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
                         <ItemTemplate>
                             <h4>QuestionID: <%# XPath("@ID") %><br />
-                               <%-- Question: <%# XPath("Questi",ns) %> --%>
-                                Question2: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                <%-- Question: <%# XPath("Questi",ns) %> --%>
+                                Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                            
+                            <%--<asp:DataList ID="DLOptions" runat="server" DataSource='<%# XPathSelect("//ns:Options//ns:Option",ns) %>'>
+                                <ItemTemplate>
+                                    a: <%#XPath("*[local-name()='Option' and namespace-uri()='urn:Question-Schema']")%>
+                                </ItemTemplate>
+                            </asp:DataList>--%>
                             </h4>
+                            <asp:Repeater ID="repeat2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                <ItemTemplate>
+                                    <%--a: <%#XPath("*[local-name()='.' and namespace-uri()='urn:Question-Schema']")%>--%>
+                                   Option: <%# XPath(".") %> <br />
+                                </ItemTemplate>
+                            </asp:Repeater>
+
+                             Correct Answer: <%#XPath("*[local-name()='Options/Option/@Correct' and namespace-uri()='urn:Question-Schema']")%>
+                             <br />
+                            
                         </ItemTemplate>
                         <SeparatorTemplate>
                             <hr style="border: solid 2px #c0c0c0" />
