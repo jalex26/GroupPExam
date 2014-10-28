@@ -212,7 +212,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             ds = LB.LoadQuizInfo(ddlVersion.SelectedValue.ToString());
-            lblQuizDuration.Text = ds.Tables[0].Rows[0]["Time"].ToString();
+            lblQuizDuration.Text = ds.Tables[0].Rows[0]["Time"].ToString() + " minutes";
         }
 
         protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
@@ -240,6 +240,11 @@ namespace GroupProject
             DLExamDemo.DataBind();
             MPE1.Show();
             
+        }
+
+        protected void btnPopUpClose_Click(object sender, EventArgs e)
+        {
+            MPE1.Hide();
         }
 
     }
