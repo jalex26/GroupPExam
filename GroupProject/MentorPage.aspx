@@ -154,26 +154,23 @@
     </asp:Panel>
 
     <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="Red" runat="server" CssClass="ModalPopUp">
-
         <div>
-            <asp:Repeater ID="rpt1" runat="server">
+            <%--<asp:Repeater ID="rpt1" runat="server">
                 <ItemTemplate>
                     Question Id: <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID", ns) %><br />
                     <b>Question:</b> <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Questi", ns) %><br />
-                    <%--<%# DataBinder.Eval(Container, "Quiz.Questions") %>--%>
+                  
                 </ItemTemplate>
-                <SeparatorTemplate>
-                    <hr style="border: solid 2px #c0c0c0" />
-                </SeparatorTemplate>
-            </asp:Repeater>
-            <asp:DataList ID="DLExamDemo" runat="server">
+            </asp:Repeater>--%>
+            <asp:DataList ID="DLExamDemo" RepeatColumns="1" runat="server">
                 <HeaderTemplate>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# XPathSelect("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
                         <ItemTemplate>
                             <h4>QuestionID: <%# XPath("@ID") %><br />
-                                Question: <%# XPath("/ns:Questi",ns) %> 
+                               <%-- Question: <%# XPath("Questi",ns) %> --%>
+                                Question2: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
                             </h4>
                         </ItemTemplate>
                         <SeparatorTemplate>

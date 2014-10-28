@@ -221,6 +221,7 @@ namespace GroupProject
 
             DataSet ds = RX.XMLContent(ddlVersion.SelectedValue.ToString());
             XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+            
             ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
             string xpath = "/ns:Quiz";
@@ -228,6 +229,12 @@ namespace GroupProject
             //string x= XmlDoc.InnerXml;
             //DataSet ds1 = new DataSet();
             //ds1.ReadXml(new StringReader(x));
+            string serverPath = Server.MapPath(".") + "\\XSLT_Files\\";
+
+            XmlDataSource xmlDS = new XmlDataSource();
+            xmlDS.Data = XmlDoc.OuterXml;
+            xmlDS.TransformFile = serverPath + "QuestionX.xslt";
+            xmlDS.XPath = "Quiz";
 
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();

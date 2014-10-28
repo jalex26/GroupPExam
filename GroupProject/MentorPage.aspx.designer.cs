@@ -265,15 +265,6 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Panel pnlViewExam;
         
         /// <summary>
-        /// rpt1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rpt1;
-        
-        /// <summary>
         /// DLExamDemo control.
         /// </summary>
         /// <remarks>
