@@ -180,12 +180,19 @@
                             </h4>
                             <asp:Repeater ID="repeat2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
                                 <ItemTemplate>
-                                    <%--a: <%#XPath("*[local-name()='.' and namespace-uri()='urn:Question-Schema']")%>--%>
                                    Option: <%# XPath(".") %> <br />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                </FooterTemplate>
                             </asp:Repeater>
 
-                             Correct Answer: <%#XPath("*[local-name()='Options/Option/@Correct' and namespace-uri()='urn:Question-Schema']")%>
+                            <asp:Repeater ID="rptGetAnswer" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
+                                <ItemTemplate>
+                                    Correct Answer: <%# XPath("..") %> <br />
+                                    <%--<%#XPath("*[local-name()='.' and namespace-uri()='urn:Question-Schema']")%>--%>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                             
                              <br />
                             
                         </ItemTemplate>
