@@ -10,7 +10,7 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            
+
         });
         function deselect(e) {
             $('.pop').slideFadeToggle(function () {
@@ -95,7 +95,6 @@
                             <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
                             <asp:DropDownList ID="ddlSelectQuiz" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSelectQuiz_SelectedIndexChanged"></asp:DropDownList>
                             <asp:ToolkitScriptManager ID="TSM1" runat="server"></asp:ToolkitScriptManager>
-                            <asp:Button ID="btnViewDemoQuiz" runat="server" Text="View Quiz" OnClick="btnViewDemoQuiz_Click"></asp:Button>
                         </td>
                     </tr>
                     <tr>
@@ -104,6 +103,7 @@
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlVersion" runat="server" OnSelectedIndexChanged="ddlVersion_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            <asp:Button ID="btnViewDemoQuiz" runat="server" OnClick="btnViewDemoQuiz_Click" Text="View Quiz" />
                         </td>
                     </tr>
                     <tr>
@@ -153,20 +153,52 @@
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
     </asp:Panel>
 
-    <asp:Panel ID="pnlViewExam" BorderColor="Red" runat="server" CssClass="ModalPopUp">
+    <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="Red" runat="server" CssClass="ModalPopUp">
 
         <div>
-            <asp:DataList ID="DLExamDemo" RepeatColumns="1" runat="server">
+            <asp:Repeater ID="rpt1" runat="server">
+                <ItemTemplate>
+                    Question Id: <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID", ns) %><br />
+                    <b>Question:</b> <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Questi", ns) %><br />
+                    <%--<%# DataBinder.Eval(Container, "Quiz.Questions") %>--%>
+                </ItemTemplate>
+                <SeparatorTemplate>
+                    <hr style="border: solid 2px #c0c0c0" />
+                </SeparatorTemplate>
+            </asp:Repeater>
+            <asp:DataList ID="DLExamDemo" runat="server">
                 <HeaderTemplate>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <div>
-                        Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:Quiz//ns:Questions//ns:MultipleChoice//ns:Question//ns:Questi", ns).InnerText%><br />
-                    </div>
+                    <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# XPathSelect("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                        <ItemTemplate>
+                            <h4>QuestionID: <%# XPath("@ID") %><br />
+                                Question: <%# XPath("/ns:Questi",ns) %> 
+                            </h4>
+                        </ItemTemplate>
+                        <SeparatorTemplate>
+                            <hr style="border: solid 2px #c0c0c0" />
+                        </SeparatorTemplate>
+                    </asp:Repeater>
+
+
+                    <%-- <asp:Repeater ID="repeat1" runat="server" DataSource='<%# DataBinder.Eval(((System.Xml.XmlNode)(Container.DataItem)).SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice", ns),null) %>'>
+                        <ItemTemplate>
+                            <h4>
+                                Question no <%# XPath("//ns:Question[@id]",ns) %> :
+                                <%# XPath("//ns:Questi",ns) %>
+                            </h4>
+
+                        </ItemTemplate>--%>
+
+                    <%-- Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:Questions//ns:MultipleChoice//ns:Question//ns:Questi", ns).InnerText%><br />--%>
+
+                    <%--</asp:Repeater>--%>
                 </ItemTemplate>
             </asp:DataList>
         </div>
     </asp:Panel>
-    <asp:ModalPopupExtender ID="MPE1" TargetControlID="btnViewDemoQuiz" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+    <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
+    <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
 </asp:Content>

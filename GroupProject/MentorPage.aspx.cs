@@ -218,14 +218,20 @@ namespace GroupProject
         protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
         {
             RenderXML RX = new RenderXML();
-            
-            DataSet ds = RX.XMLContent(ddlSelectQuiz.SelectedValue.ToString());
+
+            DataSet ds = RX.XMLContent(ddlVersion.SelectedValue.ToString());
             XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
             ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
+            string xpath = "/ns:Quiz";
+            XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
+            //string x= XmlDoc.InnerXml;
+            //DataSet ds1 = new DataSet();
+            //ds1.ReadXml(new StringReader(x));
 
-
-            DLExamDemo.DataSource
+            DLExamDemo.DataSource = QuizNode;
+            DLExamDemo.DataBind();
+            MPE1.Show();
             
         }
 
