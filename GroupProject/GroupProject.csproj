@@ -125,7 +125,7 @@
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
-    <Content Include="XSLT Files\QuestionX.xslt" />
+    <Content Include="XSLT_Files\QuestionX.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.aspx.cs">
