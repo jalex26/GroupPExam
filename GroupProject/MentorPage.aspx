@@ -134,7 +134,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" />
+                            <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                         </td>
                     </tr>

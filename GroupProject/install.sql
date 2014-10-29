@@ -108,6 +108,11 @@ StatusId int primary key identity (0,1),
 StatusName varchar(10)
 )
 
+insert into tbQuizStatus values
+('Offline'),		-- 0
+('Online'),			--1 
+('Complete')			--2
+
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
 XMLQuizID int primary key,    --extracting it from the XML file    
@@ -133,6 +138,7 @@ IssuedTestId int primary key identity(0,1),
 Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
 StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
 DateIssued date,
+Mentorid int foreign key references tbUser(Userid),
 TestStatus int foreign key references tbQuizStatus(StatusId)
 )
 
@@ -142,7 +148,7 @@ IssuedTestId int foreign key references tbIssuedTest(IssuedTestId),
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLStudentResponse xml, 
 Status varchar(20),
-Points int   -- results or number of correct responses by each student
+Points int null   -- results or number of correct responses by each student
 )
 go
 
@@ -227,6 +233,7 @@ go
 select * from tbXMLQuizContent
 select * from tbCourse
 select * from tbQuizVersion
+select * from tbUser
 go
 -----------------------------PROCEDURES-----------------------------------------
 
@@ -250,6 +257,69 @@ as begin
 end
 go
 
+create procedure spIssueNewQuiz(
+@Versionid int,
+@Userid int,
+@Mentorid int
+)
+as begin
+begin transaction
+if not EXISTS(select * from tbIssuedTest where Versionid = @Versionid and StudentsToTakeId = @Userid)
+	begin
+		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
+		begin
+		insert into tbIssuedTest values(@Versionid,@Userid,GETDATE(),@Mentorid,0)
+		end
+		else
+		begin
+			select 'Insufficient Level' status
+		end
+		
+	end
+else
+	begin
+	select 'TestExists' as status
+	end
+
+ if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+go
+
+spIssueNewQuiz @Versionid = 1, @userid = 5, @Mentorid =1
+select * from tbQuizStatus 
+select * from tbIssuedTest
+--('Offline'),		-- 0
+--('Online'),			--1 
+--('Complete')			--2
+
+--create table tbTestStudent(			
+--TestStudentid int primary key identity (0,1), -- just the id nothing else
+--IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
+--Userid int foreign key references tbUser(Userid),  ---Student
+--XMLStudentResponse xml, 
+--Status varchar(20),
+--Points int null   -- results or number of correct responses by each student
+--)
+
+--create table tbIssuedTest(		-- issued quiz and its statuses
+--IssuedTestId int primary key identity(0,1),
+--Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
+--StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
+--DateIssued date,
+--Mentorid int foreign key references tbUser(Userid),
+--TestStatus int foreign key references tbQuizStatus(StatusId)
+--)
+
+
 
 -----------SELECTS------------
 
@@ -265,6 +335,8 @@ go
 --end
 --go
 
+
+go
 create procedure spGetStudents(
 @Classid int = null
 )
