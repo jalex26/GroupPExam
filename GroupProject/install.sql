@@ -295,9 +295,45 @@ else
 end
 go
 
---create procedure spIssueNew
+create procedure spIssueNewQuizStudent(
+@IssuedQuizId int,
+@UserId int
+)
+as declare
+@getxml xml,
+@newXml xml,
+@xmlMultipleCount int
+ begin
+begin transaction
 
-spIssueNewQuiz @Versionid = 1, @ClassId = 1, @Mentorid =1
+	set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
+	join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+	where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
+
+	;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+	(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
+
+	
+	--if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId)
+	--begin
+	--	insert into tbQuizStudent values (@IssuedQuizId,@UserId,)
+	--end
+ if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+go
+spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
+select * from tbQuizStudent
+go
+spIssueNewQuiz @Versionid = 3, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
