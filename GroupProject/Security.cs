@@ -44,7 +44,7 @@ namespace GroupProject
         public Security (string Email, String Password)
         {
             DataSet ds = new DataSet();
-            DAL myDal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
+            DAL myDal = new DAL(Globals.conn);
             myDal.ClearParams();
             myDal.AddParam("@Email", Email);
             myDal.AddParam("@Password", Password);

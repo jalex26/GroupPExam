@@ -37,7 +37,7 @@ namespace GroupProject {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image RobertsonLogo;
+        protected global::System.Web.UI.WebControls.ImageButton RobertsonLogo;
         
         /// <summary>
         /// XmlDataSource1 control.

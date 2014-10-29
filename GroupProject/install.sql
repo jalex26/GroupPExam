@@ -108,6 +108,11 @@ StatusId int primary key identity (0,1),
 StatusName varchar(10)
 )
 
+insert into tbQuizStatus values
+('Offline'),		-- 0
+('Online'),			--1 
+('Complete')			--2
+
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
 XMLQuizID int primary key,    --extracting it from the XML file    
@@ -127,22 +132,22 @@ Version int,
 XmlFile xml
 )
 go
-
-create table tbIssuedTest(		-- issued quiz and its statuses
-IssuedTestId int primary key identity(0,1),
+create table tbIssuedQuiz(		-- issued quiz and its statuses,
+IssuedQuizId int primary key identity(0,1),
 Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
-StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
+ClassId int foreign key references tbClass(Classid),		-- users who will take the test!
 DateIssued date,
-TestStatus int foreign key references tbQuizStatus(StatusId)
+Mentorid int foreign key references tbUser(Userid),
+QuizStatus int foreign key references tbQuizStatus(StatusId)
 )
 
-create table tbTestStudent(			
-TestStudentid int primary key identity (0,1), -- just the id nothing else
-IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
+create table tbQuizStudent(			
+QuizStudentid int primary key identity (0,1), -- just the id nothing else
+IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLStudentResponse xml, 
 Status varchar(20),
-Points int   -- results or number of correct responses by each student
+Points int null   -- results or number of correct responses by each student
 )
 go
 
@@ -227,6 +232,7 @@ go
 select * from tbXMLQuizContent
 select * from tbCourse
 select * from tbQuizVersion
+select * from tbUser
 go
 -----------------------------PROCEDURES-----------------------------------------
 
@@ -250,6 +256,110 @@ as begin
 end
 go
 
+create procedure spIssueNewQuiz(
+@Versionid int,
+@Mentorid int,
+@ClassId int
+)
+as begin
+begin transaction
+
+if not EXISTS(select * from tbIssuedQuiz where Versionid = @Versionid and ClassId = @ClassId)
+	begin
+	begin transaction
+		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
+			begin
+			insert into tbIssuedQuiz values(@Versionid,@ClassId,GETDATE(),@Mentorid,0)
+			end
+		else
+		begin
+			select 'Insufficient Level' status
+		end
+	commit transaction
+	end
+else
+	begin
+	select 'TestExists' as status
+	end
+
+ if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+go
+
+create procedure spIssueNewQuizStudent(
+@IssuedQuizId int,
+@UserId int
+)
+as declare
+@getxml xml,
+@newXml xml,
+@xmlMultipleCount int
+ begin
+begin transaction
+
+	set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
+	join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+	where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
+
+	;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+	(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
+
+	
+	--if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId)
+	--begin
+	--	insert into tbQuizStudent values (@IssuedQuizId,@UserId,)
+	--end
+ if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+go
+spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
+select * from tbQuizStudent
+go
+spIssueNewQuiz @Versionid = 3, @ClassId = 1, @Mentorid =1
+select * from tbQuizStatus 
+select * from tbIssuedQuiz
+select * from tbQuizStudent
+--('Offline'),		-- 0
+--('Online'),			--1 
+--('Complete')			--2
+
+--create table tbQuizStudent(			
+--QuizStudentid int primary key identity (0,1), -- just the id nothing else
+--IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
+--Userid int foreign key references tbUser(Userid),  ---Student
+--XMLStudentResponse xml, 
+--Status varchar(20),
+--Points int null   -- results or number of correct responses by each student
+--)
+
+--create table tbIssuedQuiz(		-- issued quiz and its statuses
+--IssuedQuizId int primary key identity(0,1),
+--Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
+--StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
+--DateIssued date,
+--Mentorid int foreign key references tbUser(Userid),
+--TestStatus int foreign key references tbQuizStatus(StatusId)
+--)
+
+
 
 -----------SELECTS------------
 
@@ -265,6 +375,8 @@ go
 --end
 --go
 
+
+go
 create procedure spGetStudents(
 @Classid int = null
 )
@@ -417,10 +529,10 @@ create procedure spViewQuizResults(
 )
 
 as begin 
-	select * from tbQuizVersion, tbTestStudent, tbIssuedTest 
-	where tbTestStudent.TestStudentid = @Userid and
-	      tbQuizVersion.Versionid = tbIssuedTest.Versionid and
-		  tbIssuedTest.IssuedTestId = tbTestStudent.IssuedTestId
+	select * from tbQuizVersion, tbQuizStudent, tbIssuedQuiz 
+	where tbQuizStudent.QuizStudentid = @Userid and
+	      tbQuizVersion.Versionid = tbIssuedQuiz.Versionid and
+		  tbIssuedQuiz.IssuedQuizId = tbQuizStudent.IssuedQuizId
 end 
 go
 
@@ -438,9 +550,9 @@ go
  @Userid int
  )
 as begin 
-	select * from tbTestStudent,tbXMLQuizContent,tbDifficulty, tbIssuedTest
+	select * from tbQuizStudent,tbXMLQuizContent,tbDifficulty, tbIssuedQuiz
 	where  Userid=@Userid and
-	       tbTestStudent.IssuedTestId = tbIssuedTest.IssuedTestId and	      
+	       tbQuizStudent.IssuedQuizId = tbIssuedQuiz.IssuedQuizId and	      
 	      tbXMLQuizContent.DifficultyId = tbDifficulty.Difficultyid
 	end 
 go
