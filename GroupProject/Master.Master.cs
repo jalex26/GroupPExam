@@ -15,14 +15,29 @@ namespace GroupProject
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckSecurity();
+
+            if (!IsPostBack)
+            {
+
+                // loads site navigation xml files based on user level
+                // if not logged in security level is 0 -- user_menu.xml
+                // if logged in with security level 1 -- student_menu.xml
+                // if logged in with security level 2 -- mentor_menu.xml
+                // if logged in with security level 3 -- admin_menu.xml
+
+                string appDataPath = HttpContext.Current.Server.MapPath("~/NavigationXmlFiles");
+                this.XmlDataSource1.DataFile = appDataPath + "\\" + GetRole() + "_menu.xml";
+                this.XmlDataSource1.XPath = @"/Items/Item";
+            }
+
         }
         private void CheckSecurity()
         {
             Security mySecurity = new Security();
             lblFirstname.Text = mySecurity.Firstname;
-            if(mySecurity.GetSecurityLevel() ==0)
+            if(mySecurity.GetSecurityLevel() == 0)
             {
-                //pnlLogin.Visible = true;//
+                //pnlLogin.Visible = true;//        
             }
             else
             {
@@ -31,6 +46,7 @@ namespace GroupProject
                 txtUserName.Visible = false;
                 txtPassword.Visible = false;
                 btnLogin.Visible = false;
+              
                 
             }
 
@@ -65,6 +81,7 @@ namespace GroupProject
         {
             Security mySecurity = new Security(txtUserName.Text, txtPassword.Text);
             CheckSecurity();
+            Response.Redirect("Home.aspx");
             btnLogout.Visible = true;
         }
 
@@ -72,6 +89,34 @@ namespace GroupProject
         {
             Session.Abandon();
             Response.Redirect("Home.aspx");
+        }
+
+        // method that gets user level based on login to adjust navigation
+        protected string GetRole()
+        {
+            string role = string.Empty;
+
+            Security mySecurity = new Security();
+            if (mySecurity.GetSecurityLevel() == 3)
+            {
+                role = "admin";
+            }
+
+            else if (mySecurity.GetSecurityLevel() == 2)
+            {
+                role = "mentor";
+            }
+
+            else if (mySecurity.GetSecurityLevel() == 1)
+            {
+                role = "student";
+            }
+
+            else if (mySecurity.GetSecurityLevel() == 0)
+            {
+                role = "user";
+            }
+            return role;
         }
     }
 }

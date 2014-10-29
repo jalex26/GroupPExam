@@ -22,18 +22,38 @@
                 <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/college.jpg" />
             </div>
         </div>
-        <%--<asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>--%>
-        <%--<a href="Home.aspx">Home</a>
-            <a href="MentorPage.aspx">Mentor</a>
-            <a href="Admin.aspx">Admin</a>--%>
+
+            <!-- Shell -->
+        <div class="shell">
+
+
+           <!-- Header -->
+            <div id="header">               
+
+                <!-- Navigation -->
+                <div id="navigation">                                                      
+                            <asp:XmlDataSource ID="XmlDataSource1" runat="server" />  
+                    <asp:Menu ID="Menu1" runat="server" Orientation="Vertical" DisappearAfter="10"
+                        Width="600px" DataSourceID="XmlDataSource1" StaticEnableDefaultPopOutImage="False">
+                        <StaticMenuItemStyle CssClass="MenuItem" />
+                        <DynamicHoverStyle CssClass="SubMenuItemHover" />
+                        <DynamicMenuItemStyle CssClass="SubMenuItem" />
+                        <StaticHoverStyle CssClass="MenuItemHover" />
+                        <DataBindings>
+                            <asp:MenuItemBinding DataMember="Item" NavigateUrlField="Url" TextField="Text" />
+                        </DataBindings>
+                    </asp:Menu>             
+                </div>
+                <!-- End Navigation -->
+            </div>
+            <!-- End Header -->
+      
         <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton>
         <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx" Visible="false">Mentor</asp:LinkButton>
         <asp:LinkButton ID="lbMyAccount" runat="server" PostBackUrl="~/MyAccount.aspx">My Account</asp:LinkButton>
         <asp:LinkButton ID="lbQuizes" runat="server" PostBackUrl="~/Quizes.aspx" Visible="false">Quizes</asp:LinkButton>
         <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx" Visible="false">Settings</asp:LinkButton>
 
-
-        <%--<asp:LinkButton ID="lbAdmin" runat="server">Admin</asp:LinkButton>--%>
 
         <br />
         <div class="TopRight">
@@ -45,7 +65,11 @@
             </asp:Panel>
         </div>
 
-        <table>
+         <br />
+        <br />
+
+        
+                 <table>
             <tr>
                 <td>
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
@@ -69,14 +93,51 @@
                     <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
                 </td>
             </tr>
-        </table>
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </table>       
+            <br />
+              
+             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <%--DO NOT PUT ANYTHING HERE--%>
-            </asp:ContentPlaceHolder>
+                  </asp:ContentPlaceHolder>
+
+            <br />
+            <br />
+        <hr />
+            <!-- Text Cols -->
+            <div class="cols">
+                <div class="cl">&nbsp;</div>
+                <div class="col">
+                    <h3>Robertson College</h3>
+                    <p>Visit Robertson College's offical website here to get updates on courses offered and schedules.</p>
+                    <p class="more"><a href="http://www.robertsoncollege.com" class="bul">Robertson College's Website</a></p>
+                </div>
+                <div class="col">
+                    <h3 >Online Resources</h3>
+                    <p>Go to W3 schools to browse topics or learn new things in various technologies.</p>
+                    <p class="more"><a href="http://www.w3schools.com" class="bul">W3 Schools</a></p>
+                </div>
+
+                <div class="col">
+                    <h3>Social</h3>
+                    <p>Visit Robertson College's facebook page to view the latest updates and follow/ like.</p>
+                     <p class="more"><a href="https://www.facebook.com/OfficialRobertsonCollege" class="bul">Robertson College on Facebook</a></p>
+                </div>
+               
+                <div class="col col-last">
+                    <h3>Contact</h3>
+                    <p>Click on the link to get Robertson College's contact details, if you have any questions or queries.</p>
+                    <p class="more"><a href="http://www.robertsoncollege.com/contact-us.aspx" class="bul">Contact Us</a></p>
+                </div>
+                <div class="cl">&nbsp;</div>
+            </div>
+            <!-- End Text Cols -->
+
         </div>
+        <!-- End Shell -->
+        
     </form>
 
+    <br />
 
     <!-- Footer -->
     <div id="footer">

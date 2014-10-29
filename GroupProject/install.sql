@@ -400,9 +400,12 @@ go
 create procedure spViewQuiz
 as begin 
 	select tbXMLQuizContent.XMLQuizID, tbXMLQuizContent.Subject, tbXMLQuizContent.Time,
-	       tbXMLQuizContent.DifficultyId, tbQuizVersion.Version, tbQuizVersion.Versionid
-	from tbXMLQuizContent,tbQuizVersion
-	where tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
+	       tbXMLQuizContent.Title,
+	       tbXMLQuizContent.DifficultyId, tbQuizVersion.Version, tbQuizVersion.Versionid,
+		   tbDifficulty.Difficultyname
+	from tbXMLQuizContent,tbQuizVersion, tbDifficulty
+	where tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid and
+	      tbXMLQuizContent.DifficultyId = tbDifficulty.Difficultyid
 	
 end 
 go
