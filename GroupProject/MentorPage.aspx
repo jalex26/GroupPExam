@@ -10,8 +10,13 @@
     <script src="js/jquery-2.1.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            
         });
+
+        function PopOnShown() {
+            var background = $find("MPE1")._backgroundElement;
+            background.onclick = function () { $find("MPE1").hide(); }
+        }
+
         function deselect(e) {
             $('.pop').slideFadeToggle(function () {
                 //$("#aGetStudents").removeClass('selected');
@@ -94,8 +99,12 @@
                         <td>
                             <asp:Label ID="lbCourseid" runat="server" Text="" Visible="false"></asp:Label>
                             <asp:DropDownList ID="ddlSelectQuiz" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlSelectQuiz_SelectedIndexChanged"></asp:DropDownList>
-                            <asp:ToolkitScriptManager ID="TSM1" runat="server"></asp:ToolkitScriptManager>
-                            <asp:Button ID="btnViewDemoQuiz" runat="server" Text="View Quiz" OnClick="btnViewDemoQuiz_Click"></asp:Button>
+                            <%--<asp:ToolkitScriptManager ID="TSM1" runat="server"></asp:ToolkitScriptManager>--%>
+                            <ajaxToolkit:ToolkitScriptManager ID="TSM1" runat="server" CombineScripts="false" ScriptMode="Release">
+                                <ControlBundles>
+                                   <%-- <ajaxToolkit:ControlBundle Name="PopUp" />--%>
+                                </ControlBundles>
+                            </ajaxToolkit:ToolkitScriptManager>
                         </td>
                     </tr>
                     <tr>
@@ -104,6 +113,7 @@
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlVersion" runat="server" OnSelectedIndexChanged="ddlVersion_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            <asp:Button ID="btnViewDemoQuiz" runat="server" OnClick="btnViewDemoQuiz_Click" Text="View Quiz" />
                         </td>
                     </tr>
                     <tr>
@@ -153,24 +163,72 @@
         <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
     </asp:Panel>
 
-    <asp:Panel ID="pnlViewExam" BorderColor="Red" runat="server" CssClass="ModalPopUp">
-
+    <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
         <div>
-            <asp:DataList ID="DLExamDemo" RepeatColumns="1" runat="server">
+            <%--<asp:Repeater ID="rpt1" runat="server">
+                <ItemTemplate>
+                    Question Id: <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID", ns) %><br />
+                    <b>Question:</b> <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Questi", ns) %><br />
+                  
+                </ItemTemplate>
+            </asp:Repeater>--%>
+            <asp:DataList ID="DLExamDemo" Width="450px" runat="server">
                 <HeaderTemplate>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <div>
-<<<<<<< HEAD
-<%--                        Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:ItemAttributes//ns:Title", nsmgr).InnerText%><br />--%>
-=======
-                        Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:Quiz//ns:Questions//ns:MultipleChoice//ns:Question//ns:Questi", ns).InnerText%><br />
->>>>>>> origin/master
-                    </div>
+                    <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                        <ItemTemplate>
+                            <h4>QuestionID: <%# XPath("@ID") %><br />
+                                <%-- Question: <%# XPath("Questi",ns) %> --%>
+                                Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+
+                                <%--<asp:DataList ID="DLOptions" runat="server" DataSource='<%# XPathSelect("//ns:Options//ns:Option",ns) %>'>
+                                <ItemTemplate>
+                                    a: <%#XPath("*[local-name()='Option' and namespace-uri()='urn:Question-Schema']")%>
+                                </ItemTemplate>
+                            </asp:DataList>--%>
+                            </h4>
+                            <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                <ItemTemplate>
+                                    Option: <%# XPath(".") %>
+                                    <br />
+                                </ItemTemplate>
+                            </asp:Repeater>
+
+                            <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
+                                <ItemTemplate>
+                                    Correct Answer: <%# XPath("..") %>
+                                    <br />
+                                    <%--<%#XPath("*[local-name()='.' and namespace-uri()='urn:Question-Schema']")%>--%>
+                                </ItemTemplate>
+                            </asp:Repeater>
+
+                            <br />
+
+                        </ItemTemplate>
+                        <SeparatorTemplate>
+                            <hr style="border: solid 2px #c0c0c0" />
+                        </SeparatorTemplate>
+                    </asp:Repeater>
+
+
+                    <%-- <asp:Repeater ID="repeat1" runat="server" DataSource='<%# DataBinder.Eval(((System.Xml.XmlNode)(Container.DataItem)).SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice", ns),null) %>'>
+                        <ItemTemplate>
+                            <h4>
+                                Question no <%# XPath("//ns:Question[@id]",ns) %> :
+                                <%# XPath("//ns:Questi",ns) %>
+                            </h4>
+
+                        </ItemTemplate>--%>
+
+                    <%-- Question ID. <%#((XmlNode)Container.DataItem).SelectSingleNode("//ns:Questions//ns:MultipleChoice//ns:Question//ns:Questi", ns).InnerText%><br />--%>
+
+                    <%--</asp:Repeater>--%>
                 </ItemTemplate>
             </asp:DataList>
         </div>
+        <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
     </asp:Panel>
-    <asp:ModalPopupExtender ID="MPE1" TargetControlID="btnViewDemoQuiz" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
-
+    <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
+    <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 </asp:Content>

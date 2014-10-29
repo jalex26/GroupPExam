@@ -19,7 +19,7 @@
         <div class="header_container">
             <div>
                 <p class="Margin">Exam Site</p>
-                <asp:Image ID="RobertsonLogo" CssClass="ImageMargin" runat="server" ImageUrl="~/Pictures/college.jpg" />
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/college.jpg" PostBackUrl="~/Home.aspx"/>
             </div>
         </div>
         <%--<asp:Xml ID="Xml1" runat="server" DocumentSource="~/Navigation.xml"></asp:Xml>--%>
