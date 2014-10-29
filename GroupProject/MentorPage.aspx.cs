@@ -259,6 +259,7 @@ namespace GroupProject
                         string a = item.Value;
                         myDal.ClearParams();
                         myDal.AddParam("@Userid", item.Value);
+                        myDal.AddParam("@ClassId", ddlClass.SelectedValue);
                         myDal.AddParam("@Versionid", ddlVersion.SelectedValue);
                         //myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
                         myDal.AddParam("@Mentorid", "1");

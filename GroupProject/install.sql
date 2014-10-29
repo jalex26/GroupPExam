@@ -132,19 +132,18 @@ Version int,
 XmlFile xml
 )
 go
-
-create table tbIssuedTest(		-- issued quiz and its statuses
-IssuedTestId int primary key identity(0,1),
+create table tbIssuedQuiz(		-- issued quiz and its statuses,
+IssuedQuizId int primary key identity(0,1),
 Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
-StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
+ClassId int foreign key references tbClass(Classid),		-- users who will take the test!
 DateIssued date,
 Mentorid int foreign key references tbUser(Userid),
-TestStatus int foreign key references tbQuizStatus(StatusId)
+QuizStatus int foreign key references tbQuizStatus(StatusId)
 )
 
-create table tbTestStudent(			
-TestStudentid int primary key identity (0,1), -- just the id nothing else
-IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
+create table tbQuizStudent(			
+QuizStudentid int primary key identity (0,1), -- just the id nothing else
+IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLStudentResponse xml, 
 Status varchar(20),
@@ -259,22 +258,24 @@ go
 
 create procedure spIssueNewQuiz(
 @Versionid int,
-@Userid int,
-@Mentorid int
+@Mentorid int,
+@ClassId int
 )
 as begin
 begin transaction
-if not EXISTS(select * from tbIssuedTest where Versionid = @Versionid and StudentsToTakeId = @Userid)
+
+if not EXISTS(select * from tbIssuedQuiz where Versionid = @Versionid and ClassId = @ClassId)
 	begin
+	begin transaction
 		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
-		begin
-		insert into tbIssuedTest values(@Versionid,@Userid,GETDATE(),@Mentorid,0)
-		end
+			begin
+			insert into tbIssuedQuiz values(@Versionid,@ClassId,GETDATE(),@Mentorid,0)
+			end
 		else
 		begin
 			select 'Insufficient Level' status
 		end
-		
+	commit transaction
 	end
 else
 	begin
@@ -294,24 +295,27 @@ else
 end
 go
 
-spIssueNewQuiz @Versionid = 1, @userid = 5, @Mentorid =1
+--create procedure spIssueNew
+
+spIssueNewQuiz @Versionid = 1, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
-select * from tbIssuedTest
+select * from tbIssuedQuiz
+select * from tbQuizStudent
 --('Offline'),		-- 0
 --('Online'),			--1 
 --('Complete')			--2
 
---create table tbTestStudent(			
---TestStudentid int primary key identity (0,1), -- just the id nothing else
---IssuedTestId int foreign key references tbIssuedTest(IssuedTestId), 
+--create table tbQuizStudent(			
+--QuizStudentid int primary key identity (0,1), -- just the id nothing else
+--IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
 --Userid int foreign key references tbUser(Userid),  ---Student
 --XMLStudentResponse xml, 
 --Status varchar(20),
 --Points int null   -- results or number of correct responses by each student
 --)
 
---create table tbIssuedTest(		-- issued quiz and its statuses
---IssuedTestId int primary key identity(0,1),
+--create table tbIssuedQuiz(		-- issued quiz and its statuses
+--IssuedQuizId int primary key identity(0,1),
 --Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
 --StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
 --DateIssued date,
@@ -486,10 +490,10 @@ create procedure spViewQuizResults(
 )
 
 as begin 
-	select * from tbQuizVersion, tbTestStudent, tbIssuedTest 
-	where tbTestStudent.TestStudentid = @Userid and
-	      tbQuizVersion.Versionid = tbIssuedTest.Versionid and
-		  tbIssuedTest.IssuedTestId = tbTestStudent.IssuedTestId
+	select * from tbQuizVersion, tbQuizStudent, tbIssuedQuiz 
+	where tbQuizStudent.QuizStudentid = @Userid and
+	      tbQuizVersion.Versionid = tbIssuedQuiz.Versionid and
+		  tbIssuedQuiz.IssuedQuizId = tbQuizStudent.IssuedQuizId
 end 
 go
 
@@ -507,9 +511,9 @@ go
  @Userid int
  )
 as begin 
-	select * from tbTestStudent,tbXMLQuizContent,tbDifficulty, tbIssuedTest
+	select * from tbQuizStudent,tbXMLQuizContent,tbDifficulty, tbIssuedQuiz
 	where  Userid=@Userid and
-	       tbTestStudent.IssuedTestId = tbIssuedTest.IssuedTestId and	      
+	       tbQuizStudent.IssuedQuizId = tbIssuedQuiz.IssuedQuizId and	      
 	      tbXMLQuizContent.DifficultyId = tbDifficulty.Difficultyid
 	end 
 go
