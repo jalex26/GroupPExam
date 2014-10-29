@@ -6,6 +6,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="js/jquery-2.1.1.js"></script>
     <script type="text/javascript">
@@ -55,12 +56,29 @@
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
 <![endif]-->
 
-    <div>
-        <asp:Button ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" />
-        <asp:Button ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" />
-        <asp:Button ID="btnCreateQuiz" runat="server" Text="Create Quiz" />
-        <asp:Button ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" />
-    </div>
+        
+
+   <%-- Main content panel starts here--%>
+
+    <div id="content">
+
+        Welcome to the Mentor Page! Here you can view available quizzes, upload new quizzes to database and issue selected quiz to the students. Please click on the appropriate button to proceed!
+        <br />      
+
+        <div id="buttonstyle">
+        <asp:Panel ID="pnlbuttons" runat="server">
+
+         <asp:Button cssclass="mentorpagebutton" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+       
+        <asp:Button cssclass="mentorpagebutton" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+      
+        <asp:Button cssclass="mentorpagebutton" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" />
+       
+         <asp:Button cssclass="mentorpagebutton" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+
+        </asp:Panel>
+            </div>
+
     <div class="messagepop pop">
 
         <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
@@ -159,8 +177,28 @@
             </tr>
         </table>
     </asp:Panel>
-    <asp:Panel ID="pnlViewQuiz" runat="server">
-        <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
+    <asp:Panel ID="pnlViewQuiz" runat="server">     
+        <br />
+        <br />
+        <asp:GridView ID="gvViewQuiz" 
+            runat="server" 
+            AutoGenerateColumns="false"
+            HorizontalAlign="Center"
+            DataKeyNames="XMLQuizID"
+            Visible="false" Height="200px">
+              <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
+            <AlternatingRowStyle BackColor="#CCCCCC" />
+               <Columns>
+                <asp:ButtonField ButtonType="Link" CommandName="View" Text="View" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time" />
+               </Columns>
+        </asp:GridView>
+         ***Click on the View Button to see a Preview of the selected Quiz.
     </asp:Panel>
 
     <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
@@ -231,4 +269,8 @@
     </asp:Panel>
     <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
     <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+
+    </div>
+   <%-- main content panel ends here--%>   
+
 </asp:Content>
