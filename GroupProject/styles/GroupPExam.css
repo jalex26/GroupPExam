@@ -1,7 +1,6 @@
 ﻿.header_container {
     width: 100%;
-    background: #FF3333;
-    /*#191919;*/
+    /*#FF3333*/
     height: 100px;
     overflow: hidden;
     margin: 0 0 27px 0;
@@ -21,10 +20,10 @@
 
 .ImageMargin {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    height: 122px;
-    width: 575px;
+    top: 17px;
+    left: 12px;
+    height: 123px;
+    width: 812px;
     /*box-shadow: 10px 10px 5px #ad0e0e;*/
 }
 
@@ -40,8 +39,8 @@
 
 .header_container {
     width: 100%;
-    background: #ff0000;
-    height: 124px;
+    background: #f70000;
+    height: 132px;
     margin-left: 10px;
     overflow: hidden;
     margin: 0 0 27px 0;
@@ -264,8 +263,7 @@ input, textarea, select {
 }
 
 #buttonstyle {
-    margin:20px; 
-    padding:20px;
+    margin:10px; 
     align-content:center;
 }
 
@@ -288,15 +286,19 @@ input, textarea, select {
 
 #header { height:60px; 
 background-color:#ebebeb; position:relative;
+ box-shadow: 10px 10px 5px #8B8989;
     top: 0px;
     left: 0px;
 }
 
-.shell { width:960px; margin:0 auto; padding:10px; background:#fff; }
+.shell { width:960px; margin:0 auto; padding:10px; background:#fff;
+         box-shadow: 10px 10px 5px #8B8989;
+}
 
            
 #navigation { float:left; white-space:nowrap;
     height: 60px;
+    
 }
 #navigation ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
 #navigation ul li{ float:left; display:inline;
