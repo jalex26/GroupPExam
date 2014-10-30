@@ -150,7 +150,7 @@
                             <asp:Label ID="lblQuizDuration" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
