@@ -59,7 +59,7 @@ namespace GroupProject
             LoadXML();
             foreach(XmlNode xn in GetQuestionMulti)
             {//top level multiple
-                string QuestionId =  xn.Attributes.ToString();
+                string QuestionId = xn.Attributes["ID"].Value;
                 XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/", ns);
                 //foreach()
 
