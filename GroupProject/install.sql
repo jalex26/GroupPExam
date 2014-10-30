@@ -374,6 +374,7 @@ select * from tbQuizStudent
 --	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 --end
 --go
+go
 create procedure spGetStudentInfo(
 @Userid int 
 )
