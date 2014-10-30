@@ -313,6 +313,27 @@ background-color:#ebebeb; position:relative;
 
 h3.ico { background-repeat:no-repeat; background-position:0 2px; padding:6px 0 8px 30px;}
 
+/*slider for javascript carousal*/
+#slider { height:300px; position:relative; overflow:hidden; }
+#slider-holder { width:720px; height:300px; position:relative; overflow:hidden; }
+#slider-holder .jcarousel-clip{ width:720px; height:300px; position:relative; overflow:hidden; }
+#slider-holder ul{ width:720px; height:300px; position:relative; overflow:hidden; list-style-type: none;}
+#slider-holder ul li{ width:720px; height:300px; position:relative; overflow:hidden; float:left; }
+
+#slider-nav { position:absolute; top:243px; 
+left:573px; 
+z-index:2;
+    width: 109px;
+    height: 26px;
+}
+#slider-nav a{ font-size:0; line-height:0; text-indent: -4000px; width:10px; height:10px; border:solid 1px #666362; background:#666362; float:left; margin-right:5px; }
+#slider-nav a:hover,
+#slider-nav a.active { background:#fff;}
+
+.sliderpanelmargin {
+    margin-left: 110px;
+}
+
 
 /* pop up*/
 a.selected {

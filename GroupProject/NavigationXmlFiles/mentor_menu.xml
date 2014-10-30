@@ -3,6 +3,7 @@
   <Item Text="Home" Url="~/Home.aspx" />
   <Item Text="My Account" Url="~/MyAccount.aspx" />
   <Item Text="MentorPage" Url="~/MentorPage.aspx"/>
+  <Item Text="ManageProfiles" Url="~/ManageProfiles.aspx"/>
 
 </Items>
 

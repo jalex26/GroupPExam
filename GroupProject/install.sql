@@ -312,7 +312,7 @@ begin transaction
 
 	;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
 	(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
-
+	select @getxml as XML, @xmlMultipleCount as MultipleCount
 	
 	--if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId)
 	--begin
