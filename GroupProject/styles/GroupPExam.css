@@ -6,7 +6,12 @@
     overflow: hidden;
     margin: 0 0 27px 0;
 }
-
+.StudentPNL{
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:auto;
+    margin:auto;
+}
 .Margin {
     margin-left: 600px;
     font-size: xx-large;
