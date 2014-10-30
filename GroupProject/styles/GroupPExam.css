@@ -34,8 +34,8 @@
 }*/
 .Text {
     color: #f70303;
-    margin-top: 500px;
-    margin-left: 500px;
+    /*margin-top: 500px;
+    margin-left: 500px;*/
 }
 
 .header_container {
@@ -49,7 +49,7 @@
 }
 
 .button {
-    margin-left: 500px;
+    /*margin-left: 300px;*/
     border-top: 1px solid #ffffff;
     background: #f70000;
     background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#f70000));
@@ -85,7 +85,7 @@
 
 .textbox {
     height: 25px;
-    width: 275px;
+    /*width: 275px;*/
     border: solid 1px #E5E5E5;
     outline: 0;
     font: normal 13px/100% Verdana, Tahoma, sans-serif;
@@ -244,8 +244,9 @@ input, textarea, select {
 }
 
 #content {
-    float: right;
-    width: 600px;
+    float:inherit;
+    margin-left: 30px;
+    width: 700px;
     align-content: center;
 }
 
@@ -254,9 +255,22 @@ input, textarea, select {
 }
 
 #sidebar {
-    float: left;
-    width: 226px;
-    height: 326px;
+    float: left;    
+    width: 200px;
+    height: 300px;
+    border-style:ridge;
+    align-content:center;
+    align-items:center;
+}
+
+#buttonstyle {
+    margin:20px; 
+    padding:20px;
+    align-content:center;
+}
+
+.mentorpagebutton {
+    margin: 15px;
 }
 
 .TopRight {
@@ -266,6 +280,39 @@ input, textarea, select {
     right: 0;
     width: 150px;
 }
+
+
+.LoginPanel {
+    margin-left:350px;
+}
+
+#header { height:60px; 
+background-color:#ebebeb; position:relative;
+    top: 0px;
+    left: 0px;
+}
+
+.shell { width:960px; margin:0 auto; padding:10px; background:#fff; }
+
+           
+#navigation { float:left; white-space:nowrap;
+    height: 60px;
+}
+#navigation ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
+#navigation ul li{ float:left; display:inline;
+    height: 60px;
+}
+#navigation ul li a{ float:left; height:60px; line-height:60px; text-decoration:none; color:#5C5858; padding:0 15px;}
+#navigation ul li a.active,
+#navigation ul li a:hover{ background:#878787; color:white; }
+
+/*#666362*/
+.cols { padding:15px 0;}
+.col { float:left; display:inline; width:217px; margin-right:30px;}
+.col-last { margin-right:0;}
+
+h3.ico { background-repeat:no-repeat; background-position:0 2px; padding:6px 0 8px 30px;}
+
 
 /* pop up*/
 a.selected {

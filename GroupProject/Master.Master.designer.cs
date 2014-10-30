@@ -40,49 +40,22 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.ImageButton RobertsonLogo;
         
         /// <summary>
-        /// lbHome control.
+        /// XmlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbHome;
+        protected global::System.Web.UI.WebControls.XmlDataSource XmlDataSource1;
         
         /// <summary>
-        /// lbMentorPage control.
+        /// Menu1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbMentorPage;
-        
-        /// <summary>
-        /// lbMyAccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbMyAccount;
-        
-        /// <summary>
-        /// lbQuizes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbQuizes;
-        
-        /// <summary>
-        /// lbSettings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbSettings;
+        protected global::System.Web.UI.WebControls.Menu Menu1;
         
         /// <summary>
         /// pnlLogout control.
@@ -110,6 +83,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLogout;
+        
+        /// <summary>
+        /// pnlLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlLogin;
         
         /// <summary>
         /// lblUserName control.

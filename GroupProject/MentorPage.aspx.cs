@@ -23,7 +23,8 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
+            Security mySecurity = new Security(2);
 
             if (!IsPostBack)
             {
@@ -55,7 +56,7 @@ namespace GroupProject
             ddlSelectQuiz.DataBind();
             ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlSelectQuiz.SelectedIndex = 0;
-            
+
         }
         public void loadStudents()
         {
@@ -65,7 +66,7 @@ namespace GroupProject
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
 
-            
+
         }
 
         public void ViewQuiz()
@@ -185,7 +186,7 @@ namespace GroupProject
             ddlSelectQuiz.SelectedIndex = 0;
             lblQuizDuration.Text = "Select quiz first";
         }
-  
+
         protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblQuizDuration.Text = "Select quiz first";
@@ -194,8 +195,8 @@ namespace GroupProject
             ddlVersion.DataValueField = "Versionid";
             ddlVersion.DataSource = ds;
             ddlVersion.DataBind();
-            ddlVersion.Items.Insert(0,new ListItem("-Select Quiz-", String.Empty));
-            ddlVersion.SelectedIndex=0;
+            ddlVersion.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
+            ddlVersion.SelectedIndex = 0;
         }
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,7 +222,7 @@ namespace GroupProject
 
             DataSet ds = RX.XMLContent(ddlVersion.SelectedValue.ToString());
             XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
-            
+
             ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
             string xpath = "/ns:Quiz";
@@ -239,12 +240,34 @@ namespace GroupProject
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();
             MPE1.Show();
-            
+
         }
 
         protected void btnPopUpClose_Click(object sender, EventArgs e)
         {
             MPE1.Hide();
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            List<String> ErrorList = new List<String>();
+            if (HttpContext.Current.Session["Userid"] != null)
+            {
+                foreach (ListItem item in cblStudents.Items)
+                {
+                    if (item.Selected)
+                    {
+                        string a = item.Value;
+                        myDal.ClearParams();
+                        myDal.AddParam("@Userid", item.Value);
+                        myDal.AddParam("@ClassId", ddlClass.SelectedValue);
+                        myDal.AddParam("@Versionid", ddlVersion.SelectedValue);
+                        //myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
+                        myDal.AddParam("@Mentorid", "1");
+                        DataSet ds = myDal.ExecuteProcedure("spIssueNewQuiz");
+                    }
+                }
+            }
         }
 
     }

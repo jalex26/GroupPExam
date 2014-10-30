@@ -6,6 +6,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="js/jquery-2.1.1.js"></script>
     <script type="text/javascript">
@@ -55,12 +56,29 @@
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
 <![endif]-->
 
-    <div>
-        <asp:Button ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" />
-        <asp:Button ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" />
-        <asp:Button ID="btnCreateQuiz" runat="server" Text="Create Quiz" />
-        <asp:Button ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" />
-    </div>
+        
+
+   <%-- Main content panel starts here--%>
+
+    <div id="content">
+
+        Welcome to the Mentor Page! Here you can view available quizzes, upload new quizzes to database and issue selected quiz to the students. Please click on the appropriate button to proceed!
+        <br />      
+
+        <div id="buttonstyle">
+        <asp:Panel ID="pnlbuttons" runat="server">
+
+         <asp:Button cssclass="mentorpagebutton" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+       
+        <asp:Button cssclass="mentorpagebutton" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+      
+        <asp:Button cssclass="mentorpagebutton" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" />
+       
+         <asp:Button cssclass="mentorpagebutton" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+
+        </asp:Panel>
+            </div>
+
     <div class="messagepop pop">
 
         <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
@@ -134,7 +152,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" />
+                            <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                         </td>
                     </tr>
@@ -143,12 +161,11 @@
         </div>
     </asp:Panel>
     <asp:Panel ID="pnlUploadQuiz" runat="server" Visible="false">
+         <asp:Label ID="lblFileUpload" runat="server" Text="Browse and select a file to upload quiz:"></asp:Label>
+        <br /> 
+        <br />           
         <table>
-            <tr>
-                <td></td>
-                <td>
-                    <asp:Label ID="lblFileUpload" runat="server" Text="Upload a Quiz"></asp:Label></td>
-            </tr>
+            
             <tr>
                 <td></td>
                 <td>
@@ -159,8 +176,27 @@
             </tr>
         </table>
     </asp:Panel>
-    <asp:Panel ID="pnlViewQuiz" runat="server">
-        <asp:GridView ID="gvViewQuiz" runat="server" Visible="false"></asp:GridView>
+    <asp:Panel ID="pnlViewQuiz" runat="server">     
+        <br />
+        <br />
+        <asp:GridView ID="gvViewQuiz" 
+            runat="server" 
+            AutoGenerateColumns="false"
+            HorizontalAlign="Center"
+            DataKeyNames="XMLQuizID"
+            Visible="false" Height="200px">
+              <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
+            <AlternatingRowStyle BackColor="#CCCCCC" />
+               <Columns>
+                <asp:ButtonField ButtonType="Link" CommandName="View" Text="View" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time" />
+               </Columns>
+        </asp:GridView>      
     </asp:Panel>
 
     <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
@@ -231,4 +267,8 @@
     </asp:Panel>
     <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
     <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+
+    </div>
+   <%-- main content panel ends here--%>   
+
 </asp:Content>

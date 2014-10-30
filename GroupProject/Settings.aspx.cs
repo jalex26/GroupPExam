@@ -27,7 +27,7 @@ namespace GroupProject
             Security mySecurity = new Security();
             DataSet ds = new DataSet();
             mydal.ClearParams();
-            mydal.AddParam("@SecurityLevel", "1");
+            //mydal.AddParam("@SecurityLevel", HttpContext.Current.Session["SecurityLevel"].ToString());
 
             gvSettings.DataSource = mydal.ExecuteProcedure("spGetStudents");
             gvSettings.DataBind();
