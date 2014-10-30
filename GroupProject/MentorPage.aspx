@@ -161,12 +161,11 @@
         </div>
     </asp:Panel>
     <asp:Panel ID="pnlUploadQuiz" runat="server" Visible="false">
+         <asp:Label ID="lblFileUpload" runat="server" Text="Browse and select a file to upload quiz:"></asp:Label>
+        <br /> 
+        <br />           
         <table>
-            <tr>
-                <td></td>
-                <td>
-                    <asp:Label ID="lblFileUpload" runat="server" Text="Upload a Quiz"></asp:Label></td>
-            </tr>
+            
             <tr>
                 <td></td>
                 <td>
@@ -197,8 +196,7 @@
                 <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
                 <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time" />
                </Columns>
-        </asp:GridView>
-         ***Click on the View Button to see a Preview of the selected Quiz.
+        </asp:GridView>      
     </asp:Panel>
 
     <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
