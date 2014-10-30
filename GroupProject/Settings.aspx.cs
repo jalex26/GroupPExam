@@ -45,7 +45,6 @@ namespace GroupProject
             {
                 string Userid = gvSettings.SelectedDataKey.Value.ToString();
                 loadUpdSettings(Userid);
-                
             }
         }
         private void loadUpdSettings(string Userid)

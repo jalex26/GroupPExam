@@ -9,15 +9,6 @@
   </Details>
   <Questions>
     <MultipleChoice>
-      <Question ID="2">
-        <Questi>How Old am I</Questi>
-        <Options>
-          <Option>19</Option>
-          <Option>20</Option>
-          <Option>30</Option>
-          <Option Correct="yes">29.5</Option>
-        </Options>
-      </Question>
       <Question ID="3">
         <Questi>euyet</Questi>
         <Options>
