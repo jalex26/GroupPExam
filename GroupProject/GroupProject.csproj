@@ -119,12 +119,10 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="QuizForm.aspx" />
-    <Content Include="QuizFormTEST.aspx" />
     <Content Include="Settings.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="styles\nyroModal.css" />
-    <Content Include="Testing.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
@@ -196,13 +194,6 @@
     <Compile Include="QuizForm.aspx.designer.cs">
       <DependentUpon>QuizForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="QuizFormTEST.aspx.cs">
-      <DependentUpon>QuizFormTEST.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="QuizFormTEST.aspx.designer.cs">
-      <DependentUpon>QuizFormTEST.aspx</DependentUpon>
-    </Compile>
     <Compile Include="QuizToSession.cs" />
     <Compile Include="RenderXML.cs" />
     <Compile Include="Security.cs" />
@@ -219,13 +210,6 @@
     </Compile>
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Testing.aspx.cs">
-      <DependentUpon>Testing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Testing.aspx.designer.cs">
-      <DependentUpon>Testing.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewQuestions.aspx.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>

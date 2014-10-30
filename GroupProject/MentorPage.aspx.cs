@@ -24,10 +24,7 @@ namespace GroupProject
         protected void Page_Load(object sender, EventArgs e)
         {
 
-<<<<<<< HEAD
             Security mySecurity = new Security(2);
-=======
->>>>>>> origin/master
 
             if (!IsPostBack)
             {
