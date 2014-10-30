@@ -9,7 +9,7 @@ using System.Data;
 
 namespace GroupProject
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class ManageProfiles : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
         DAL mydal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
@@ -44,27 +44,22 @@ namespace GroupProject
             if(e.CommandName.ToString()=="Upd")
             {
                 string Userid = gvSettings.SelectedDataKey.Value.ToString();
-                loadUpdSettings(Userid);
+                loadUpdatePanel(Userid);
             }
         }
-        private void loadUpdSettings(string Userid)
+        private void loadUpdatePanel(string Userid)
         {
             if (Userid != null)
             {
+                     
+                //loading update panel with alues from selected row in grid to make changes
 
-                mydal.ClearParams();
-                mydal.AddParam("@Userid", Userid);
-                mydal.AddParam("@SecurityLevel","1");
-                DataSet ds = new DataSet();
-                ds = mydal.ExecuteProcedure("spGetStudentsUpdate");
-
-                txtUserid.Text = Userid;
-                txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
-                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();             
-                txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
-                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
-                txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-                
+                txtUserid.Text = gvSettings.SelectedDataKey.Value.ToString();
+                txtFirstname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[2].Text;
+                txtLastname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[3].Text;
+                txtEmail.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[4].Text;
+                txtPassword.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[5].Text;              
+                txtClassname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[6].Text;            
                
             }
 

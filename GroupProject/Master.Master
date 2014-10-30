@@ -64,7 +64,6 @@
             </asp:Panel>
         </div>
 
-         <br />
 
               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <%--DO NOT PUT ANYTHING HERE--%>
