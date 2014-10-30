@@ -53,12 +53,12 @@ go
 
 
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1',0,3,'SamplePicture1.jpg','Kevin@yahoo.com'),
+('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','Kevin@yahoo.com'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
-('Nupur','Singh','Nupur1',0,1,'SamplePicture3.jpg','Nupur@yahoo.com'),
-('Janry','Alex','Janry1',1,1,'SamplePicture4.jpg','Janry@yahoo.com'),
-('Adrian','Carter','Adrian1',2,1,'SamplePicture5.jpg','Adrian@yahoo.com'),
-('Veberly','Carvalho','Veberly1',0,1,'SamplePicture6.jpg','Veberly@yahoo.com'),
+('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','Nupur@yahoo.com'),
+('Janry','Alex','Janry1',1,1,'janry.jpg','Janry@yahoo.com'),
+('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','Adrian@yahoo.com'),
+('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','Veberly@yahoo.com'),
 ('OtherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin0@yahoo.com'),
 ('AnotherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin9@yahoo.com')
 go
@@ -374,6 +374,17 @@ select * from tbQuizStudent
 --	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 --end
 --go
+go
+create procedure spGetStudentInfo(
+@Userid int 
+)
+as
+begin
+select Userid,'./Pictures/' + UserPicture as UserPicture,Firstname,Lastname,Classid,Email 
+from tbUser
+where Userid = @Userid
+end
+go
 
 
 go
