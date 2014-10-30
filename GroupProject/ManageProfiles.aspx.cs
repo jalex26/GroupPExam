@@ -9,7 +9,7 @@ using System.Data;
 
 namespace GroupProject
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class ManageProfiles : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
         DAL mydal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");

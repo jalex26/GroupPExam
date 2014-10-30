@@ -10,7 +10,7 @@
 namespace GroupProject {
     
     
-    public partial class Settings {
+    public partial class ManageProfiles {
         
         /// <summary>
         /// gvSettings control.

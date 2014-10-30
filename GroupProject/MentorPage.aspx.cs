@@ -274,8 +274,8 @@ namespace GroupProject
             DataSet ds = myDal.ExecuteProcedure("spIssueNewQuizStudent");
             XmlDocument xmdoc = new XmlDocument();
             xmdoc.LoadXml(ds.Tables[0].Rows[0]["XML"].ToString());
-
-
+            RenderXML RX = new RenderXML();
+            RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
         }
 
     }

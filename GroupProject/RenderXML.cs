@@ -12,6 +12,20 @@ namespace GroupProject
     {
         XmlDocument XmlDoc = new XmlDocument();
         DAL myDal = new DAL(Globals.conn);
+        private ObjectMultiple myOM = new ObjectMultiple();
+        public List<ObjectMultiple> ListMult;
+        public RenderXML()
+        {
+            LoadXML();
+        }
+
+        private void LoadXML()
+        {
+            if (HttpContext.Current.Session["TransformQuiz"] != null)
+            {//load object
+                myOM = (ObjectMultiple)HttpContext.Current.Session["TransformQuiz"];
+            }
+        }
 
         public DataSet XMLContent(string QuizVersionId)
         {
@@ -40,7 +54,18 @@ namespace GroupProject
             DataSet ds = new DataSet();
             ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
             XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
-            XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
+            XmlNodeList GetQuestionMulti = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
+
+            LoadXML();
+            foreach(XmlNode xn in GetQuestionMulti)
+            {//top level multiple
+                string QuestionId =  xn.Attributes.ToString();
+                XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/", ns);
+                //foreach()
+
+            }
+
+            //ListMult.Add(new ObjectMultiple())
         }
     }
 }
