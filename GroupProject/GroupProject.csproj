@@ -87,6 +87,10 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="Pictures\AdrianCarter2.jpg" />
+    <Content Include="Pictures\janry.jpg" />
+    <Content Include="Pictures\kevin.jpg" />
+    <Content Include="Pictures\Nupur.jpg" />
+    <Content Include="Pictures\veberly.jpg" />
     <Content Include="styles\GroupPExam.css" />
     <Content Include="img\ajaxLoader.gif" />
     <Content Include="img\close.gif" />
