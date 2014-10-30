@@ -94,10 +94,19 @@
     <Content Include="App_Data\XMLFileTEST.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="js\jquery-1.4.1.min.js" />
+    <Content Include="js\jquery-func.js" />
+    <Content Include="js\jquery.jcarousel.pack.js" />
     <Content Include="NavigationXmlFiles\admin_menu.xml" />
     <Content Include="NavigationXmlFiles\mentor_menu.xml" />
     <Content Include="NavigationXmlFiles\student_menu.xml" />
     <Content Include="NavigationXmlFiles\user_menu.xml" />
+    <Content Include="Pictures\1.jpg" />
+    <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\s2.jpg" />
+    <Content Include="Pictures\students1.jpg" />
+    <Content Include="Pictures\students3.jpg" />
+    <Content Include="Pictures\students4.jpg" />
     <Content Include="styles\GroupPExam.css" />
     <Content Include="img\ajaxLoader.gif" />
     <Content Include="img\close.gif" />
@@ -119,7 +128,7 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="QuizForm.aspx" />
-    <Content Include="Settings.aspx" />
+    <Content Include="ManageProfiles.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="styles\nyroModal.css" />
@@ -197,12 +206,12 @@
     <Compile Include="QuizToSession.cs" />
     <Compile Include="RenderXML.cs" />
     <Compile Include="Security.cs" />
-    <Compile Include="Settings.aspx.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="ManageProfiles.aspx.cs">
+      <DependentUpon>ManageProfiles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Settings.aspx.designer.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="ManageProfiles.aspx.designer.cs">
+      <DependentUpon>ManageProfiles.aspx</DependentUpon>
     </Compile>
     <Compile Include="StartQuizes.aspx.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>

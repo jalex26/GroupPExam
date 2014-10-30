@@ -13,12 +13,12 @@
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
     
-    <style type="text/css">
-        .auto-style2 {
-            width: 145px;
-        }
-    </style>
-    
+    <!-- JS testing javascript carousal for pictures -->
+    <script src="js/jquery-1.4.1.min.js"></script>
+    <script src="js/jquery.jcarousel.pack.js"></script>
+    <script src="js/jquery-func.js"></script>
+    <!-- End JS -->
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -65,11 +65,18 @@
         </div>
 
          <br />
+
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <%--DO NOT PUT ANYTHING HERE--%>
+                  </asp:ContentPlaceHolder>
+
         <br />
+            <br />
 
             <div class="LoginPanel">
             <asp:Panel ID="pnlLogin" HorizontalAlign="Center" runat="server">
-                 <table>
+              
+                 <table>                   
             <tr>
                 <td>
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
@@ -97,11 +104,9 @@
         </table>    
                 </asp:Panel> 
                 </div>  
+
             <br />
-              
-             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                <%--DO NOT PUT ANYTHING HERE--%>
-                  </asp:ContentPlaceHolder>
+                       
 
             <br />
             <br />
