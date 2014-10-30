@@ -250,24 +250,6 @@ namespace GroupProject
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            //List<String> ErrorList = new List<String>();
-            //if (HttpContext.Current.Session["Userid"] != null)
-            //{
-            //    foreach (ListItem item in cblStudents.Items)
-            //    {
-            //        if (item.Selected)
-            //        {
-            //            string a = item.Value;
-            //            myDal.ClearParams();
-            //            myDal.AddParam("@Userid", item.Value);
-            //            myDal.AddParam("@ClassId", ddlClass.SelectedValue);
-            //            myDal.AddParam("@Versionid", ddlVersion.SelectedValue);
-            //            //myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
-            //            myDal.AddParam("@Mentorid", "1");
-            //            DataSet ds = myDal.ExecuteProcedure("spIssueNewQuiz");
-            //        }
-            //    }
-            //}
             myDal.ClearParams();
             myDal.AddParam("@IssuedQuizId", "0");
             myDal.AddParam("@UserId", "3");

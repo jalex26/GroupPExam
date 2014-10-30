@@ -29,32 +29,32 @@ namespace GroupProject
         public string Option1
         {
             get { return Option1; }
-            set { Option1 = value; }
+            set { _Option1 = value; }
         }
         public string Option2
         {
             get { return Option2; }
-            set { Option2 = value; }
+            set { _Option2 = value; }
         }
         public string Option3
         {
             get { return Option3; }
-            set { Option3 = value; }
+            set { _Option3 = value; }
         }
         public string Option4
         {
             get { return Option4; }
-            set { Option4 = value; }
+            set { _Option4 = value; }
         }
         public string Correct
         {
             get { return Correct; }
-            set { Correct = value; }
+            set { _Correct = value; }
         }
         public string UserAnswer
         {
             get { return UserAnswer; }
-            set { UserAnswer = value; }
+            set { _UserAnswer = value; }
         }
 
         public ObjectMultiple(int QuestionId, string Question, string Option1, string Option2, string Option3, string Option4, string Correct)
