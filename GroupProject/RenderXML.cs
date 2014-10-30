@@ -30,5 +30,17 @@ namespace GroupProject
 
             //}
         }
+
+        public void GetNRandomizeXMLContent(string QuizVersionId)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(XmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            myDal.ClearParams();
+            myDal.AddParam("@versionid", QuizVersionId);
+            DataSet ds = new DataSet();
+            ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+            XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
+        }
     }
 }

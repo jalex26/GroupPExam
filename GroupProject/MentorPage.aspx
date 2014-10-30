@@ -61,7 +61,8 @@
    <%-- Main content panel starts here--%>
 
     <div id="content">
-
+        <br />
+        <br />
         Welcome to the Mentor Page! Here you can view available quizzes, upload new quizzes to database and issue selected quiz to the students. Please click on the appropriate button to proceed!
         <br />      
 
@@ -150,7 +151,7 @@
                             <asp:Label ID="lblQuizDuration" runat="server" Text=""></asp:Label></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>&nbsp;</td>
                         <td>
                             <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" />
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
