@@ -29,8 +29,8 @@
 }*/
 .Text {
     color: #f70303;
-    margin-top: 500px;
-    margin-left: 500px;
+    /*margin-top: 500px;
+    margin-left: 500px;*/
 }
 
 .header_container {
@@ -44,7 +44,7 @@
 }
 
 .button {
-    margin-left: 500px;
+    /*margin-left: 300px;*/
     border-top: 1px solid #ffffff;
     background: #f70000;
     background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#f70000));
@@ -80,7 +80,7 @@
 
 .textbox {
     height: 25px;
-    width: 275px;
+    /*width: 275px;*/
     border: solid 1px #E5E5E5;
     outline: 0;
     font: normal 13px/100% Verdana, Tahoma, sans-serif;
@@ -239,7 +239,7 @@ input, textarea, select {
 }
 
 #content {
-    float: right;
+    float:inherit;
     margin-left: 30px;
     width: 700px;
     align-content: center;
@@ -276,6 +276,11 @@ input, textarea, select {
     width: 150px;
 }
 
+
+.LoginPanel {
+    margin-left:350px;
+}
+
 #header { height:60px; 
 background-color:#ebebeb; position:relative;
     top: 0px;
@@ -294,8 +299,9 @@ background-color:#ebebeb; position:relative;
 }
 #navigation ul li a{ float:left; height:60px; line-height:60px; text-decoration:none; color:#5C5858; padding:0 15px;}
 #navigation ul li a.active,
-#navigation ul li a:hover{ background:#666362; color:white; }
+#navigation ul li a:hover{ background:#878787; color:white; }
 
+/*#666362*/
 .cols { padding:15px 0;}
 .col { float:left; display:inline; width:217px; margin-right:30px;}
 .col-last { margin-right:0;}

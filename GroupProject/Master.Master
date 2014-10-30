@@ -13,6 +13,12 @@
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
     
+    <style type="text/css">
+        .auto-style2 {
+            width: 145px;
+        }
+    </style>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -48,13 +54,6 @@
             </div>
             <!-- End Header -->
       
-        <asp:LinkButton ID="lbHome" runat="server" PostBackUrl="~/Home.aspx">Home</asp:LinkButton>
-        <asp:LinkButton ID="lbMentorPage" runat="server" PostBackUrl="~/MentorPage.aspx" Visible="false">Mentor</asp:LinkButton>
-        <asp:LinkButton ID="lbMyAccount" runat="server" PostBackUrl="~/MyAccount.aspx">My Account</asp:LinkButton>
-        <asp:LinkButton ID="lbQuizes" runat="server" PostBackUrl="~/Quizes.aspx" Visible="false">Quizes</asp:LinkButton>
-        <asp:LinkButton ID="lbSettings" runat="server" PostBackUrl="~/Settings.aspx" Visible="false">Settings</asp:LinkButton>
-
-
         <br />
         <div class="TopRight">
             <asp:Panel ID="pnlLogout" runat="server">
@@ -68,13 +67,14 @@
          <br />
         <br />
 
-        
+            <div class="LoginPanel">
+            <asp:Panel ID="pnlLogin" HorizontalAlign="Center" runat="server">
                  <table>
             <tr>
                 <td>
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                 </td>
-                <td>
+                <td >
                     <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Kevin@yahoo.com"></asp:TextBox>
                 </td>
             </tr>
@@ -89,11 +89,14 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
                 <td>
                     <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
                 </td>
             </tr>
-        </table>       
+        </table>    
+                </asp:Panel> 
+                </div>  
             <br />
               
              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

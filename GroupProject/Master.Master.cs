@@ -53,28 +53,14 @@ namespace GroupProject
             //Adjust links visible according to Security Level(Admin or Regular)
             if (mySecurity.GetSecurityLevel() < 2 && mySecurity.GetSecurityLevel() != 0)
             {
-                //lbTest.Visible = false;
-                
-                lbQuizes.Visible = true;
-                lbSettings.Visible = false;
-                
+                               
             }
             
             else if (mySecurity.GetSecurityLevel() == 0)
-            {
-                lbMentorPage.Visible = false;
-                lbQuizes.Visible = false;
-                lbSettings.Visible = false;
+            {                
                 btnLogout.Visible = false;
             }
-
-            else
-            {
-              
-                lbMentorPage.Visible = true;
-                lbQuizes.Visible = false;
-                lbSettings.Visible = false;
-            }
+           
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
