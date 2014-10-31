@@ -28,32 +28,32 @@ namespace GroupProject
         }
         public string Option1
         {
-            get { return Option1; }
+            get { return _Option1; }
             set { _Option1 = value; }
         }
         public string Option2
         {
-            get { return Option2; }
+            get { return _Option2; }
             set { _Option2 = value; }
         }
         public string Option3
         {
-            get { return Option3; }
+            get { return _Option3; }
             set { _Option3 = value; }
         }
         public string Option4
         {
-            get { return Option4; }
+            get { return _Option4; }
             set { _Option4 = value; }
         }
         public string Correct
         {
-            get { return Correct; }
+            get { return _Correct; }
             set { _Correct = value; }
         }
         public string UserAnswer
         {
-            get { return UserAnswer; }
+            get { return _UserAnswer; }
             set { _UserAnswer = value; }
         }
 
@@ -70,6 +70,22 @@ namespace GroupProject
         public ObjectMultiple()
         {// nothing here
         }
-            
+   
+    }
+    public static class Randomizer
+    {
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
     }
 }

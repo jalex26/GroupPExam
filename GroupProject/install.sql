@@ -270,6 +270,7 @@ if not EXISTS(select * from tbIssuedQuiz where Versionid = @Versionid and ClassI
 		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
 			begin
 			insert into tbIssuedQuiz values(@Versionid,@ClassId,GETDATE(),@Mentorid,0)
+			select @@IDENTITY as IssuedQuizId
 			end
 		else
 		begin
@@ -333,7 +334,7 @@ go
 spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
 select * from tbQuizStudent
 go
-spIssueNewQuiz @Versionid = 3, @ClassId = 1, @Mentorid =1
+spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent

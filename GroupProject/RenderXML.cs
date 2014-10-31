@@ -24,6 +24,7 @@ namespace GroupProject
             if (HttpContext.Current.Session["TransformQuiz"] != null)
             {//load object
                 myOM = (ObjectMultiple)HttpContext.Current.Session["TransformQuiz"];
+                
             }
         }
 
@@ -45,7 +46,7 @@ namespace GroupProject
             //}
         }
 
-        public void GetNRandomizeXMLContent(string QuizVersionId, string UserId)
+        public void GetNRandomizeXMLContent(string QuizVersionId)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");
@@ -69,18 +70,26 @@ namespace GroupProject
                 int x = 0;
                 foreach (XmlNode xn2 in xn["Options"])
                 {
-                        option[x] = xn2.InnerText;
-                        XmlNode node = xn2.Attributes["Correct"];
-                        if (node != null)
-                            Correct = xn2.InnerText;
-                        x++;
+                    option[x] = xn2.InnerText;
+                    XmlNode node = xn2.Attributes["Correct"];
+                    if (node != null)
+                        Correct = xn2.InnerText;
+                    x++;
                 }
                 ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                
                 //foreach()
-
             }
-
-            //ListMult.Add(new ObjectMultiple())
+            ListMult.Shuffle(); //fisher-yates Shuffle method
+            //int questionid = ListMult[1].QuestionId;
+            //string question = ListMult[1].Question;
+            //string option1 = ListMult[1].Option1;
+            //string option2 = ListMult[1].Option2;
+            //string option3 = ListMult[1].Option3;
+            //string option4 = ListMult[1].Option4;
+            //string correct = ListMult[1].Correct;
         }
+
+        
     }
 }
