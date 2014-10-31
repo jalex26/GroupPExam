@@ -392,9 +392,14 @@ create procedure spGetStudents(
 @Classid int = null
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
-	tbUser.SecurityLevel =1 -- students
+	select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid and
+	      tbUser.SecurityLevel = 1 -- students 
 end
 go
 
