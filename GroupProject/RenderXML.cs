@@ -45,7 +45,7 @@ namespace GroupProject
             //}
         }
 
-        public void GetNRandomizeXMLContent(string QuizVersionId)
+        public void GetNRandomizeXMLContent(string QuizVersionId, string UserId)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(XmlDoc.NameTable);
             ns.AddNamespace("ns", "urn:Question-Schema");

@@ -403,14 +403,18 @@ as begin
 end
 go
 
-create procedure spGetStudents3(
-@Classid int,
-@SecurityLevel int 
+create procedure spLoadAllStudentClass(
+@Classid int
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = @Classid and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname + ', ' + Firstname as Studentname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid and
+	      tbUser.SecurityLevel = 1 -- students 
 end
 go
 
