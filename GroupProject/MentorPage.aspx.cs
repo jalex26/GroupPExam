@@ -256,7 +256,9 @@ namespace GroupProject
             myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
             DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("spIssueNewQuiz");
             string NewId = null;
-            NewId = dsGetNewIssueQuizId.Tables[0].Rows[0]["IssuedQuizId"].ToString();
+
+            if (dsGetNewIssueQuizId.Tables[0].Columns["IssuedQuizId"] != null)
+                NewId = dsGetNewIssueQuizId.Tables[0].Rows[0]["IssuedQuizId"].ToString();
 
             if (NewId != null)
             {
@@ -265,17 +267,7 @@ namespace GroupProject
                     if (Student.Selected == true)
                     {
                         RenderXML RX = new RenderXML();
-                        RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
-
-
-
-
-                        myDal.ClearParams();
-                        myDal.AddParam("@IssuedQuizId", NewId);
-                        myDal.AddParam("@UserId", Student.Value);
-                        DataSet ds = myDal.ExecuteProcedure("spIssueNewQuizStudent");
-                        XmlDocument xmdoc = new XmlDocument();
-                        xmdoc.LoadXml(ds.Tables[0].Rows[0]["XML"].ToString());
+                        RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString(), Student, NewId);
                         //RenderXML RX = new RenderXML();
                         //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
                     }
