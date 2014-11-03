@@ -1,0 +1,57 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs" Inherits="GroupProject.ForgotPassword" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div>
+    <div id="RetrievePass" runat="server">
+        <a class="ForgotTextbox">Forgotten Password</a>
+        <br />
+        <table>
+            <tr>
+                <td class="ForgotTextbox">Enter Your Email</td>
+                <td>
+                    <asp:TextBox ID="txtEmail" runat="server" Width="149px"></asp:TextBox>
+                </td>
+            </tr>
+        </table>
+        <asp:Button ID="btnRecoverPassword" runat="server" Text="Recover Password" OnClick="btnRecoverPassword_Click" />
+</div>
+    <div id="CheckMail" runat="server" visible="false" class="auto-style2">
+            <strong>Account Retrieval Successful. Please Check Your Current Valid Email Account.
+                     </strong>
+        </div>
+        <div id="CheckMailInvalid" runat="server" visible="false" class="auto-style2">
+
+            <strong>You entered an Invalid Email or not existed on our database.</strong>
+        </div>
+        <div id="InvalidToken" runat="server" visible="false" class="auto-style2">
+            Invalid Link.
+        </div>
+        <div id="ChangePass" runat="server" visible="false">
+            <table>
+                <tr>
+                    <td>New Password:</td>
+                    <td>
+                        <asp:TextBox ID="txtPass" TextMode="Password" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RFVPass" runat="server" ErrorMessage="*Required" ControlToValidate="txtPass"
+                            EnableClientScript="False" EnableViewState="False" ValidationGroup="Pass"></asp:RequiredFieldValidator>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Retype Password:</td>
+                    <td>
+                        <asp:TextBox ID="txtPass2" TextMode="Password" runat="server"></asp:TextBox>
+                        <asp:CompareValidator ID="RFVPass2" runat="server" ErrorMessage="*Password does not match" ControlToValidate="txtPass" ControlToCompare="txtPass2" EnableClientScript="false" EnableViewState="false" ValidationGroup="Pass"></asp:CompareValidator>
+                    </td>
+                </tr>
+            </table>
+            <asp:Button ID="btnChange" runat="server" Text="Change Password" OnClick="btnChange_Click" />
+        </div>
+        <div id="ChangeSuccess" runat="server" visible="false">
+            Change Password Successful. Please Log in.</div>
+        <div id="ChangeFailed" runat="server" visible="false">
+            <span class="auto-style2"><strong>Password Failed. </strong></span>
+        </div>
+    </div>
+</asp:Content>

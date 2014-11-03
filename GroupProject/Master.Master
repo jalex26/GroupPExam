@@ -81,7 +81,7 @@
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td >
-                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Kevin@yahoo.com"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="kevin.coliat@robertsoncollege.net"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -95,7 +95,9 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
+                </td>
                 <td>
                     <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
                 </td>

@@ -30,8 +30,8 @@ namespace GroupProject
             lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
         }
 
-        protected void btnChangePassword_Click(object sender, EventArgs e)
-        {
-        }
+        //protected void btnChangePassword_Click(object sender, EventArgs e)
+        //{
+        //}
     }
 }
