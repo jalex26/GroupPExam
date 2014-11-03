@@ -47,61 +47,29 @@ Password varchar(60),
 Classid int foreign key references tbClass(Classid)on delete cascade,
 SecurityLevel int,
 UserPicture varchar(60),
-Email varchar(60) Unique
+Email varchar(60) Unique,
+LostPass varchar(20)
 )
 go
 
 
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','Kevin@yahoo.com'),
+('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
-('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','Nupur@yahoo.com'),
-('Janry','Alex','Janry1',1,1,'janry.jpg','Janry@yahoo.com'),
-('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','Adrian@yahoo.com'),
-('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','Veberly@yahoo.com'),
+('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
+('Janry','Alex','Janry1',1,1,'janry.jpg','janry.alex@robertsoncollege.net'),
+('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
+('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
 ('OtherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin0@yahoo.com'),
 ('AnotherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin9@yahoo.com')
 go
-
---select * from tbClass
-
---create table tbResults(
---Resultid int primary key identity (0,1),
---Userid int foreign key references tbUser(Userid),
---Versionid int foreign key references tbQuizVersion(Versionid), 
---Quizid int foreign key references tbQuiz(Quizid),
---TotalScore decimal(10,5)
---)
+create table tbToken(
+Tokenid int primary key identity (0,1),
+TToken varchar(50),
+TUserid int foreign key references tbUser(Userid)
+)
 go
 
---insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
---(2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
-
---Failed Login Attempts
---create table tbFailedLoginAttempt(
---Email varchar(60),
---Password varchar(60),
---DateAttempted date
---)
---go
-
---insert into tbFailedLoginAttempt(Email,Password,DateAttempted)values
---('Geoffrey','Smith','01-12-2014'),
---('Ian','Morgan','02-24-2014'),
---('Katie','Hunter','06-16-2014'),
---('Elmer','Sherman','06-25-2014'),
---('Isabel','Holland','07-03-2014'),
---('Andrea','Barrett','07-08-2014'),
---('Whitney','Woods','07-10-2014'),
---('Abraham','Washington','08-13-2013'),
---('Sophia','Roy','08-14-2013'),
---('Lester','Tran','04-06-2014'),
---('Tasha','Nguyen','04-15-2014'),
---('Desiree','Mcbride','04-20-2014'),
---('Melody','Allison','05-13-2014'),
---('Lee','Hopkins','05-20-2014'),
---('Irving','Evans','05-26-2014')
---go
 
 create table tbQuizStatus(
 StatusId int primary key identity (0,1),
@@ -111,7 +79,16 @@ StatusName varchar(10)
 insert into tbQuizStatus values
 ('Offline'),		-- 0
 ('Online'),			--1 
-('Complete')			--2
+('Completed')			--2
+
+create table tbQuizStudentStatus(
+StatusId int primary key identity (0,1),
+StatusName varchar(10))
+
+insert into tbQuizStudentStatus values
+('Not taken'),		-- 0
+('Incomplete'),			--1 
+('Completed')			--2
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
@@ -146,8 +123,8 @@ QuizStudentid int primary key identity (0,1), -- just the id nothing else
 IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLStudentResponse xml, 
-Status varchar(20),
-Points int null   -- results or number of correct responses by each student
+Status int foreign key references tbQuizStudentStatus(StatusId),
+Points decimal(5,2) null   -- results or number of correct responses by each student
 )
 go
 
@@ -270,6 +247,7 @@ if not EXISTS(select * from tbIssuedQuiz where Versionid = @Versionid and ClassI
 		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
 			begin
 			insert into tbIssuedQuiz values(@Versionid,@ClassId,GETDATE(),@Mentorid,0)
+			select @@IDENTITY as IssuedQuizId
 			end
 		else
 		begin
@@ -297,27 +275,29 @@ go
 
 create procedure spIssueNewQuizStudent(
 @IssuedQuizId int,
-@UserId int
+@UserId int,
+@XMLStudentResponse xml
 )
-as declare
-@getxml xml,
-@newXml xml,
-@xmlMultipleCount int
+as
  begin
 begin transaction
 
-	set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
-	join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
-	where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
+	--set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
+	--join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+	--where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
 
-	;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
-	(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
-	select @getxml as XML, @xmlMultipleCount as MultipleCount
+	--;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+	--(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
+	--select @getxml as XML, @xmlMultipleCount as MultipleCount
 	
-	--if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId)
-	--begin
-	--	insert into tbQuizStudent values (@IssuedQuizId,@UserId,)
-	--end
+	if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId and Status != 0)
+	begin
+		insert into tbQuizStudent values (@IssuedQuizId,@UserId,@XMLStudentResponse,0,null)
+	end
+	else
+	begin
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse where IssuedQuizId = @IssuedQuizId and Userid = @UserId
+	end
  if @@ERROR != 0
         begin
             ROLLBACK TRANSACTION
@@ -330,13 +310,14 @@ else
     end
 end
 go
-spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
+-- spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
 select * from tbQuizStudent
 go
-spIssueNewQuiz @Versionid = 3, @ClassId = 1, @Mentorid =1
+spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
+select * from tbQuizStudentStatus
 --('Offline'),		-- 0
 --('Online'),			--1 
 --('Complete')			--2
@@ -375,6 +356,90 @@ select * from tbQuizStudent
 --end
 --go
 go
+create procedure spForgotPassword(
+@EmailAddress varchar (50)
+)
+as declare
+@message varchar (50),
+@Token varchar (50)='notExists'
+begin
+begin transaction
+if Exists (select 1 from tbUser where Email = @EmailAddress)
+begin 
+while not Exists (select 1 from tbUser where LostPass = @Token)
+begin 
+SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
+update tbUser set LostPass=@Token where Email=@EmailAddress
+set @Message = 'CheckMail'
+end
+end
+else
+begin
+set @Message = 'EmailInvalid'
+end
+if @@ERROR != 0
+begin
+ROLLBACK TRANSACTION
+select @Message as message
+end
+else 
+begin
+commit transaction
+select @Message as message, @Token as Token
+end
+end
+go
+--spCheckToken @Token= 'COSNMXEDEEDMSAK'
+create procedure spCheckToken(
+@Token varchar(20)
+)
+as begin
+if exists(select 1 from tbUser where LostPass=@Token)
+begin
+select 'true' as exist
+end
+else
+begin
+select 'false' as exist
+end
+end
+go
+
+--spChangePass @Token='UMZSWKHAOMWHWVC', @NewPass = 'new'
+go
+create procedure spChangePassWord(
+@Token varchar(20),
+@NewPass varchar(60)
+)
+as declare
+@message varchar(60)
+ begin
+begin transaction
+if Exists(select 1 from tbUser where LostPass = @Token)
+begin
+	update tbUser set password=@NewPass, LostPass=null where LostPass=@Token
+	set @message = 'success'
+end
+else
+begin
+	set @message='invalid token'
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select @message as message
+		end
+else 
+	begin
+        commit transaction
+		select @message as message
+    end
+end
+go
 create procedure spGetStudentInfo(
 @Userid int 
 )
@@ -389,28 +454,53 @@ go
 
 go
 create procedure spGetStudents(
-@Classid int = null
+@Classid int = null,
+@Userid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, tbClass.Classid, SecurityLevel,Email
     from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(@Classid, tbUser.Classid) and 
+	      tbUser.Userid = isnull(@Userid, tbUser.Userid) and
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid and
+		  tbUser.SecurityLevel = 1
+	    
+end
+go
+
+create procedure spGetUsers(
+@Classid int = null,
+@Userid int = null
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(@Classid, tbUser.Classid) and 
+	      tbUser.Userid = isnull(@Userid, tbUser.Userid) and
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid
+	    
+end
+go
+
+
+create procedure spLoadAllStudentClass(
+@Classid int
+)
+as begin
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname + ', ' + Firstname as Studentname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
 	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
 	      tbUser.Classid = tbClass.Classid and
 		  tbClass.Courseid = tbCourse.Courseid and
 	      tbUser.SecurityLevel = 1 -- students 
-end
-go
-
-create procedure spGetStudents3(
-@Classid int,
-@SecurityLevel int 
-)
-as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = @Classid and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
 end
 go
 
@@ -425,12 +515,14 @@ go
 
 --Loads Class
 create procedure spLoadClass(
-@CourseId int
+@CourseId int = null
 )
 as begin
-	select tbClass.Classid, tbClass.Classname from tbClass
-	left join tbCourse on tbCourse.Courseid = @CourseId
-	where tbClass.Courseid = @CourseId
+	select tbClass.Classid, tbClass.Classname, Coursename
+	from tbClass, tbCourse
+	--left join tbCourse on tbCourse.Courseid = @CourseId
+	where tbClass.Courseid = @CourseId and
+	      tbclass.Courseid = tbCourse.Courseid
 end
 go
 -- spLoadClass @CourseId = 1
@@ -441,7 +533,8 @@ create procedure spGetClass(
 @Classid int = null
 )
 as begin
-	select * from tbClass where tbClass.Classid = @Classid
+	select * from tbClass
+	 where Classid = isnull(@Classid, Classid)
 end
 go
 
@@ -611,18 +704,19 @@ go
 
 ----------------UPDATES-------------
 
---Update Students
-create procedure spUpdateStudent(
-@Userid int = null,
+--Update Users
+create procedure spUpdateUser(
+@Userid int,
 @Firstname varchar (60),
 @Lastname varchar (60),
 @Password varchar (60),
+@Email varchar (60),
 @Classid int,
 @SecurityLevel int
 )
 as begin
 update tbUser set Firstname =@Firstname, Lastname=@Lastname, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel
+		Classid=@Classid, SecurityLevel=@SecurityLevel, Email = @Email
 			 where tbUser.Userid = @Userid
 end
 go
@@ -670,11 +764,9 @@ create procedure spDeleteStudent(
 @Userid int = null
 )
 as begin
-	delete from tbResults
-	where tbResults.Userid = @Userid
 
-	delete from tbQuizTaker
-	where tbQuizTaker.Userid = @Userid
+    delete from tbQuizStudent
+	where tbQuizStudent.Userid = @Userid
 
 	delete from tbUser 
 	where tbUser.Userid = @Userid

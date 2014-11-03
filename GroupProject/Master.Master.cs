@@ -46,6 +46,7 @@ namespace GroupProject
                 txtUserName.Visible = false;
                 txtPassword.Visible = false;
                 btnLogin.Visible = false;
+                lbForgotPassword.Visible=false;
               
                 
             }
@@ -103,6 +104,17 @@ namespace GroupProject
                 role = "user";
             }
             return role;
+        }
+
+        protected void lbForgotPassword_Click(object sender, EventArgs e)
+        {
+            //lblUserName.Visible = false;
+            //lblPassword.Visible = false;
+            //txtUserName.Visible = false;
+            //txtPassword.Visible = false;
+            //btnLogin.Visible = false;
+            //lbForgotPassword.Visible = false;
+            Response.Redirect("ForgotPassword.aspx");
         }
     }
 }

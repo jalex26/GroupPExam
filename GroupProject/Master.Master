@@ -24,8 +24,9 @@
     <form id="form1" runat="server">
         <div class="header_container">
             <div>
-                <p class="Margin">Exam Site</p>
-                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/college.jpg" PostBackUrl="~/Home.aspx"/>
+                <p class="Margin">
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/RobertsonBanner.jpg" PostBackUrl="~/Home.aspx"/>
+                    Exam Site</p>
             </div>
         </div>
 
@@ -81,7 +82,7 @@
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td >
-                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Kevin@yahoo.com"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="kevin.coliat@robertsoncollege.net"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -95,7 +96,9 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <td>
+                    <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
+                </td>
                 <td>
                     <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
                 </td>

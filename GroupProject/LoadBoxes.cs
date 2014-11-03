@@ -47,7 +47,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@Classid", ClassId);
-            ds = myDal.ExecuteProcedure("spGetStudents");
+            ds = myDal.ExecuteProcedure("spLoadAllStudentClass");
             return ds;
             
         }

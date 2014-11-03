@@ -23,7 +23,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
             Security mySecurity = new Security(2);
 
             if (!IsPostBack)
@@ -65,7 +65,6 @@ namespace GroupProject
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
-
 
         }
 
@@ -230,12 +229,12 @@ namespace GroupProject
             //string x= XmlDoc.InnerXml;
             //DataSet ds1 = new DataSet();
             //ds1.ReadXml(new StringReader(x));
-           // string serverPath = Server.MapPath(".") + "\\XSLT_Files\\";
+            // string serverPath = Server.MapPath(".") + "\\XSLT_Files\\";
 
-          //  XmlDataSource xmlDS = new XmlDataSource();
-          //  xmlDS.Data = XmlDoc.OuterXml;
+            //  XmlDataSource xmlDS = new XmlDataSource();
+            //  xmlDS.Data = XmlDoc.OuterXml;
             //xmlDS.TransformFile = serverPath + "QuestionX.xslt";
-           // xmlDS.XPath = "Quiz";
+            // xmlDS.XPath = "Quiz";
 
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();
@@ -250,32 +249,32 @@ namespace GroupProject
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            //List<String> ErrorList = new List<String>();
-            //if (HttpContext.Current.Session["Userid"] != null)
-            //{
-            //    foreach (ListItem item in cblStudents.Items)
-            //    {
-            //        if (item.Selected)
-            //        {
-            //            string a = item.Value;
-            //            myDal.ClearParams();
-            //            myDal.AddParam("@Userid", item.Value);
-            //            myDal.AddParam("@ClassId", ddlClass.SelectedValue);
-            //            myDal.AddParam("@Versionid", ddlVersion.SelectedValue);
-            //            //myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
-            //            myDal.AddParam("@Mentorid", "1");
-            //            DataSet ds = myDal.ExecuteProcedure("spIssueNewQuiz");
-            //        }
-            //    }
-            //}
             myDal.ClearParams();
-            myDal.AddParam("@IssuedQuizId", "0");
-            myDal.AddParam("@UserId", "3");
-            DataSet ds = myDal.ExecuteProcedure("spIssueNewQuizStudent");
-            XmlDocument xmdoc = new XmlDocument();
-            xmdoc.LoadXml(ds.Tables[0].Rows[0]["XML"].ToString());
-            RenderXML RX = new RenderXML();
-            RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
+            myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
+            myDal.AddParam("@ClassId", ddlClass.SelectedValue.ToString());
+            myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
+            DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("spIssueNewQuiz");
+            string NewId = null;
+
+            if (dsGetNewIssueQuizId.Tables[0].Columns["IssuedQuizId"] != null)
+                NewId = dsGetNewIssueQuizId.Tables[0].Rows[0]["IssuedQuizId"].ToString();
+
+            if (NewId != null)
+            {
+                foreach (ListItem Student in cblStudents.Items)
+                {//default: all Students are selected
+                    if (Student.Selected == true)
+                    {
+                        RenderXML RX = new RenderXML();
+                        RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString(), Student, NewId);
+                        //RenderXML RX = new RenderXML();
+                        //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
+                    }
+                }
+
+
+
+            }
         }
 
     }

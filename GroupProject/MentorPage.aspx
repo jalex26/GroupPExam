@@ -265,9 +265,16 @@
             </asp:DataList>
         </div>
         <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
+        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
     </asp:Panel>
+
+        <div class="JavascriptButtons">
     <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
+
+        </div>
+
     <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+      
 
     </div>
    <%-- main content panel ends here--%>   

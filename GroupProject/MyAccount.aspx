@@ -49,8 +49,8 @@
                 </tr>
             </table>
   </asp:Panel>
-    <a>Would You Like To Change Your Password Click Here ---></a>
-    <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="button2" />
+    <%--<a>Would You Like To Change Your Password Click Here ---></a>--%>
+    <%--<asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="button2" OnClick="btnChangePassword_Click" />--%>
 </asp:Content>
 <%--      <asp:Panel ID="Panel1" runat="server" Height="216px" Width="278px">--%>
            <%-- <table>
