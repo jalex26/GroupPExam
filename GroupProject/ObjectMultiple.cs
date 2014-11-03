@@ -7,6 +7,9 @@ namespace GroupProject
 {
     public class ObjectMultiple
     {
+        //im thinking of making a Parent class and this will be the children class,
+        // the problem is how to make the parent class a collection or list. For now this would be my option,
+        //every type of question will be on its own object
         int _QuestionId;
         string _Question;
         string _Option1;
@@ -16,6 +19,9 @@ namespace GroupProject
         string _Correct;
         string _UserAnswer;
 
+        public ObjectMultiple()
+        {// nothing here, constructor
+        }
         public int QuestionId
         {
             get { return _QuestionId; }
@@ -28,37 +34,38 @@ namespace GroupProject
         }
         public string Option1
         {
-            get { return Option1; }
+            get { return _Option1; }
             set { _Option1 = value; }
         }
         public string Option2
         {
-            get { return Option2; }
+            get { return _Option2; }
             set { _Option2 = value; }
         }
         public string Option3
         {
-            get { return Option3; }
+            get { return _Option3; }
             set { _Option3 = value; }
         }
         public string Option4
         {
-            get { return Option4; }
+            get { return _Option4; }
             set { _Option4 = value; }
         }
         public string Correct
         {
-            get { return Correct; }
+            get { return _Correct; }
             set { _Correct = value; }
         }
         public string UserAnswer
         {
-            get { return UserAnswer; }
+            get { return _UserAnswer; }
             set { _UserAnswer = value; }
         }
 
         public ObjectMultiple(int QuestionId, string Question, string Option1, string Option2, string Option3, string Option4, string Correct)
         {
+            //this.QuizId = QuizId;
             this.QuestionId = QuestionId;
             this.Question = Question;
             this.Option1 = Option1;
@@ -67,9 +74,21 @@ namespace GroupProject
             this.Option4 = Option4;
             this.Correct = Correct;
         }
-        public ObjectMultiple()
-        {// nothing here
+    }
+    public static class Randomizer
+    {
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
-            
     }
 }

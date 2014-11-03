@@ -117,7 +117,16 @@ StatusName varchar(10)
 insert into tbQuizStatus values
 ('Offline'),		-- 0
 ('Online'),			--1 
-('Complete')			--2
+('Completed')			--2
+
+create table tbQuizStudentStatus(
+StatusId int primary key identity (0,1),
+StatusName varchar(10))
+
+insert into tbQuizStudentStatus values
+('Not taken'),		-- 0
+('Incomplete'),			--1 
+('Completed')			--2
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
@@ -152,8 +161,8 @@ QuizStudentid int primary key identity (0,1), -- just the id nothing else
 IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
 Userid int foreign key references tbUser(Userid),  ---Student
 XMLStudentResponse xml, 
-Status varchar(20),
-Points int null   -- results or number of correct responses by each student
+Status int foreign key references tbQuizStudentStatus(StatusId),
+Points decimal(5,2) null   -- results or number of correct responses by each student
 )
 go
 
@@ -276,6 +285,7 @@ if not EXISTS(select * from tbIssuedQuiz where Versionid = @Versionid and ClassI
 		if EXISTS (select * from tbUser where SecurityLevel != 1 and Userid = @Mentorid)
 			begin
 			insert into tbIssuedQuiz values(@Versionid,@ClassId,GETDATE(),@Mentorid,0)
+			select @@IDENTITY as IssuedQuizId
 			end
 		else
 		begin
@@ -303,27 +313,29 @@ go
 
 create procedure spIssueNewQuizStudent(
 @IssuedQuizId int,
-@UserId int
+@UserId int,
+@XMLStudentResponse xml
 )
-as declare
-@getxml xml,
-@newXml xml,
-@xmlMultipleCount int
+as
  begin
 begin transaction
 
-	set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
-	join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
-	where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
+	--set @getxml = (select tbQuizVersion.XmlFile from tbIssuedQuiz
+	--join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+	--where tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
 
-	;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
-	(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
-	select @getxml as XML, @xmlMultipleCount as MultipleCount
+	--;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+	--(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
+	--select @getxml as XML, @xmlMultipleCount as MultipleCount
 	
-	--if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId)
-	--begin
-	--	insert into tbQuizStudent values (@IssuedQuizId,@UserId,)
-	--end
+	if not EXISTS(select * from tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId and Status != 0)
+	begin
+		insert into tbQuizStudent values (@IssuedQuizId,@UserId,@XMLStudentResponse,0,null)
+	end
+	else
+	begin
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse where IssuedQuizId = @IssuedQuizId and Userid = @UserId
+	end
  if @@ERROR != 0
         begin
             ROLLBACK TRANSACTION
@@ -336,10 +348,10 @@ else
     end
 end
 go
-spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
+-- spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
 select * from tbQuizStudent
 go
-spIssueNewQuiz @Versionid = 3, @ClassId = 1, @Mentorid =1
+spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
@@ -493,14 +505,18 @@ as begin
 end
 go
 
-create procedure spGetStudents3(
-@Classid int,
-@SecurityLevel int 
+create procedure spLoadAllStudentClass(
+@Classid int
 )
 as begin
-	select './Pictures/' + UserPicture as UserPicture,Userid,Lastname + ', ' + Firstname as Studentname,Password,Classid,SecurityLevel,Email
-    from tbUser where tbUser.Classid = @Classid and 
-	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname + ', ' + Firstname as Studentname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid and
+	      tbUser.SecurityLevel = 1 -- students 
 end
 go
 
