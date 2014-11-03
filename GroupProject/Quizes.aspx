@@ -3,7 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
-        <asp:Label name="lblQuestionId" Text="Question #" runat="server" />
-
+        <asp:Label name="lblQuestionId" Text="Question #" runat="server" /> <br />
+        <asp:Label name="lblQuestion" runat="server" />
+        <asp:Panel runat="server">  </asp:Panel>
     </div>
 </asp:Content>
