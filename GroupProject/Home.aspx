@@ -21,6 +21,7 @@
 					<a href="#">3</a>
 					<a href="#">4</a>
                     <a href="#">5</a>
+                    
 				</div>
 			</div>
 			<!-- End Content Slider -->

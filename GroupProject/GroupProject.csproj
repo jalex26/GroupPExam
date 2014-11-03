@@ -133,7 +133,6 @@
     <Content Include="Pictures\college.jpg" />
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
-    <Content Include="QuizForm.aspx" />
     <Content Include="ManageProfiles.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
@@ -209,13 +208,6 @@
     </Compile>
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="QuizForm.aspx.cs">
-      <DependentUpon>QuizForm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="QuizForm.aspx.designer.cs">
-      <DependentUpon>QuizForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="QuizToSession.cs" />
     <Compile Include="RenderXML.cs" />
