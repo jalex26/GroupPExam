@@ -76,7 +76,7 @@ namespace GroupProject
         }
     }
     public static class Randomizer
-    {
+    {// fisher-yates shuffle method
         public static void Shuffle<T>(this IList<T> list)
         {
             Random rng = new Random();

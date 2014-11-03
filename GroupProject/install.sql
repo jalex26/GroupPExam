@@ -349,6 +349,7 @@ spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
+select * from tbQuizStudentStatus
 --('Offline'),		-- 0
 --('Online'),			--1 
 --('Complete')			--2
