@@ -13,6 +13,15 @@ namespace GroupProject {
     public partial class ForgotPassword {
         
         /// <summary>
+        /// pnlForgot control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlForgot;
+        
+        /// <summary>
         /// RetrievePass control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl InvalidToken;
+        
+        /// <summary>
+        /// pnlChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlChangePassword;
         
         /// <summary>
         /// ChangePass control.
