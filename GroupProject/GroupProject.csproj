@@ -94,6 +94,7 @@
     <Content Include="App_Data\XMLFileTEST.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
     <Content Include="js\jquery.jcarousel.pack.js" />
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="GHLoadStudents.ashx.cs">
       <DependentUpon>GHLoadStudents.ashx</DependentUpon>
