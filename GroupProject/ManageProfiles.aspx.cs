@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL_Project;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.Sql;
 
 namespace GroupProject
 {
@@ -18,76 +20,115 @@ namespace GroupProject
             Security mySecurity = new Security(1);
             if (!IsPostBack)
             {
-                loadSettings();
+                loadUsers();
+                loadClass();
+              
             }
-
         }
-        private void loadSettings()
+
+        private void loadClass()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            ds = myDal.ExecuteProcedure("spGetClass");
+            ddlClass.DataTextField = "Classname";
+            ddlClass.DataValueField = "Classid";
+            ddlClass.DataSource = ds;
+            ddlClass.DataBind();
+        }
+
+
+        private void loadUsers()
         {
             Security mySecurity = new Security();
             DataSet ds = new DataSet();
             mydal.ClearParams();
-            //mydal.AddParam("@SecurityLevel", HttpContext.Current.Session["SecurityLevel"].ToString());
-
-            gvSettings.DataSource = mydal.ExecuteProcedure("spGetStudents");
+            gvSettings.DataSource = mydal.ExecuteProcedure("spGetUsers");
             gvSettings.DataBind();
 
         }
 
-        protected void gvSettings_RowCommand(object sender, GridViewCommandEventArgs e)
+    // loads selected user values in pop up update panel to make changes
+        protected void lbUpdate_Click(object sender, EventArgs e)
         {
+            LinkButton linkUpdate = sender as LinkButton;
+            GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
+            string tempID = gvSettings.DataKeys[grid.RowIndex].Value.ToString();
+            ViewState["tempId"] = tempID;
 
-            //using Griedview row command
-            pn1Upd.Visible = true;
-            gvSettings.SelectedIndex = Convert.ToInt32(e.CommandArgument);
+            DataSet ds = new DataSet();
+            mydal.ClearParams();
+            mydal.AddParam("@Userid", tempID);
+            ds = mydal.ExecuteProcedure("spGetUsers");
+            lblUserID.Text = tempID;
+            txtFirstName.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
+            txtLastName.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
+            txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
+            txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();        
 
-            if(e.CommandName.ToString()=="Upd")
-            {
-                string Userid = gvSettings.SelectedDataKey.Value.ToString();
-                loadUpdatePanel(Userid);
-            }
+            ddlSecurity.SelectedIndex = ddlSecurity.Items.IndexOf(ddlSecurity.Items.FindByValue(ds.Tables[0].Rows[0]["SecurityLevel"].ToString()));
+
+            ddlClass.SelectedIndex = ddlClass.Items.IndexOf(ddlClass.Items.FindByValue(ds.Tables[0].Rows[0]["Classid"].ToString()));
+
+            mpeUpdate.Show();
         }
-        private void loadUpdatePanel(string Userid)
-        {
-            if (Userid != null)
-            {
-                     
-                //loading update panel with alues from selected row in grid to make changes
 
-                txtUserid.Text = gvSettings.SelectedDataKey.Value.ToString();
-                txtFirstname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[2].Text;
-                txtLastname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[3].Text;
-                txtEmail.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[4].Text;
-                txtPassword.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[5].Text;              
-                txtClassname.Text = gvSettings.Rows[gvSettings.SelectedIndex].Cells[6].Text;            
-               
-            }
+        // deletes selected user from database
+        protected void lbDelete_Click(object sender, EventArgs e)
+        {
+            LinkButton linkUpdate = sender as LinkButton;
+            GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
+            string tempID = gvSettings.DataKeys[grid.RowIndex].Value.ToString();
+            ViewState["tempId"] = tempID;
+
+            lblSelectedUserid.Text = tempID;
+
+            mpeDelete.Show();
+
+            lblDelete.Text = "Are you sure you want to delete selected user (User ID): " + tempID + "?";
 
         }
-        private void saveCustomers(string Userid)
+
+        // saves or updates changes in database
+        protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            try
+            {
                 mydal.ClearParams();
-                mydal.AddParam("@Userid", Userid);
-                mydal.AddParam("@SecurityLevel", "1");
-                DataSet ds = new DataSet();
-                ds = mydal.ExecuteProcedure("spGetStudent3");
-                //mydal.AddParam("@id", id);
-                mydal.AddParam("@Userid", txtUserid.Text);
-                txtFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
-                txtLastname.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();               
-                txtPassword.Text = ds.Tables[0].Rows[0]["Password"].ToString();
-                txtClassname.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
-            
+                mydal.AddParam("@Userid", lblUserID.Text);
+                mydal.AddParam("@Firstname", txtFirstName.Text);
+                mydal.AddParam("@Lastname", txtLastName.Text);
+                mydal.AddParam("@Email", txtEmail.Text);
+                mydal.AddParam("@Password", txtPassword.Text);
+                mydal.AddParam("@SecurityLevel", ddlSecurity.SelectedValue);
+                mydal.AddParam("@Classid", ddlClass.SelectedValue);
+                mydal.ExecuteProcedure("spUpdateUser");
+                loadUsers();
+                mpeUpdate.Hide();
+            }
+
+            catch 
+            {
+                lblStatus1.Text = "Record Not Updated. Please Try Again!";
+                mpeUpdate.Show();
+            }
+ 
+          
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void btnCancel_Click1(object sender, EventArgs e)
         {
-            saveCustomers(txtUserid.Text);
-            pn1Upd.Visible = false;
+            mpeUpdate.Hide();
         }
-        protected void btnCancel_Click(object sender, EventArgs e)
+
+        protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
-            pn1Upd.Visible = false;
+            mydal.ClearParams();
+            mydal.AddParam("@Userid", lblSelectedUserid.Text);
+            mydal.ExecuteProcedure("spDeleteStudent");
+            loadUsers();
+            mpeUpdate.Hide();
+
         }
       } 
     }

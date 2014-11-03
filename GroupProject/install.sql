@@ -69,45 +69,7 @@ TToken varchar(50),
 TUserid int foreign key references tbUser(Userid)
 )
 go
---select * from tbClass
 
---create table tbResults(
---Resultid int primary key identity (0,1),
---Userid int foreign key references tbUser(Userid),
---Versionid int foreign key references tbQuizVersion(Versionid), 
---Quizid int foreign key references tbQuiz(Quizid),
---TotalScore decimal(10,5)
---)
-go
-
---insert into tbResults(Userid,Versionid,Quizid,TotalScore)values 
---(2,1,0,85.50),(3,1,0,90.00),(4,1,0,90.95),(5,1,0,99.9)
-
---Failed Login Attempts
---create table tbFailedLoginAttempt(
---Email varchar(60),
---Password varchar(60),
---DateAttempted date
---)
---go
-
---insert into tbFailedLoginAttempt(Email,Password,DateAttempted)values
---('Geoffrey','Smith','01-12-2014'),
---('Ian','Morgan','02-24-2014'),
---('Katie','Hunter','06-16-2014'),
---('Elmer','Sherman','06-25-2014'),
---('Isabel','Holland','07-03-2014'),
---('Andrea','Barrett','07-08-2014'),
---('Whitney','Woods','07-10-2014'),
---('Abraham','Washington','08-13-2013'),
---('Sophia','Roy','08-14-2013'),
---('Lester','Tran','04-06-2014'),
---('Tasha','Nguyen','04-15-2014'),
---('Desiree','Mcbride','04-20-2014'),
---('Melody','Allison','05-13-2014'),
---('Lee','Hopkins','05-20-2014'),
---('Irving','Evans','05-26-2014')
---go
 
 create table tbQuizStatus(
 StatusId int primary key identity (0,1),
@@ -492,19 +454,40 @@ go
 
 go
 create procedure spGetStudents(
-@Classid int = null
+@Classid int = null,
+@Userid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, tbClass.Classid, SecurityLevel,Email
     from  tbUser, tbCourse, tbClass 
-	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	where tbUser.Classid = isnull(@Classid, tbUser.Classid) and 
+	      tbUser.Userid = isnull(@Userid, tbUser.Userid) and
 	      tbUser.Classid = tbClass.Classid and
 		  tbClass.Courseid = tbCourse.Courseid and
-	      tbUser.SecurityLevel = 1 -- students 
+		  tbUser.SecurityLevel = 1
+	    
 end
 go
+
+create procedure spGetUsers(
+@Classid int = null,
+@Userid int = null
+)
+as begin
+	select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email
+    from  tbUser, tbCourse, tbClass 
+	where tbUser.Classid = isnull(@Classid, tbUser.Classid) and 
+	      tbUser.Userid = isnull(@Userid, tbUser.Userid) and
+	      tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid
+	    
+end
+go
+
 
 create procedure spLoadAllStudentClass(
 @Classid int
@@ -532,12 +515,14 @@ go
 
 --Loads Class
 create procedure spLoadClass(
-@CourseId int
+@CourseId int = null
 )
 as begin
-	select tbClass.Classid, tbClass.Classname from tbClass
-	left join tbCourse on tbCourse.Courseid = @CourseId
-	where tbClass.Courseid = @CourseId
+	select tbClass.Classid, tbClass.Classname, Coursename
+	from tbClass, tbCourse
+	--left join tbCourse on tbCourse.Courseid = @CourseId
+	where tbClass.Courseid = @CourseId and
+	      tbclass.Courseid = tbCourse.Courseid
 end
 go
 -- spLoadClass @CourseId = 1
@@ -548,7 +533,8 @@ create procedure spGetClass(
 @Classid int = null
 )
 as begin
-	select * from tbClass where tbClass.Classid = @Classid
+	select * from tbClass
+	 where Classid = isnull(@Classid, Classid)
 end
 go
 
@@ -718,18 +704,19 @@ go
 
 ----------------UPDATES-------------
 
---Update Students
-create procedure spUpdateStudent(
-@Userid int = null,
+--Update Users
+create procedure spUpdateUser(
+@Userid int,
 @Firstname varchar (60),
 @Lastname varchar (60),
 @Password varchar (60),
+@Email varchar (60),
 @Classid int,
 @SecurityLevel int
 )
 as begin
 update tbUser set Firstname =@Firstname, Lastname=@Lastname, Password=@Password, 
-		Classid=@Classid, SecurityLevel=@SecurityLevel
+		Classid=@Classid, SecurityLevel=@SecurityLevel, Email = @Email
 			 where tbUser.Userid = @Userid
 end
 go
@@ -777,11 +764,9 @@ create procedure spDeleteStudent(
 @Userid int = null
 )
 as begin
-	delete from tbResults
-	where tbResults.Userid = @Userid
 
-	delete from tbQuizTaker
-	where tbQuizTaker.Userid = @Userid
+    delete from tbQuizStudent
+	where tbQuizStudent.Userid = @Userid
 
 	delete from tbUser 
 	where tbUser.Userid = @Userid

@@ -23,7 +23,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
             Security mySecurity = new Security(2);
 
             if (!IsPostBack)
@@ -65,7 +65,6 @@ namespace GroupProject
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
-
 
         }
 

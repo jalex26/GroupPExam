@@ -1,10 +1,4 @@
-﻿.header_container {
-    width: 100%;
-    /*#FF3333*/
-    height: 100px;
-    overflow: hidden;
-    margin: 0 0 27px 0;
-}
+﻿
 .StudentPNL{
     margin-left:auto;
     margin-right:auto;
@@ -22,31 +16,22 @@
     position: absolute;
     top: 17px;
     left: 12px;
-    height: 123px;
-    width: 812px;
+    height: 150px;
+    width: 1064px;
     /*box-shadow: 10px 10px 5px #ad0e0e;*/
 }
 
-/*.LoginMargin {
-    margin-top: 200px;
-    margin-left: 500px;
-}*/
+
 .Text {
     color: #f70303;
-    /*margin-top: 500px;
-    margin-left: 500px;*/
 }
 .ForgotTextbox{
-    margin:auto;
-    margin-bottom:auto;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:auto;
+margin-left:330px;
 }
 .header_container {
     width: 100%;
-    background: #f70000;
-    height: 132px;
+    background: #ff0000;      
+    height: 160px;
     margin-left: 10px;
     overflow: hidden;
     margin: 0 0 27px 0;
@@ -250,6 +235,7 @@ input, textarea, select {
 
 #content {
     float:inherit;
+    margin-top: 20px;
     margin-left: 30px;
     width: 700px;
     align-content: center;
@@ -285,6 +271,9 @@ input, textarea, select {
     width: 150px;
 }
 
+.JavascriptButtons {
+    visibility:hidden;
+}
 
 .LoginPanel {
     margin-left:350px;

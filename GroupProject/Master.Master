@@ -24,8 +24,9 @@
     <form id="form1" runat="server">
         <div class="header_container">
             <div>
-                <p class="Margin">Exam Site</p>
-                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/college.jpg" PostBackUrl="~/Home.aspx"/>
+                <p class="Margin">
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/RobertsonBanner.jpg" PostBackUrl="~/Home.aspx"/>
+                    Exam Site</p>
             </div>
         </div>
 

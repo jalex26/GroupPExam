@@ -3,30 +3,34 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
+        <asp:Panel ID="pnlForgot" CssClass="ForgotTextbox" runat="server">
     <div id="RetrievePass" runat="server">
-        <a class="ForgotTextbox">Forgotten Password</a>
+        <a>Forgotten Password</a>
         <br />
         <table>
             <tr>
-                <td class="ForgotTextbox">Enter Your Email</td>
+                <td>Enter Your Email</td>
                 <td>
                     <asp:TextBox ID="txtEmail" runat="server" Width="149px"></asp:TextBox>
                 </td>
             </tr>
         </table>
-        <asp:Button ID="btnRecoverPassword" runat="server" Text="Recover Password" OnClick="btnRecoverPassword_Click" />
+        <asp:Button ID="btnRecoverPassword" CssClass="button" runat="server" Text="Recover Password" OnClick="btnRecoverPassword_Click" />
 </div>
-    <div id="CheckMail" runat="server" visible="false" class="auto-style2">
+        
+    <div id="CheckMail" runat="server" visible="false">
             <strong>Account Retrieval Successful. Please Check Your Current Valid Email Account.
                      </strong>
         </div>
-        <div id="CheckMailInvalid" runat="server" visible="false" class="auto-style2">
+        <div id="CheckMailInvalid" runat="server" visible="false" >
 
             <strong>You entered an Invalid Email or not existed on our database.</strong>
         </div>
-        <div id="InvalidToken" runat="server" visible="false" class="auto-style2">
+        <div id="InvalidToken" runat="server" visible="false">
             Invalid Link.
         </div>
+                </asp:Panel>
+        <asp:Panel ID="pnlChangePassword" CssClass="ForgotTextbox" runat="server">
         <div id="ChangePass" runat="server" visible="false">
             <table>
                 <tr>
@@ -35,7 +39,6 @@
                         <asp:TextBox ID="txtPass" TextMode="Password" runat="server"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RFVPass" runat="server" ErrorMessage="*Required" ControlToValidate="txtPass"
                             EnableClientScript="False" EnableViewState="False" ValidationGroup="Pass"></asp:RequiredFieldValidator>
-
                     </td>
                 </tr>
                 <tr>
@@ -46,12 +49,13 @@
                     </td>
                 </tr>
             </table>
-            <asp:Button ID="btnChange" runat="server" Text="Change Password" OnClick="btnChange_Click" />
+            <asp:Button ID="btnChange" CssClass="button" runat="server" Text="Change Password" OnClick="btnChange_Click" />
         </div>
         <div id="ChangeSuccess" runat="server" visible="false">
-            Change Password Successful. Please Log in.</div>
+           Change Password Successful. Please LogIn.</div>
         <div id="ChangeFailed" runat="server" visible="false">
             <span class="auto-style2"><strong>Password Failed. </strong></span>
         </div>
+            </asp:Panel>
     </div>
 </asp:Content>
