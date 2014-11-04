@@ -40,7 +40,7 @@
                 <!-- Navigation -->
                 <div id="navigation">                                                      
                             <asp:XmlDataSource ID="XmlDataSource1" runat="server" />  
-                    <asp:Menu ID="Menu1" runat="server" Orientation="Vertical" DisappearAfter="10"
+                    <asp:Menu ID="Menu1" runat="server" Font-Size="14px" Orientation="Vertical" DisappearAfter="10"
                         Width="600px" DataSourceID="XmlDataSource1" StaticEnableDefaultPopOutImage="False">
                         <StaticMenuItemStyle CssClass="MenuItem" />
                         <DynamicHoverStyle CssClass="SubMenuItemHover" />
@@ -96,13 +96,18 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
+                <td>                   
                 </td>
                 <td>
-                    <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />
+                    <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />                   
                 </td>
             </tr>
+                     <tr>
+                         <td></td>
+                         <td>
+                              <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
+                         </td>
+                     </tr>
         </table>    
                 </asp:Panel> 
                 </div>  

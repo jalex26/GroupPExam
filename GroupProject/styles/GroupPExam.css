@@ -271,8 +271,24 @@ input, textarea, select {
     width: 150px;
 }
 
+/*dummy buttons used for for modal pop up extender*/
 .JavascriptButtons {
     visibility:hidden;
+}
+
+.ButtonsOnMentorPage {
+     background:none!important;
+     border:none; 
+     padding:0!important;    
+     font-family:arial,sans-serif;
+     color:#069;
+     text-decoration:underline;
+     cursor:pointer;
+    }
+
+.ButtonsOnMentorPage:hover {
+  border: none;
+  color:darkred;
 }
 
 .LoginPanel {
@@ -292,7 +308,7 @@ background-color:#ebebeb; position:relative;
 
            
 #navigation { float:left; white-space:nowrap;
-    height: 60px;
+    height: 60px; 
     
 }
 #navigation ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
