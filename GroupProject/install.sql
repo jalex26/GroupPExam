@@ -56,7 +56,7 @@ go
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
-('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
+('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',1,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),

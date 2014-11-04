@@ -15,6 +15,7 @@ namespace GroupProject
     {
         DAL myDal = new DAL(Globals.conn);
         DAL mydal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Security mySecurity = new Security(1);
@@ -111,9 +112,7 @@ namespace GroupProject
             {
                 lblStatus1.Text = "Record Not Updated. Please Try Again!";
                 mpeUpdate.Show();
-            }
- 
-          
+            }     
         }
 
         protected void btnCancel_Click1(object sender, EventArgs e)
@@ -128,6 +127,9 @@ namespace GroupProject
             mydal.ExecuteProcedure("spDeleteStudent");
             loadUsers();
             mpeUpdate.Hide();
+
+
+          
 
         }
       } 

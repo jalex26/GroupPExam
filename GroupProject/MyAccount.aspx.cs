@@ -14,6 +14,9 @@ namespace GroupProject
         DAL myDal = new DAL(Globals.conn);
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Security mySecurity = new Security(1);
+
             LoadStudentInfo();
         }
         public void LoadStudentInfo()
@@ -30,8 +33,6 @@ namespace GroupProject
             lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
         }
 
-        //protected void btnChangePassword_Click(object sender, EventArgs e)
-        //{
-        //}
+       
     }
 }
