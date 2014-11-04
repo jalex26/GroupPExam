@@ -88,7 +88,8 @@ StatusName varchar(10))
 insert into tbQuizStudentStatus values
 ('Not taken'),		-- 0
 ('Incomplete'),			--1 
-('Completed')			--2
+('Completed'),			--2
+('Ongoing')				--3
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
@@ -310,14 +311,74 @@ else
     end
 end
 go
+create procedure spStartQuiz(
+@IssuedQuizId int
+)
+as begin
+if EXISTS(select * from tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and QuizStatus != 1)
+	begin
+	update tbIssuedQuiz set QuizStatus = 1 where IssuedQuizId = @IssuedQuizId
+	select 'Activated' as status
+	end
+else
+begin
+	select 'error' as status
+end
+end
+
+go
+create procedure spStartQuizStudent (
+@UserId int,
+@QuizStudentId int
+)
+as declare
+@IssuedQuizId int = -1
+begin
+begin tran
+set @IssuedQuizId = (select IssuedQuizId from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
+select @IssuedQuizId as QUizId
+if EXISTS(select * from tbIssuedQuiz where @IssuedQuizId != -1 and IssuedQuizId = @IssuedQuizId and QuizStatus = 1) -- The IssuedQuiz status must be active first
+begin
+	if EXISTS(select * from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
+	begin
+	update tbQuizStudent set Status= 3 where Userid = @UserId and QuizStudentid = @QuizStudentId
+	select XMLStudentResponse from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId
+	end
+	else
+	begin
+	select 'invalid Quiz' as status
+	end
+end
+else
+begin
+select 'QuizNotActive' as status
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+
+go
 -- spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
-select * from tbQuizStudent
 go
 spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
+select * from tbUser
 select * from tbQuizStudentStatus
+-- spStartQuiz @IssuedQuizId = 1
+-- spStartQuizStudent @UserId= 7,@QuizStudentId= 1
+go
+
+
 --('Offline'),		-- 0
 --('Online'),			--1 
 --('Complete')			--2
@@ -329,15 +390,6 @@ select * from tbQuizStudentStatus
 --XMLStudentResponse xml, 
 --Status varchar(20),
 --Points int null   -- results or number of correct responses by each student
---)
-
---create table tbIssuedQuiz(		-- issued quiz and its statuses
---IssuedQuizId int primary key identity(0,1),
---Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
---StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
---DateIssued date,
---Mentorid int foreign key references tbUser(Userid),
---TestStatus int foreign key references tbQuizStatus(StatusId)
 --)
 
 
