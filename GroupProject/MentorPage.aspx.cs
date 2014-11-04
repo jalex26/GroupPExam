@@ -301,5 +301,23 @@ namespace GroupProject
 
         }
 
+        protected void btnStartQuiz_Click(object sender, EventArgs e)
+        {
+            pnlIssueQuiz.Visible = false;
+            pnlUploadQuiz.Visible = false;
+            gvViewQuiz.Visible = false;
+
+            myDal.ClearParams();
+            myDal.AddParam("@Userid",HttpContext.Current.Session["Userid"].ToString());
+            DataSet ds = myDal.ExecuteProcedure("spGetIssuedQuizByMentor");
+            if(ds.Tables[0].Rows.Count != 0)
+            {
+                pnlStartQuiz.Visible = true;
+                gvQuizes.DataSource = ds.Tables[0];
+                gvQuizes.DataBind();
+            }
+            
+        }
+
     }
 }
