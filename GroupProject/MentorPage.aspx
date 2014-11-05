@@ -265,7 +265,6 @@
             </asp:DataList>
         </div>
         <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
     </asp:Panel>
 
         <div class="JavascriptButtons">
