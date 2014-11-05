@@ -73,8 +73,6 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             ds = myDal.ExecuteProcedure("spViewQuiz");
-
-
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
         }
@@ -215,7 +213,7 @@ namespace GroupProject
             lblQuizDuration.Text = ds.Tables[0].Rows[0]["Time"].ToString() + " minutes";
         }
 
-        protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
+        private void ViewQuizPopUp()
         {
             RenderXML RX = new RenderXML();
 
@@ -240,6 +238,12 @@ namespace GroupProject
             DLExamDemo.DataBind();
             MPE1.Show();
 
+        }
+
+        // this is Quiz Preview on Issue Quiz button
+        protected void btnViewDemoQuiz_Click(object sender, EventArgs e)
+        {
+            ViewQuizPopUp();
         }
 
         protected void btnPopUpClose_Click(object sender, EventArgs e)
@@ -271,10 +275,48 @@ namespace GroupProject
                         //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
                     }
                 }
-
-
-
             }
+        }
+
+        // this is quiz preview on View Quiz button
+        protected void lbViewQuiz_Click(object sender, EventArgs e)
+        {
+            LinkButton linkUpdate = sender as LinkButton;
+            GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
+            string tempID = gvViewQuiz.DataKeys[grid.RowIndex].Value.ToString();
+            ViewState["tempId"] = tempID;
+
+            RenderXML RX = new RenderXML();
+
+            DataSet ds = RX.XMLContent(tempID);
+            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+
+            ns = new XmlNamespaceManager(XmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            string xpath = "/ns:Quiz";
+            XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
+            DLExamDemo.DataSource = QuizNode;
+            DLExamDemo.DataBind();
+            MPE1.Show();
+
+        }
+
+        protected void btnStartQuiz_Click(object sender, EventArgs e)
+        {
+            pnlIssueQuiz.Visible = false;
+            pnlUploadQuiz.Visible = false;
+            gvViewQuiz.Visible = false;
+
+            myDal.ClearParams();
+            myDal.AddParam("@Userid",HttpContext.Current.Session["Userid"].ToString());
+            DataSet ds = myDal.ExecuteProcedure("spGetIssuedQuizByMentor");
+            if(ds.Tables[0].Rows.Count != 0)
+            {
+                pnlStartQuiz.Visible = true;
+                gvQuizes.DataSource = ds.Tables[0];
+                gvQuizes.DataBind();
+            }
+            
         }
 
     }

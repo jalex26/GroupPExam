@@ -56,7 +56,7 @@ go
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
-('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
+('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',1,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
@@ -88,7 +88,8 @@ StatusName varchar(10))
 insert into tbQuizStudentStatus values
 ('Not taken'),		-- 0
 ('Incomplete'),			--1 
-('Completed')			--2
+('Completed'),			--2
+('Ongoing')				--3
 
 ----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table tbXMLQuizContent(
@@ -310,51 +311,94 @@ else
     end
 end
 go
+create procedure spStartQuiz(
+@IssuedQuizId int
+)
+as begin
+if EXISTS(select * from tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and QuizStatus != 1)
+	begin
+	update tbIssuedQuiz set QuizStatus = 1 where IssuedQuizId = @IssuedQuizId
+	select 'Activated' as status
+	end
+else
+begin
+	select 'error' as status
+end
+end
+
+go
+create procedure spStartQuizStudent (
+@UserId int,
+@QuizStudentId int
+)
+as declare
+@IssuedQuizId int = -1
+begin
+begin tran
+set @IssuedQuizId = (select IssuedQuizId from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
+select @IssuedQuizId as QUizId
+
+if EXISTS(select * from tbIssuedQuiz where @IssuedQuizId != -1 and IssuedQuizId = @IssuedQuizId and QuizStatus = 1) -- The IssuedQuiz status must be active first
+begin
+	if EXISTS(select * from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
+	begin
+	update tbQuizStudent set Status= 3 where Userid = @UserId and QuizStudentid = @QuizStudentId
+	select XMLStudentResponse from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId
+	end
+	else
+	begin
+	select 'invalid Quiz' as status
+	end
+end
+else
+begin
+select 'QuizNotActive' as status
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+end
+
+go
 -- spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
-select * from tbQuizStudent
 go
 spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
 select * from tbQuizStatus 
 select * from tbIssuedQuiz
 select * from tbQuizStudent
+select * from tbUser
 select * from tbQuizStudentStatus
---('Offline'),		-- 0
---('Online'),			--1 
---('Complete')			--2
 
---create table tbQuizStudent(			
---QuizStudentid int primary key identity (0,1), -- just the id nothing else
---IssuedQuizId int foreign key references tbIssuedQuiz(IssuedQuizId), 
---Userid int foreign key references tbUser(Userid),  ---Student
---XMLStudentResponse xml, 
---Status varchar(20),
---Points int null   -- results or number of correct responses by each student
---)
+insert into tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
+-- spStartQuiz @IssuedQuizId = 1
+-- spStartQuizStudent @UserId= 7,@QuizStudentId= 5
+go
 
---create table tbIssuedQuiz(		-- issued quiz and its statuses
---IssuedQuizId int primary key identity(0,1),
---Versionid int foreign key references tbQuizVersion(Versionid), -- actual quiz, has XMLQUIzContent and Version
---StudentsToTakeId int foreign key references tbUser(Userid),		-- users who will take the test!
---DateIssued date,
---Mentorid int foreign key references tbUser(Userid),
---TestStatus int foreign key references tbQuizStatus(StatusId)
---)
+create procedure spGetIssuedQuizByMentor (
+@Userid int
+)
+as begin
+if EXISTS(select * from tbUser where Userid= @Userid and SecurityLevel != 1)
+begin
+	select * from tbIssuedQuiz
+	join tbClass on tbClass.Classid = tbIssuedQuiz.ClassId
+	join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+	join tbQuizStatus on tbQuizStatus.StatusId = tbIssuedQuiz.QuizStatus
+	join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
+	join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
+	where tbIssuedQuiz.Mentorid = @Userid
+	 end
+end
+go
+spGetIssuedQuizByMentor @Userid= 1
 
-
-
------------SELECTS------------
-
---Loads students by Class
---create procedure spGetStudents(
---@Classid int = null,
---@SecurityLevel int 
---)
---as begin
---	select './Pictures/' + UserPicture as UserPicture,Userid,Firstname, Lastname,Password,Classid,SecurityLevel,Email
---    from tbUser where tbUser.Classid = isnull(Classid, @Classid) and 
---	tbUser.SecurityLevel =1 and tbUser.SecurityLevel = @SecurityLevel
---end
---go
 go
 create procedure spForgotPassword(
 @EmailAddress varchar (50)

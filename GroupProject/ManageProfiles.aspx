@@ -13,39 +13,23 @@
     </style>
     <%-- style ends here--%>
 
-    <style type="text/css">
-        .auto-style7 {
-            width: 234px;
-            height: 40px;
-        }
-
-        .auto-style9 {
-            width: 596px;
-            height: 40px;
-        }
-
-        .auto-style10 {
-            width: 448px;
-            height: 40px;
-        }
-    </style>
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div id="content">
        
-        <div style="font-size:medium;">
+        
         Welcome to Manage Profiles page. This page shows all the users in database. 
         Here you can update and delete selected users from the record. Please click
         on the appropriate link button in grid to make changes.
-           </div>
+           
         <br />
         <br />
         <asp:GridView ID="gvSettings" runat="server"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
-            Height="200px"
-            style="margin-left:150px;"
+            Width="800px"                  
             AutoGenerateColumns="False" GridLines="Horizontal">
             <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
             <AlternatingRowStyle BackColor="#CCCCCC" />
@@ -201,7 +185,7 @@
                     <td><asp:DropDownList ID="ddlClass" runat="server">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rfvClass" runat="server" 
-                        InitialValue="0" ErrorMessage="Select Class" 
+                         ErrorMessage="Select Class" 
                         Display="None" ControlToValidate="ddlCLass"  
                         ValidationGroup="add"></asp:RequiredFieldValidator>
                         <ajaxToolkit:ValidatorCalloutExtender runat="server" 

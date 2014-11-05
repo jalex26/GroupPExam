@@ -157,9 +157,6 @@
     <Compile Include="ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GHLoadStudents.ashx.cs">
-      <DependentUpon>GHLoadStudents.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="LoadBoxes.cs" />
     <Compile Include="LoginPage.aspx.cs">
@@ -210,6 +207,9 @@
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="QuizToSession.cs" />
+    <Compile Include="RenderQuizAndGenXML.ashx.cs">
+      <DependentUpon>RenderQuizAndGenXML.ashx</DependentUpon>
+    </Compile>
     <Compile Include="RenderXML.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="ManageProfiles.aspx.cs">
@@ -238,8 +238,8 @@
   <ItemGroup>
     <Content Include="Master.Master" />
     <Content Include="img\Thumbs.db" />
-    <Content Include="GHLoadStudents.ashx" />
     <Content Include="packages.config" />
+    <Content Include="RenderQuizAndGenXML.ashx" />
     <None Include="validator.xsd">
       <SubType>Designer</SubType>
     </None>

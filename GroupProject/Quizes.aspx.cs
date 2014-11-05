@@ -15,23 +15,18 @@ namespace GroupProject
         protected void Page_Load(object sender, EventArgs e)
         {
             Security mySecurity = new Security(1);
-            
         }
 
-        protected void XMLBINDINGTEST_Click(object sender, EventArgs e)
+        protected void btnLoadQuiz_Click(object sender, EventArgs e)
         {
-            Response.Redirect("QuizForm.aspx");
+
+        }
+        private void StartExam()
+        {
+            myDal.ClearParams();
+
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Testing.aspx");
-        }
-
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("QuizFormTEST.aspx");
-        }
 
         
        
