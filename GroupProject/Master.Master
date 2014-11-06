@@ -12,8 +12,6 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
-    
-
 </head>
 <body>
     <form id="form1" runat="server">
