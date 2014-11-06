@@ -61,26 +61,25 @@
     <%-- Main content panel starts here--%>
 
     <div id="content">
-        <br />
-        <br />
-        Welcome to the Mentor Page! Here you can view available quizzes, upload new quizzes to database and issue selected quiz to the students. Please click on the appropriate button to proceed!
-        <br />
+    
 
-        <div id="buttonstyle">
             <asp:Panel ID="pnlbuttons" runat="server">
 
-                <asp:Button CssClass="mentorpagebutton" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
 
-                <asp:Button CssClass="mentorpagebutton" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
 
-                <asp:Button CssClass="mentorpagebutton" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" OnClick="btnCreateQuiz_Click" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" OnClick="btnCreateQuiz_Click" />
 
-                <asp:Button CssClass="mentorpagebutton" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
 
-                <asp:Button CssClass="mentorpagebutton" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
 
             </asp:Panel>
-        </div>
+        
+        <br />
+        <br />
+        <br />
 
         <div class="messagepop pop">
 

@@ -104,6 +104,8 @@
     <Content Include="NavigationXmlFiles\user_menu.xml" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\NewBanner.jpg" />
+    <Content Include="Pictures\NewLogo.png" />
     <Content Include="Pictures\s2.jpg" />
     <Content Include="Pictures\students1.jpg" />
     <Content Include="Pictures\students3.jpg" />
