@@ -194,28 +194,36 @@
                 </tr>
             </table>
         </asp:Panel>
-        <asp:Panel ID="pnlViewQuiz" runat="server">
-            <br />
-            <br />
-            <asp:GridView ID="gvViewQuiz"
-                runat="server"
-                AutoGenerateColumns="false"
-                HorizontalAlign="Center"
-                DataKeyNames="XMLQuizID"
-                Visible="false" Height="200px">
-                <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
-                <AlternatingRowStyle BackColor="#CCCCCC" />
-                <Columns>
-                    <asp:ButtonField ButtonType="Link" CommandName="View" Text="View" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time" />
-                </Columns>
-            </asp:GridView>
-        </asp:Panel>
+        
+        <asp:Panel ID="pnlViewQuiz" runat="server">     
+      
+        <asp:GridView ID="gvViewQuiz" 
+            runat="server" 
+            AutoGenerateColumns="false"
+            HorizontalAlign="Center"
+            DataKeyNames="Versionid"
+            Visible="false" Height="200px">
+              <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
+            <AlternatingRowStyle BackColor="#CCCCCC" />
+               <Columns>
+                 <asp:TemplateField HeaderText="View Quiz">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbViewQuiz" Text="View Quiz"   
+                            OnClick="lbViewQuiz_Click"                      
+                            runat="server"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
+                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time (in minutes)" />
+               </Columns>
+        </asp:GridView>      
+    </asp:Panel>
+
 
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
