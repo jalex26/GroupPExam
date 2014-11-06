@@ -27,8 +27,8 @@ namespace GroupProject
             DataSet dataSet = new DataSet();
             dataSet = myDal.ExecuteProcedure("spGetTestSample");
 
-            //Xml1.DocumentContent = dataSet.GetXml();
-            Xml1.DocumentSource = "Quiz.xml";
+            Xml1.DocumentContent = dataSet.Tables[0].Rows[0]["XMLQuiz"].ToString();
+            //Xml1.DocumentSource = "Quiz.xml";
             Xml1.TransformSource = "Quiz.xsl";
             
         }
