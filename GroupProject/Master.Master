@@ -12,12 +12,7 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
-    
-    <!-- JS testing javascript carousal for pictures -->
-    <script src="js/jquery-1.4.1.min.js"></script>
-    <script src="js/jquery.jcarousel.pack.js"></script>
-    <script src="js/jquery-func.js"></script>
-    <!-- End JS -->
+   
 
 </head>
 <body>

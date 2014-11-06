@@ -879,3 +879,67 @@ as begin
 select * from tbQuizVersion
 end
 go
+
+---------------------------------------------------
+
+create table tbTestSample(
+TestSampleid int primary key identity(0,1),
+XMLQuiz xml
+)
+go
+
+insert into tbTestSample(XMLQuiz)values
+('<Quiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema" QuizId="111230123">
+  <?xml-stylesheet type="text/xsl" href="Quiz.xsl"?>
+  <Details>
+    <Title>testtitle</Title>
+    <Subject>tsubh</Subject>
+    <Course>Software Developer</Course>
+    <Time>25</Time>
+    <Difficulty>Intermediate</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>What is the fastest mammal?</Questi>
+        <Options>
+          <Option>a.Lion </Option>
+          <Option Correct="yes">b. Cheetah</Option>
+          <Option>c. Kangaroo</Option>
+          <Option>d. Turtle</Option>
+        </Options>
+      </Question>
+	  <Question ID="2">
+        <Questi>Whats up?</Questi>
+        <Options>
+          <Option>a. Good</Option>
+          <Option Correct="yes">b. Great</Option>
+          <Option>c. Bad</Option>
+          <Option>d. Not feeling well</Option>
+        </Options>
+      </Question>
+	  <Question ID="3">
+        <Questi>Whats your name?</Questi>
+        <Options>
+          <Option>a. Kevin</Option>
+          <Option Correct="yes">b. Janry</Option>
+          <Option>c. Bebz</Option>
+          <Option>d. Adrian</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
+  </Questions>
+</Quiz>')
+
+go
+
+select * from tbTestSample
+go
+create procedure spGetTestSample
+as begin
+	select * from tbTestSample
+end 
+go
