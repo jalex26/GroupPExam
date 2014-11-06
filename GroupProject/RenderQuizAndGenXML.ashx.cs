@@ -6,9 +6,9 @@ using System.Web;
 namespace GroupProject
 {
     /// <summary>
-    /// Summary description for GHLoadStudents
+    /// Summary description for RenderQuizAndGenXML
     /// </summary>
-    public class GHLoadStudents : IHttpHandler
+    public class RenderQuizAndGenXML : IHttpHandler
     {
 
         public void ProcessRequest(HttpContext context)
