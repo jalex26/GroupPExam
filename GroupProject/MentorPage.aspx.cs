@@ -48,7 +48,8 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadQuiz");
+            myDal.AddParam("@Courseid", ddlCourse.SelectedValue.ToString());
+            ds = myDal.ExecuteProcedure("spLoadQuizes");
 
             ddlSelectQuiz.DataTextField = "Title";
             ddlSelectQuiz.DataValueField = "XMLQuizID";
@@ -160,9 +161,17 @@ namespace GroupProject
             xmlreader.Close();
             if (ds.Tables.Count != 0)
             {
-                myDal.ClearParams();
-                myDal.AddParam("@xml", xml);
-                myDal.ExecuteProcedure("spInsertXMLContent");
+                try
+                {
+                    myDal.ClearParams();
+                    myDal.AddParam("@xml", xml);
+                    myDal.ExecuteProcedure("spInsertXMLContent");
+                }
+                catch (Exception)
+                {
+                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
+                }
+                
 
             }
         }
