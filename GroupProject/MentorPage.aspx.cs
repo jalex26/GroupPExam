@@ -83,6 +83,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = true;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
+            pnlStartQuiz.Visible = false;
         }
 
         protected void btnUploadQuiz_Click(object sender, EventArgs e)
@@ -91,6 +92,7 @@ namespace GroupProject
             pnlUploadQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             gvViewQuiz.Visible = false;
+            pnlStartQuiz.Visible = false;
         }
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
@@ -98,6 +100,7 @@ namespace GroupProject
             gvViewQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
+            pnlStartQuiz.Visible = false;
         }
 
         // method to remove all namespaces from xml document
@@ -128,7 +131,8 @@ namespace GroupProject
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
-            fuploadQuiz.PostedFile.SaveAs(serverPath + fuploadQuiz.PostedFile.FileName.ToString());
+            string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
+            fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 
@@ -317,6 +321,56 @@ namespace GroupProject
                 gvQuizes.DataBind();
             }
             
+        }
+
+        protected void gvQuizes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if(e.CommandName == "Action")
+            {
+                int IssuedQuizId = -1;
+                gvQuizes.SelectedIndex = Convert.ToInt32(e.CommandArgument.ToString());
+                IssuedQuizId = Convert.ToInt32(gvQuizes.SelectedDataKey.Values[0].ToString());
+                PopUpQuizAction(IssuedQuizId);
+            }
+        }
+        private void PopUpQuizAction(int IssuedQuizId)
+        {
+            if (IssuedQuizId != -1)
+                {
+                    myDal.ClearParams();
+                    myDal.AddParam("@IssuedQuizId", IssuedQuizId.ToString());
+                    DataSet ds = myDal.ExecuteProcedure("getIssuedQuizDetails");
+                    if(ds.Tables[0].Rows.Count != 0)
+                    {
+                        lblIssuedQuizId.Text = ds.Tables[0].Rows[0]["IssuedQuizId"].ToString();
+                        lblTitle.Text = ds.Tables[0].Rows[0]["Title"].ToString();
+                        lblTime.Text = ds.Tables[0].Rows[0]["Time"].ToString();
+                        lblClass.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
+                        lblStatus.Text = ds.Tables[0].Rows[0]["StatusName"].ToString();
+                        
+                        MPEQuizAction.Show();
+                    }
+                }
+        }
+
+        protected void btnCreateQuiz_Click(object sender, EventArgs e)
+        {
+            pnlStartQuiz.Visible = false;
+        }
+
+        protected void btnClosePopUp_Click(object sender, EventArgs e)
+        {
+            MPEQuizAction.Hide();
+        }
+
+        protected void btnStart_Click(object sender, EventArgs e)
+        {
+            //MPEQuizAction.Show();
+            myDal.ClearParams();
+            myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
+            DataSet ds = myDal.ExecuteProcedure("spStartQuiz");
+            PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
+
         }
 
     }

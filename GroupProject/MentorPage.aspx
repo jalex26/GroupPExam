@@ -61,20 +61,22 @@
     <%-- Main content panel starts here--%>
 
     <div id="content">
+    
 
-        <asp:Panel ID="pnlbuttons" runat="server">
+            <asp:Panel ID="pnlbuttons" runat="server">
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" OnClick="btnCreateQuiz_Click" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
 
-            <asp:Button ID="btnStartQuiz" runat="server" Text="Start Quiz" CssClass="ButtonsOnMentorPage" Width="98px" OnClick="btnStartQuiz_Click" />
-        </asp:Panel>
+                <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
 
+            </asp:Panel>
+        
         <br />
         <br />
         <br />
@@ -84,6 +86,22 @@
             <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
             <a class="close" href="/">Close</a>
         </div>
+        <asp:Panel ID="pnlStartQuiz" runat="server">
+            <asp:GridView ID="gvQuizes" runat="server" AutoGenerateColumns="false" DataKeyNames="IssuedQuizId" OnRowCommand="gvQuizes_RowCommand">
+                <Columns>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="QuizId" HeaderText="Quiz ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Title" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Coursename" HeaderText="Course" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time (minutes)" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="StatusName" HeaderText="Status" />
+                    <asp:ButtonField ButtonType="Link" CommandName="Action" Text="Actions" />
+
+                </Columns>
+            </asp:GridView>
+        </asp:Panel>
         <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
             <div style="text-align: center;">
                 <div style="width: 50%; margin: 0 auto; text-align: left;">
@@ -176,55 +194,38 @@
                 </tr>
             </table>
         </asp:Panel>
-        <asp:Panel ID="pnlStartQuiz" runat="server" Visible="false">
-            <asp:GridView ID="gvQuizes" runat="server" AutoGenerateColumns="false" HorizontalAlign="Center"
-                DataKeyNames="" Height="200px">
-                <Columns>
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time(minutes)" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="StatusName" HeaderText="Status" />
-
-                    <asp:TemplateField HeaderText="Quiz Action">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="lbStartQuiz" Text="Activate Quiz" runat="server"></asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-        </asp:Panel>
         <asp:Panel ID="pnlViewQuiz" runat="server">
-
+            <br />
+            <br />
             <asp:GridView ID="gvViewQuiz"
                 runat="server"
                 AutoGenerateColumns="false"
                 HorizontalAlign="Center"
-                DataKeyNames="Versionid"
+                DataKeyNames="XMLQuizID"
                 Visible="false" Height="200px">
                 <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
                 <AlternatingRowStyle BackColor="#CCCCCC" />
                 <Columns>
-                    <asp:TemplateField HeaderText="View Quiz">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="lbViewQuiz" Text="View Quiz"
-                                OnClick="lbViewQuiz_Click"
-                                runat="server"></asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
+                    <asp:ButtonField ButtonType="Link" CommandName="View" Text="View" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Version" HeaderText="Version" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Difficultyname" HeaderText="Difficulty Level" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time (in minutes)" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Time" HeaderText="Time" />
                 </Columns>
             </asp:GridView>
         </asp:Panel>
 
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
+                <%--<asp:Repeater ID="rpt1" runat="server">
+                <ItemTemplate>
+                    Question Id: <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID", ns) %><br />
+                    <b>Question:</b> <%#XPath("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Questi", ns) %><br />
+                  
+                </ItemTemplate>
+            </asp:Repeater>--%>
                 <asp:DataList ID="DLExamDemo" Width="450px" runat="server">
                     <HeaderTemplate>
                     </HeaderTemplate>
@@ -241,7 +242,6 @@
                                 </ItemTemplate>
                             </asp:DataList>--%>
                                 </h4>
-
                                 <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
                                     <ItemTemplate>
                                         Option: <%# XPath(".") %>
@@ -282,16 +282,46 @@
                 </asp:DataList>
             </div>
             <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
-
         </asp:Panel>
 
         <div class="JavascriptButtons">
             <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
-
+            <asp:Button ID="Button2" runat="server" Text="Button" Visible="true" />
         </div>
+        <asp:Panel ID="pnlQuizAction" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
+            
+            <table>
+                <tr>
+                    <td>ID:</td>
+                    <td>
+                        <asp:Label ID="lblIssuedQuizId" runat="server"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><asp:Label ID="lblTitle" runat="server"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td>Time to take:</td>
+                    <td><asp:Label ID="lblTime" runat="server" ></asp:Label></td>
+                </tr>
+                <tr>
+                    <td>Class:</td>
+                    <td><asp:Label ID="lblClass" runat="server"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td>
+                        <asp:Label ID="lblStatus" runat="server"></asp:Label></td>
+                </tr>
+            </table>
+            <asp:Button ID="btnStart" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
+            <asp:Button ID="btnEnd" runat="server" Text="End Quiz" />
+            <asp:Button ID="btnDelete" runat="server" Text="Cancel Quiz" /><br />
+            <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" />
+        </asp:Panel>
 
         <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
-
+        <asp:ModalPopupExtender ID="MPEQuizAction" TargetControlID="Button2" PopupControlID="pnlQuizAction" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
     </div>
     <%-- main content panel ends here--%>

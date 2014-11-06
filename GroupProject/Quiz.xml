@@ -1,4 +1,4 @@
-﻿<Quiz QuizId="111230123">
+﻿<Quiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema" QuizId="111230123">
   <Details>
     <Title>testtitle</Title>
     <Subject>tsubh</Subject>
