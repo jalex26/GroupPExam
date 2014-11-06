@@ -115,6 +115,9 @@
     <Content Include="Pictures\kevin.jpg" />
     <Content Include="Pictures\Nupur.jpg" />
     <Content Include="Pictures\veberly.jpg" />
+    <Content Include="Quiz.xsl">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="styles\GroupPExam.css" />
     <Content Include="img\ajaxLoader.gif" />
     <Content Include="img\close.gif" />
@@ -139,6 +142,7 @@
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="styles\nyroModal.css" />
+    <Content Include="TestXSL.aspx" />
     <Content Include="ViewQuestions.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
@@ -227,6 +231,13 @@
     </Compile>
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestXSL.aspx.cs">
+      <DependentUpon>TestXSL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestXSL.aspx.designer.cs">
+      <DependentUpon>TestXSL.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewQuestions.aspx.cs">
       <DependentUpon>ViewQuestions.aspx</DependentUpon>

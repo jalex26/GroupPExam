@@ -132,8 +132,10 @@ namespace GroupProject
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
+
             string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
             fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
+
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 

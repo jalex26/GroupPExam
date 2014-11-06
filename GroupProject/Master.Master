@@ -12,28 +12,28 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
+   
+
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="header_container">
+            <div>
+                <p class="Margin">
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/RobertsonBanner.jpg" PostBackUrl="~/Home.aspx"/>
+                    Exam Site</p>
+            </div>
+        </div>
 
-           <!-- Shell -->
+            <!-- Shell -->
         <div class="shell">
 
-
-<%--        <div class="header_container">--%>
-                 <div> 
-                <asp:ImageButton CssClass="MainImage" ID="RobertsonLogo" runat="server" ImageUrl="~/Pictures/NewLogo.png" PostBackUrl="~/Home.aspx"/>
-                  </div>   
-       <%--     </div>--%>
-        
-            <br />
-         <br />
 
            <!-- Header -->
             <div id="header">               
 
                 <!-- Navigation -->
-                <div id="navigation">                                                                         
+                <div id="navigation">                                                      
                             <asp:XmlDataSource ID="XmlDataSource1" runat="server" />  
                     <asp:Menu ID="Menu1" runat="server" Font-Size="14px" Orientation="Vertical" DisappearAfter="10"
                         Width="600px" DataSourceID="XmlDataSource1" StaticEnableDefaultPopOutImage="False">
@@ -44,23 +44,20 @@
                         <DataBindings>
                             <asp:MenuItemBinding DataMember="Item" NavigateUrlField="Url" TextField="Text" />
                         </DataBindings>
-                    </asp:Menu>                                
+                    </asp:Menu>             
                 </div>
                 <!-- End Navigation -->
-                <div id="buttonLogout">
-                      <asp:Panel ID="pnlLogout" runat="server">
-                <asp:Label ID="lblFirstname" ForeColor="White" runat="server" Text=""></asp:Label>
-                <br />            
-                <asp:Button ID="btnLogout" CssClass="button" runat="server" Text="Logout" Visible="true" OnClick="btnLogout_Click" />
-            </asp:Panel>
-               
-                    </div>
             </div>
             <!-- End Header -->
       
         <br />
         <div class="TopRight">
-          
+            <asp:Panel ID="pnlLogout" runat="server">
+                <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="DarkSlateGray" Font-Bold="true" Font-Italic="true" runat="server" Text=""></asp:Label>
+                <br />
+                <br />
+                <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
+            </asp:Panel>
         </div>
 
 
