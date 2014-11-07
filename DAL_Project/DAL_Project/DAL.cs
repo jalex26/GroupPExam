@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using System;
+using System.IO;
 
 namespace DAL_Project
 {
@@ -41,7 +43,7 @@ namespace DAL_Project
         /// <param name="connString">A string parameter to indicate the database to connect to.</param>
         public DAL(string connString)
         {
-            ConnString = connString; // Set the internal variable ConnString to the value of the user chosen value connString
+            ConnString = "Data Source = localhost;Initial Catalog=" + connString + ";Integrated Security=SSPI"; // Set the internal variable ConnString to the value of the user chosen value connString
             _parameters = new List<SqlParameter>(); // initialize our list of parameters to 0
         }
 
@@ -59,9 +61,17 @@ namespace DAL_Project
         {
             _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters
         }
-        public void AddParam(string paramName, byte[] paramValue)
+        public void AddParam(string paramName, int paramValue)
         {
-            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters         
+            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters
+        }
+        public void AddParam(string paramName, double paramValue)
+        {
+            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters
+        }
+        public void AddParam(string paramName, DateTime paramValue)
+        {
+            _parameters.Add(new SqlParameter(paramName, paramValue)); // create a new SqlParameter object with the use chosen values, add it to the internal list of parameters
         }
         /// <summary>
         /// A method which uses the ConnString and _parameters properties above to execute a user specified stored procedure.
@@ -87,10 +97,20 @@ namespace DAL_Project
                 da.SelectCommand.Parameters.Add(parameter);
             }
 
-            conn.Open();
-            da.Fill(dsResult);
-            conn.Close();
-
+            
+            try
+            {
+                conn.Open();
+                da.Fill(dsResult);
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
             return dsResult;
         }
 
