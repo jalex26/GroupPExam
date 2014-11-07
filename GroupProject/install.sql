@@ -481,7 +481,7 @@ begin
 	join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 	join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
 	where tbIssuedQuiz.Mentorid = @Userid
-	 end
+	end
 end
 go
 spGetIssuedQuizByMentor @Userid= 0

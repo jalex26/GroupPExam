@@ -67,15 +67,6 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Button btnStartQuiz;
         
         /// <summary>
-        /// cblStudents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblStudents;
-        
-        /// <summary>
         /// pnlStartQuiz control.
         /// </summary>
         /// <remarks>
@@ -209,6 +200,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbStudents;
+        
+        /// <summary>
+        /// cblStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblStudents;
         
         /// <summary>
         /// lblQuizDuration control.
