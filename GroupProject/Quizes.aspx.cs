@@ -27,6 +27,22 @@ namespace GroupProject
 
         }
 
+        protected void dlPendingQuiz_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "Start")
+            {//user select buy
+                Security mySecurity = new Security();
+                string QuizStudentid = e.CommandArgument.ToString();
+                myDal.ClearParams();
+                myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
+                myDal.AddParam("@QuizStudentId", QuizStudentid);
+                DataSet ds = myDal.ExecuteProcedure("spGetQuizStudentByStudent");
+
+
+                //Response.Redirect("ItemPage.aspx?UPC=" + UPC);
+            }
+        }
+
 
         
        

@@ -114,6 +114,7 @@
     <Content Include="Pictures\janry.jpg" />
     <Content Include="Pictures\kevin.jpg" />
     <Content Include="Pictures\Nupur.jpg" />
+    <Content Include="Pictures\takeQuiz.jpg" />
     <Content Include="Pictures\veberly.jpg" />
     <Content Include="Quiz.xsl">
       <SubType>Designer</SubType>

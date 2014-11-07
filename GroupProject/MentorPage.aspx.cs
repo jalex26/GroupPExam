@@ -30,7 +30,7 @@ namespace GroupProject
             {
                 loadCourse();
                 loadQuiz();
-                ViewQuiz();
+                
             }
         }
         private void loadCourse()
@@ -102,6 +102,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            ViewQuiz();
         }
 
         // method to remove all namespaces from xml document
