@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupProject", "GroupProject\GroupProject.csproj", "{B95A5909-9CA4-4261-9951-2763D75AE303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_Project", "..\..\Visual Studio 2013\Projects\DAL_Project\DAL_Project\DAL_Project\DAL_Project.csproj", "{E3026510-5B06-4FF2-816B-3F06CBE5F7DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_Project", "..\ExamMaker\DAL_Project\DAL_Project\DAL_Project.csproj", "{E3026510-5B06-4FF2-816B-3F06CBE5F7DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

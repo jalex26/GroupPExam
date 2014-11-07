@@ -338,7 +338,6 @@ as declare
 begin
 begin tran
 set @IssuedQuizId = (select IssuedQuizId from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
-select @IssuedQuizId as QUizId
 
 if EXISTS(select * from tbIssuedQuiz where @IssuedQuizId != -1 and IssuedQuizId = @IssuedQuizId and QuizStatus = 1) -- The IssuedQuiz status must be active first
 begin
@@ -395,12 +394,15 @@ if Exists(select * from tbQuizStudent where Userid = @UserId and IssuedQuizId in
 		join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 		where Userid = @UserId
 	end
+else
+	begin
+	select 'Empty' status
+	end
 end
 go
 -- spStartQuiz @IssuedQuizId = 0
 -- spGetQuizStudentByStudent @UserId=7
 -- spStartQuizStudent @UserId= 7,@QuizStudentId= 0
-
 
 go
 create procedure spGetIssuedQuizByMentor (

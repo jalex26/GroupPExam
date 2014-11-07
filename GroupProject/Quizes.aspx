@@ -23,7 +23,7 @@
 
     </div>
     <div>
-        <asp:DataList ID="dlPendingQuiz" RepeatColumns="1" runat="server" DataKeyField="XMLQuizID" OnItemCommand="dlPendingQuiz_ItemCommand">
+        <asp:DataList ID="dlPendingQuiz" RepeatColumns="1" runat="server" DataKeyField="QuizStudentid" OnItemCommand="dlPendingQuiz_ItemCommand">
             <ItemTemplate>
                 <div>
                     <asp:Image ID="imgTakeQuiz" runat="server" ImageUrl="~/Pictures/takeQuiz.jpg" />
