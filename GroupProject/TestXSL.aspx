@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TestXSL.aspx.cs" Inherits="GroupProject.TestXSL" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestXSL.aspx.cs" Inherits="GroupProject.TestXSL" %>
 
 <!DOCTYPE html>
 
