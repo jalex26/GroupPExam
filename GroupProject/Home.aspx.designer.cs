@@ -10,6 +10,6 @@
 namespace GroupProject {
     
     
-    public partial class Home {
+    public partial class WebForm1 {
     }
 }
