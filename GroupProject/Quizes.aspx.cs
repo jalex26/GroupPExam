@@ -20,11 +20,6 @@ namespace GroupProject
                 LoadUserQuiz();
             }
         }
-
-        protected void btnLoadQuiz_Click(object sender, EventArgs e)
-        {
-
-        }
         private void StartExam()
         {
             myDal.ClearParams();
@@ -37,7 +32,7 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
                 DataSet ds = myDal.ExecuteProcedure("spGetQuizStudentByStudent");
-                if (ds.Tables.Count != 0)
+                if (ds.Tables.Count != 0 && ds.Tables[0].Rows[0][0].ToString() != "Empty")
                 {
                     dlPendingQuiz.DataSource = ds.Tables[0];
                     dlPendingQuiz.DataBind();
@@ -55,8 +50,10 @@ namespace GroupProject
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
                 myDal.AddParam("@QuizStudentId", QuizStudentid);
                 DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
-
-
+                if (ds.Tables[0].Rows.Count != 0)
+                {
+                    HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
+                }
                 //Response.Redirect("ItemPage.aspx?UPC=" + UPC);
             }
         }
