@@ -4,11 +4,13 @@
 <xsl:template match="/t:Quiz">
   <div >
     <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
+      <xsl:value-of select="@ID"/>
+      <br/>
       <xsl:value-of select="t:Questi"/>
       <br/>
       <xsl:for-each select="t:Options/t:Option">
         <panel>
-          <input type="radio" name="radio-choice" id="SelectedChoice{position()}"  />
+          <input type="radio" name="radio-choice" id="SelectedChoice{position()}" value="true"/>
           <label for="SelectedChoice{position()}">
             <xsl:value-of select="text"/>
           </label>
@@ -20,6 +22,8 @@
       <br/>
       <hr/>
     </xsl:for-each> 
+    
   </div>
 </xsl:template>
 </xsl:stylesheet>
+
