@@ -54,6 +54,8 @@ namespace GroupProject
                 {
                     HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
                 }
+
+                //im working at here now!!!!!!!!!! displaying the exam
                 //Response.Redirect("ItemPage.aspx?UPC=" + UPC);
             }
         }

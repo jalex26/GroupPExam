@@ -211,7 +211,6 @@
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="QuizToSession.cs" />
     <Compile Include="RenderQuizAndGenXML.ashx.cs">
       <DependentUpon>RenderQuizAndGenXML.ashx</DependentUpon>
     </Compile>

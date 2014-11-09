@@ -39,8 +39,6 @@
             </div>
         </ItemTemplate>
         </asp:DataList>
-
-    
     </div>
     </form>
 </body>
