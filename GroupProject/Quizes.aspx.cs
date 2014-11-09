@@ -23,7 +23,7 @@ namespace GroupProject
 
         protected void btnLoadQuiz_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void StartExam()
         {
@@ -33,13 +33,15 @@ namespace GroupProject
         private void LoadUserQuiz()
         {
             if (HttpContext.Current.Session["Userid"].ToString() != null)
-            myDal.ClearParams();
-            myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
-            DataSet ds = myDal.ExecuteProcedure("spGetQuizStudentByStudent");
-            if(ds.Tables.Count != 0)
             {
-                dlPendingQuiz.DataSource = ds.Tables[0];
-                dlPendingQuiz.DataBind();
+                myDal.ClearParams();
+                myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
+                DataSet ds = myDal.ExecuteProcedure("spGetQuizStudentByStudent");
+                if (ds.Tables.Count != 0)
+                {
+                    dlPendingQuiz.DataSource = ds.Tables[0];
+                    dlPendingQuiz.DataBind();
+                }
             }
         }
 
@@ -60,10 +62,10 @@ namespace GroupProject
         }
 
 
-        
-       
 
-       
-        
+
+
+
+
     }
 }
