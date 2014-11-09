@@ -143,8 +143,6 @@
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="styles\nyroModal.css" />
-    <Content Include="TestXSL.aspx" />
-    <Content Include="ViewQuestions.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
@@ -213,7 +211,6 @@
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="QuizToSession.cs" />
     <Compile Include="RenderQuizAndGenXML.ashx.cs">
       <DependentUpon>RenderQuizAndGenXML.ashx</DependentUpon>
     </Compile>
@@ -233,20 +230,6 @@
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TestXSL.aspx.cs">
-      <DependentUpon>TestXSL.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestXSL.aspx.designer.cs">
-      <DependentUpon>TestXSL.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewQuestions.aspx.cs">
-      <DependentUpon>ViewQuestions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewQuestions.aspx.designer.cs">
-      <DependentUpon>ViewQuestions.aspx</DependentUpon>
-    </Compile>
     <Compile Include="XMLQuizContent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -265,13 +248,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DAL_Project\DAL_Project\DAL_Project.csproj">
+    <Folder Include="tempXML\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Project\DAL_Project\DAL_Project.csproj">
       <Project>{e3026510-5b06-4ff2-816b-3f06cbe5f7df}</Project>
       <Name>DAL_Project</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tempXML\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
