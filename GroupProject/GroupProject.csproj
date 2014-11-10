@@ -243,6 +243,7 @@
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StateCookies.cs" />
     <Compile Include="testxsl.aspx.cs">
       <DependentUpon>testxsl.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

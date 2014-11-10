@@ -26,7 +26,9 @@
            
         <br />
         <br />
-        <asp:GridView ID="gvSettings" runat="server"
+        
+
+        <asp:GridView ID="gvSettings" runat="server" AllowSorting="true" AllowPaging="true" PageSize="6"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  

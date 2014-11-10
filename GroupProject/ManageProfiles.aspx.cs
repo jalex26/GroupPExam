@@ -23,10 +23,14 @@ namespace GroupProject
             {
                 loadUsers();
                 loadClass();
+                //loadSelect();
               
             }
         }
+        //private void loadSelect()
+        //{
 
+        //}
         private void loadClass()
         {
             DataSet ds = new DataSet();
