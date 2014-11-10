@@ -30,7 +30,7 @@ namespace GroupProject
             {
                 loadCourse();
                 loadQuiz();
-                ViewQuiz();
+                
             }
         }
         private void loadCourse()
@@ -48,7 +48,8 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spLoadQuiz");
+            myDal.AddParam("@Courseid", ddlCourse.SelectedValue.ToString());
+            ds = myDal.ExecuteProcedure("spLoadQuizes");
 
             ddlSelectQuiz.DataTextField = "Title";
             ddlSelectQuiz.DataValueField = "XMLQuizID";
@@ -101,6 +102,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            ViewQuiz();
         }
 
         // method to remove all namespaces from xml document
@@ -131,7 +133,10 @@ namespace GroupProject
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
 
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
-            fuploadQuiz.PostedFile.SaveAs(serverPath + fuploadQuiz.PostedFile.FileName.ToString());
+
+            string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
+            fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
+
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
 
@@ -159,9 +164,17 @@ namespace GroupProject
             xmlreader.Close();
             if (ds.Tables.Count != 0)
             {
-                myDal.ClearParams();
-                myDal.AddParam("@xml", xml);
-                myDal.ExecuteProcedure("spInsertXMLContent");
+                try
+                {
+                    myDal.ClearParams();
+                    myDal.AddParam("@xml", xml);
+                    myDal.ExecuteProcedure("spInsertXMLContent");
+                }
+                catch (Exception)
+                {
+                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
+                }
+                
 
             }
         }

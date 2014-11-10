@@ -5,34 +5,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Exam Site</title>
-    <!--[if IE 6]>
-	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
-<![endif]-->
     <link href="styles/GroupPExam.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
-    
-    <!-- JS testing javascript carousal for pictures -->
-    <script src="js/jquery-1.4.1.min.js"></script>
-    <script src="js/jquery.jcarousel.pack.js"></script>
-    <script src="js/jquery-func.js"></script>
-    <!-- End JS -->
+   
 
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="header_container">
-            <div>
-                <p class="Margin">
-                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="ImageMargin" ImageUrl="~/Pictures/RobertsonBanner.jpg" PostBackUrl="~/Home.aspx"/>
-                    Exam Site</p>
-            </div>
-        </div>
 
-            <!-- Shell -->
+         <!-- Shell -->
         <div class="shell">
 
+            <div>
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="MainImage" ImageUrl="~/Pictures/NewLogo.png" PostBackUrl="~/Home.aspx"/>              
+            </div>
+      <br />
+         <br />
 
            <!-- Header -->
             <div id="header">               
@@ -52,18 +42,17 @@
                     </asp:Menu>             
                 </div>
                 <!-- End Navigation -->
-            </div>
-            <!-- End Header -->
+          
       
-        <br />
-        <div class="TopRight">
+        <div id="buttonLogout">
             <asp:Panel ID="pnlLogout" runat="server">
-                <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="DarkSlateGray" Font-Bold="true" Font-Italic="true" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="White" runat="server" Text=""></asp:Label>
                 <br />
-                <br />
-                <asp:Button ID="btnLogout" CssClass="button2" runat="server" Text="Log out" Visible="true" OnClick="btnLogout_Click" />
+                <asp:LinkButton ID="lbLogout" ForeColor="White" OnClick="lbLogout_Click" runat="server">Logout</asp:LinkButton>             
             </asp:Panel>
         </div>
+                  </div>
+            <!-- End Header -->
 
 
               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -82,7 +71,7 @@
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td >
-                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="kevin.coliat@robertsoncollege.net"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="kevin.coliat@robertsoncollege.net" Width="247px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -112,10 +101,6 @@
                 </asp:Panel> 
                 </div>  
 
-            <br />
-                       
-
-            <br />
             <br />
         <hr />
             <!-- Text Cols -->

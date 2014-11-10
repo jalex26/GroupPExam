@@ -14,7 +14,12 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
-('Software Developer'),('Network Engineering')
+ ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional '),
+ ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
+ ('Travel Counsellor'),('Veterinary Office Assistant'),('Network Engineering'),
+ ('Enhanced Health Care Aide'),('Health Care Aide '),('Massage Therapy '),
+('Medical Laboratory Assistant'),('Medical Office Assistant'),('Nursing Assistant'),
+('Pharmacy Technician')
 go
 
 create table tbClass(
@@ -25,8 +30,22 @@ Courseid int foreign key references tbCourse(Courseid)on delete cascade
 go
 
 insert into tbClass(Classname,Courseid)values
-('SD18',0),('SD19',0),('SD20',0),('SD21',0),('SD22',0),
-('NT03',1),('NT04',1)
+('SD18',0),('SD19',0),('SD20',0),
+('AS01',1),('AS02',1),('AS03',1),
+('AP12',2),('AP13',2),('AP14',2),
+('BA23',3),('BA24',3),('BA25',3),
+('CREC01',4),('CREC02',4),('CREC03',4),
+('LA10',5),('LA11',5),('LA12',5),
+('TC002',6),('TC003',6),('TC004',6),
+('VOA1',7),('VOA2',7),('VOA3',7),
+('NA001',8),('NA002',8),('NA003',8),
+('EHCA31',9),('EHCA32',9),('EHCA3',9),
+('HCA07',10),('HCA08',10),('HCA09',10),
+('MT03',11),('MT04',11),('MT05',11),
+('MLA022',12),('MLA023',12),('MLA024',12),
+('MOA11',13),('MOA12',13),('MOA14',13),
+('NA15',14),('NA16',14),('NA17',14),
+('PT007',15),('PT008',15),('PT009',15)
 go
 
 create table tbDifficulty(
@@ -57,11 +76,55 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
-('Janry','Alex','Janry1',1,1,'janry.jpg','janry.alex@robertsoncollege.net'),
-('Adrian','Carter','Adrian1',2,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
+('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
+('Adrian','Carter','Adrian1',0,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
-('OtherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin0@yahoo.com'),
-('AnotherKevin','Coliat','Kevin1',1,1,'SamplePicture1.jpg','Kevin9@yahoo.com')
+('Samuel','Gear','Samuel1',0,1,'Samuel.jpg','Samuel.Gear@robertsoncollege.net'),
+('Nathaniel','Bosman','Nathaniel',0,1,'SamplePicture1.jpg','Nathaniel@robertsoncollege.net'),
+('Micheala','Amor','Micheala1',0,1,'SamplePicture1.jpg','Micheala@robertsoncollege.net'),
+('Bella','De Rosa','Bella1',0,1,'Bella.jpg','Bela@robertsoncollege.net'),
+('James','Smith','James1',1,1,'James.jpg','James.Smith@robertsoncollege.net'),
+('Arnold','De Gusman','Arnold1',1,1,'Arnold.jpg','Arnold@robertsoncollege.net'),
+('Jenifer','Tiamzon','Jenifer1',1,1,'Jenifer.jpg','Jenifer@robertsoncollege.net'),
+('Monica','Ybanez','Monica1',2,1,'Moinca.jpg','Monica@robertsoncollege.net'),
+('Elizabeth','Ramsay','Elizabeth1',2,1,'Elizabeth.jpg','Elizabeth@robertsoncollege.net'),
+('Zevy','Gordon','Zevy1',2,1,'Zevy.jpg','Zevy@robertsoncollege.net'),
+('Daniel','Wawazaki','Daniel1',2,1,'Daniel.jpg','Daniel@robertsoncollege.net'),
+('Corazon','Zilva','Corazon1',3,1,'Corazon.jpg','Corazon@robertsoncollege.net'),
+('Lulaby','Camaron1','Lulaby1',3,1,'Camaron.jpg','Camaron@robertsoncollege.net'),
+('Stephanie','Stephanie','Stephanie1',3,1,'Stephanie.jpg','Stephanie@robertsoncollege.net'),
+('Jackson','Switz','Jackson1',4,1,'Jackson.jpg','Jackson@robertsoncollege.net'),
+('Bernard','Wisk','Bernard1',4,1,'Bernard.jpg','Bernard@robertsoncollege.net'),
+('Ariala','Wisdom','Wisdom1',4,1,'Ariala.jpg','Ariala@robertsoncollege.net'),
+('Jinky','Swamm','Jinky1',5,1,'Jinky.jpg','Jinky@robertsoncollege.net'),
+('Ricky','Salvador','Ricky1',5,1,'Ricky.jpg','Ricky@robertsoncollege.net'),
+('Roxanne','Cornejo','Roxanne1',5,1,'Roxanne.jpg','Roxanne@robertsoncollege.net'),
+('Dave','Jones','Dave1',6,1,'dave.jpg','dave.alex@robertsoncollege.net'),
+('Steven','De','Seven1',6,1,'Steven.jpg','Steven@robertsoncollege.net'),
+('Clariza','Winx','Clariza1',6,1,'Clariza.jpg','Clariza@robertsoncollege.net'),
+('Janelle','Hawla','Janelle1',7,1,'Janelle.jpg','Janelle@robertsoncollege.net'),
+('Joshua','Mayer','Joshua',7,1,'Joshua.jpg','Joshua@robertsoncollege.net'),
+('Melanie','Strong','Melanie1',7,1,'Melanie.jpg','Melanie@robertsoncollege.net'),
+('Allysha','Bell','Allysha1',8,1,'Allysha.jpg','Allysha@robertsoncollege.net'),
+('Alexis','Sandra','Alexis1',8,1,'Alexis.jpg','Alexis@robertsoncollege.net'),
+('Scott','Anderson','Scott1',8,1,'Scott.jpg','Scott@robertsoncollege.net'),
+('Cassandra','Morlin','Cassandra1',9,1,'Cassandra.jpg','Cassandra@robertsoncollege.net'),
+('RoseMarie','','RoseMarie1',9,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
+('Andrew','Ong','Andrew1',9,1,'Andrew.jpg','Andrew.Ong@robertsoncollege.net'),
+('Jezel','De Jesus','Jezel1',10,1,'Jezel.jpg','Jezel@robertsoncollege.net'),
+('Rogelio','Bentura','Rogelio1',10,1,'Rogelio.jpg','Rogelio@robertsoncollege.net'),
+('Rosalie','Zamora','Rosalie1',10,1,'Rosalie.jpg','Rosalie@robertsoncollege.net'),
+('JhonMark','Escouzora','JhonMark1',11,1,'JhonMark.jpg','JhonMark@robertsoncollege.net'),
+('Kenneth','Cacerez','Kenneth1',11,1,'Kenneth.jpg','Kenneth@robertsoncollege.net'),
+('Albert','Morello','Albert1',11,1,'Albert.jpg','Albert@robertsoncollege.net'),
+('Claire','Tabat','Claire1',12,1,'Claire.jpg','Claire@robertsoncollege.net'),
+('Benmarie','Salhay','Benmarie1',12,1,'Benmarie.jpg','Benmarie@robertsoncollege.net'),
+('Cherry','Priolo','Cherry1',12,1,'Cherry.jpg','Cherry@robertsoncollege.net'),
+('Stanley','Smith','Stanley1',13,1,'Stanley.jpg','Stanley@robertsoncollege.net'),
+('Erwin','Gomes','Erwin1',13,1,'Erwin.jpg','Erwin@robertsoncollege.net'),
+('Mary Grace','Arby','Mary Grace1',13,1,'Mary Grace.jpg','MG@robertsoncollege.net'),
+('Samantha','Hauwla','Samantha1',13,1,'Samantha.jpg','Samantha@robertsoncollege.net')
+
 go
 create table tbToken(
 Tokenid int primary key identity (0,1),
@@ -199,13 +262,15 @@ else
 
 end
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
-spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
-spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+go
+spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
 select * from tbXMLQuizContent
 select * from tbCourse
@@ -336,7 +401,6 @@ as declare
 begin
 begin tran
 set @IssuedQuizId = (select IssuedQuizId from tbQuizStudent where Userid = @UserId and QuizStudentid = @QuizStudentId)
-select @IssuedQuizId as QUizId
 
 if EXISTS(select * from tbIssuedQuiz where @IssuedQuizId != -1 and IssuedQuizId = @IssuedQuizId and QuizStatus = 1) -- The IssuedQuiz status must be active first
 begin
@@ -375,12 +439,35 @@ select * from tbIssuedQuiz
 select * from tbQuizStudent
 select * from tbUser
 select * from tbQuizStudentStatus
+select * from tbQuizVersion
+select * from tbXMLQuizContent
 
 insert into tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
--- spStartQuiz @IssuedQuizId = 0
--- spStartQuizStudent @UserId= 7,@QuizStudentId= 0
-go
 
+go
+create procedure spGetQuizStudentByStudent(
+@UserId int
+)
+as begin
+if Exists(select * from tbQuizStudent where Userid = @UserId and IssuedQuizId in (select IssuedQuizId from tbIssuedQuiz where QuizStatus = 1) ) -- ongoing
+	begin
+		select QuizStudentid,Title,Subject, Time from tbQuizStudent
+		join tbIssuedQuiz on tbIssuedQuiz.IssuedQuizId = tbQuizStudent.IssuedQuizId
+		join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
+		join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
+		where Userid = @UserId
+	end
+else
+	begin
+	select 'Empty' status
+	end
+end
+go
+-- spStartQuiz @IssuedQuizId = 0
+-- spGetQuizStudentByStudent @UserId=7
+-- spStartQuizStudent @UserId= 7,@QuizStudentId= 0
+
+go
 create procedure spGetIssuedQuizByMentor (
 @Userid int
 )
@@ -394,7 +481,7 @@ begin
 	join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 	join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
 	where tbIssuedQuiz.Mentorid = @Userid
-	 end
+	end
 end
 go
 spGetIssuedQuizByMentor @Userid= 0
@@ -616,12 +703,18 @@ go
 go
 
 create procedure spLoadQuizes(
-@Courseid int
+@Courseid int = null
 )
-as begin
+as declare
+@CourseIdNotEmpty int
+ begin
+ if(@Courseid != null and @Courseid = -1)
+ begin
+ set @CourseIdNotEmpty = null
+ end
 	select XMLQuizID,Title,Subject,tbXMLQuizContent.CourseID,Time,DifficultyId from tbXMLQuizContent
 	left join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
-	where tbXMLQuizContent.CourseID = @Courseid
+	where tbXMLQuizContent.CourseID = ISNULL(@CourseIdNotEmpty,tbXMLQuizContent.CourseID)
 end
 
 go
@@ -893,4 +986,68 @@ create procedure spGetXml
 as begin
 select * from tbQuizVersion
 end
+go
+
+---------------------------------------------------
+
+create table tbTestSample(
+TestSampleid int primary key identity(0,1),
+XMLQuiz xml
+)
+go
+
+insert into tbTestSample(XMLQuiz)values
+('<Quiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema" QuizId="111230123">
+  <?xml-stylesheet type="text/xsl" href="Quiz.xsl"?>
+  <Details>
+    <Title>testtitle</Title>
+    <Subject>tsubh</Subject>
+    <Course>Software Developer</Course>
+    <Time>25</Time>
+    <Difficulty>Intermediate</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>What is the fastest mammal?</Questi>
+        <Options>
+          <Option>a.Lion </Option>
+          <Option Correct="yes">b. Cheetah</Option>
+          <Option>c. Kangaroo</Option>
+          <Option>d. Turtle</Option>
+        </Options>
+      </Question>
+	  <Question ID="2">
+        <Questi>Whats up?</Questi>
+        <Options>
+          <Option>a. Good</Option>
+          <Option Correct="yes">b. Great</Option>
+          <Option>c. Bad</Option>
+          <Option>d. Not feeling well</Option>
+        </Options>
+      </Question>
+	  <Question ID="3">
+        <Questi>Whats your name?</Questi>
+        <Options>
+          <Option>a. Kevin</Option>
+          <Option Correct="yes">b. Janry</Option>
+          <Option>c. Bebz</Option>
+          <Option>d. Adrian</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <longAnswer />
+  </Questions>
+</Quiz>')
+
+go
+
+select * from tbTestSample
+go
+create procedure spGetTestSample
+as begin
+	select * from tbTestSample
+end 
 go

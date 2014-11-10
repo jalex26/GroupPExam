@@ -104,7 +104,14 @@
     <Content Include="NavigationXmlFiles\user_menu.xml" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\career-focused.png" />
+    <Content Include="Pictures\Logo.png" />
+    <Content Include="Pictures\MAINcompanylogos.png" />
+    <Content Include="Pictures\NewBanner.jpg" />
+    <Content Include="Pictures\NewLogo.png" />
+    <Content Include="Pictures\program-variety.png" />
     <Content Include="Pictures\s2.jpg" />
+    <Content Include="Pictures\student-oriented.png" />
     <Content Include="Pictures\students1.jpg" />
     <Content Include="Pictures\students3.jpg" />
     <Content Include="Pictures\students4.jpg" />
@@ -112,7 +119,15 @@
     <Content Include="Pictures\janry.jpg" />
     <Content Include="Pictures\kevin.jpg" />
     <Content Include="Pictures\Nupur.jpg" />
+    <Content Include="Pictures\takeQuiz.jpg" />
+    <Content Include="Pictures\top-business-school.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\veberly.jpg" />
+    <Content Include="Quiz.xsl">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="QuizPage.aspx" />
     <Content Include="styles\GroupPExam.css" />
     <Content Include="img\ajaxLoader.gif" />
     <Content Include="img\close.gif" />
@@ -120,10 +135,6 @@
     <Content Include="img\prev.gif" />
     <Content Include="install.sql" />
     <Content Include="js\jquery-2.1.1.js" />
-    <Content Include="js\jquery.nyroModal-ie6.js" />
-    <Content Include="js\jquery.nyroModal-ie6.min.js" />
-    <Content Include="js\jquery.nyroModal.custom.js" />
-    <Content Include="js\jquery.nyroModal.custom.min.js" />
     <Content Include="LoginPage.aspx" />
     <Content Include="MentorPage.aspx" />
     <Content Include="MyAccount.aspx" />
@@ -137,7 +148,7 @@
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="styles\nyroModal.css" />
-    <Content Include="ViewQuestions.aspx" />
+    <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
@@ -206,7 +217,13 @@
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="QuizToSession.cs" />
+    <Compile Include="QuizPage.aspx.cs">
+      <DependentUpon>QuizPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuizPage.aspx.designer.cs">
+      <DependentUpon>QuizPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RenderQuizAndGenXML.ashx.cs">
       <DependentUpon>RenderQuizAndGenXML.ashx</DependentUpon>
     </Compile>
@@ -226,12 +243,12 @@
     <Compile Include="StartQuizes.aspx.designer.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewQuestions.aspx.cs">
-      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+    <Compile Include="testxsl.aspx.cs">
+      <DependentUpon>testxsl.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewQuestions.aspx.designer.cs">
-      <DependentUpon>ViewQuestions.aspx</DependentUpon>
+    <Compile Include="testxsl.aspx.designer.cs">
+      <DependentUpon>testxsl.aspx</DependentUpon>
     </Compile>
     <Compile Include="XMLQuizContent.cs" />
   </ItemGroup>
@@ -251,13 +268,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DAL_Project\DAL_Project\DAL_Project.csproj">
+    <Folder Include="tempXML\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Project\DAL_Project\DAL_Project.csproj">
       <Project>{e3026510-5b06-4ff2-816b-3f06cbe5f7df}</Project>
       <Name>DAL_Project</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tempXML\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,7 +16,7 @@
     position: absolute;
     top: 17px;
     left: 12px;
-    height: 150px;
+    height: 130px;
     width: 1064px;
     /*box-shadow: 10px 10px 5px #ad0e0e;*/
 }
@@ -30,8 +30,8 @@ margin-left:330px;
 }
 .header_container {
     width: 100%;
-    background: #ff0000;      
-    height: 160px;
+    /*background: #ff0000;*/      
+    height: 130px;
     margin-left: 10px;
     overflow: hidden;
     margin: 0 0 27px 0;
@@ -41,12 +41,12 @@ margin-left:330px;
 .button {
     /*margin-left: 300px;*/
     border-top: 1px solid #ffffff;
-    background: #f70000;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#f70000));
-    background: -webkit-linear-gradient(top, #f70303, #f70000);
-    background: -moz-linear-gradient(top, #f70303, #f70000);
-    background: -ms-linear-gradient(top, #f70303, #f70000);
-    background: -o-linear-gradient(top, #f70303, #f70000);
+    background: #E3170D;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f70303), to(#E3170D));
+    background: -webkit-linear-gradient(top, #f70303, #E3170D);
+    background: -moz-linear-gradient(top, #f70303, #E3170D);
+    background: -ms-linear-gradient(top, #f70303, #E3170D);
+    background: -o-linear-gradient(top, #f70303, #E3170D);
     padding: 4px 8px;
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
@@ -74,17 +74,16 @@ margin-left:330px;
     }
 
 .textbox {
-    height: 25px;
     /*width: 275px;*/
     border: solid 1px #E5E5E5;
     outline: 0;
     font: normal 13px/100% Verdana, Tahoma, sans-serif;
-    background: #FFFFFF url('bg_form.png') left top repeat-x;
-    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
-    background: #FFFFFF url('../bg_form.png') repeat-x left top;
+    /*background: #FFFFFF url('bg_form.png') left top repeat-x;*/
+    /*background: #FFFFFF url('../bg_form.png') repeat-x left top;*/
     box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
     -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
+    margin-left: 25px;
 }
 
     .textbox:focus {
@@ -183,21 +182,21 @@ margin-left:330px;
 
 #footer {
     height: 51px;
-    background: #ebebeb;
+    background: #E3170D;
     white-space: nowrap;
     line-height: 50px;
     padding: 0 15px;
-    color: #7b7b7b;
+    color: white;
     margin-top: 10px;
 }
 
     #footer a {
-        color: #7b7b7b;
+        color: white;
         text-decoration: none;
     }
 
         #footer a:hover {
-            color: #000;
+            color: gray;
         }
 
     #footer span {
@@ -296,10 +295,14 @@ input, textarea, select {
 }
 
 #header { height:60px; 
-background-color:#ebebeb; position:relative;
+background-color:#E3170D; position:relative;
  box-shadow: 10px 10px 5px #8B8989;
     top: 0px;
     left: 0px;
+}
+
+.MainImage {
+     box-shadow: 10px 10px 5px #8B8989;
 }
 
 .shell { width:960px; margin:0 auto; padding:10px; background:#fff;
@@ -315,14 +318,28 @@ background-color:#ebebeb; position:relative;
 #navigation ul li{ float:left; display:inline;
     height: 60px;
 }
-#navigation ul li a{ float:left; height:60px; line-height:60px; text-decoration:none; color:#5C5858; padding:0 15px;}
+#navigation ul li a{ float:left; height:60px; line-height:60px; text-decoration:none; color:white; padding:0 15px;}
 #navigation ul li a.active,
 #navigation ul li a:hover{ background:#878787; color:white; }
+
+/*Logout Button Desgin on Masterpage*/
+#buttonLogout { float:right; margin-right:10px; margin-top:15px; align-content:center; white-space:nowrap;
+    height: 60px;     
+}
+#buttonLogout ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
+#buttonLogout ul li{ float:left; display:inline;
+    height: 60px;
+}
+#buttonLogout ul li a{ float:left; height:60px; line-height:60px; text-decoration:none; color:white; padding:0 15px;}
+#buttonLogout ul li a.active,
+#buttonLogout ul li a:hover{ background:#878787; color:white; }
 
 /*#666362*/
 .cols { padding:15px 0;}
 .col { float:left; display:inline; width:217px; margin-right:30px;}
 .col-last { margin-right:0;}
+
+.collegeInfo { padding:20px 0; margin-left:80px;}
 
 h3.ico { background-repeat:no-repeat; background-position:0 2px; padding:6px 0 8px 30px;}
 
@@ -346,6 +363,7 @@ z-index:2;
 .sliderpanelmargin {
     margin-left: 110px;
 }
+
 
 
 /* pop up*/

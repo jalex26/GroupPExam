@@ -47,6 +47,7 @@ namespace GroupProject
                 txtPassword.Visible = false;
                 btnLogin.Visible = false;
                 lbForgotPassword.Visible=false;
+                pnlLogout.Visible = true;
               
                 
             }
@@ -59,7 +60,8 @@ namespace GroupProject
             
             else if (mySecurity.GetSecurityLevel() == 0)
             {                
-                btnLogout.Visible = false;
+               
+                lbLogout.Visible = false;
             }
            
         }
@@ -69,14 +71,8 @@ namespace GroupProject
             Security mySecurity = new Security(txtUserName.Text, txtPassword.Text);
             CheckSecurity();
             Response.Redirect("Home.aspx");
-            btnLogout.Visible = true;
-        }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Abandon();
-            Response.Redirect("Home.aspx");
-        }
+            lbLogout.Visible = true;
+        }     
 
         // method that gets user level based on login to adjust navigation
         protected string GetRole()
@@ -108,13 +104,16 @@ namespace GroupProject
 
         protected void lbForgotPassword_Click(object sender, EventArgs e)
         {
-            //lblUserName.Visible = false;
-            //lblPassword.Visible = false;
-            //txtUserName.Visible = false;
-            //txtPassword.Visible = false;
-            //btnLogin.Visible = false;
-            //lbForgotPassword.Visible = false;
+         
             Response.Redirect("ForgotPassword.aspx");
         }
+
+        protected void lbLogout_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("Home.aspx");
+        }
+
+      
     }
 }
