@@ -74,17 +74,16 @@ margin-left:330px;
     }
 
 .textbox {
-    height: 25px;
     /*width: 275px;*/
     border: solid 1px #E5E5E5;
     outline: 0;
     font: normal 13px/100% Verdana, Tahoma, sans-serif;
     /*background: #FFFFFF url('bg_form.png') left top repeat-x;*/
-    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
     /*background: #FFFFFF url('../bg_form.png') repeat-x left top;*/
     box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
     -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px;
+    margin-left: 25px;
 }
 
     .textbox:focus {
@@ -324,7 +323,7 @@ background-color:#E3170D; position:relative;
 #navigation ul li a:hover{ background:#878787; color:white; }
 
 /*Logout Button Desgin on Masterpage*/
-#buttonLogout { float:right; white-space:nowrap;
+#buttonLogout { float:right; margin-right:10px; margin-top:15px; align-content:center; white-space:nowrap;
     height: 60px;     
 }
 #buttonLogout ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
@@ -339,6 +338,8 @@ background-color:#E3170D; position:relative;
 .cols { padding:15px 0;}
 .col { float:left; display:inline; width:217px; margin-right:30px;}
 .col-last { margin-right:0;}
+
+.collegeInfo { padding:20px 0; margin-left:80px;}
 
 h3.ico { background-repeat:no-repeat; background-position:0 2px; padding:6px 0 8px 30px;}
 
@@ -362,6 +363,7 @@ z-index:2;
 .sliderpanelmargin {
     margin-left: 110px;
 }
+
 
 
 /* pop up*/

@@ -95,6 +95,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
     <Content Include="js\jquery.jcarousel.pack.js" />
     <Content Include="NavigationXmlFiles\admin_menu.xml" />
@@ -103,9 +104,14 @@
     <Content Include="NavigationXmlFiles\user_menu.xml" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\career-focused.png" />
+    <Content Include="Pictures\Logo.png" />
+    <Content Include="Pictures\MAINcompanylogos.png" />
     <Content Include="Pictures\NewBanner.jpg" />
     <Content Include="Pictures\NewLogo.png" />
+    <Content Include="Pictures\program-variety.png" />
     <Content Include="Pictures\s2.jpg" />
+    <Content Include="Pictures\student-oriented.png" />
     <Content Include="Pictures\students1.jpg" />
     <Content Include="Pictures\students3.jpg" />
     <Content Include="Pictures\students4.jpg" />
@@ -114,6 +120,9 @@
     <Content Include="Pictures\kevin.jpg" />
     <Content Include="Pictures\Nupur.jpg" />
     <Content Include="Pictures\takeQuiz.jpg" />
+    <Content Include="Pictures\top-business-school.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\veberly.jpg" />
     <Content Include="Quiz.xsl">
       <SubType>Designer</SubType>
