@@ -1,3 +1,5 @@
 *.cache
 *.suo
 *.suo
+/DAL_Project/DAL_Project
+/GroupProject/tempXML
