@@ -462,7 +462,7 @@ begin
 select 'true' as exist
 end
 else
-begin
+begin0;''''''''''''''''''''''''''''''''''''''''''''*
 select 'false' as exist
 end
 end
