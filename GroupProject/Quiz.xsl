@@ -2,31 +2,35 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:t="urn:Question-Schema">
 
   <xsl:template match="/t:Quiz">
-    <div >
+    <html>
+      <body>
       <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
+        <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
         <div class="Question">
           <xsl:value-of select="t:Questi"/>
           <br/>
+          <panel class="options">
           <xsl:for-each select="t:Options/t:Option">
-            <form class="options">
+            
               <xsl:if test="@Correct">
-                <input class="option" type="radio" name="radio-choice" id="SelectedChoice{position()}"  value="1" />
+                <input class="option" type="radio" name="Question{$QuestionID}" id="Choice{position()}"  value="1" >
+                </input>
               </xsl:if>
               <xsl:if test="not(@Correct)">
-                <input class="option" type="radio" name="radio-choice" id="SelectedChoice{position()}" value="0" />
+                <input class="option" type="radio" name="Question{$QuestionID}" id="Choice{position()}" value="0" >
+                </input>
               </xsl:if>
               <label for="SelectedChoice{position()}">
                 <xsl:value-of select="text"/>
               </label>
               <xsl:value-of select="text()"/>
               <br/>
-            </form>
+            
           </xsl:for-each>
-          <br/>
-          <br/>
-          <hr/>
+          </panel>
         </div>
       </xsl:for-each>
-    </div>
+    </body>
+    </html>
   </xsl:template>
 </xsl:stylesheet>

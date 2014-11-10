@@ -53,6 +53,7 @@ namespace GroupProject
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
+                    Response.Redirect("QuizPage.aspx");
                 }
 
                 //im working at here now!!!!!!!!!! displaying the exam

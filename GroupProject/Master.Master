@@ -5,9 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Exam Site</title>
-    <!--[if IE 6]>
-	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
-<![endif]-->
     <link href="styles/GroupPExam.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
         <%--DO NOT PUT ANYTHING HERE--%>
