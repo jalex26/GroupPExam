@@ -17,11 +17,11 @@
 			<div id="slider" class="box">
 				<div id="slider-holder">
 					<ul>
-					    <li><a href="#"><img src="Pictures/students4.jpg" alt="" style="height: 320px; width: 652px; border:thin;" /></a></li>
-					    <li><a href="#"><img src="Pictures/s2.jpg" alt="" style="height: 320px; width: 652px; border:thin;" /></a></li>
-					    <li><a href="#"><img src="Pictures/1.jpg" alt="" style="height: 320px; width: 652px; border:thin;" /></a></li>
-					    <li><a href="#"><img src="Pictures/students3.jpg" alt="" style="height: 320px; width: 652px; border:thin;" /></a></li>
-                         <li><a href="#"><img src="Pictures/2.jpg" alt="" style="height: 320px; width: 652px; border:thin;" /></a></li>
+					    <li><a href="#"><img src="Pictures/students4.jpg" alt="" style="height: 320px; width: 652px; border:medium;" /></a></li>
+					    <li><a href="#"><img src="Pictures/s2.jpg" alt="" style="height: 320px; width: 652px; border:medium;" /></a></li>
+					    <li><a href="#"><img src="Pictures/1.jpg" alt="" style="height: 320px; width: 652px; border:medium;" /></a></li>
+					    <li><a href="#"><img src="Pictures/students3.jpg" alt="" style="height: 320px; width: 652px; border:medium;" /></a></li>
+                         <li><a href="#"><img src="Pictures/2.jpg" alt="" style="height: 320px; width: 652px; border:medium;" /></a></li>
 					</ul>
 				</div>
 				<div id="slider-nav">
@@ -39,16 +39,16 @@
             <br />
             <br />
 
-    <div class="cols">
+    <div class="collegeInfo">
     <img src="Pictures/top-business-school.png" style="width:200px; height:200px;"  />
-    <img src="Pictures/student-oriented.png" style="width:200px; height:200px;"   />
-    <img src="Pictures/program-variety.png" style="width:200px; height:200px;"  />
-    <img src="Pictures/career-focused.png" style="width:200px; height:200px;"  />
+    <img src="Pictures/student-oriented.png" style="width:220px; height:200px;"   />
+    <img src="Pictures/program-variety.png" style="width:220px; height:200px;"  />
+    <img src="Pictures/career-focused.png" style="width:220px; height:200px;"  />
     </div>
 
     <div id="content">
 
-        <asp:Panel ID="Panel1" HorizontalAlign="Center" runat="server">  
+        <asp:Panel ID="Panel1" HorizontalAlign="Center" style="margin-left:100px;" runat="server">  
         <h3>Be Employment Ready In 1 Year Or Less</h3>
 
         <h4>The college that sticks with you for life.</h4>
