@@ -13,6 +13,7 @@ namespace GroupProject
 {
     public partial class ManageProfiles : System.Web.UI.Page
     {
+        StateCookies myState = new StateCookies();
         DAL myDal = new DAL(Globals.conn);
         DAL mydal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
 
@@ -21,16 +22,19 @@ namespace GroupProject
             Security mySecurity = new Security(1);
             if (!IsPostBack)
             {
-                loadUsers();
+               loadUsers(myState);
                 loadClass();
-                //loadSelect();
+                loadSelect();
               
             }
         }
-        //private void loadSelect()
-        //{
-
-        //}
+        private void loadSelect()
+        {
+            mydal.ClearParams();
+            mydal.AddParam("@SortColumn", myState.SortColumn + " " + myState.Direction);
+            gvSettings.DataSource = mydal.ExecuteProcedure("spGetSortColumn");
+            gvSettings.DataBind();
+        }
         private void loadClass()
         {
             DataSet ds = new DataSet();
@@ -43,7 +47,7 @@ namespace GroupProject
         }
 
 
-        private void loadUsers()
+        private void loadUsers(StateCookies mySate)
         {
             Security mySecurity = new Security();
             DataSet ds = new DataSet();
@@ -108,7 +112,7 @@ namespace GroupProject
                 mydal.AddParam("@SecurityLevel", ddlSecurity.SelectedValue);
                 mydal.AddParam("@Classid", ddlClass.SelectedValue);
                 mydal.ExecuteProcedure("spUpdateUser");
-                loadUsers();
+                loadUsers(myState);
                 mpeUpdate.Hide();
             }
 
@@ -129,12 +133,27 @@ namespace GroupProject
             mydal.ClearParams();
             mydal.AddParam("@Userid", lblSelectedUserid.Text);
             mydal.ExecuteProcedure("spDeleteStudent");
-            loadUsers();
+            loadUsers(myState);
             mpeUpdate.Hide();
 
 
           
 
+        }
+
+        protected void gvSettings_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            StateCookies myState = new StateCookies();
+            myState.ColumnChange(e.SortExpression.ToString());
+            loadSelect();
+        }
+
+        protected void gvSettings_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            StateCookies myState = new StateCookies();
+            gvSettings.PageIndex = e.NewPageIndex;
+
+            loadUsers(myState);
         }
 
       } 
