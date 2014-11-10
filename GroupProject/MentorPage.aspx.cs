@@ -22,8 +22,7 @@ namespace GroupProject
         protected XmlDocument XmlDoc = new XmlDocument();
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-          
+        {          
             Security mySecurity = new Security(2);
 
             if (!IsPostBack)
@@ -383,6 +382,11 @@ namespace GroupProject
             DataSet ds = myDal.ExecuteProcedure("spStartQuiz");
             PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
 
+        }
+
+        protected void btnReports_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Reports.aspx");
         }
 
     }

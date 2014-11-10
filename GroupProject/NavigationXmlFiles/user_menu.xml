@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Items Text="">
   <Item Text="Home" Url="~/Home.aspx"   />
-  <Item Text="My Account" Url="~/MyAccount.aspx" />
+  <Item Text="Register" Url="~/Register.aspx" />
 </Items>

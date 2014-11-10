@@ -26,7 +26,9 @@
            
         <br />
         <br />
-        <asp:GridView ID="gvSettings" runat="server"
+        
+
+        <asp:GridView ID="gvSettings" runat="server" AllowSorting="true" AllowPaging="true" PageSize="6"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  
@@ -78,14 +80,13 @@
         </ajaxToolkit:ModalPopupExtender>
 
         <asp:Panel ID="panelUpdate" runat="server"
-            Style="display: none; background-color: #CCCCCC;"
-            ForeColor="Black"
+            Style="display: none; background-color: whitesmoke;"           
             HorizontalAlign="Center"
             Width="400" Height="400">
   
          <asp:Panel ID="panelUpdateTitle" runat="server" 
             style="cursor:move;font-family:Tahoma;padding:10px; align-content:center" 
-            HorizontalAlign="Center" BackColor="DarkGray" 
+            HorizontalAlign="Center" BackColor="#E3170D" 
             ForeColor="White" Height="30" ><b>Update Record</b>
                 </asp:Panel>
             <table style="padding:60px">
@@ -180,13 +181,28 @@
                 </tr>
 
                 <tr>
+                    <td><b>Select Course</b></td>
+                    <td><b>:</b></td>
+                    <td><asp:DropDownList ID="ddlCourse" AutoPostBack="true" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged" runat="server">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvCourse" runat="server" 
+                         ErrorMessage="Select Course" 
+                        Display="None" ControlToValidate="ddlCourse"  
+                        ValidationGroup="add"></asp:RequiredFieldValidator>
+                        <ajaxToolkit:ValidatorCalloutExtender runat="server" 
+                        ID="vceCourse" TargetControlID="rfvCourse" >
+                        </ajaxToolkit:ValidatorCalloutExtender>
+                    </td>
+                </tr>
+
+                <tr>
                     <td><b>Select Class</b></td>
                     <td><b>:</b></td>
                     <td><asp:DropDownList ID="ddlClass" runat="server">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rfvClass" runat="server" 
                          ErrorMessage="Select Class" 
-                        Display="None" ControlToValidate="ddlCLass"  
+                        Display="None" ControlToValidate="ddlClass"  
                         ValidationGroup="add"></asp:RequiredFieldValidator>
                         <ajaxToolkit:ValidatorCalloutExtender runat="server" 
                         ID="vceClass" TargetControlID="rfvClass" >
@@ -224,14 +240,13 @@
         </ajaxToolkit:ModalPopupExtender>
 
         <asp:Panel ID="panelDelete" runat="server"
-            Style="display: none; background-color: #CCCCCC;"
-            ForeColor="Black"
+            Style="display: none; background-color: whitesmoke;"
             HorizontalAlign="Center"
             Width="300" Height="350">
   
          <asp:Panel ID="panelDeleteTitle" runat="server" 
             style="cursor:move;font-family:Tahoma;padding:10px; align-content:center" 
-            HorizontalAlign="Center" BackColor="DarkGray" 
+            HorizontalAlign="Center" BackColor="#E3170D" 
             ForeColor="White" Height="30" ><b>Confirm Delete</b>
                 </asp:Panel>
             <table style="padding:60px">
