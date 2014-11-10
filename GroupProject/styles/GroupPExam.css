@@ -324,7 +324,7 @@ background-color:#E3170D; position:relative;
 #navigation ul li a:hover{ background:#878787; color:white; }
 
 /*Logout Button Desgin on Masterpage*/
-#buttonLogout { float:right; white-space:nowrap;
+#buttonLogout { float:right; margin-right:10px; margin-top:15px; align-content:center; white-space:nowrap;
     height: 60px;     
 }
 #buttonLogout ul{ list-style-type: none; height:60px; font-size:medium; float:left;}
@@ -344,7 +344,7 @@ h3.ico { background-repeat:no-repeat; background-position:0 2px; padding:6px 0 8
 
 /*slider for javascript carousal*/
 #slider { height:300px; position:relative; overflow:hidden; }
-#slider-holder { width:720px; height:300px; position:relative; overflow:hidden; }
+#slider-holder { width:720px; height:300px; position:relative; border:groove; overflow:hidden; }
 #slider-holder .jcarousel-clip{ width:720px; height:300px; position:relative; overflow:hidden; }
 #slider-holder ul{ width:720px; height:300px; position:relative; overflow:hidden; list-style-type: none;}
 #slider-holder ul li{ width:720px; height:300px; position:relative; overflow:hidden; float:left; }
@@ -362,6 +362,7 @@ z-index:2;
 .sliderpanelmargin {
     margin-left: 110px;
 }
+
 
 
 /* pop up*/
