@@ -14,23 +14,40 @@ namespace GroupProject
     public partial class ManageProfiles : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
-        DAL mydal = new DAL("Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI");
-
+    
         protected void Page_Load(object sender, EventArgs e)
         {
             Security mySecurity = new Security(1);
             if (!IsPostBack)
             {
                 loadUsers();
-                loadClass();
-              
+                loadCourse();             
             }
         }
+
+        private void loadCourse()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            ds = myDal.ExecuteProcedure("spGetCourse");
+            ddlCourse.DataTextField = "Coursename";
+            ddlCourse.DataValueField = "Courseid";
+            ddlCourse.DataSource = ds;
+            ddlCourse.DataBind();
+        }
+
+        protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadClass();
+            mpeUpdate.Show();
+        }
+
 
         private void loadClass()
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
+            myDal.AddParam("Courseid", ddlCourse.SelectedValue);
             ds = myDal.ExecuteProcedure("spGetClass");
             ddlClass.DataTextField = "Classname";
             ddlClass.DataValueField = "Classid";
@@ -43,8 +60,8 @@ namespace GroupProject
         {
             Security mySecurity = new Security();
             DataSet ds = new DataSet();
-            mydal.ClearParams();
-            gvSettings.DataSource = mydal.ExecuteProcedure("spGetUsers");
+            myDal.ClearParams();
+            gvSettings.DataSource = myDal.ExecuteProcedure("spGetUsers");
             gvSettings.DataBind();
 
         }
@@ -58,9 +75,9 @@ namespace GroupProject
             ViewState["tempId"] = tempID;
 
             DataSet ds = new DataSet();
-            mydal.ClearParams();
-            mydal.AddParam("@Userid", tempID);
-            ds = mydal.ExecuteProcedure("spGetUsers");
+            myDal.ClearParams();
+            myDal.AddParam("@Userid", tempID);
+            ds = myDal.ExecuteProcedure("spGetUsers");
             lblUserID.Text = tempID;
             txtFirstName.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
             txtLastName.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
@@ -95,15 +112,15 @@ namespace GroupProject
         {
             try
             {
-                mydal.ClearParams();
-                mydal.AddParam("@Userid", lblUserID.Text);
-                mydal.AddParam("@Firstname", txtFirstName.Text);
-                mydal.AddParam("@Lastname", txtLastName.Text);
-                mydal.AddParam("@Email", txtEmail.Text);
-                mydal.AddParam("@Password", txtPassword.Text);
-                mydal.AddParam("@SecurityLevel", ddlSecurity.SelectedValue);
-                mydal.AddParam("@Classid", ddlClass.SelectedValue);
-                mydal.ExecuteProcedure("spUpdateUser");
+                myDal.ClearParams();
+                myDal.AddParam("@Userid", lblUserID.Text);
+                myDal.AddParam("@Firstname", txtFirstName.Text);
+                myDal.AddParam("@Lastname", txtLastName.Text);
+                myDal.AddParam("@Email", txtEmail.Text);
+                myDal.AddParam("@Password", txtPassword.Text);
+                myDal.AddParam("@SecurityLevel", ddlSecurity.SelectedValue);
+                myDal.AddParam("@Classid", ddlClass.SelectedValue);
+                myDal.ExecuteProcedure("spUpdateUser");
                 loadUsers();
                 mpeUpdate.Hide();
             }
@@ -122,16 +139,13 @@ namespace GroupProject
 
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
-            mydal.ClearParams();
-            mydal.AddParam("@Userid", lblSelectedUserid.Text);
-            mydal.ExecuteProcedure("spDeleteStudent");
+            myDal.ClearParams();
+            myDal.AddParam("@Userid", lblSelectedUserid.Text);
+            myDal.ExecuteProcedure("spDeleteStudent");
             loadUsers();
             mpeUpdate.Hide();
 
-
-          
-
         }
-
+     
       } 
     }

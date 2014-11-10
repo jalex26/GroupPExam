@@ -128,6 +128,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="QuizPage.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="Reports.aspx" />
     <Content Include="styles\GroupPExam.css" />
     <Content Include="img\ajaxLoader.gif" />
     <Content Include="img\close.gif" />
@@ -147,7 +149,6 @@
     <Content Include="ManageProfiles.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
-    <Content Include="styles\nyroModal.css" />
     <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
     <Content Include="Web.config" />
@@ -224,10 +225,24 @@
     <Compile Include="QuizPage.aspx.designer.cs">
       <DependentUpon>QuizPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RenderQuizAndGenXML.ashx.cs">
       <DependentUpon>RenderQuizAndGenXML.ashx</DependentUpon>
     </Compile>
     <Compile Include="RenderXML.cs" />
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Security.cs" />
     <Compile Include="ManageProfiles.aspx.cs">
       <DependentUpon>ManageProfiles.aspx</DependentUpon>

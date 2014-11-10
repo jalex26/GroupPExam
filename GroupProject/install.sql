@@ -14,7 +14,7 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
- ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional '),
+ ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional'),
  ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
  ('Travel Counsellor'),('Veterinary Office Assistant'),('Network Engineering'),
  ('Enhanced Health Care Aide'),('Health Care Aide '),('Massage Therapy '),
@@ -63,11 +63,11 @@ Userid int primary key identity (0,1),
 Firstname varchar(60),
 Lastname varchar(60),
 Password varchar(60),
-Classid int foreign key references tbClass(Classid)on delete cascade,
+Classid int foreign key references tbClass(Classid)on delete cascade null,
 SecurityLevel int,
-UserPicture varchar(60),
+UserPicture varchar(60) null,
 Email varchar(60) Unique,
-LostPass varchar(20)
+LostPass varchar(20) null
 )
 go
 
@@ -75,6 +75,8 @@ go
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
+('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
+('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
@@ -126,6 +128,17 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Samantha','Hauwla','Samantha1',13,1,'Samantha.jpg','Samantha@robertsoncollege.net')
 
 go
+
+create table tbMentorCourse(
+MentorCourseID int primary key identity(0,1),
+MentorID int foreign key references tbUser(Userid),
+CourseID int foreign key references tbCourse(Courseid)
+)
+go
+
+insert into tbMentorCourse (MentorID, CourseID) values
+(1, 0), (2, 1), (3,3)
+
 create table tbToken(
 Tokenid int primary key identity (0,1),
 TToken varchar(50),
@@ -619,7 +632,8 @@ go
 
 create procedure spGetUsers(
 @Classid int = null,
-@Userid int = null
+@Userid int = null,
+@Courseid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,
@@ -676,20 +690,22 @@ go
 
 --Loads Class
 create procedure spGetClass(
-@Classid int = null
+@Classid int = null,
+@Courseid int = null
 )
 as begin
 	select * from tbClass
-	 where Classid = isnull(@Classid, Classid)
+	 where Classid = isnull(@Classid, Classid) and
+	       Courseid = isnull (@Courseid, Courseid)
 end
 go
 
 --Loads Course by Courseid
 create procedure spGetCourse(
-@Courseid int
+@Courseid int = null
 )
 as begin 
-	select * from tbCourse where Courseid= @Courseid
+	select * from tbCourse where Courseid= isnull(@Courseid, Courseid)
 end
 go
 
@@ -819,16 +835,17 @@ as begin
 go
 
 --spViewPendingQuiz2 @Userid=3
-create procedure spInsertStudent(
+create procedure spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
+@Email varchar(60),
 @Password varchar(60),
-@Classid int,
+@Classid int = null,
 @SecurityLevel int
 )
 as begin
-	insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname,@Password,@Classid,@SecurityLevel)
+	insert into tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
+					  (@Firstname,@Lastname, @Email,@Password,@Classid,@SecurityLevel)
 end
 go
 

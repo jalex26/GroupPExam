@@ -220,6 +220,33 @@ namespace GroupProject {
         protected global::AjaxControlToolkit.ValidatorCalloutExtender vceSecurityLevel;
         
         /// <summary>
+        /// ddlCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
+        
+        /// <summary>
+        /// rfvCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCourse;
+        
+        /// <summary>
+        /// vceCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ValidatorCalloutExtender vceCourse;
+        
+        /// <summary>
         /// ddlClass control.
         /// </summary>
         /// <remarks>
