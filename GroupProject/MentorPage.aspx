@@ -75,6 +75,8 @@
 
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
 
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="Reports" OnClick="btnReports_Click"  Width="98px" />
+
         </asp:Panel>
 
         <br />

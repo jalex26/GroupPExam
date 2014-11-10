@@ -12,7 +12,7 @@
                 var question = ($(this).attr('name'))
                 var ChoicePosition = ($(this).attr('id'))
                 // answers[question] = answer
-                var select = [answer,ChoicePosition]
+                var select = [answer, ChoicePosition]
                 answers[question] = select
 
             });
@@ -31,6 +31,7 @@
                         //do stuff with the result
                         alert(result);
                     } else {
+                        var result = sum_values()
                         $($questions.get(currentQuestion)).fadeIn();
                     }
                 });
@@ -56,33 +57,60 @@
                     var position = answers[questions][1]
                     var questionId = questions
                     questionId = questionId.replace('Question', '')
-                    RecreateXML(questionId,position)
+                    RecreateXML(questionId, position)
                     //var MyData ='{"QuestionID": "'+questionId.replace('Question','')+', "position"}'
                 }
                 return the_sum
             }
-            function RecreateXML(QuestionID,UserAnswerPosition)
-            {
-                var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
-               // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
+            function RecreateXML(QuestionID, UserAnswerPosition) {
+                // var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                var xmlFile;
+                if (document.getElementById("tempXML").value != "") {
+                    xmlFile = document.getElementById("tempXML").value;
+                }
+                else {
+                    xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                }
+                // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
                 XMLDoc = $.parseXML(xmlFile)
                 $xmlFile = $(XMLDoc)
-                var Question = $xmlFile.find("Question[ID='" + QuestionID + "']");
+                $Question = $xmlFile.find("Question[ID='" + QuestionID + "']");
                 $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
-                $Option = $(Question).find("Options");
+                $Option = $Question.find("Options");
                 //the UserAnswerPosition starts from 1 but the find xml content starts with 0; therefore we need to less the position by one
                 fixPosition = UserAnswerPosition - 1
                 //$OptionSelected now holds the Answer of the user. the TEXT answer
                 $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
                 //Append the OptionSelected to USERANSWER element
-                $(Question).attr('type', 'vip');
+                $Question.attr('done', 'true'); //mark the question done!
+                $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).find("UserAnswer").appendTo($Question);
+                x = XMLDoc.getElementsByTagName("Question");
+
+                //x.appendChild($Question);
+                //$(Question).appendTo($(XMLDoc));
+
                 //var newElement = XMLDoc.createElement("UserAnswer")
                 //x = XMLDoc.getElementsByTagName("Question");
                 //x.appendChild(newElement);
-                $(XMLDoc).children(0).append($('<UserAnswer>' + $OptionSelected + '</UserAnswer>'))
-                //$('<UserAnswer>' + $OptionSelected + '</UserAnswer>').appendTo(xmlFile);
+                //$(XMLDoc).children(0).append($('<UserAnswer>' + $OptionSelected + '</UserAnswer>'))
+                //$("'<UserAnswer>'" + $OptionSelected + "'</UserAnswer>'").appendTo(Question);
                 //$('body').append(xmlFile);
-                alert(xmlFile);
+                var XMLString;
+                //IE
+                if (window.ActiveXObject) {
+                    XMLString = XMLDoc;
+                }
+                    // code for Mozilla, Firefox, Opera, etc.
+                else {
+                    XMLString = (new XMLSerializer()).serializeToString(XMLDoc);
+                }
+
+                alert(XMLString);
+                setSession(XMLString)
+
+            }
+            function setSession(XMLString) {
+                $("input:hidden[id$=tempXML]").val(XMLString);
             }
         })
     </script>
@@ -90,7 +118,8 @@
     <div>
         <asp:Xml ID="XMLquiz" runat="server"></asp:Xml>
         <input type="button" id="back" name="back" value="BACK" />
-        <input type="button" id="next" name="next" value="NEXT"  />
-        
+        <input type="button" id="next" name="next" value="NEXT" />
+        <input type="hidden" name="tempXML" id="tempXML" />
+        <%--use the hiddenfield to SET the SESSION since it cannot set by SERVER using JAVASCRIPT. but i can retrieve it from USER BROWSER. --%>
     </div>
 </asp:Content>
