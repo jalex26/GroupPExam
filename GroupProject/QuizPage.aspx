@@ -76,12 +76,12 @@
                 $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
                 //Append the OptionSelected to USERANSWER element
                 $(Question).attr('type', 'vip');
-                var newElement = XMLDoc.createElement("UserAnswer")
-                x = XMLDoc.getElementsByTagName("Question");
-                x.appendChild(newElement);
-                
-                $('<UserAnswer>' + $OptionSelected + '</UserAnswer>').appendTo(xmlFile);
-                $('body').append(xmlFile);
+                //var newElement = XMLDoc.createElement("UserAnswer")
+                //x = XMLDoc.getElementsByTagName("Question");
+                //x.appendChild(newElement);
+                $(XMLDoc).children(0).append($('<UserAnswer>' + $OptionSelected + '</UserAnswer>'))
+                //$('<UserAnswer>' + $OptionSelected + '</UserAnswer>').appendTo(xmlFile);
+                //$('body').append(xmlFile);
                 alert(xmlFile);
             }
         })

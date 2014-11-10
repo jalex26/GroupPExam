@@ -21,9 +21,16 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadUsers();
+
                 loadCourse();             
+
+                //loadSelect();
+
             }
         }
+        //private void loadSelect()
+        //{
+
 
         private void loadCourse()
         {
@@ -41,6 +48,7 @@ namespace GroupProject
             loadClass();
             mpeUpdate.Show();
         }
+
 
 
         private void loadClass()
