@@ -42,10 +42,8 @@
                     </asp:Menu>             
                 </div>
                 <!-- End Navigation -->
-            </div>
-            <!-- End Header -->
+          
       
-        <br />
         <div id="buttonLogout">
             <asp:Panel ID="pnlLogout" runat="server">
                 <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="White" runat="server" Text=""></asp:Label>
@@ -53,6 +51,8 @@
                 <asp:LinkButton ID="lbLogout" ForeColor="White" OnClick="lbLogout_Click" runat="server">Logout</asp:LinkButton>             
             </asp:Panel>
         </div>
+                  </div>
+            <!-- End Header -->
 
 
               <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
