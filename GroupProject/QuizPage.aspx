@@ -10,7 +10,11 @@
             $('.option').change(function () {
                 var answer = ($(this).attr('value'))
                 var question = ($(this).attr('name'))
-                answers[question] = answer
+                var ChoicePosition = ($(this).attr('id'))
+                // answers[question] = answer
+                var select = [answer,ChoicePosition]
+                answers[question] = select
+
             });
             var item1 = document.getElementById('Question');
 
@@ -49,7 +53,8 @@
                 alert("here");
                 var the_sum = 0;
                 for (questions in answers) {
-                    the_sum = the_sum + parseInt(answers[questions])
+                    the_sum = the_sum + parseInt(answers[questions][0])
+                    var position = answers[questions][1]
                 }
                 return the_sum
             }

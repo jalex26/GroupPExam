@@ -11,13 +11,12 @@
           <br/>
           <panel class="options">
           <xsl:for-each select="t:Options/t:Option">
-            
               <xsl:if test="@Correct">
-                <input class="option" type="radio" name="Question{$QuestionID}" id="Choice{position()}"  value="1" >
+                <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}"  value="1" >
                 </input>
               </xsl:if>
               <xsl:if test="not(@Correct)">
-                <input class="option" type="radio" name="Question{$QuestionID}" id="Choice{position()}" value="0" >
+                <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}" value="0" >
                 </input>
               </xsl:if>
               <label for="SelectedChoice{position()}">

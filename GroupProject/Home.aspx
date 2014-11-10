@@ -3,9 +3,9 @@
 
      
     <!-- JS testing javascript carousal for pictures -->
-    <script src="js/jquery-2.1.1.js"></script>
+<%--    <script src="js/jquery-2.1.1.js"></script>
     <script src="js/jquery.jcarousel.pack.js"></script>
-    <script src="js/jquery-func.js"></script>
+    <script src="js/jquery-func.js"></script>--%>
     <!-- End JS -->
 
 </asp:Content>
