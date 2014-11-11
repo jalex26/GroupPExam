@@ -51,18 +51,22 @@
                         $($questions.get(currentQuestion)).fadeIn();
                     }
                 });
-
-
             });
             function sum_values() {
                 var the_sum = 0;
+                var NewXMLwithAnswers;
                 for (questions in answers) {
                     the_sum = the_sum + parseInt(answers[questions][0])
                     var position = answers[questions][1]
                     var questionId = questions
                     questionId = questionId.replace('Question', '')
-                    RecreateXML(questionId, position)
+                    NewXMLwithAnswers=  RecreateXML(questionId, position)
                     //var MyData ='{"QuestionID": "'+questionId.replace('Question','')+', "position"}'
+                }
+                if (NewXMLwithAnswers != null)
+                {
+                    var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
+                    setSession(NewXMLwithAnswers, UserID,the_sum)
                 }
                 return the_sum
             }
@@ -75,6 +79,7 @@
                 else {
                     xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
                 }
+                // xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
                 // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
                 XMLDoc = $.parseXML(xmlFile)
                 $xmlFile = $(XMLDoc)
@@ -86,19 +91,18 @@
                 //$OptionSelected now holds the Answer of the user. the TEXT answer
                 $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
                 //Append the OptionSelected to USERANSWER element
-                $Question.attr('done', 'true'); //mark the question done!
-                $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).find("UserAnswer").appendTo($Question);
-                x = XMLDoc.getElementsByTagName("Question");
-
-                //x.appendChild($Question);
-                //$(Question).appendTo($(XMLDoc));
-
-                //var newElement = XMLDoc.createElement("UserAnswer")
+                if ($Question.attr('done') == undefined)
+                {
+                    $Question.attr('done', 'true'); //mark the question done!
+                    $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).find("UserAnswer").appendTo($Question);
+                }
+                else
+                {
+                    $Question.attr('done', 'true'); //mark the question done!
+                    $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).replaceAll("UserAnswer").appendTo($Question);
+                }
+                
                 //x = XMLDoc.getElementsByTagName("Question");
-                //x.appendChild(newElement);
-                //$(XMLDoc).children(0).append($('<UserAnswer>' + $OptionSelected + '</UserAnswer>'))
-                //$("'<UserAnswer>'" + $OptionSelected + "'</UserAnswer>'").appendTo(Question);
-                //$('body').append(xmlFile);
                 var XMLString;
                 //IE
                 if (window.ActiveXObject) {
@@ -108,19 +112,20 @@
                 else {
                     XMLString = (new XMLSerializer()).serializeToString(XMLDoc);
                 }
-
-                alert(XMLString);
-                var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
-                setSession(XMLString, UserID)
+                document.getElementById("tempXML").value = XMLString
+                return XMLString;
+                //alert(XMLString);
+                //var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
+               // setSession(XMLString, UserID)
 
             }
-            function setSession(XMLString, UserID) {
+            function setSession(XMLString, UserID, the_sum) {
                 //$("input:hidden[id$=tempXML]").val(XMLString)
                 //                               .trigger('change');
                 //var var1 = '{"var1": "' + XMLString + '"}'
-                XMLDoc = $.parseXML(XMLString)
-                var var2 = JSON.stringify(xmlToJson(XMLDoc));
                 var var1 = '{"var1": "' + escape(XMLString) + '"}';
+                var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
+                var SendToServer = '{"var1": "' + escape(XMLString) + '", "var2": "' + UserID + '", "var3": "' +QuizStudentId+'", "var4": "'+the_sum+'"}'
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
@@ -129,6 +134,7 @@
                     dataType: "json",
                     success: function (data) {
                         alert(data.d);
+                        SendToServerAndStatus(SendToServer);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         debugger;
@@ -136,51 +142,30 @@
                 })
             }
 
-            function xmlToJson(xml) {
-                var obj = {};
-                if (xml.nodeType == 1) {
-                    if (xml.attributes.length > 0) {
-                        obj["@attributes"] = {};
-                        for (var j = 0; j < xml.attributes.length; j++) {
-                            var attribute = xml.attributes.item(j);
-                            obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-                        }
+            function SendToServerAndStatus(sendtoserver) {
+                
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    data: sendtoserver,
+                    url: "QuizHandler.ashx",
+                    dataType: "json",
+                    success: function (data, status) {
+                        //alert(data.d);
+                        console.log(data);
+                        alert(JSON.stringify(data));
+                        alert(data.status)// getting the data.d values
+                    },
+                    error: function (error) {
+                        alert("Error: " + error.status + "/ " +
+                          error.statusText);
+                        debugger;
                     }
-                } else if (xml.nodeType == 3) {
-                    obj = xml.nodeValue;
-                }
-                if (xml.hasChildNodes()) {
-                    for (var i = 0; i < xml.childNodes.length; i++) {
-                        var item = xml.childNodes.item(i);
-                        var nodeName = item.nodeName;
-                        if (typeof (obj[nodeName]) == "undefined") {
-                            obj[nodeName] = xmlToJson(item);
-                        } else {
-                            if (typeof (obj[nodeName].push) == "undefined") {
-                                var old = obj[nodeName];
-                                obj[nodeName] = [];
-                                obj[nodeName].push(old);
-                            }
-                            obj[nodeName].push(xmlToJson(item));
-                        }
-                    }
-                }
-                return obj;
+                })
             }
+
         })
-        //$.ajax({
-        //    type: "POST",
-        //    contentType: "application/json",
-        //    data: "{var1:'" + XMLString + "', var2:'"+UserID+"'}",
-        //    url: "QuizHandler.ashx",
-        //    dataType: "json",
-        //    success: function (data) {
-        //        alert(data.d);
-        //    },
-        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        //        debugger;
-        //    }
-        //})
+
     </script>
 
     <div>

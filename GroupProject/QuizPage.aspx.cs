@@ -14,7 +14,8 @@ namespace GroupProject
     {
         DAL myDal = new DAL(Globals.conn);
 
-        [System.Web.Services.WebMethod]
+        //[System.Web.Services.WebMethod]
+        [WebMethod(EnableSession=true)]
         //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static object SaveValueInSession(string var1)
         {//save the generated xml with users answer

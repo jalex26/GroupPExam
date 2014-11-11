@@ -527,6 +527,21 @@ go
 select * from tbQuizStudent
 select * from tbUser
 go
+create procedure spUpdateQuizStudent(
+@Userid int,
+@XMLStudentResponse xml,
+@QuizStudentid int,
+@Points decimal(5,2)
+)
+as begin
+if((select Status from tbQuizStudent where Userid=@Userid and QuizStudentid=@QuizStudentid) != 2)
+	begin
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse, Points=@Points
+	end
+end
+go
+
+go
 create procedure spGetIssuedQuizByMentor (
 @Userid int
 )
