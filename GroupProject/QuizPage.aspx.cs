@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL_Project;
 using System.Data;
+using System.Web.Services;
 
 namespace GroupProject
 {
@@ -14,9 +15,12 @@ namespace GroupProject
         DAL myDal = new DAL(Globals.conn);
 
         [System.Web.Services.WebMethod]
-        public static object SaveValueInSession(string XML)
+        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static object SaveValueInSession(string var1)
         {//save the generated xml with users answer
-            HttpContext.Current.Session["Quiz"] = XML;
+            string decodeXMLFromStringify = HttpUtility.UrlDecode(var1);
+
+            HttpContext.Current.Session["Quiz"] = decodeXMLFromStringify;
             return "success";
         }
 

@@ -16,8 +16,7 @@
                 answers[question] = select
 
             });
-            $('#tempXML').change( function()
-            {// fire the ajax here! to save
+            $('#tempXML').change(function () {// fire the ajax here! to save
                 alert("valueCHanged");
             })
 
@@ -111,27 +110,77 @@
                 }
 
                 alert(XMLString);
-                setSession(XMLString)
+                var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
+                setSession(XMLString, UserID)
 
             }
-            function setSession(XMLString) {
+            function setSession(XMLString, UserID) {
                 //$("input:hidden[id$=tempXML]").val(XMLString)
                 //                               .trigger('change');
+                //var var1 = '{"var1": "' + XMLString + '"}'
+                XMLDoc = $.parseXML(XMLString)
+                var var2 = JSON.stringify(xmlToJson(XMLDoc));
+                var var1 = '{"var1": "' + escape(XMLString) + '"}';
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    data: "{var1:'"+XMLString+"'}",
+                    data: var1,
                     url: "QuizPage.aspx/SaveValueInSession",
                     dataType: "json",
                     success: function (data) {
-                        //alert(data.d);
+                        alert(data.d);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         debugger;
                     }
                 })
             }
+
+            function xmlToJson(xml) {
+                var obj = {};
+                if (xml.nodeType == 1) {
+                    if (xml.attributes.length > 0) {
+                        obj["@attributes"] = {};
+                        for (var j = 0; j < xml.attributes.length; j++) {
+                            var attribute = xml.attributes.item(j);
+                            obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                        }
+                    }
+                } else if (xml.nodeType == 3) {
+                    obj = xml.nodeValue;
+                }
+                if (xml.hasChildNodes()) {
+                    for (var i = 0; i < xml.childNodes.length; i++) {
+                        var item = xml.childNodes.item(i);
+                        var nodeName = item.nodeName;
+                        if (typeof (obj[nodeName]) == "undefined") {
+                            obj[nodeName] = xmlToJson(item);
+                        } else {
+                            if (typeof (obj[nodeName].push) == "undefined") {
+                                var old = obj[nodeName];
+                                obj[nodeName] = [];
+                                obj[nodeName].push(old);
+                            }
+                            obj[nodeName].push(xmlToJson(item));
+                        }
+                    }
+                }
+                return obj;
+            }
         })
+        //$.ajax({
+        //    type: "POST",
+        //    contentType: "application/json",
+        //    data: "{var1:'" + XMLString + "', var2:'"+UserID+"'}",
+        //    url: "QuizHandler.ashx",
+        //    dataType: "json",
+        //    success: function (data) {
+        //        alert(data.d);
+        //    },
+        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //        debugger;
+        //    }
+        //})
     </script>
 
     <div>

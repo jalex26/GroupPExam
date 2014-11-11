@@ -525,6 +525,7 @@ go
 -- spGetQuizStudentByStudent @UserId=9
 -- spStartQuizStudent @UserId= 9,@QuizStudentId= 0
 select * from tbQuizStudent
+select * from tbUser
 go
 create procedure spGetIssuedQuizByMentor (
 @Userid int

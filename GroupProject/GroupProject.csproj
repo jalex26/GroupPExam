@@ -218,6 +218,9 @@
     <Compile Include="Quizes.aspx.designer.cs">
       <DependentUpon>Quizes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QuizHandler.ashx.cs">
+      <DependentUpon>QuizHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="QuizPage.aspx.cs">
       <DependentUpon>QuizPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -269,6 +272,7 @@
     <Content Include="Master.Master" />
     <Content Include="img\Thumbs.db" />
     <Content Include="packages.config" />
+    <Content Include="QuizHandler.ashx" />
     <None Include="validator.xsd">
       <SubType>Designer</SubType>
     </None>
