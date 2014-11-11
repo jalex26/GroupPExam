@@ -1119,12 +1119,16 @@ create procedure spGetSortColumn(
 @SortColumn varchar (60)
 )
 as begin
-select *from tbCustomers
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email from tbUser, tbCourse, tbClass
+	where tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid 
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
 case when @SortColumn='Password asc' then Password end asc,
-case when @SortColumn='Classid asc' then Classid end asc,
+case when @SortColumn='Classid asc' then Classname end asc,
 case when @SortColumn='SecurityLevel asc' then SecurityLevel end asc,
 case when @SortColumn='UserPicture asc' then UserPicture end asc,
 case when @SortColumn='Email asc' then Email end asc,
@@ -1133,7 +1137,7 @@ case when @SortColumn='Email asc' then Email end asc,
 case when @SortColumn='Firstname desc' then Firstname end desc,
 case when @SortColumn='Lastname desc' then Lastname end desc,
 case when @SortColumn='Password desc' then Password end desc,
-case when @SortColumn='Classid desc' then Classid end desc,
+case when @SortColumn='Classid desc' then Classname end desc,
 case when @SortColumn='SecurityLevel desc' then SecurityLevel end desc,
 case when @SortColumn='UserPicture desc' then UserPicture end desc,
 case when @SortColumn='Email desc' then Email end desc
@@ -1141,4 +1145,3 @@ case when @SortColumn='Email desc' then Email end desc
 end
 go
 
---Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email
