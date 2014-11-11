@@ -16,6 +16,11 @@
                 answers[question] = select
 
             });
+            $('#tempXML').change( function()
+            {// fire the ajax here! to save
+                alert("valueCHanged");
+            })
+
             var item1 = document.getElementById('Question');
 
             var totalQuestions = $('.Question').size();
@@ -110,7 +115,21 @@
 
             }
             function setSession(XMLString) {
-                $("input:hidden[id$=tempXML]").val(XMLString);
+                //$("input:hidden[id$=tempXML]").val(XMLString)
+                //                               .trigger('change');
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    data: "{var1:'"+XMLString+"'}",
+                    url: "QuizPage.aspx/SaveValueInSession",
+                    dataType: "json",
+                    success: function (data) {
+                        //alert(data.d);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        debugger;
+                    }
+                })
             }
         })
     </script>

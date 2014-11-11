@@ -12,6 +12,14 @@ namespace GroupProject
     public partial class QuizPage : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
+
+        [System.Web.Services.WebMethod]
+        public static object SaveValueInSession(string XML)
+        {//save the newly generated xml with users answer
+            HttpContext.Current.Session["Quiz"] = XML;
+            return "success";
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,5 +45,6 @@ namespace GroupProject
             XMLquiz.TransformSource = "Quiz.xsl";
 
         }
+
     }
 }
