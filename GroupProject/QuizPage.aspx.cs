@@ -15,7 +15,7 @@ namespace GroupProject
 
         [System.Web.Services.WebMethod]
         public static object SaveValueInSession(string XML)
-        {//save the newly generated xml with users answer
+        {//save the generated xml with users answer
             HttpContext.Current.Session["Quiz"] = XML;
             return "success";
         }
