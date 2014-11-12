@@ -3,7 +3,7 @@
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+   
     <%--  style for pop up ajax control, it will grey out background during pop up--%>
     <style type="text/css">
         .modalBackground {
@@ -28,8 +28,11 @@
         <br />
         <br />
         
-
-        <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
+          
+        <asp:DropDownList ID="ddlCourses" runat="server" OnSelectedIndexChanged="Courses_SelectedChanged" AutoPostBack="true"></asp:DropDownList>
+        <br />
+        <br />
+         <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  
