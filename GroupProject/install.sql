@@ -1161,3 +1161,10 @@ case when @SortColumn='Email desc' then Email end desc
 end
 go
 
+--Category Search Button--
+create procedure spGetCourses
+as begin
+select * from tbCourse,tbClass
+where tbCourse.Courseid = tbClass.Courseid
+end
+go
