@@ -176,7 +176,7 @@ go
 
 create table tbMentorCourse(
 MentorCourseID int primary key identity(0,1),
-MentorID int foreign key references tbUser(Userid),
+Mentorid int foreign key references tbUser(Userid),
 CourseID int foreign key references tbCourse(Courseid)
 )
 go
