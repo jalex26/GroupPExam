@@ -10,7 +10,6 @@
         <%--DO NOT PUT ANYTHING HERE--%>
     </asp:ContentPlaceHolder>
    
-
 </head>
 <body>
     <form id="form1" runat="server">
@@ -63,15 +62,15 @@
             <br />
 
             <div class="LoginPanel">
-            <asp:Panel ID="pnlLogin" HorizontalAlign="Center" runat="server">
+            <asp:Panel ID="pnlLogin" runat="server">
               
-                 <table>                   
+                 <table style="column-width:50px;">                   
             <tr>
                 <td>
                     <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td >
-                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="kevin.coliat@robertsoncollege.net" Width="247px"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Nathaniel@robertsoncollege.net"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -81,19 +80,25 @@
                 </td>
                 <td>
                     <br />
-                    <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server" Text="Kevin1"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server" Text="Nathaniel"></asp:TextBox>
                 </td>
             </tr>
+                     <tr>
+                         <td></td>
+                         <td></td>
+                     </tr>
             <tr>
                 <td>                   
                 </td>
                 <td>
+                    &nbsp; &nbsp;&nbsp; &nbsp;
                     <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />                   
                 </td>
             </tr>
                      <tr>
                          <td></td>
                          <td>
+                              &nbsp; &nbsp;
                               <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
                          </td>
                      </tr>

@@ -6,12 +6,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL_Project;
 using System.Data;
+using System.Web.Services;
 
 namespace GroupProject
 {
     public partial class QuizPage : System.Web.UI.Page
     {
         DAL myDal = new DAL(Globals.conn);
+
+        //[System.Web.Services.WebMethod]
+        [WebMethod(EnableSession=true)]
+        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static object SaveValueInSession(string var1)
+        {//save the generated xml with users answer
+            string decodeXMLFromStringify = HttpUtility.UrlDecode(var1);
+
+            HttpContext.Current.Session["Quiz"] = decodeXMLFromStringify;
+            return "success";
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,5 +50,6 @@ namespace GroupProject
             XMLquiz.TransformSource = "Quiz.xsl";
 
         }
+
     }
 }

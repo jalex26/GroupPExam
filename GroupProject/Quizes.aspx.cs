@@ -48,6 +48,7 @@ namespace GroupProject
                 string QuizStudentid = e.CommandArgument.ToString();
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
+                HttpContext.Current.Session["QuizStudentId"] = QuizStudentid;
                 myDal.AddParam("@QuizStudentId", QuizStudentid);
                 DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
                 if (ds.Tables[0].Rows.Count != 0)

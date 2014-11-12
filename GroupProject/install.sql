@@ -14,7 +14,7 @@ Coursename varchar(60)
 go
 
 insert into tbCourse(Coursename)values
- ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional '),
+ ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional'),
  ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
  ('Travel Counsellor'),('Veterinary Office Assistant'),('Network Engineering'),
  ('Enhanced Health Care Aide'),('Health Care Aide '),('Massage Therapy '),
@@ -63,11 +63,11 @@ Userid int primary key identity (0,1),
 Firstname varchar(60),
 Lastname varchar(60),
 Password varchar(60),
-Classid int foreign key references tbClass(Classid)on delete cascade,
+Classid int foreign key references tbClass(Classid)on delete cascade null,
 SecurityLevel int,
-UserPicture varchar(60),
+UserPicture varchar(60) null,
 Email varchar(60) Unique,
-LostPass varchar(20)
+LostPass varchar(20) null
 )
 go
 
@@ -75,6 +75,8 @@ go
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
+('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
+('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
@@ -123,9 +125,65 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Stanley','Smith','Stanley1',13,1,'Stanley.jpg','Stanley@robertsoncollege.net'),
 ('Erwin','Gomes','Erwin1',13,1,'Erwin.jpg','Erwin@robertsoncollege.net'),
 ('Mary Grace','Arby','Mary Grace1',13,1,'Mary Grace.jpg','MG@robertsoncollege.net'),
-('Samantha','Hauwla','Samantha1',13,1,'Samantha.jpg','Samantha@robertsoncollege.net')
+('Samantha','Hauwla','Samantha1',13,1,'Samantha.jpg','Samantha@robertsoncollege.net'),
+
+('Emmanuel','Tse','Emmanuel1',24,1,'Emmanuel.jpg','Emmanuel@robertsoncollege.net'),
+('Ermilindo','Zeleste','Ermilindo1',25,1,'Ermilindo.jpg','Ermilindo@robertsoncollege.net'),
+('Romeo','Maxin','Romeo1',25,1,'Romeo.jpg','Romeo@robertsoncollege.net'),
+('Bea','Alonzo','Bea1',26,1,'Bea.jpg','Bea@robertsoncollege.net'),
+('Gregory','Wayye','Gregory1',26,1,'Gregory.jpg','Gregory@robertsoncollege.net'),
+('Juliana','Lee','Juliana1',27,1,'Juliana.jpg','Juliana@robertsoncollege.net'),
+('Roldan','Rosales','Roldan1',27,1,'Roldan.jpg','Roldan@robertsoncollege.net'),
+('Jimmy','Ebreo','Jimmy1',28,1,'Jimmy.jpg','Jimmy@robertsoncollege.net'),
+('Gerald','Anderson','Gerald1',28,1,'Gerald.jpg','Gerald@robertsoncollege.net'),
+('Ferky','De Gusman','Ferky1',29,1,'Ferky.jpg','Ferky@robertsoncollege.net'),
+('Christiana','Winx','Christiana1',29,1,'Christiana.jpg','Christiana@robertsoncollege.net'),
+('Sharon','Cuneta','Sharon1',30,1,'Sharon.jpg','Sharon@robertsoncollege.net'),
+('Omar','Gonzales','Omar1',30,1,'Omar.jpg','Omar@robertsoncollege.net'),
+('Jerry','Benitez','Jerry',31,1,'Jerry.jpg','Jerry@robertsoncollege.net'),
+('Susana','Oz','Susana',32,1,'Susana.jpg','Susana@robertsoncollege.net'),
+('Betty','Lukes','Betty1',32,1,'Betty.jpg','Betty@robertsoncollege.net'),
+('Antonnete','Mega','Antonnete1',33,1,'Antonnete.jpg','Antonnete@robertsoncollege.net'),
+('Cora','Miles','Cora1',33,1,'Cora.jpg','Cora@robertsoncollege.net'),
+('Tiana','Smith','Tiana1',34,1,'Tiana.jpg','Tiana@robertsoncollege.net'),
+('Coriene','Gustillo','Coriene1',34,1,'Coriene.jpg','Coriene@robertsoncollege.net'),
+('Meldred','Castillo','Meldred1',35,1,'Meldred.jpg','Meldred@robertsoncollege.net'),
+('Murry','Quinto','Murry1',36,1,'Murry.jpg','Murry@robertsoncollege.net'),
+('Queenie','Palparan','Queenie1',36,1,'Queenie.jpg','Queenie@robertsoncollege.net'),
+('Sheena','Beast','Sheena1',37,1,'Sheena.jpg','Sheena@robertsoncollege.net'),
+('Aron','Ali','Aron1',37,1,'Aron.jpg','Aron@robertsoncollege.net'),
+('Adam','Ayle','Adam1',38,1,'Adam.jpg','Adam@robertsoncollege.net'),
+('Mac','Isla','Mac1',38,1,'Mac.jpg','Mac@robertsoncollege.net'),
+('Letti','Dizon','Dawn1',39,1,'Dawn.jpg','Dawn@robertsoncollege.net'),
+('Monette','Colada','Monette1',39,1,'Monnete.jpg','Monette@robertsoncollege.net'),
+('Rhose','Pesquera','Rose1',40,1,'Rose.jpg','Rose@robertsoncollege.net'),
+('Ijein','Beton','Ijein1',40,1,'Ijein.jpg','Ijein@robertsoncollege.net'),
+('Rachelle','Bautista','Rachelle1',41,1,'Rachelle.jpg','Rachelle@robertsoncollege.net'),
+('Butch','Portento','Butch1',41,1,'Butch.jpg','Butch@robertsoncollege.net'),
+('Aileen Tolentino','Aileen','Aileen1',42,1,'Aileen.jpg','Aileen@robertsoncollege.net'),
+('Cassey','Ordonez','Cassey1',43,1,'Cassey.jpg','Cassey@robertsoncollege.net'),
+('Chito','	Corea','Chito1',43,1,'Chito.jpg','Chito@robertsoncollege.net'),
+('Marisa','Galzote','Marisa1',44,1,'Marisa.jpg','Marisa@robertsoncollege.net'),
+('Jayson','Del Rosario','Jayson1',44,1,'Jayson.jpg','Jayson@robertsoncollege.net'),
+('Mary Ann','Reymundo','Mary Ann1',45,1,'Marry Ann.jpg','MaryAnn@robertsoncollege.net'),
+('Elenn',' Dizon','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
+('Andrea','Zoom','Andrea1',46,1,'Andrea.jpg','Andrea@robertsoncollege.net'),
+('Judy ann','	Santos','Judy Ann1',46,1,'Judy Ann.jpg','JudyAnn@robertsoncollege.net'),
+('Regine','Velasques','Regine1',47,1,'Regine.jpg','Regine@robertsoncollege.net'),
+('Patrick','Garcia','Patrick1',47,1,'Patrick.jpg','Patrick@robertsoncollege.net')
 
 go
+
+create table tbMentorCourse(
+MentorCourseID int primary key identity(0,1),
+MentorID int foreign key references tbUser(Userid),
+CourseID int foreign key references tbCourse(Courseid)
+)
+go
+
+insert into tbMentorCourse (MentorID, CourseID) values
+(1, 0), (2, 1), (3,3)
+
 create table tbToken(
 Tokenid int primary key identity (0,1),
 TToken varchar(50),
@@ -442,7 +500,7 @@ select * from tbQuizStudentStatus
 select * from tbQuizVersion
 select * from tbXMLQuizContent
 
-insert into tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
+insert into tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
 
 go
 create procedure spGetQuizStudentByStudent(
@@ -464,8 +522,24 @@ else
 end
 go
 -- spStartQuiz @IssuedQuizId = 0
--- spGetQuizStudentByStudent @UserId=7
--- spStartQuizStudent @UserId= 7,@QuizStudentId= 0
+-- spGetQuizStudentByStudent @UserId=9
+-- spStartQuizStudent @UserId= 9,@QuizStudentId= 0
+select * from tbQuizStudent
+select * from tbUser
+go
+create procedure spUpdateQuizStudent(
+@Userid int,
+@XMLStudentResponse xml,
+@QuizStudentid int,
+@Points decimal(5,2)
+)
+as begin
+if((select Status from tbQuizStudent where Userid=@Userid and QuizStudentid=@QuizStudentid) != 2)
+	begin
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse, Points=@Points
+	end
+end
+go
 
 go
 create procedure spGetIssuedQuizByMentor (
@@ -549,7 +623,7 @@ begin
 select 'true' as exist
 end
 else
-begin0;''''''''''''''''''''''''''''''''''''''''''''*
+begin
 select 'false' as exist
 end
 end
@@ -619,7 +693,8 @@ go
 
 create procedure spGetUsers(
 @Classid int = null,
-@Userid int = null
+@Userid int = null,
+@Courseid int = null
 )
 as begin
 	select './Pictures/' + UserPicture as UserPicture,
@@ -676,20 +751,22 @@ go
 
 --Loads Class
 create procedure spGetClass(
-@Classid int = null
+@Classid int = null,
+@Courseid int = null
 )
 as begin
 	select * from tbClass
-	 where Classid = isnull(@Classid, Classid)
+	 where Classid = isnull(@Classid, Classid) and
+	       Courseid = isnull (@Courseid, Courseid)
 end
 go
 
 --Loads Course by Courseid
 create procedure spGetCourse(
-@Courseid int
+@Courseid int = null
 )
 as begin 
-	select * from tbCourse where Courseid= @Courseid
+	select * from tbCourse where Courseid= isnull(@Courseid, Courseid)
 end
 go
 
@@ -819,16 +896,17 @@ as begin
 go
 
 --spViewPendingQuiz2 @Userid=3
-create procedure spInsertStudent(
+create procedure spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
+@Email varchar(60),
 @Password varchar(60),
-@Classid int,
+@Classid int = null,
 @SecurityLevel int
 )
 as begin
-	insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname,@Password,@Classid,@SecurityLevel)
+	insert into tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
+					  (@Firstname,@Lastname, @Email,@Password,@Classid,@SecurityLevel)
 end
 go
 
@@ -1051,3 +1129,35 @@ as begin
 	select * from tbTestSample
 end 
 go
+
+
+create procedure spGetSortColumn(
+@SortColumn varchar (60)
+)
+as begin
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email from tbUser, tbCourse, tbClass
+	where tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid 
+order by
+case when @SortColumn='Firstname asc' then Firstname end asc,
+case when @SortColumn='Lastname asc' then Lastname end asc,
+case when @SortColumn='Password asc' then Password end asc,
+case when @SortColumn='Classid asc' then Classname end asc,
+case when @SortColumn='SecurityLevel asc' then SecurityLevel end asc,
+case when @SortColumn='UserPicture asc' then UserPicture end asc,
+case when @SortColumn='Email asc' then Email end asc,
+
+
+case when @SortColumn='Firstname desc' then Firstname end desc,
+case when @SortColumn='Lastname desc' then Lastname end desc,
+case when @SortColumn='Password desc' then Password end desc,
+case when @SortColumn='Classid desc' then Classname end desc,
+case when @SortColumn='SecurityLevel desc' then SecurityLevel end desc,
+case when @SortColumn='UserPicture desc' then UserPicture end desc,
+case when @SortColumn='Email desc' then Email end desc
+
+end
+go
+
