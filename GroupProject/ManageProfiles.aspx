@@ -82,7 +82,7 @@
         <asp:Panel ID="panelUpdate" runat="server"
             Style="display: none; background-color: whitesmoke;"           
             HorizontalAlign="Center"
-            Width="400" Height="400">
+            Width="400" Height="500">
   
          <asp:Panel ID="panelUpdateTitle" runat="server" 
             style="cursor:move;font-family:Tahoma;padding:10px; align-content:center" 
