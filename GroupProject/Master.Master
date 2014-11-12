@@ -41,8 +41,6 @@
                     </asp:Menu>             
                 </div>
                 <!-- End Navigation -->
-          
-      
         <div id="buttonLogout">
             <asp:Panel ID="pnlLogout" runat="server">
                 <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="White" runat="server" Text=""></asp:Label>
