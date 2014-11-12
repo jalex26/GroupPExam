@@ -26,14 +26,15 @@
            
         <br />
         <br />
+        <br />
         
 
         <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  
-            AutoGenerateColumns="False" GridLines="Horizontal">
-            <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
+            AutoGenerateColumns="False" RowStyle-Height="30px" GridLines="Horizontal">
+            <HeaderStyle Height="30px" ForeColor="White" BackColor="#E3170D"></HeaderStyle>
             <AlternatingRowStyle BackColor="#CCCCCC" />
             <Columns>
                 <asp:TemplateField HeaderText="Update">
@@ -82,7 +83,7 @@
         <asp:Panel ID="panelUpdate" runat="server"
             Style="display: none; background-color: whitesmoke;"           
             HorizontalAlign="Center"
-            Width="400" Height="400">
+            Width="400" Height="500">
   
          <asp:Panel ID="panelUpdateTitle" runat="server" 
             style="cursor:move;font-family:Tahoma;padding:10px; align-content:center" 
