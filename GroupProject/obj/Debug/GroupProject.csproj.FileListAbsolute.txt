@@ -337,3 +337,4 @@ C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\bin\Pictures\top-bus
 C:\Users\adrian\Documents\GitHub\GroupPExam\GroupProject\bin\Pictures\top-business-school.png
 C:\Users\KevinEmmanuel\Documents\GitHub\GroupPExam\GroupProject\bin\Pictures\top-business-school.png
 C:\Users\veberly\Documents\GitHub\GroupPExam\GroupProject\bin\Pictures\top-business-school.png
+C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\bin\Pictures\top-business-school.png
