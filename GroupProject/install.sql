@@ -1162,9 +1162,12 @@ end
 go
 
 --Category Search Button--
-create procedure spGetCourses
+create procedure spGetClassname(
+@Classid int = null
+)
 as begin
-select * from tbCourse,tbClass
-where tbCourse.Courseid = tbClass.Courseid
+select * from tbClass
+where Classid = isnull(@Classid,tbClass.Classid)
 end
 go
+
