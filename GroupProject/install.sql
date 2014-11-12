@@ -500,7 +500,7 @@ select * from tbQuizStudentStatus
 select * from tbQuizVersion
 select * from tbXMLQuizContent
 
-insert into tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
+insert into tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
 
 go
 create procedure spGetQuizStudentByStudent(
@@ -522,8 +522,24 @@ else
 end
 go
 -- spStartQuiz @IssuedQuizId = 0
--- spGetQuizStudentByStudent @UserId=7
--- spStartQuizStudent @UserId= 7,@QuizStudentId= 0
+-- spGetQuizStudentByStudent @UserId=9
+-- spStartQuizStudent @UserId= 9,@QuizStudentId= 0
+select * from tbQuizStudent
+select * from tbUser
+go
+create procedure spUpdateQuizStudent(
+@Userid int,
+@XMLStudentResponse xml,
+@QuizStudentid int,
+@Points decimal(5,2)
+)
+as begin
+if((select Status from tbQuizStudent where Userid=@Userid and QuizStudentid=@QuizStudentid) != 2)
+	begin
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse, Points=@Points
+	end
+end
+go
 
 go
 create procedure spGetIssuedQuizByMentor (
@@ -1119,12 +1135,16 @@ create procedure spGetSortColumn(
 @SortColumn varchar (60)
 )
 as begin
-select *from tbCustomers
+select './Pictures/' + UserPicture as UserPicture,
+	Userid,Lastname, Classname, Coursename,
+	Firstname,Password, tbClass.Classid, SecurityLevel,Email from tbUser, tbCourse, tbClass
+	where tbUser.Classid = tbClass.Classid and
+		  tbClass.Courseid = tbCourse.Courseid 
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
 case when @SortColumn='Password asc' then Password end asc,
-case when @SortColumn='Classid asc' then Classid end asc,
+case when @SortColumn='Classid asc' then Classname end asc,
 case when @SortColumn='SecurityLevel asc' then SecurityLevel end asc,
 case when @SortColumn='UserPicture asc' then UserPicture end asc,
 case when @SortColumn='Email asc' then Email end asc,
@@ -1133,7 +1153,7 @@ case when @SortColumn='Email asc' then Email end asc,
 case when @SortColumn='Firstname desc' then Firstname end desc,
 case when @SortColumn='Lastname desc' then Lastname end desc,
 case when @SortColumn='Password desc' then Password end desc,
-case when @SortColumn='Classid desc' then Classid end desc,
+case when @SortColumn='Classid desc' then Classname end desc,
 case when @SortColumn='SecurityLevel desc' then SecurityLevel end desc,
 case when @SortColumn='UserPicture desc' then UserPicture end desc,
 case when @SortColumn='Email desc' then Email end desc
@@ -1141,4 +1161,3 @@ case when @SortColumn='Email desc' then Email end desc
 end
 go
 
---Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email
