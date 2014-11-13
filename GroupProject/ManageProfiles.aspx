@@ -3,7 +3,7 @@
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+   
     <%--  style for pop up ajax control, it will grey out background during pop up--%>
     <style type="text/css">
         .modalBackground {
@@ -26,14 +26,19 @@
            
         <br />
         <br />
-        
-
-        <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
+        <br />
+        <br />
+        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
+          
+        <asp:DropDownList ID="ddlClassname" runat="server" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+        <br />
+        <br />
+         <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  
-            AutoGenerateColumns="False" GridLines="Horizontal">
-            <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
+            AutoGenerateColumns="False" RowStyle-Height="30px" GridLines="Horizontal">
+            <HeaderStyle Height="30px" ForeColor="White" BackColor="#E3170D"></HeaderStyle>
             <AlternatingRowStyle BackColor="#CCCCCC" />
             <Columns>
                 <asp:TemplateField HeaderText="Update">
