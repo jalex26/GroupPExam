@@ -17,12 +17,29 @@
 
             });
             var item1 = document.getElementById('Question');
-
+            var currentQuestion = 0;        // user currently at. default = 0
             var totalQuestions = $('.Question').size();
-            var currentQuestion = 0;
             $questions = $('.Question');
             $questions.hide();
-            $($questions.get(currentQuestion)).fadeIn();
+            //$($questions.get(currentQuestion)).fadeIn();
+            function GetUserLastPage() {
+                var xmlFile = getXML();
+                XMLDoc = $.parseXML(xmlFile)
+                $xmlFile = $(XMLDoc)
+                $UserLastPage = $xmlFile.find("UserLastPage");
+                if ($UserLastPage.length > 0) {//element exists
+                    currentQuestion = $UserLastPage.text();
+                    $($questions.get(currentQuestion)).fadeOut(function () {
+                        $($questions.get(currentQuestion)).fadeIn();
+                    })
+                }
+                else
+                {
+                    $($questions.get(currentQuestion)).fadeIn();
+                }
+            }
+            GetUserLastPage()
+
             $('#next').click(function () {
                 $($questions.get(currentQuestion)).fadeOut(function () {
                     currentQuestion = currentQuestion + 1;
@@ -42,7 +59,7 @@
                     if (currentQuestion == totalQuestions) {
                         var result = sum_values()
                         //do stuff with the result
-                        alert(result);
+                        //alert(result);
                     } else {
                         $($questions.get(currentQuestion)).fadeIn();
                     }
@@ -56,35 +73,46 @@
                     var position = answers[questions][1]
                     var questionId = questions
                     questionId = questionId.replace('Question', '')
-                    NewXMLwithAnswers=  RecreateXML(questionId, position)
+                    NewXMLwithAnswers = RecreateXML(questionId, position)
                     //var MyData ='{"QuestionID": "'+questionId.replace('Question','')+', "position"}'
                 }
-                if (NewXMLwithAnswers != null)
-                {
+                if (NewXMLwithAnswers != null) {
                     var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
-                    setSession(NewXMLwithAnswers, UserID,the_sum)
+                    setSession(NewXMLwithAnswers, UserID, the_sum)
                 }
                 return the_sum
             }
 
-            function getXML()
-            {
+            function getXML() {
                 var xmlFile;
                 if (document.getElementById("tempXML").value != "") {
                     xmlFile = document.getElementById("tempXML").value;
                 }
                 else {
-                    xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                   <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
+                    xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'
                 }
                 return xmlFile;
             }
             function RecreateXML(QuestionID, UserAnswerPosition) {
-                // var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                <%-- var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
                 var xmlFile = getXML();
-                
                 // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
                 XMLDoc = $.parseXML(xmlFile)
                 $xmlFile = $(XMLDoc)
+
+                //get user last known page
+                $xmlDetails = $xmlFile.find("Details");
+                $UserLastPage = $xmlFile.find("UserLastPage");
+                if ($UserLastPage.length > 0) {//element exists
+                    $xmlDetails.find('UserLastPage').each(function () {
+                        $(this).text(currentQuestion);
+                    })
+                }
+                else {//element do not exists yet on xml
+                    $($.parseXML('<UserLastPage>' + currentQuestion + '</UserLastPage>')).find("UserLastPage").appendTo($xmlDetails);
+                }
+
                 $Question = $xmlFile.find("Question[ID='" + QuestionID + "']");
                 $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
                 $Option = $Question.find("Options");
@@ -93,14 +121,12 @@
                 //$OptionSelected now holds the Answer of the user. the TEXT answer
                 $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
                 //Append the OptionSelected to USERANSWER element
-                if ($Question.attr('done') == undefined)
-                {
+                if ($Question.attr('done') == undefined) {
                     $Question.attr('done', 'true'); //mark the question done!
                     $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).find("UserAnswer").appendTo($Question);
-                    
+
                 }
-                else
-                {
+                else {
                     $Question.attr('done', 'true'); //mark the question done!
                     //$($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).replaceAll("UserAnswer").appendTo($Question);
                     $Question.find('UserAnswer').each(function () {
@@ -108,7 +134,7 @@
                     })
                     //$($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).text("UserAnswer").appendTo($Question);
                 }
-                
+
                 //x = XMLDoc.getElementsByTagName("Question");
                 var XMLString;
                 //IE
@@ -129,7 +155,7 @@
                 //var var1 = '{"var1": "' + XMLString + '"}'
                 var var1 = '{"var1": "' + escape(XMLString) + '"}';
                 var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
-                var SendToServer = '{"var1": "' + escape(XMLString) + '", "var2": "' + UserID + '", "var3": "' +QuizStudentId+'", "var4": "'+the_sum+'"}'
+                var SendToServer = '{"var1": "' + escape(XMLString) + '", "var2": "' + UserID + '", "var3": "' + QuizStudentId + '", "var4": "' + the_sum + '"}'
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
@@ -138,7 +164,7 @@
                     dataType: "json",
                     success: function (data) {
                         alert(data.d);
-                        SendToServerAndStatus(SendToServer);
+                        //SendToServerAndStatus(SendToServer);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         debugger;
@@ -146,7 +172,7 @@
                 })
             }
             function SendToServerAndStatus(sendtoserver) {
-                
+
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",

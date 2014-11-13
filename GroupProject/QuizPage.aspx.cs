@@ -20,7 +20,7 @@ namespace GroupProject
         public static object SaveValueInSession(string var1)
         {//save the generated xml with users answer
             string decodeXMLFromStringify = HttpUtility.UrlDecode(var1);
-            HttpCookie myCookie = new HttpCookie("userXML");
+            HttpCookie myCookie = new HttpCookie("userQuiz");
             myCookie.Values.Add("XML", decodeXMLFromStringify);
             myCookie.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(myCookie);
@@ -47,6 +47,7 @@ namespace GroupProject
                 //XMLquiz.DocumentContent = HttpContext.Current.Session["Quiz"].ToString();
                 string Cookie = HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString();
                 XMLquiz.DocumentContent = HttpUtility.UrlDecode(Cookie);
+                
             }
             else
             {

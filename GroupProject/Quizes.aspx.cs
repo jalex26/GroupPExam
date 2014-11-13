@@ -44,7 +44,7 @@ namespace GroupProject
         {
             if (e.CommandName == "Start")
             {//user select Start Quiz
-                Security mySecurity = new Security();
+                Security mySecurity = new Security(1);
                 string QuizStudentid = e.CommandArgument.ToString();
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
