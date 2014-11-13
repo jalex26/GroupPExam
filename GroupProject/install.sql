@@ -76,7 +76,7 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
-('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
+('Jane','Doe','pass',0,2,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
@@ -239,6 +239,13 @@ DateIssued date,
 Mentorid int foreign key references tbUser(Userid),
 QuizStatus int foreign key references tbQuizStatus(StatusId)
 )
+
+--insert into tbIssuedQuiz (Versionid, ClassId, DateIssued, Mentorid, QuizStatus) values
+--(1,1,'2014-08-23',1,0),
+--(1,2,'2014-09-12',2,1),
+--(2,3,'2014-09-28',2,2),
+--(2,4,'2014-09-29',2,2)
+--go
 
 create table tbQuizStudent(			
 QuizStudentid int primary key identity (0,1), -- just the id nothing else
@@ -543,7 +550,7 @@ go
 
 go
 create procedure spGetIssuedQuizByMentor (
-@Userid int
+@Userid int = null
 )
 as begin
 if EXISTS(select * from tbUser where Userid= @Userid and SecurityLevel != 1)
@@ -554,7 +561,7 @@ begin
 	join tbQuizStatus on tbQuizStatus.StatusId = tbIssuedQuiz.QuizStatus
 	join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 	join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
-	where tbIssuedQuiz.Mentorid = @Userid
+	where tbIssuedQuiz.Mentorid = isnull(@Userid, tbIssuedQuiz.Mentorid)
 	end
 end
 go
@@ -1161,3 +1168,48 @@ case when @SortColumn='Email desc' then Email end desc
 end
 go
 
+-------------Reports Start Here---------------
+
+create procedure spGetIssuedQuizes
+as begin
+select IssuedQuizId, tbIssuedQuiz.Versionid, tbIssuedQuiz.ClassId,
+       convert (varchar(12),DateIssued,107) as DateIssued, 
+       Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, Classname
+from tbIssuedQuiz, tbUser, tbQuizVersion, tbClass
+where tbIssuedQuiz.Mentorid = tbUser.Userid and
+      tbIssuedQuiz.Versionid = tbQuizVersion.Versionid and
+	  tbIssuedQuiz.ClassId = tbClass.Classid
+end
+go
+
+create procedure spGetQuizesByStatus(
+@QuizStatus int = null
+)
+as begin
+select IssuedQuizId, tbIssuedQuiz.Versionid, tbIssuedQuiz.ClassId,
+        convert (varchar(12),DateIssued,107) as DateIssued, 
+       Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, tbClass.Classname,
+	   tbIssuedQuiz.QuizStatus, tbQuizStatus.StatusName
+from tbIssuedQuiz, tbUser, tbQuizVersion, tbQuizStatus, tbClass
+where tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
+      tbIssuedQuiz.QuizStatus = tbQuizStatus.StatusId and
+      tbIssuedQuiz.Mentorid = tbUser.Userid and
+      tbIssuedQuiz.Versionid = tbQuizVersion.Versionid and
+	  tbIssuedQuiz.ClassId = tbClass.Classid
+end
+go
+
+create procedure spGetStudentResponseReport
+as begin
+declare @xmlvar XML;
+set     @xmlvar = (select XMLStudentResponse from tbQuizStudent)
+select  IssuedQuizId, tbQuizStudent.Userid as 'StudentID', 
+        Firstname + ' ' + Lastname as 'StudentName',
+        XMLStudentResponse, tbQuizStudentStatus.StatusName, 
+	    @xmlvar.value('count(/Questions/Question/ID)', 'INT') AS 'QuestionCount',
+		@xmlvar.value('count(/Questions/Question/Response)', 'INT') AS 'Points'
+from   tbQuizStudent, tbQuizStudentStatus, tbUser
+where  tbQuizStudent.Status = tbQuizStudentStatus.StatusId and
+       tbQuizStudent.Userid = tbUser.Userid
+end
+go
