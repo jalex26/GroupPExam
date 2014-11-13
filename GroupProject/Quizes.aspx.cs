@@ -44,7 +44,7 @@ namespace GroupProject
         {
             if (e.CommandName == "Start")
             {//user select Start Quiz
-                Security mySecurity = new Security();
+                Security mySecurity = new Security(1);
                 string QuizStudentid = e.CommandArgument.ToString();
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
@@ -53,12 +53,14 @@ namespace GroupProject
                 DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
                 if (ds.Tables[0].Rows.Count != 0)
                 {
-                    HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
+                    HttpCookie myCookie1 = new HttpCookie("userQuiz");
+                    //it is required to encode the XML document when store/retrieve to Cookies
+                    myCookie1.Values.Add("XML", HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString()));
+                    myCookie1.Expires = DateTime.Now.AddDays(1);
+                    HttpContext.Current.Response.Cookies.Add(myCookie1);
+                   // HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
                     Response.Redirect("QuizPage.aspx");
                 }
-
-                //im working at here now!!!!!!!!!! displaying the exam
-                //Response.Redirect("ItemPage.aspx?UPC=" + UPC);
             }
         }
 

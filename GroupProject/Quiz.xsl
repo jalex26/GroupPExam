@@ -4,32 +4,40 @@
   <xsl:template match="/t:Quiz">
     <html>
       <body>
-      <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
-        <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
-        <div class="Question">
-          <xsl:value-of select="t:Questi"/>
-          <br/>
-          <panel class="options">
-          <xsl:for-each select="t:Options/t:Option">
-              <xsl:if test="@Correct">
-                <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}" value="1" >
-                </input>
-              </xsl:if>
-              <xsl:if test="not(@Correct)">
-                <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}" value="0" >
-                </input>
-              </xsl:if>
-              <label for="SelectedChoice{position()}">
-                <xsl:value-of select="text"/>
-              </label>
-              <xsl:value-of select="text()"/>
-              <br/>
-            
-          </xsl:for-each>
-          </panel>
-        </div>
-      </xsl:for-each>
-    </body>
+        <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
+          <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
+          <div class="Question">
+            <xsl:value-of select="t:Questi"/>
+            <br/>
+            <xsl:variable name="UserAnswer" select="t:UserAnswer"></xsl:variable>
+            <panel class="options">
+              <xsl:for-each select="t:Options/t:Option">
+                <xsl:variable name="OptionText" select="text()"/>
+                <xsl:if test="@Correct">
+                  <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}" value="1" >
+                    <xsl:if test="$OptionText =$UserAnswer">
+                      <xsl:attribute name="checked">checked</xsl:attribute>
+                    </xsl:if>
+                  </input>
+                </xsl:if>
+                <xsl:if test="not(@Correct)">
+                  <input class="option" type="radio" name="Question{$QuestionID}" id="{position()}" value="0" >
+                    <xsl:if test="$OptionText =$UserAnswer">
+                      <xsl:attribute name="checked">checked</xsl:attribute>
+                    </xsl:if>
+                  </input>
+                </xsl:if>
+                <label for="SelectedChoice{position()}">
+                  <xsl:value-of select="text"/>
+                </label>
+                <xsl:value-of select="text()"/>
+                <br/>
+
+              </xsl:for-each>
+            </panel>
+          </div>
+        </xsl:for-each>
+      </body>
     </html>
   </xsl:template>
 </xsl:stylesheet>
