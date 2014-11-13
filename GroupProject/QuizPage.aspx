@@ -44,7 +44,7 @@
                         //do stuff with the result
                         alert(result);
                     } else {
-                        $($questions.get(currentQuestion)).slideToggle();
+                        $($questions.get(currentQuestion)).fadeIn();
                     }
                 });
             });
@@ -121,9 +121,6 @@
                 }
                 document.getElementById("tempXML").value = XMLString
                 return XMLString;
-                //alert(XMLString);
-                //var UserID = '<%=HttpContext.Current.Session["Userid"]%>';
-               // setSession(XMLString, UserID)
 
             }
             function setSession(XMLString, UserID, the_sum) {
@@ -148,26 +145,6 @@
                     }
                 })
             }
-
-            var loadxmlSession = '<%=HttpContext.Current.Session["Quiz"]%>'
-            alert(loadxmlSession);
-            
-            function loadUserAnswers() {
-                //loads the first time the user load the page
-                var xml = getXML();
-                XMLDoc = $.parseXML(xml)
-                $xmlFile = $(XMLDoc)
-                $Question = $xmlFile.find("MultipleChoice");
-                $Question.each(function () {
-                    if($(this).attr('done') != undefined)
-                    {
-                        //$(this).parentsUntil('MultipleChoice')
-                        alert($(this).parentsUntil('MultipleChoice'))
-                    }
-                    //$Question.attr('done') == undefined
-                })
-            }
-            loadUserAnswers()
             function SendToServerAndStatus(sendtoserver) {
                 
                 $.ajax({
