@@ -60,6 +60,7 @@ namespace GroupProject
         }
         public void loadStudents()
         {
+            cblStudents.DataSource = null;
             DataSet ds = LB.LoadStudents(ddlClass.SelectedValue.ToString());
             cblStudents.DataTextField = "Studentname";
             cblStudents.DataValueField = "Userid";

@@ -16,10 +16,6 @@
                 answers[question] = select
 
             });
-            $('#tempXML').change(function () {// fire the ajax here! to save
-                alert("valueCHanged");
-            })
-
             var item1 = document.getElementById('Question');
 
             var totalQuestions = $('.Question').size();
@@ -48,7 +44,7 @@
                         //do stuff with the result
                         alert(result);
                     } else {
-                        $($questions.get(currentQuestion)).fadeIn();
+                        $($questions.get(currentQuestion)).slideToggle();
                     }
                 });
             });
@@ -70,8 +66,9 @@
                 }
                 return the_sum
             }
-            function RecreateXML(QuestionID, UserAnswerPosition) {
-                // var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+
+            function getXML()
+            {
                 var xmlFile;
                 if (document.getElementById("tempXML").value != "") {
                     xmlFile = document.getElementById("tempXML").value;
@@ -79,7 +76,12 @@
                 else {
                     xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
                 }
-                // xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                return xmlFile;
+            }
+            function RecreateXML(QuestionID, UserAnswerPosition) {
+                // var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';
+                var xmlFile = getXML();
+                
                 // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
                 XMLDoc = $.parseXML(xmlFile)
                 $xmlFile = $(XMLDoc)
@@ -95,11 +97,16 @@
                 {
                     $Question.attr('done', 'true'); //mark the question done!
                     $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).find("UserAnswer").appendTo($Question);
+                    
                 }
                 else
                 {
                     $Question.attr('done', 'true'); //mark the question done!
-                    $($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).replaceAll("UserAnswer").appendTo($Question);
+                    //$($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).replaceAll("UserAnswer").appendTo($Question);
+                    $Question.find('UserAnswer').each(function () {
+                        $(this).text($OptionSelected);
+                    })
+                    //$($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).text("UserAnswer").appendTo($Question);
                 }
                 
                 //x = XMLDoc.getElementsByTagName("Question");
@@ -142,6 +149,25 @@
                 })
             }
 
+            var loadxmlSession = '<%=HttpContext.Current.Session["Quiz"]%>'
+            alert(loadxmlSession);
+            
+            function loadUserAnswers() {
+                //loads the first time the user load the page
+                var xml = getXML();
+                XMLDoc = $.parseXML(xml)
+                $xmlFile = $(XMLDoc)
+                $Question = $xmlFile.find("MultipleChoice");
+                $Question.each(function () {
+                    if($(this).attr('done') != undefined)
+                    {
+                        //$(this).parentsUntil('MultipleChoice')
+                        alert($(this).parentsUntil('MultipleChoice'))
+                    }
+                    //$Question.attr('done') == undefined
+                })
+            }
+            loadUserAnswers()
             function SendToServerAndStatus(sendtoserver) {
                 
                 $.ajax({
