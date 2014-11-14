@@ -17,7 +17,7 @@
 
             });
             var item1 = document.getElementById('Question');
-            var currentQuestion = 0;        // user currently at. default = 0
+            var currentQuestion = GetUserLastPage();        // user currently at. default = 0
             var totalQuestions = $('.Question').size();
             $questions = $('.Question');
             $questions.hide();
@@ -29,13 +29,11 @@
                 $UserLastPage = $xmlFile.find("UserLastPage");
                 if ($UserLastPage.length > 0) {//element exists
                     currentQuestion = $UserLastPage.text();
-                    $($questions.get(currentQuestion)).fadeOut(function () {
-                        $($questions.get(currentQuestion)).fadeIn();
-                    })
+                    return currentQuestion
                 }
                 else
                 {
-                    $($questions.get(currentQuestion)).fadeIn();
+                    return 0
                 }
             }
             GetUserLastPage()

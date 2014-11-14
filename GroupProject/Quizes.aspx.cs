@@ -51,24 +51,23 @@ namespace GroupProject
                 HttpContext.Current.Session["QuizStudentId"] = QuizStudentid;
                 myDal.AddParam("@QuizStudentId", QuizStudentid);
                 DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
+                
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     HttpCookie myCookie1 = new HttpCookie("userQuiz");
                     //it is required to encode the XML document when store/retrieve to Cookies
                     myCookie1.Values.Add("XML", HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString()));
                     myCookie1.Expires = DateTime.Now.AddDays(1);
-                    HttpContext.Current.Response.Cookies.Add(myCookie1);
+                    if (HttpContext.Current.Request.Cookies["userQuiz"] == null)
+                    {
+                        HttpContext.Current.Response.Cookies.Add(myCookie1);
+                    }
+                    
                    // HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
                     Response.Redirect("QuizPage.aspx");
                 }
+                    
             }
         }
-
-
-
-
-
-
-
     }
 }
