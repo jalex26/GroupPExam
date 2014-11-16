@@ -5,74 +5,30 @@ using System.Web;
 
 namespace GroupProject
 {
-    public class ObjectMultiple
+    public class ObjectMultiple : ObjectParentQuiz<string>
     {
         //im thinking of making a Parent class and this will be the children class,
         // the problem is how to make the parent class a collection or list. For now this would be my option,
         //every type of question will be on its own object
-        int _QuestionId;
-        string _Question;
-        string _Option1;
-        string _Option2;
-        string _Option3;
-        string _Option4;
-        string _Correct;
-        string _UserAnswer;
-
-        public ObjectMultiple()
-        {// nothing here, constructor
-        }
-        public int QuestionId
-        {
-            get { return _QuestionId; }
-            set { _QuestionId = value; }
-        }
-        public string Question
-        {
-            get { return _Question; }
-            set { _Question = value; }
-        }
-        public string Option1
-        {
-            get { return _Option1; }
-            set { _Option1 = value; }
-        }
-        public string Option2
-        {
-            get { return _Option2; }
-            set { _Option2 = value; }
-        }
-        public string Option3
-        {
-            get { return _Option3; }
-            set { _Option3 = value; }
-        }
-        public string Option4
-        {
-            get { return _Option4; }
-            set { _Option4 = value; }
-        }
-        public string Correct
-        {
-            get { return _Correct; }
-            set { _Correct = value; }
-        }
-        public string UserAnswer
-        {
-            get { return _UserAnswer; }
-            set { _UserAnswer = value; }
-        }
+        //int _QuestionId;
+        public string _Question { get; set; }
+        public string _Option1 { get; set; }
+        public string _Option2 { get; set; }
+        public string _Option3 { get; set; }
+        public string _Option4 { get; set; }
+        public string _Correct { get; set; }
+        public string _UserAnswer { get; set; }
 
         public ObjectMultiple(int QuestionId, string Question, string Option1, string Option2, string Option3, string Option4, string Correct)
         {
             //this.QuizId = QuizId;
-            this.QuestionId = QuestionId;
-            this.Question = Question;
-            this.Option1 = Option1;
-            this.Option2 = Option2;
-            this.Option3 = Option3;
-            this.Option4 = Option4;
-            this.Correct = Correct;
+            this._QuestionId = QuestionId;
+            this._Question = Question;
+            this._Option1 = Option1;
+            this._Option2 = Option2;
+            this._Option3 = Option3;
+            this._Option4 = Option4;
+            this._Correct = Correct;
         }
     }
     public static class Randomizer
