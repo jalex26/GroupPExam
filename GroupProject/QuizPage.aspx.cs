@@ -22,8 +22,10 @@ namespace GroupProject
             if (var1 != null)
             {
                 string decodeXMLFromStringify = HttpUtility.UrlDecode(var1);
+                string userID = HttpContext.Current.Session["Userid"].ToString();
                 HttpCookie myCookie = new HttpCookie("userQuiz");
-                myCookie.Values.Add("XML", decodeXMLFromStringify);
+                myCookie.Values.Add("XML", HttpUtility.UrlEncode(decodeXMLFromStringify));
+                myCookie.Values.Add("UID", userID);
                 myCookie.Expires = DateTime.Now.AddDays(1);
                 HttpContext.Current.Response.Cookies.Add(myCookie);
 
