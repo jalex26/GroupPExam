@@ -35,8 +35,7 @@
                     currentQuestion = $UserLastPage.text();
                     return currentQuestion
                 }
-                else
-                {
+                else {
                     return 0 //default = 0
                 }
             }
@@ -116,12 +115,21 @@
                 }
 
                 $Question = $xmlFile.find("Question[ID='" + QuestionID + "']");
-                $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
-                $Option = $Question.find("Options");
                 //the UserAnswerPosition starts from 1 but the find xml content starts with 0; therefore we need to less the position by one
-                fixPosition = UserAnswerPosition - 1
-                //$OptionSelected now holds the Answer of the user. the TEXT answer
-                $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
+                fixPosition = UserAnswerPosition - 1 //for multiple choice only/ else set to NaN
+
+                //test for TRUEFALSE
+                if ($Question.parents("TrueFalse").length != 0) {
+                    $OptionSelected = UserAnswerPosition
+                }
+                if ($Question.parents("MultipleChoice").length != 0)
+                {
+                    $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
+                    $Option = $Question.find("Options");
+                    //$OptionSelected now holds the Answer of the user. the TEXT answer
+                    $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
+                }
+                
                 //Append the OptionSelected to USERANSWER element
                 if ($Question.attr('done') == undefined) {
                     $Question.attr('done', 'true'); //mark the question done!

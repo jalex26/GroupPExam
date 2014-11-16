@@ -45,14 +45,12 @@ namespace GroupProject
         {
             //HttpCookie myCookie = Request.Cookies["userXML"];
             //Load XML 
-            //i can use session to retrieve xml file
             if (HttpContext.Current.Request.Cookies["userQuiz"] != null)
             //if (HttpContext.Current.Session["Quiz"] != null)
             {
                 //XMLquiz.DocumentContent = HttpContext.Current.Session["Quiz"].ToString();
                 string Cookie = HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString();
                 XMLquiz.DocumentContent = HttpUtility.UrlDecode(Cookie);
-
             }
             else
             {

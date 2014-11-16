@@ -37,6 +37,46 @@
             </panel>
           </div>
         </xsl:for-each>
+        <!--TrueFalse-->
+        <xsl:for-each select="t:Questions/t:TrueFalse/t:Question">
+          <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
+          <xsl:variable name="CorrectAnswer" select="t:Answer"></xsl:variable>
+          <div class="Question">
+            <xsl:value-of select="t:Questi"/>
+            <br/>
+            <xsl:variable name="UserAnswer" select="t:UserAnswer"></xsl:variable>
+            <panel class="options">
+              <xsl:if test="$CorrectAnswer ='True'">
+                <input class="option" type="radio" name="Question{$QuestionID}" id="True" value="1" >
+                  <xsl:if test="$UserAnswer = 'True'">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                  </xsl:if>
+                True</input>
+                <input class="option" type="radio" name="Question{$QuestionID}" id="False" value="0" >
+                  <xsl:if test="$UserAnswer = 'False'">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                  </xsl:if>
+                  False
+                </input>
+              </xsl:if>
+              <xsl:if test="$CorrectAnswer ='False'">
+                <input class="option" type="radio" name="Question{$QuestionID}" id="True" value="0" >
+                  <xsl:if test="$UserAnswer = 'True'">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                  </xsl:if>
+                  True
+                </input>
+                <input class="option" type="radio" name="Question{$QuestionID}" id="False" value="1" >
+                  <xsl:if test="$UserAnswer = 'False'">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                  </xsl:if>
+                  False
+                </input>
+              </xsl:if>
+            </panel>
+
+          </div>
+        </xsl:for-each>
       </body>
     </html>
   </xsl:template>
