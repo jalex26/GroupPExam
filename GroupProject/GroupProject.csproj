@@ -193,6 +193,8 @@
       <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="ObjectMultiple.cs" />
+    <Compile Include="ObjectParentQuiz.cs" />
+    <Compile Include="ObjectTrueFalse.cs" />
     <Compile Include="OpenValidate.cs" />
     <Compile Include="PageTest.cs" />
     <Compile Include="ParentQuizClass.cs" />

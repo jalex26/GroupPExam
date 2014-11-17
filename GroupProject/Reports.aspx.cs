@@ -48,7 +48,7 @@ namespace GroupProject
                         gvIssuedQuizes.DataSource = ds.Tables[0];
                         gvIssuedQuizes.DataBind();
                     }
-                    elese
+                    else
                     {
                         lblMessage.Text = "No Issued Data to Display!";
                     }
@@ -57,14 +57,14 @@ namespace GroupProject
                 case 1:
                     // Loads 'Offline Quizes' Report
                     lblMessage.Text = "";
-                    DataSet ds = new DataSet();
+                    DataSet ds2 = new DataSet();
                     myDal.ClearParams();
                     myDal.AddParam("@QuizStatus", 0);
-                    ds = myDal.ExecuteProcedure("spGetQuizesByStatus");
+                    ds2 = myDal.ExecuteProcedure("spGetQuizesByStatus");
 
-                    if (ds.Tables[0].Rows.Count != 0)
+                    if (ds2.Tables[0].Rows.Count != 0)
                     {
-                        gvIssuedQuizes.DataSource = ds.Tables[0];
+                        gvIssuedQuizes.DataSource = ds2.Tables[0];
                         gvIssuedQuizes.DataBind();
                     }
                     else
