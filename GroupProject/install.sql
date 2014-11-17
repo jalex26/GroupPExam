@@ -1209,7 +1209,7 @@ select  IssuedQuizId, tbQuizStudent.Userid as 'StudentID',
         Firstname + ' ' + Lastname as 'StudentName',
         XMLStudentResponse, tbQuizStudentStatus.StatusName, 
 	    @xmlvar.value('count(/Questions/Question/ID)', 'INT') AS 'QuestionCount',
-		@xmlvar.value('count(/Questions/Question/Response)', 'INT') AS 'Points'
+		@xmlvar.value('count(/Questions/Question/UserAnswer)', 'INT') AS 'Points'
 from   tbQuizStudent, tbQuizStudentStatus, tbUser
 where  tbQuizStudent.Status = tbQuizStudentStatus.StatusId and
        tbQuizStudent.Userid = tbUser.Userid
