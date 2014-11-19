@@ -34,7 +34,6 @@ namespace DAL_Project
     {
         public string ConnString; // The value of the Connect String, used in all database connections
         List<SqlParameter> _parameters; // The (potential) list of parameters used when executing a stored proc
-
         /// <summary>
         /// This is a class Contstructor, we discuss this concept in Module 9 Lesson 1 & 2
         /// Example usage from other projects:
@@ -43,7 +42,7 @@ namespace DAL_Project
         /// <param name="connString">A string parameter to indicate the database to connect to.</param>
         public DAL(string connString)
         {
-            ConnString = "Data Source = localhost;Initial Catalog=" + connString + ";Integrated Security=SSPI"; // Set the internal variable ConnString to the value of the user chosen value connString
+            ConnString = connString; // Set the internal variable ConnString to the value of the user chosen value connString
             _parameters = new List<SqlParameter>(); // initialize our list of parameters to 0
         }
 

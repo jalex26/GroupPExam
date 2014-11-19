@@ -23,13 +23,14 @@ namespace GroupProject
             {
                 string decodeXMLFromStringify = HttpUtility.UrlDecode(var1);
                 string userID = HttpContext.Current.Session["Userid"].ToString();
-                HttpCookie myCookie = new HttpCookie("userQuiz");
-                myCookie.Values.Add("XML", HttpUtility.UrlEncode(decodeXMLFromStringify));
-                myCookie.Values.Add("UID", userID);
-                myCookie.Expires = DateTime.Now.AddDays(1);
-                HttpContext.Current.Response.Cookies.Add(myCookie);
+                //HttpCookie myCookie = new HttpCookie("userQuiz");
+                //myCookie.Values.Add("XML", HttpUtility.UrlEncode(decodeXMLFromStringify));
+                //myCookie.Values.Add("UID", userID);
+                //myCookie.Expires = DateTime.Now.AddDays(1);
+                //HttpContext.Current.Response.Cookies.Add(myCookie);
+                //string[] session = new string[] { HttpUtility.UrlEncode(decodeXMLFromStringify), userID };
+                HttpContext.Current.Session["Quiz"] = HttpUtility.UrlEncode(decodeXMLFromStringify);
 
-                //HttpContext.Current.Session["Quiz"] = decodeXMLFromStringify;
             }
             return "success";
         }
@@ -43,17 +44,17 @@ namespace GroupProject
         }
         private void loadXML()
         {
-            //HttpCookie myCookie = Request.Cookies["userXML"];
             //Load XML 
-            if (HttpContext.Current.Request.Cookies["userQuiz"] != null)
-            //if (HttpContext.Current.Session["Quiz"] != null)
+           // if (HttpContext.Current.Request.Cookies["userQuiz"] != null)
+            if (HttpContext.Current.Session["Quiz"] != null)
             {
                 //XMLquiz.DocumentContent = HttpContext.Current.Session["Quiz"].ToString();
-                string Cookie = HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString();
-                XMLquiz.DocumentContent = HttpUtility.UrlDecode(Cookie);
+                string session = HttpContext.Current.Session["Quiz"].ToString();
+                //string Cookie = HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString();
+                XMLquiz.DocumentContent = HttpUtility.UrlDecode(session);
             }
             else
-            {
+            {//nothing to load here
                 myDal.ClearParams();
                 DataSet dataSet = new DataSet();
                 dataSet = myDal.ExecuteProcedure("spGetTestSample");

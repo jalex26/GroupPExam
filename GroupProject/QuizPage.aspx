@@ -90,8 +90,9 @@
                     xmlFile = document.getElementById("tempXML").value;
                 }
                 else {
-                   <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
-                    xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'
+                    <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
+                    xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Session["Quiz"].ToString())%>';
+                    <%--xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'--%>
                 }
                 return xmlFile;
             }

@@ -44,6 +44,7 @@ namespace GroupProject
         public Security (string Email, String Password)
         {
             DataSet ds = new DataSet();
+            //Globals con = new Globals();
             DAL myDal = new DAL(Globals.conn);
             myDal.ClearParams();
             myDal.AddParam("@Email", Email);
