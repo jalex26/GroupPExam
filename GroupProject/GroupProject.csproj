@@ -192,6 +192,7 @@
     <Compile Include="MyAccount.aspx.designer.cs">
       <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ObjectFillin.cs" />
     <Compile Include="ObjectMultiple.cs" />
     <Compile Include="ObjectParentQuiz.cs" />
     <Compile Include="ObjectTrueFalse.cs" />
