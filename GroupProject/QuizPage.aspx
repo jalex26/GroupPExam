@@ -47,9 +47,16 @@
                     if (currentQuestion == totalQuestions) {
                         result = sum_values()
                         //do stuff with the result
-                        SendToServerAndStatus();// send to web server
+                        SendToServerAndStatus();
                         alert(result);
-                    } else {
+                    }
+                    else if(currentQuestion %3 == 0)
+                    {
+                        SendToServerAndStatus();// send to web server every 3 questions to reduce server load
+                        $($questions.get(currentQuestion)).fadeIn();
+                    }
+
+                    else {
                         result = sum_values()
                         $($questions.get(currentQuestion)).fadeIn();
                     }
@@ -90,8 +97,9 @@
                     xmlFile = document.getElementById("tempXML").value;
                 }
                 else {
-                   <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
-                    xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'
+                    <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
+                    xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Session["Quiz"].ToString())%>';
+                    <%--xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'--%>
                 }
                 return xmlFile;
             }

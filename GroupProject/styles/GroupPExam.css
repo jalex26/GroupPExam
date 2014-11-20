@@ -224,6 +224,7 @@ body {
 input, textarea, select {
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
+    height: 24px;
 }
 
 .field {
@@ -236,7 +237,7 @@ input, textarea, select {
     float:inherit;
     margin-top: 20px;
     margin-left: 30px;
-    width: 700px;
+    width: 800px;
     align-content: center;
 }
 

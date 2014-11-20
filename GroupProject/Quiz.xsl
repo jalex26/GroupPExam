@@ -74,7 +74,40 @@
                 </input>
               </xsl:if>
             </panel>
+          
+          </div>
+        </xsl:for-each>
+        
+      <!--fillIn-->
+        <xsl:for-each select="t:Questions/t:FillBlanks/t:Question">
+          <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
 
+          <div class="Question">
+            <xsl:value-of select="t:Questi"/>
+            <xsl:variable name="BlankToDropDown" select="________________"></xsl:variable>
+            <SELECT name ="Answers">
+              <OPTION VALUE ="{t:Option}">
+                -Select your answer
+              </OPTION>
+              <xsl:for-each select="t:Options/t:Option">
+                <xsl:variable name="OptionText" select="text()"/>
+                
+                <xsl:choose>
+                  <xsl:when test="@Correct">
+                    <OPTION VALUE ="1">
+                      <xsl:value-of select="$OptionText"/>
+                    </OPTION>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <OPTION VALUE ="0">
+                      <xsl:value-of select="$OptionText"/>
+                    </OPTION>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </SELECT>
+            <br/>
+            
           </div>
         </xsl:for-each>
       </body>

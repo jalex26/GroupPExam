@@ -336,3 +336,5 @@ C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\bin\zh-Hant\System.S
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.csprojResolveAssemblyReference.cache
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.dll
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.pdb
+C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile.cache
+C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile.compiled

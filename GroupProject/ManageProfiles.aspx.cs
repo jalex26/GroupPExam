@@ -19,14 +19,12 @@ namespace GroupProject
         protected void Page_Load(object sender, EventArgs e)
         {
             Security mySecurity = new Security(2);
-
             if (!IsPostBack)
             {
 
                 loadUsers(myState);
-                loadCourse();               
+                loadClass();
                 loadSelect();
-                loadClassname();
 
             }
         }
@@ -67,7 +65,7 @@ namespace GroupProject
         }
 
 
-        private void loadUsers(StateCookies myState)
+        private void loadUsers(StateCookies mySate)
         {
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
@@ -173,31 +171,6 @@ namespace GroupProject
             gvSettings.PageIndex = e.NewPageIndex;
 
             loadUsers(myState);
-        }
-
-        private void loadClassname()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spGetClassname");
-            ddlClassname.DataSource = ds;
-            ddlClassname.DataTextField = "Classname";
-            ddlClassname.DataValueField = "Classid";            
-            ddlClassname.DataBind();
-        }
-          
-        protected void ddlClassname_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            string Classid = ddlClassname.SelectedValue.ToString();
-            myDal.ClearParams();
-            myDal.AddParam("Classid", Classid);
-            DataSet ds = myDal.ExecuteProcedure("spGetUsers");
-
-            gvSettings.DataSource = ds;
-            gvSettings.DataBind();
-
-
         }
     }
 }
