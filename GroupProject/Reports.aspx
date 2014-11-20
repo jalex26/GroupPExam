@@ -1,8 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="GroupProject.Reports" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Import Namespace="System.Xml" %>
+<%@ Import Namespace="System.ComponentModel" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <div id="content">
 
         <asp:Panel ID="Panel1" runat="server">
@@ -10,79 +16,105 @@
             &nbsp; &nbsp;
             <asp:DropDownList ID="ddlReports" runat="server">
                 <asp:ListItem Value="0" Text="Issued Quizes"></asp:ListItem>
-                <asp:ListItem Value="1" Text="Active Quizes"></asp:ListItem>
-                <asp:ListItem Value="2" Text="Pending Quizes"></asp:ListItem>
+                <asp:ListItem Value="1" Text="Offline Quizes"></asp:ListItem>
+                <asp:ListItem Value="2" Text="Online Quizes"></asp:ListItem>
                 <asp:ListItem Value="3" Text="Completed Quizes"></asp:ListItem>
                 <asp:ListItem Value="4" Text="Student Response Report"></asp:ListItem>
                 <asp:ListItem Value="5" Text="Graphical Interpretation of Student Response Report"></asp:ListItem>
                 <asp:ListItem Value="6" Text="Graphical Analysis of Quiz Questions/ Test Data"></asp:ListItem>
             </asp:DropDownList>
-              &nbsp; &nbsp;
-            <asp:Button ID="btnViewReport" runat="server" Text="View Report" />
+            &nbsp; &nbsp;
+            <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClick="btnViewReport_Click" />
         </asp:Panel>
 
-        <asp:Repeater ID="repIssuedQuizes" runat="server">
+        <br />
+        <br />
+        <br />
+        <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 
-              <HeaderTemplate>
-                    <table style="max-width: 900px; font-size: small; align-content: center; text-align: center; border: 1px solid #C0C0C0; background-color: #D8D8D8">
-                        <tr>
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">Issued Quiz ID </th>
+        <asp:Panel ID="pnlIssuedQuizes" runat="server">
 
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">Version ID</th>
+            <asp:GridView ID="gvIssuedQuizes" 
+                          DataKeyNames="Versionid"
+                          HorizontalAlign="Center"
+                          RowStyle-Height="30px" 
+                          RowStyle-Width="120px"
+                          AutoGenerateColumns="false" runat="server"
+                          BorderStyle="None" GridLines="None">
+                 <HeaderStyle ForeColor="White" Height="30px" BackColor="#E3170D" ></HeaderStyle>
+                <AlternatingRowStyle BackColor="#CCCCCC" />
+                  <Columns>
+                      <asp:TemplateField HeaderStyle-HorizontalAlign="Center" 
+                          ItemStyle-HorizontalAlign="Center" HeaderText="View Quiz">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbViewQuiz" Text="View Quiz"
+                                OnClick="lbViewQuiz_Click"
+                                runat="server"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="IssuedQuizId" HeaderText="Quiz ID" />
+                       <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Versionid" HeaderText="Version" />
+                        <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
+                        <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="DateIssued" HeaderText="Date Issued" />
+                        <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Mentor" HeaderText="Issued by (Mentor)" />
+                  </Columns>
 
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">Class ID</th>
+            </asp:GridView>
 
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">Date Issued</th>        
+            </asp:Panel>
 
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">Issued By (Mentor)</th>
+         <ajaxToolkit:ToolkitScriptManager ID="TSM1" runat="server"
+                CombineScripts="false" ScriptMode="Release">
+            </ajaxToolkit:ToolkitScriptManager>
 
-                            <th style="width: 90px; height: 30px; background-color: #E3170D">View Details</th>
-                        </tr>
-                </HeaderTemplate>
-              
-                 <ItemTemplate>
-                                    
-                    <td><%# DataBinder.Eval(Container.DataItem, "IssuedQuizId") %></td>
+        <%--    Pop View Quiz Repeater Starts Here--%>
 
-                    <td><%# DataBinder.Eval(Container.DataItem, "Versionid") %></td>
+        <asp:Panel ID="pnlViewQuiz" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
+                <asp:DataList ID="DLExamDemo" Width="450px" runat="server">
+                    <HeaderTemplate>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                            <ItemTemplate>
+                                <h4>QuestionID: <%# XPath("@ID") %><br />
 
-                    <td><%# DataBinder.Eval(Container.DataItem, "ClassId") %></td>
+                                    Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
 
-                    <td><%# DataBinder.Eval(Container.DataItem, "DateIssued") %></td>
+                                </h4>
+                                <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                    <ItemTemplate>
+                                        Option: <%# XPath(".") %>
+                                        <br />
+                                    </ItemTemplate>
+                                </asp:Repeater>
 
-                    <td><%# DataBinder.Eval(Container.DataItem, "Mentor") %></td>
+                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
+                                    <ItemTemplate>
+                                        Correct Answer: <%# XPath("..") %>
+                                        <br />
 
-                      <td>
-                        <asp:Button ID="btnViewDetails"
-                            runat="server"
-                            CommandName="View"
-                            CommandArgument='<%# Eval ("Versionid") %>'
-                            ToolTip="Click Here to View Quiz Details"
-                            Width="60px"
-                            Font-Size="Small"
-                            Text="View" />
-                    </td>
+                                    </ItemTemplate>
+                                </asp:Repeater>
 
-                       </tr>
+                                <br />
 
-                    <tr>
-                        <td colspan="6" style="height: 6px;"></td>
-                    </tr>
+                            </ItemTemplate>
+                            <SeparatorTemplate>
+                                <hr style="border: solid 2px #c0c0c0" />
+                            </SeparatorTemplate>
+                        </asp:Repeater>
+                    </ItemTemplate>
+                </asp:DataList>
+               <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
+        </asp:Panel>
 
-                </ItemTemplate>
+     
 
-                <SeparatorTemplate>
-                    <tr>
-                        <td colspan="6">
-                            <hr>
-                            <br />
-                        </td>
-                    </tr>
-                </SeparatorTemplate>
-            <FooterTemplate></FooterTemplate>
+         <div class="JavascriptButtons">
+        <asp:Button ID="Button1" runat="server" Text="Button" Visible="true" />
+              </div>
 
-        </asp:Repeater>
-
+        <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewQuiz" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
 
     </div>

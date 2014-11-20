@@ -81,89 +81,89 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
-('Samuel','Gear','Samuel1',0,1,'Samuel.jpg','Samuel.Gear@robertsoncollege.net'),
-('Nathaniel','Bosman','Nathaniel',0,1,'SamplePicture1.jpg','Nathaniel@robertsoncollege.net'),
-('Micheala','Amor','Micheala1',0,1,'SamplePicture1.jpg','Micheala@robertsoncollege.net'),
-('Bella','De Rosa','Bella1',0,1,'Bella.jpg','Bela@robertsoncollege.net'),
-('James','Smith','James1',1,1,'James.jpg','James.Smith@robertsoncollege.net'),
-('Arnold','De Gusman','Arnold1',1,1,'Arnold.jpg','Arnold@robertsoncollege.net'),
-('Jenifer','Tiamzon','Jenifer1',1,1,'Jenifer.jpg','Jenifer@robertsoncollege.net'),
-('Monica','Ybanez','Monica1',2,1,'Moinca.jpg','Monica@robertsoncollege.net'),
-('Elizabeth','Ramsay','Elizabeth1',2,1,'Elizabeth.jpg','Elizabeth@robertsoncollege.net'),
-('Zevy','Gordon','Zevy1',2,1,'Zevy.jpg','Zevy@robertsoncollege.net'),
-('Daniel','Wawazaki','Daniel1',2,1,'Daniel.jpg','Daniel@robertsoncollege.net'),
-('Corazon','Zilva','Corazon1',3,1,'Corazon.jpg','Corazon@robertsoncollege.net'),
-('Lulaby','Camaron1','Lulaby1',3,1,'Camaron.jpg','Camaron@robertsoncollege.net'),
-('Stephanie','Stephanie','Stephanie1',3,1,'Stephanie.jpg','Stephanie@robertsoncollege.net'),
-('Jackson','Switz','Jackson1',4,1,'Jackson.jpg','Jackson@robertsoncollege.net'),
-('Bernard','Wisk','Bernard1',4,1,'Bernard.jpg','Bernard@robertsoncollege.net'),
-('Ariala','Wisdom','Wisdom1',4,1,'Ariala.jpg','Ariala@robertsoncollege.net'),
-('Jinky','Swamm','Jinky1',5,1,'Jinky.jpg','Jinky@robertsoncollege.net'),
-('Ricky','Salvador','Ricky1',5,1,'Ricky.jpg','Ricky@robertsoncollege.net'),
-('Roxanne','Cornejo','Roxanne1',5,1,'Roxanne.jpg','Roxanne@robertsoncollege.net'),
-('Dave','Jones','Dave1',6,1,'dave.jpg','dave.alex@robertsoncollege.net'),
-('Steven','De','Seven1',6,1,'Steven.jpg','Steven@robertsoncollege.net'),
-('Clariza','Winx','Clariza1',6,1,'Clariza.jpg','Clariza@robertsoncollege.net'),
-('Janelle','Hawla','Janelle1',7,1,'Janelle.jpg','Janelle@robertsoncollege.net'),
-('Joshua','Mayer','Joshua',7,1,'Joshua.jpg','Joshua@robertsoncollege.net'),
-('Melanie','Strong','Melanie1',7,1,'Melanie.jpg','Melanie@robertsoncollege.net'),
-('Allysha','Bell','Allysha1',8,1,'Allysha.jpg','Allysha@robertsoncollege.net'),
-('Alexis','Sandra','Alexis1',8,1,'Alexis.jpg','Alexis@robertsoncollege.net'),
-('Scott','Anderson','Scott1',8,1,'Scott.jpg','Scott@robertsoncollege.net'),
-('Cassandra','Morlin','Cassandra1',9,1,'Cassandra.jpg','Cassandra@robertsoncollege.net'),
-('RoseMarie','','RoseMarie1',9,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
-('Andrew','Ong','Andrew1',9,1,'Andrew.jpg','Andrew.Ong@robertsoncollege.net'),
-('Jezel','De Jesus','Jezel1',10,1,'Jezel.jpg','Jezel@robertsoncollege.net'),
-('Rogelio','Bentura','Rogelio1',10,1,'Rogelio.jpg','Rogelio@robertsoncollege.net'),
-('Rosalie','Zamora','Rosalie1',10,1,'Rosalie.jpg','Rosalie@robertsoncollege.net'),
-('JhonMark','Escouzora','JhonMark1',11,1,'JhonMark.jpg','JhonMark@robertsoncollege.net'),
-('Kenneth','Cacerez','Kenneth1',11,1,'Kenneth.jpg','Kenneth@robertsoncollege.net'),
-('Albert','Morello','Albert1',11,1,'Albert.jpg','Albert@robertsoncollege.net'),
-('Claire','Tabat','Claire1',12,1,'Claire.jpg','Claire@robertsoncollege.net'),
-('Benmarie','Salhay','Benmarie1',12,1,'Benmarie.jpg','Benmarie@robertsoncollege.net'),
-('Cherry','Priolo','Cherry1',12,1,'Cherry.jpg','Cherry@robertsoncollege.net'),
-('Stanley','Smith','Stanley1',13,1,'Stanley.jpg','Stanley@robertsoncollege.net'),
-('Erwin','Gomes','Erwin1',13,1,'Erwin.jpg','Erwin@robertsoncollege.net'),
-('Mary Grace','Arby','Mary Grace1',13,1,'Mary Grace.jpg','MG@robertsoncollege.net'),
-('Samantha','Hauwla','Samantha1',13,1,'Samantha.jpg','Samantha@robertsoncollege.net'),
+('Samuel','Gear','Samuel1',1,1,'Samuel.jpg','Samuel.Gear@robertsoncollege.net'),
+('Nathaniel','Bosman','Nathaniel',1,1,'SamplePicture1.jpg','Nathaniel@robertsoncollege.net'),
+('Micheala','Amor','Micheala1',1,1,'SamplePicture1.jpg','Micheala@robertsoncollege.net'),
+('Bella','De Rosa','Bella1',2,1,'Bella.jpg','Bela@robertsoncollege.net'),
+('James','Smith','James1',2,1,'James.jpg','James.Smith@robertsoncollege.net'),
+('Arnold','De Gusman','Arnold1',2,1,'Arnold.jpg','Arnold@robertsoncollege.net'),
+('Jenifer','Tiamzon','Jenifer1',3,1,'Jenifer.jpg','Jenifer@robertsoncollege.net'),
+('Monica','Ybanez','Monica1',3,1,'Moinca.jpg','Monica@robertsoncollege.net'),
+('Elizabeth','Ramsay','Elizabeth1',3,1,'Elizabeth.jpg','Elizabeth@robertsoncollege.net'),
+('Zevy','Gordon','Zevy1',4,1,'Zevy.jpg','Zevy@robertsoncollege.net'),
+('Daniel','Wawazaki','Daniel1',4,1,'Daniel.jpg','Daniel@robertsoncollege.net'),
+('Corazon','Zilva','Corazon1',4,1,'Corazon.jpg','Corazon@robertsoncollege.net'),
+('Lulaby','Camaron1','Lulaby1',5,1,'Camaron.jpg','Camaron@robertsoncollege.net'),
+('Stephanie','Stephanie','Stephanie1',5,1,'Stephanie.jpg','Stephanie@robertsoncollege.net'),
+('Jackson','Switz','Jackson1',5,1,'Jackson.jpg','Jackson@robertsoncollege.net'),
+('Bernard','Wisk','Bernard1',6,1,'Bernard.jpg','Bernard@robertsoncollege.net'),
+('Ariala','Wisdom','Wisdom1',6,1,'Ariala.jpg','Ariala@robertsoncollege.net'),
+('Jinky','Swamm','Jinky1',6,1,'Jinky.jpg','Jinky@robertsoncollege.net'),
+('Ricky','Salvador','Ricky1',7,1,'Ricky.jpg','Ricky@robertsoncollege.net'),
+('Roxanne','Cornejo','Roxanne1',7,1,'Roxanne.jpg','Roxanne@robertsoncollege.net'),
+('Dave','Jones','Dave1',7,1,'dave.jpg','dave.alex@robertsoncollege.net'),
+('Steven','De','Seven1',8,1,'Steven.jpg','Steven@robertsoncollege.net'),
+('Clariza','Winx','Clariza1',8,1,'Clariza.jpg','Clariza@robertsoncollege.net'),
+('Janelle','Hawla','Janelle1',8,1,'Janelle.jpg','Janelle@robertsoncollege.net'),
+('Joshua','Mayer','Joshua',9,1,'Joshua.jpg','Joshua@robertsoncollege.net'),
+('Melanie','Strong','Melanie1',9,1,'Melanie.jpg','Melanie@robertsoncollege.net'),
+('Allysha','Bell','Allysha1',9,1,'Allysha.jpg','Allysha@robertsoncollege.net'),
+('Alexis','Sandra','Alexis1',10,1,'Alexis.jpg','Alexis@robertsoncollege.net'),
+('Scott','Anderson','Scott1',10,1,'Scott.jpg','Scott@robertsoncollege.net'),
+('Cassandra','Morlin','Cassandra1',10,1,'Cassandra.jpg','Cassandra@robertsoncollege.net'),
+('RoseMarie','','RoseMarie1',11,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
+('Andrew','Ong','Andrew1',11,1,'Andrew.jpg','Andrew.Ong@robertsoncollege.net'),
+('Jezel','De Jesus','Jezel1',12,1,'Jezel.jpg','Jezel@robertsoncollege.net'),
+('Rogelio','Bentura','Rogelio1',12,1,'Rogelio.jpg','Rogelio@robertsoncollege.net'),
+('Rosalie','Zamora','Rosalie1',13,1,'Rosalie.jpg','Rosalie@robertsoncollege.net'),
+('JhonMark','Escouzora','JhonMark1',13,1,'JhonMark.jpg','JhonMark@robertsoncollege.net'),
+('Kenneth','Cacerez','Kenneth1',14,1,'Kenneth.jpg','Kenneth@robertsoncollege.net'),
+('Albert','Morello','Albert1',14,1,'Albert.jpg','Albert@robertsoncollege.net'),
+('Claire','Tabat','Claire1',15,1,'Claire.jpg','Claire@robertsoncollege.net'),
+('Benmarie','Salhay','Benmarie1',15,1,'Benmarie.jpg','Benmarie@robertsoncollege.net'),
+('Cherry','Priolo','Cherry1',16,1,'Cherry.jpg','Cherry@robertsoncollege.net'),
+('Stanley','Smith','Stanley1',16,1,'Stanley.jpg','Stanley@robertsoncollege.net'),
+('Erwin','Gomes','Erwin1',17,1,'Erwin.jpg','Erwin@robertsoncollege.net'),
+('Mary Grace','Arby','Mary Grace1',17,1,'Mary Grace.jpg','MG@robertsoncollege.net'),
+('Samantha','Hauwla','Samantha1',18,1,'Samantha.jpg','Samantha@robertsoncollege.net'),
 
-('Emmanuel','Tse','Emmanuel1',24,1,'Emmanuel.jpg','Emmanuel@robertsoncollege.net'),
-('Ermilindo','Zeleste','Ermilindo1',25,1,'Ermilindo.jpg','Ermilindo@robertsoncollege.net'),
-('Romeo','Maxin','Romeo1',25,1,'Romeo.jpg','Romeo@robertsoncollege.net'),
-('Bea','Alonzo','Bea1',26,1,'Bea.jpg','Bea@robertsoncollege.net'),
-('Gregory','Wayye','Gregory1',26,1,'Gregory.jpg','Gregory@robertsoncollege.net'),
-('Juliana','Lee','Juliana1',27,1,'Juliana.jpg','Juliana@robertsoncollege.net'),
-('Roldan','Rosales','Roldan1',27,1,'Roldan.jpg','Roldan@robertsoncollege.net'),
-('Jimmy','Ebreo','Jimmy1',28,1,'Jimmy.jpg','Jimmy@robertsoncollege.net'),
-('Gerald','Anderson','Gerald1',28,1,'Gerald.jpg','Gerald@robertsoncollege.net'),
-('Ferky','De Gusman','Ferky1',29,1,'Ferky.jpg','Ferky@robertsoncollege.net'),
-('Christiana','Winx','Christiana1',29,1,'Christiana.jpg','Christiana@robertsoncollege.net'),
-('Sharon','Cuneta','Sharon1',30,1,'Sharon.jpg','Sharon@robertsoncollege.net'),
-('Omar','Gonzales','Omar1',30,1,'Omar.jpg','Omar@robertsoncollege.net'),
-('Jerry','Benitez','Jerry',31,1,'Jerry.jpg','Jerry@robertsoncollege.net'),
-('Susana','Oz','Susana',32,1,'Susana.jpg','Susana@robertsoncollege.net'),
-('Betty','Lukes','Betty1',32,1,'Betty.jpg','Betty@robertsoncollege.net'),
-('Antonnete','Mega','Antonnete1',33,1,'Antonnete.jpg','Antonnete@robertsoncollege.net'),
-('Cora','Miles','Cora1',33,1,'Cora.jpg','Cora@robertsoncollege.net'),
-('Tiana','Smith','Tiana1',34,1,'Tiana.jpg','Tiana@robertsoncollege.net'),
-('Coriene','Gustillo','Coriene1',34,1,'Coriene.jpg','Coriene@robertsoncollege.net'),
-('Meldred','Castillo','Meldred1',35,1,'Meldred.jpg','Meldred@robertsoncollege.net'),
-('Murry','Quinto','Murry1',36,1,'Murry.jpg','Murry@robertsoncollege.net'),
-('Queenie','Palparan','Queenie1',36,1,'Queenie.jpg','Queenie@robertsoncollege.net'),
-('Sheena','Beast','Sheena1',37,1,'Sheena.jpg','Sheena@robertsoncollege.net'),
-('Aron','Ali','Aron1',37,1,'Aron.jpg','Aron@robertsoncollege.net'),
-('Adam','Ayle','Adam1',38,1,'Adam.jpg','Adam@robertsoncollege.net'),
-('Mac','Isla','Mac1',38,1,'Mac.jpg','Mac@robertsoncollege.net'),
-('Letti','Dizon','Dawn1',39,1,'Dawn.jpg','Dawn@robertsoncollege.net'),
-('Monette','Colada','Monette1',39,1,'Monnete.jpg','Monette@robertsoncollege.net'),
-('Rhose','Pesquera','Rose1',40,1,'Rose.jpg','Rose@robertsoncollege.net'),
-('Ijein','Beton','Ijein1',40,1,'Ijein.jpg','Ijein@robertsoncollege.net'),
-('Rachelle','Bautista','Rachelle1',41,1,'Rachelle.jpg','Rachelle@robertsoncollege.net'),
-('Butch','Portento','Butch1',41,1,'Butch.jpg','Butch@robertsoncollege.net'),
-('Aileen Tolentino','Aileen','Aileen1',42,1,'Aileen.jpg','Aileen@robertsoncollege.net'),
-('Cassey','Ordonez','Cassey1',43,1,'Cassey.jpg','Cassey@robertsoncollege.net'),
-('Chito','	Corea','Chito1',43,1,'Chito.jpg','Chito@robertsoncollege.net'),
-('Marisa','Galzote','Marisa1',44,1,'Marisa.jpg','Marisa@robertsoncollege.net'),
+('Emmanuel','Tse','Emmanuel1',18,1,'Emmanuel.jpg','Emmanuel@robertsoncollege.net'),
+('Ermilindo','Zeleste','Ermilindo1',19,1,'Ermilindo.jpg','Ermilindo@robertsoncollege.net'),
+('Romeo','Maxin','Romeo1',19,1,'Romeo.jpg','Romeo@robertsoncollege.net'),
+('Bea','Alonzo','Bea1',20,1,'Bea.jpg','Bea@robertsoncollege.net'),
+('Gregory','Wayye','Gregory1',20,1,'Gregory.jpg','Gregory@robertsoncollege.net'),
+('Juliana','Lee','Juliana1',21,1,'Juliana.jpg','Juliana@robertsoncollege.net'),
+('Roldan','Rosales','Roldan1',21,1,'Roldan.jpg','Roldan@robertsoncollege.net'),
+('Jimmy','Ebreo','Jimmy1',22,1,'Jimmy.jpg','Jimmy@robertsoncollege.net'),
+('Gerald','Anderson','Gerald1',22,1,'Gerald.jpg','Gerald@robertsoncollege.net'),
+('Ferky','De Gusman','Ferky1',23,1,'Ferky.jpg','Ferky@robertsoncollege.net'),
+('Christiana','Winx','Christiana1',23,1,'Christiana.jpg','Christiana@robertsoncollege.net'),
+('Sharon','Cuneta','Sharon1',24,1,'Sharon.jpg','Sharon@robertsoncollege.net'),
+('Omar','Gonzales','Omar1',24,1,'Omar.jpg','Omar@robertsoncollege.net'),
+('Jerry','Benitez','Jerry',25,1,'Jerry.jpg','Jerry@robertsoncollege.net'),
+('Susana','Oz','Susana',25,1,'Susana.jpg','Susana@robertsoncollege.net'),
+('Betty','Lukes','Betty1',26,1,'Betty.jpg','Betty@robertsoncollege.net'),
+('Antonnete','Mega','Antonnete1',26,1,'Antonnete.jpg','Antonnete@robertsoncollege.net'),
+('Cora','Miles','Cora1',27,1,'Cora.jpg','Cora@robertsoncollege.net'),
+('Tiana','Smith','Tiana1',27,1,'Tiana.jpg','Tiana@robertsoncollege.net'),
+('Coriene','Gustillo','Coriene1',28,1,'Coriene.jpg','Coriene@robertsoncollege.net'),
+('Meldred','Castillo','Meldred1',28,1,'Meldred.jpg','Meldred@robertsoncollege.net'),
+('Murry','Quinto','Murry1',29,1,'Murry.jpg','Murry@robertsoncollege.net'),
+('Queenie','Palparan','Queenie1',29,1,'Queenie.jpg','Queenie@robertsoncollege.net'),
+('Sheena','Beast','Sheena1',30,1,'Sheena.jpg','Sheena@robertsoncollege.net'),
+('Aron','Ali','Aron1',31,1,'Aron.jpg','Aron@robertsoncollege.net'),
+('Adam','Ayle','Adam1',32,1,'Adam.jpg','Adam@robertsoncollege.net'),
+('Mac','Isla','Mac1',33,1,'Mac.jpg','Mac@robertsoncollege.net'),
+('Letti','Dizon','Dawn1',34,1,'Dawn.jpg','Dawn@robertsoncollege.net'),
+('Monette','Colada','Monette1',35,1,'Monnete.jpg','Monette@robertsoncollege.net'),
+('Rhose','Pesquera','Rose1',36,1,'Rose.jpg','Rose@robertsoncollege.net'),
+('Ijein','Beton','Ijein1',37,1,'Ijein.jpg','Ijein@robertsoncollege.net'),
+('Rachelle','Bautista','Rachelle1',38,1,'Rachelle.jpg','Rachelle@robertsoncollege.net'),
+('Butch','Portento','Butch1',39,1,'Butch.jpg','Butch@robertsoncollege.net'),
+('Aileen Tolentino','Aileen','Aileen1',40,1,'Aileen.jpg','Aileen@robertsoncollege.net'),
+('Cassey','Ordonez','Cassey1',41,1,'Cassey.jpg','Cassey@robertsoncollege.net'),
+('Chito','	Corea','Chito1',42,1,'Chito.jpg','Chito@robertsoncollege.net'),
+('Marisa','Galzote','Marisa1',43,1,'Marisa.jpg','Marisa@robertsoncollege.net'),
 ('Jayson','Del Rosario','Jayson1',44,1,'Jayson.jpg','Jayson@robertsoncollege.net'),
 ('Mary Ann','Reymundo','Mary Ann1',45,1,'Marry Ann.jpg','MaryAnn@robertsoncollege.net'),
 ('Elenn',' Dizon','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
@@ -239,6 +239,13 @@ DateIssued date,
 Mentorid int foreign key references tbUser(Userid),
 QuizStatus int foreign key references tbQuizStatus(StatusId)
 )
+
+--insert into tbIssuedQuiz (Versionid, ClassId, DateIssued, Mentorid, QuizStatus) values
+--(1,1,'2014-08-23',1,0),
+--(1,2,'2014-09-12',2,1),
+--(2,3,'2014-09-28',2,2),
+--(2,4,'2014-09-29',2,2)
+--go
 
 create table tbQuizStudent(			
 QuizStudentid int primary key identity (0,1), -- just the id nothing else
@@ -326,7 +333,7 @@ spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="1
 go
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
-spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
+spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><longAnswer /></Questions></Quiz>'
 go
 spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
@@ -449,6 +456,7 @@ begin
 end
 end
 
+select * from tbQuizStudent
 go
 create procedure spStartQuizStudent (
 @UserId int,
@@ -499,8 +507,12 @@ select * from tbUser
 select * from tbQuizStudentStatus
 select * from tbQuizVersion
 select * from tbXMLQuizContent
+select * from tbClass
+--spLoadAllStudentClass @Classid=0
 
-insert into tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
+insert into tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty><UserCurrentPage>1</UserCurrentPage></Details><Questions><MultipleChoice><Question ID="1" done="true"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options><UserAnswer>3b</UserAnswer></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><longAnswer /></Questions></Quiz>',0,null)
+go
+insert into tbQuizStudent values (0,8,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>',0,null)
 
 go
 create procedure spGetQuizStudentByStudent(
@@ -523,9 +535,11 @@ end
 go
 -- spStartQuiz @IssuedQuizId = 0
 -- spGetQuizStudentByStudent @UserId=9
+-- spStartQuizStudent @UserId= 8,@QuizStudentId= 1
 -- spStartQuizStudent @UserId= 9,@QuizStudentId= 0
 select * from tbQuizStudent
 select * from tbUser
+select * from tbIssuedQuiz
 go
 create procedure spUpdateQuizStudent(
 @Userid int,
@@ -536,14 +550,14 @@ create procedure spUpdateQuizStudent(
 as begin
 if((select Status from tbQuizStudent where Userid=@Userid and QuizStudentid=@QuizStudentid) != 2)
 	begin
-		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse, Points=@Points
+		update tbQuizStudent set XMLStudentResponse = @XMLStudentResponse, Points=@Points where Userid=@Userid and QuizStudentid = @QuizStudentid
 	end
 end
 go
-
+select * from tbQuizStudent
 go
 create procedure spGetIssuedQuizByMentor (
-@Userid int
+@Userid int = null
 )
 as begin
 if EXISTS(select * from tbUser where Userid= @Userid and SecurityLevel != 1)
@@ -554,7 +568,7 @@ begin
 	join tbQuizStatus on tbQuizStatus.StatusId = tbIssuedQuiz.QuizStatus
 	join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
 	join tbCourse on tbCourse.Courseid = tbXMLQuizContent.CourseID
-	where tbIssuedQuiz.Mentorid = @Userid
+	where tbIssuedQuiz.Mentorid = isnull(@Userid, tbIssuedQuiz.Mentorid)
 	end
 end
 go
@@ -718,7 +732,7 @@ select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname + ', ' + Firstname as Studentname, Classname, Coursename,
 	Firstname,Password, tbClass.Classid, SecurityLevel,Email
     from  tbUser, tbCourse, tbClass 
-	where tbUser.Classid = isnull(tbUser.Classid, @Classid) and 
+	where tbUser.Classid = isnull(@Classid, tbUser.Classid) and 
 	      tbUser.Classid = tbClass.Classid and
 		  tbClass.Courseid = tbCourse.Courseid and
 	      tbUser.SecurityLevel = 1 -- students 
@@ -1161,3 +1175,48 @@ case when @SortColumn='Email desc' then Email end desc
 end
 go
 
+-------------Reports Start Here---------------
+
+create procedure spGetIssuedQuizes
+as begin
+select IssuedQuizId, tbIssuedQuiz.Versionid, tbIssuedQuiz.ClassId,
+       convert (varchar(12),DateIssued,107) as DateIssued, 
+       Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, Classname
+from tbIssuedQuiz, tbUser, tbQuizVersion, tbClass
+where tbIssuedQuiz.Mentorid = tbUser.Userid and
+      tbIssuedQuiz.Versionid = tbQuizVersion.Versionid and
+	  tbIssuedQuiz.ClassId = tbClass.Classid
+end
+go
+
+create procedure spGetQuizesByStatus(
+@QuizStatus int = null
+)
+as begin
+select IssuedQuizId, tbIssuedQuiz.Versionid, tbIssuedQuiz.ClassId,
+        convert (varchar(12),DateIssued,107) as DateIssued, 
+       Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, tbClass.Classname,
+	   tbIssuedQuiz.QuizStatus, tbQuizStatus.StatusName
+from tbIssuedQuiz, tbUser, tbQuizVersion, tbQuizStatus, tbClass
+where tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
+      tbIssuedQuiz.QuizStatus = tbQuizStatus.StatusId and
+      tbIssuedQuiz.Mentorid = tbUser.Userid and
+      tbIssuedQuiz.Versionid = tbQuizVersion.Versionid and
+	  tbIssuedQuiz.ClassId = tbClass.Classid
+end
+go
+
+create procedure spGetStudentResponseReport
+as begin
+declare @xmlvar XML;
+set     @xmlvar = (select XMLStudentResponse from tbQuizStudent)
+select  IssuedQuizId, tbQuizStudent.Userid as 'StudentID', 
+        Firstname + ' ' + Lastname as 'StudentName',
+        XMLStudentResponse, tbQuizStudentStatus.StatusName, 
+	    @xmlvar.value('count(/Questions/Question/ID)', 'INT') AS 'QuestionCount',
+		@xmlvar.value('count(/Questions/Question/UserAnswer)', 'INT') AS 'Points'
+from   tbQuizStudent, tbQuizStudentStatus, tbUser
+where  tbQuizStudent.Status = tbQuizStudentStatus.StatusId and
+       tbQuizStudent.Userid = tbUser.Userid
+end
+go

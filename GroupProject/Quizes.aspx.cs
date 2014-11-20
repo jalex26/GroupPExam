@@ -44,29 +44,37 @@ namespace GroupProject
         {
             if (e.CommandName == "Start")
             {//user select Start Quiz
-                Security mySecurity = new Security();
+                Security mySecurity = new Security(1);
                 string QuizStudentid = e.CommandArgument.ToString();
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
                 HttpContext.Current.Session["QuizStudentId"] = QuizStudentid;
                 myDal.AddParam("@QuizStudentId", QuizStudentid);
                 DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
+
                 if (ds.Tables[0].Rows.Count != 0)
                 {
-                    HttpContext.Current.Session["Quiz"] = ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString();
+                    if (HttpContext.Current.Session["Quiz"] == null)
+                    {
+                        string userID = HttpContext.Current.Session["Userid"].ToString();
+                        //string[] session = new string[] { HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString()), userID };
+
+                        HttpContext.Current.Session["Quiz"] = HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString());
+                    }
+                    
+
+                    //HttpCookie myCookie1 = new HttpCookie("userQuiz");
+                    ////it is required to encode the XML document when store/retrieve to Cookies
+                    //myCookie1.Values.Add("XML", HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString()));
+                    //myCookie1.Expires = DateTime.Now.AddDays(1);
+                    //if (HttpContext.Current.Request.Cookies["userQuiz"] == null || HttpContext.Current.Request.Cookies["userQuiz"]["UID"].ToString() != HttpContext.Current.Session["Userid"].ToString())
+                    //{// cookie does not exists yet.
+                    //    HttpContext.Current.Response.Cookies.Add(myCookie1);
+                    //}
                     Response.Redirect("QuizPage.aspx");
                 }
 
-                //im working at here now!!!!!!!!!! displaying the exam
-                //Response.Redirect("ItemPage.aspx?UPC=" + UPC);
             }
         }
-
-
-
-
-
-
-
     }
 }

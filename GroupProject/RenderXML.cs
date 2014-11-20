@@ -14,7 +14,10 @@ namespace GroupProject
         XmlDocument XmlDoc = new XmlDocument();
         DAL myDal = new DAL(Globals.conn);
         //private ObjectMultiple myOM = new ObjectMultiple();
+        public List<ObjectParentQuiz> ListQuestions = new List<ObjectParentQuiz>();
         public List<ObjectMultiple> ListMult = new List<ObjectMultiple>();
+        public List<ObjectTrueFalse> ListTrueFalse = new List<ObjectTrueFalse>();
+        public
         const string xmlNS = "urn:Question-Schema";
         XmlNode QuestionsNode;
         public RenderXML()
@@ -40,13 +43,6 @@ namespace GroupProject
             DataSet ds = new DataSet();
             ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
             return ds;
-
-            //XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
-            //XmlNodeList nodes = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions", ns);
-            //foreach (XmlNode xn in nodes)
-            //{
-
-            //}
         }
 
         public void GetNRandomizeXMLContent(string QuizVersionId, ListItem Student, string IssueNewQuidId)
@@ -81,45 +77,15 @@ namespace GroupProject
                         QuizDifficulty = xn["Difficulty"].InnerText;
                         QuizCourse = xn["Course"].InnerText;
                     }
-                    XmlNodeList GetQuestionMulti = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
+                    ProcessXML(XmlDoc);
 
-                    LoadXML(); // nothing here yet.
-                    foreach (XmlNode xn in GetQuestionMulti)
-                    {//top level multiple
-                        int QuestionId = Convert.ToInt16(xn.Attributes["ID"].Value);
-                        string Question = xn["Questi"].InnerText;
-                        XmlNodeList xno = xn.ChildNodes;
-
-                        XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Options", ns);
-                        string[] option = new string[4];
-                        string Correct = null;
-                        int x = 0;
-                        foreach (XmlNode xn2 in xn["Options"])
-                        {
-                            option[x] = xn2.InnerText;
-                            XmlNode node = xn2.Attributes["Correct"];
-                            if (node != null)
-                                Correct = xn2.InnerText;
-                            x++;
-                        }
-                        ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
-
-                        //foreach()
-                    }
-                    ListMult.Shuffle(); //fisher-yates Shuffle method
-                    //int questionid = ListMult[1].QuestionId;
-                    //string question = ListMult[1].Question;
-                    //string option1 = ListMult[1].Option1;
-                    //string option2 = ListMult[1].Option2;
-                    //string option3 = ListMult[1].Option3;
-                    //string option4 = ListMult[1].Option4;
-                    //string correct = ListMult[1].Correct;
+                    //ListMult.Shuffle(); //fisher-yates Shuffle method
                 }
             }
             if (Student.Value != null)
             {// generate new xml file
 
-                ListMult.Shuffle();
+                ListQuestions.Shuffle();
                 XmlDocument XmlNewDoc = new XmlDocument();
                 XmlNamespaceManager ns = new XmlNamespaceManager(XmlNewDoc.NameTable);
                 ns.AddNamespace("ns", "urn:Question-Schema");
@@ -168,7 +134,7 @@ namespace GroupProject
                 QuestionsNode.AppendChild(longAnswer);
                 //Add XML NODE one by ONE
                 //Multiple Choices
-                foreach (ObjectMultiple mult in ListMult)
+                foreach (ObjectMultiple mult in ListQuestions.OfType<ObjectMultiple>())
                 {
                     XmlNode Multi = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice", ns);
 
@@ -176,13 +142,13 @@ namespace GroupProject
                     Multi.AppendChild(Question);
 
                     XmlAttribute QuestionID = XmlNewDoc.CreateAttribute("ID");
-                    QuestionID.Value = mult.QuestionId.ToString();
+                    QuestionID.Value = mult._QuestionId.ToString();
                     Question.Attributes.Append(QuestionID);
 
                     XmlNode Questio = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
 
                     XmlElement Questi = XmlNewDoc.CreateElement("Questi", xmlNS);
-                    Questi.InnerText = mult.Question;
+                    Questi.InnerText = mult._Question;
                     Questio.AppendChild(Questi);
 
                     XmlElement Options = XmlNewDoc.CreateElement("Options", xmlNS);
@@ -192,26 +158,50 @@ namespace GroupProject
                     XmlElement Option2 = XmlNewDoc.CreateElement("Option", xmlNS);
                     XmlElement Option3 = XmlNewDoc.CreateElement("Option", xmlNS);
                     XmlElement Option4 = XmlNewDoc.CreateElement("Option", xmlNS);
-                    Option1.InnerText = mult.Option1;
+                    Option1.InnerText = mult._Option1;
                     Options.AppendChild(Option1);
-                    Option2.InnerText = mult.Option2;
+                    Option2.InnerText = mult._Option2;
                     Options.AppendChild(Option2);
-                    Option3.InnerText = mult.Option3;
+                    Option3.InnerText = mult._Option3;
                     Options.AppendChild(Option3);
-                    Option4.InnerText = mult.Option4;
+                    Option4.InnerText = mult._Option4;
                     Options.AppendChild(Option4);
                     XmlAttribute Correct = XmlNewDoc.CreateAttribute("Correct");
                     Correct.Value = "yes";
-                    if (mult.Correct == mult.Option1)
+                    if (mult._Correct == mult._Option1)
                         Option1.Attributes.Append(Correct);
-                    else if (mult.Correct == mult.Option2)
+                    else if (mult._Correct == mult._Option2)
                         Option2.Attributes.Append(Correct);
-                    else if (mult.Correct == mult.Option3)
+                    else if (mult._Correct == mult._Option3)
                         Option3.Attributes.Append(Correct);
                     else
                         Option4.Attributes.Append(Correct);
                     Question.AppendChild(Questi);
                     Question.AppendChild(Options);
+                }
+                foreach (ObjectTrueFalse TrueFalse in ListQuestions.OfType<ObjectTrueFalse>())
+                {
+                    XmlNode TF = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse", ns);
+
+                    XmlElement Question = XmlNewDoc.CreateElement("Question", xmlNS);
+                    TF.AppendChild(Question);
+
+                    XmlAttribute QuestionID = XmlNewDoc.CreateAttribute("ID");
+                    QuestionID.Value = TrueFalse._QuestionId.ToString();
+                    Question.Attributes.Append(QuestionID);
+
+                    XmlNode Questio = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
+
+                    XmlElement Questi = XmlNewDoc.CreateElement("Questi", xmlNS);
+                    Questi.InnerText = TrueFalse._Question;
+                    Questio.AppendChild(Questi);
+
+                    XmlElement Answer = XmlNewDoc.CreateElement("Answer", xmlNS);
+                    Answer.InnerText = TrueFalse._Answer;
+                    Questio.AppendChild(Answer);
+
+                    Question.AppendChild(Questi);
+                    Question.AppendChild(Answer);
                 }
 
                 //save the newly generatedXML
@@ -223,6 +213,50 @@ namespace GroupProject
 
             }
 
+        }
+
+        private void ProcessXML(XmlDocument XmlNewDoc)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(XmlNewDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            XmlNodeList GetQuestionMulti = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
+            XmlNodeList GetQuestionTrueFalse = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
+
+            // LoadXML(); // nothing here yet.
+            foreach (XmlNode xn in GetQuestionMulti)
+            {//top level multiple
+                int QuestionId = Convert.ToInt16(xn.Attributes["ID"].Value);
+                string Question = xn["Questi"].InnerText;
+                XmlNodeList xno = xn.ChildNodes;
+
+                XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Options", ns);
+                string[] option = new string[4];
+                string Correct = null;
+                int x = 0;
+                foreach (XmlNode xn2 in xn["Options"])
+                {
+                    option[x] = xn2.InnerText;
+                    XmlNode node = xn2.Attributes["Correct"];
+                    if (node != null)
+                        Correct = xn2.InnerText;
+                    x++;
+                }
+                //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                ListQuestions.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                //foreach()
+            }
+
+            //TRUE OR FALSE
+            foreach (XmlNode xn in GetQuestionTrueFalse)
+            {
+                int QuestionId = Convert.ToInt16(xn.Attributes["ID"].Value);
+                string Question = xn["Questi"].InnerText;
+                string Answer = xn["Answer"].InnerText;
+                XmlNodeList xno = xn.ChildNodes;
+                ListQuestions.Add(new ObjectTrueFalse(QuestionId, Question, Answer));
+            }
+
+            ListQuestions.Shuffle();
         }
 
 
