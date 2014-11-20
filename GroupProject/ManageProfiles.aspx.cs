@@ -18,7 +18,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Security mySecurity = new Security(1);
+            Security mySecurity = new Security(2);
             if (!IsPostBack)
             {
 
@@ -67,7 +67,7 @@ namespace GroupProject
 
         private void loadUsers(StateCookies mySate)
         {
-            Security mySecurity = new Security();
+            //Security mySecurity = new Security();
             DataSet ds = new DataSet();
             myDal.ClearParams();
             gvSettings.DataSource = myDal.ExecuteProcedure("spGetUsers");
