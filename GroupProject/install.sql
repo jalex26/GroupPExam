@@ -1283,7 +1283,6 @@ GROUP BY
 
 end
 go
-
 --------------------------INSERTS FOR TESTING--------------------------
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><longAnswer /></Questions></Quiz>'
 go
@@ -1331,4 +1330,3 @@ select * from tbXMLQuizContent
 select * from tbClass
 select * from tbCourse
 select * from tbQuizVersion
-
