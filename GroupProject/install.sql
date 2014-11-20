@@ -79,7 +79,7 @@ insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture
 ('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
-('Adrian','Carter','Adrian1',0,1,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
+('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
 ('Samuel','Gear','Samuel1',1,1,'Samuel.jpg','Samuel.Gear@robertsoncollege.net'),
 ('Nathaniel','Bosman','Nathaniel',1,1,'SamplePicture1.jpg','Nathaniel@robertsoncollege.net'),
