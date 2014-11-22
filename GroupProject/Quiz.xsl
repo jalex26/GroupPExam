@@ -94,12 +94,12 @@
                 
                 <xsl:choose>
                   <xsl:when test="@Correct">
-                    <OPTION VALUE ="1">
+                    <OPTION VALUE ="1" name="Question{$QuestionID}" id="{position()}">
                       <xsl:value-of select="$OptionText"/>
                     </OPTION>
                   </xsl:when>
                   <xsl:otherwise>
-                    <OPTION VALUE ="0">
+                    <OPTION VALUE ="0" name="Question{$QuestionID}" id="{position()}">
                       <xsl:value-of select="$OptionText"/>
                     </OPTION>
                   </xsl:otherwise>

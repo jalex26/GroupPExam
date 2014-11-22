@@ -129,9 +129,7 @@ namespace GroupProject
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
             XmlDocument fullXml;
-
             string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
-
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
 
             string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
@@ -168,7 +166,7 @@ namespace GroupProject
                 {
                     myDal.ClearParams();
                     myDal.AddParam("@xml", xml);
-                    myDal.ExecuteProcedure("spInsertXMLContent");
+                   DataSet ds1 =  myDal.ExecuteProcedure("spInsertXMLContent");
                 }
                 catch (Exception)
                 {
