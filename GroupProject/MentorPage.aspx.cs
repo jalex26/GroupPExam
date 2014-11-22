@@ -28,7 +28,7 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadCourse();
-                loadQuiz();
+                
                 
             }
         }
@@ -188,14 +188,20 @@ namespace GroupProject
             ddlClass.Items.Insert(0, new ListItem("-Select Class-", String.Empty));
             ddlClass.SelectedIndex = 0;
 
+            loadQuiz();
+
             DataSet ds1 = LB.LoadQuizes(ddlCourse.SelectedValue.ToString());
-            ddlSelectQuiz.DataTextField = "Title";
-            ddlSelectQuiz.DataValueField = "XMLQuizID";
-            ddlSelectQuiz.DataSource = ds1;
-            ddlSelectQuiz.DataBind();
-            ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
-            ddlSelectQuiz.SelectedIndex = 0;
-            lblQuizDuration.Text = "Select quiz first";
+            if(ds1.Tables[0].Rows.Count != 0)
+            {
+                ddlSelectQuiz.DataTextField = "Title";
+                ddlSelectQuiz.DataValueField = "XMLQuizID";
+                ddlSelectQuiz.DataSource = ds1;
+                ddlSelectQuiz.DataBind();
+                ddlSelectQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
+                ddlSelectQuiz.SelectedIndex = 0;
+                lblQuizDuration.Text = "Select quiz first";
+            }
+            
         }
 
         protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
@@ -250,6 +256,10 @@ namespace GroupProject
 
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();
+            DLExamDemoFillBlanks.DataSource = QuizNode;
+            DLExamDemoFillBlanks.DataBind();
+            DLExamDemoTrueFalse.DataSource = QuizNode;
+            DLExamDemoTrueFalse.DataBind();
             MPE1.Show();
 
         }
@@ -311,6 +321,10 @@ namespace GroupProject
             XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();
+            DLExamDemoFillBlanks.DataSource = QuizNode;
+            DLExamDemoFillBlanks.DataBind();
+            DLExamDemoTrueFalse.DataSource = QuizNode;
+            DLExamDemoTrueFalse.DataBind();
             MPE1.Show();
 
         }
