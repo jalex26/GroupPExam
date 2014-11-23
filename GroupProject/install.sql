@@ -532,7 +532,7 @@ if Exists(select * from tbQuizStudent where Userid = @UserId and IssuedQuizId in
 		join tbIssuedQuiz on tbIssuedQuiz.IssuedQuizId = tbQuizStudent.IssuedQuizId
 		join tbQuizVersion on tbQuizVersion.Versionid = tbIssuedQuiz.Versionid
 		join tbXMLQuizContent on tbXMLQuizContent.XMLQuizID = tbQuizVersion.Quizid
-		where Userid = @UserId
+		where Userid = @UserId and tbIssuedQuiz.QuizStatus = 1
 	end
 else
 	begin
@@ -548,7 +548,7 @@ select * from tbQuizStudent
 select * from tbUser
 select * from tbXMLQuizContent
 select * from tbQuizVersion
-
+select * from tbIssuedQuiz
 
 go
 create procedure spUpdateQuizStudent(

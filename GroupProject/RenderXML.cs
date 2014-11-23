@@ -229,7 +229,7 @@ namespace GroupProject
                         Options.AppendChild(Option);
                         for (int x = 0; x < FillBlank._Correct.Count; x++)
                         {
-                            if (FillBlank._Correct[x].ToString() == FillBlank._Option[i].ToString())
+                            if (FillBlank._Correct[x].Contains(FillBlank._Option[i].ToString()))
                             {
                                 XmlAttribute Correct = XmlNewDoc.CreateAttribute("Correct");
                                 Correct.Value = "yes";

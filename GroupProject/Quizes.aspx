@@ -5,20 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%--    <script src="js/jquery-2.1.1.js"></script>--%>
     <div>
-        <asp:Panel ID="pnlMultipleQuestion" runat="server" Visible="false">
-            <asp:Label ID="lblQuestionId" Text="Question #" runat="server" />
-            <br />
-            <asp:Label ID="lblQuestion" runat="server" />
-            <br />
-            <asp:RadioButton ID="rdoOption1" runat="server" /><br />
-            <asp:RadioButton ID="rdoOption2" runat="server" /><br />
-            <asp:RadioButton ID="rdoOption3" runat="server" /><br />
-            <asp:RadioButton ID="rdoOption4" runat="server" />
-        </asp:Panel>
-        <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/TestXSL.aspx">LinkButton</asp:LinkButton>
-
-    </div>
-    <div>
         <asp:DataList ID="dlPendingQuiz" RepeatColumns="1" runat="server" DataKeyField="QuizStudentid" OnItemCommand="dlPendingQuiz_ItemCommand">
             <ItemTemplate>
                 <div>
