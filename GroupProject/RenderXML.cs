@@ -129,9 +129,6 @@ namespace GroupProject
 
                 XmlElement TrueFalseNode = XmlNewDoc.CreateElement("TrueFalse", xmlNS);
                 QuestionsNode.AppendChild(TrueFalseNode);
-
-                XmlElement longAnswer = XmlNewDoc.CreateElement("longAnswer", xmlNS);
-                QuestionsNode.AppendChild(longAnswer);
                 //Add XML NODE one by ONE
                 //Multiple Choices
                 foreach (ObjectMultiple mult in ListQuestions.OfType<ObjectMultiple>())
@@ -204,6 +201,47 @@ namespace GroupProject
                     Question.AppendChild(Answer);
                 }
 
+                foreach (ObjectFillin FillBlank in ListQuestions.OfType<ObjectFillin>())
+                {
+                    XmlNode Fill = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks", ns);
+
+                    XmlElement Question = XmlNewDoc.CreateElement("Question", xmlNS);
+                    Fill.AppendChild(Question);
+
+                    XmlAttribute QuestionID = XmlNewDoc.CreateAttribute("ID");
+                    QuestionID.Value = FillBlank._QuestionId.ToString();
+                    Question.Attributes.Append(QuestionID);
+
+                    XmlNode Questio = XmlNewDoc.SelectSingleNode("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns);
+
+                    XmlElement Questi = XmlNewDoc.CreateElement("Questi", xmlNS);
+                    Questi.InnerText = FillBlank._Question;
+                    Questio.AppendChild(Questi);
+
+                    XmlElement Options = XmlNewDoc.CreateElement("Options", xmlNS);
+                    Questio.AppendChild(Options);
+
+
+                    for (int i = 0; i < FillBlank._Option.Count; i++)
+                    {
+                        XmlElement Option = XmlNewDoc.CreateElement("Option", xmlNS);
+                        Option.InnerText = FillBlank._Option[i];
+                        Options.AppendChild(Option);
+                        for (int x = 0; x < FillBlank._Correct.Count; x++)
+                        {
+                            if (FillBlank._Correct[x].ToString() == FillBlank._Option[i].ToString())
+                            {
+                                XmlAttribute Correct = XmlNewDoc.CreateAttribute("Correct");
+                                Correct.Value = "yes";
+                                Option.Attributes.Append(Correct);
+                            }
+                        }
+
+                    }
+                    Question.AppendChild(Questi);
+                    Question.AppendChild(Options);
+                }
+
                 //save the newly generatedXML
                 myDal.ClearParams();
                 myDal.AddParam("@IssuedQuizId", IssueNewQuidId);
@@ -221,6 +259,7 @@ namespace GroupProject
             ns.AddNamespace("ns", "urn:Question-Schema");
             XmlNodeList GetQuestionMulti = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns);
             XmlNodeList GetQuestionTrueFalse = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns);
+            XmlNodeList GetQuestionFillBlanks = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns);
 
             // LoadXML(); // nothing here yet.
             foreach (XmlNode xn in GetQuestionMulti)
@@ -255,6 +294,31 @@ namespace GroupProject
                 XmlNodeList xno = xn.ChildNodes;
                 ListQuestions.Add(new ObjectTrueFalse(QuestionId, Question, Answer));
             }
+
+
+            foreach (XmlNode xn in GetQuestionFillBlanks)
+            {//top level multiple
+                int QuestionId = Convert.ToInt16(xn.Attributes["ID"].Value);
+                string Question = xn["Questi"].InnerText;
+                XmlNodeList xno = xn.ChildNodes;
+
+                XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/ns:Options", ns);
+                List<string> options = new List<string>();
+                List<string> correct = new List<string>();
+                foreach (XmlNode xn2 in xn["Options"])
+                {
+                    options.Add(xn2.InnerText);
+                    XmlNode node = xn2.Attributes["Correct"];
+                    if (node != null)
+                    {
+                        correct.Add(xn2.InnerText);
+                    }
+                }
+                //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                ListQuestions.Add(new ObjectFillin(QuestionId, Question, correct, options));
+                //foreach()
+            }
+
 
             ListQuestions.Shuffle();
         }

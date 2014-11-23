@@ -78,7 +78,7 @@
           </div>
         </xsl:for-each>
         
-      <!--fillIn-->
+      <!--fillBlanks-->
         <xsl:for-each select="t:Questions/t:FillBlanks/t:Question">
           <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
 

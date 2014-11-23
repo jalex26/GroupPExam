@@ -9,19 +9,19 @@ namespace GroupProject
     {
         public string _Question { get; set; }
         public List<string> _Correct { get; set; }
-        public List<string> _Wrong { get; set; }
+        public List<string> _Option { get; set; }
 
         public ObjectFillin()
         {
             //constructor
         }
 
-        public ObjectFillin(int QuestionId,string Questi, List<string> Correct, List<string> Wrong)
+        public ObjectFillin(int QuestionId,string Questi, List<string> Correct, List<string> Options)
         {
             this._QuestionId = QuestionId;
             this._Question = Questi;
             this._Correct = Correct;
-            this._Wrong = Wrong;
+            this._Option = Options;
         }
     }
 }
