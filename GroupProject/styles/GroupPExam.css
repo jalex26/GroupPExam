@@ -540,3 +540,11 @@ label {
     width: 500px;
     height: 350px;
 }
+
+.Question {
+    background-color: #e6d6e6;
+    box-shadow: 10px 10px 5px #8B8989;
+    /*-webkit-box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);
+-moz-box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);
+box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);*/
+}
