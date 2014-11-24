@@ -33,9 +33,11 @@ namespace GroupProject
             Panel myPanel = (Panel)Master.FindControl("pnlLogin");
             myPanel.Visible = false;
 
+            ReportViewer1.Visible = false;
+
             if (!IsPostBack)
             {
-                loadCourse();
+                loadCourse();           
             }
         }
 
@@ -66,6 +68,7 @@ namespace GroupProject
 
                     if (ds.Tables[0].Rows.Count != 0)
                     {
+                        lblMessage.Text = "";
                         gvIssuedQuizes.DataSource = ds.Tables[0];
                         gvIssuedQuizes.DataBind();
                         gvIssuedQuizes.Visible = true;
@@ -143,7 +146,7 @@ namespace GroupProject
 
                 case 4:
                     // Loads 'Student Response Report' Report
-                   
+                    lblMessage.Text = "";
                     ReportViewer1.ProcessingMode = ProcessingMode.Local;
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report1.rdlc");
                     ReportDataSource datasource = new ReportDataSource("dsStudentResponse", GetStudentResponseData());
@@ -154,6 +157,7 @@ namespace GroupProject
 
                 case 5:
                     // Loads 'Quiz Analysis'
+                    lblMessage.Text = "";
                     ReportViewer1.ProcessingMode = ProcessingMode.Local;
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report2.rdlc");
                     ReportDataSource datasource2 = new ReportDataSource("dsQuizDetails", GetQuizDetailsData());
@@ -162,8 +166,8 @@ namespace GroupProject
                     break;
 
                 case 6:
-                    // Graphical Analysis of Quiz Questions/ Test Data
-
+                    // Graphical Analysis of Quiz Questions/ Test Data (overall 
+                    lblMessage.Text = "";
 
                     break;
 
@@ -174,10 +178,10 @@ namespace GroupProject
 
         public DataTable GetStudentResponseData()
         {
-            myDal.ClearParams();
-            myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
-            myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
-            return myDal.ExecuteProcedure("spGetStudentResponseReport").Tables[0];
+                myDal.ClearParams();
+                myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
+                myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
+                return myDal.ExecuteProcedure("spGetStudentResponseReport").Tables[0];
         }
 
         public DataTable GetQuizDetailsData()
@@ -189,6 +193,8 @@ namespace GroupProject
 
         protected void btnViewReport_Click(object sender, EventArgs e)
         {
+            ReportViewer1.Visible = true;
+
             loadReports();
         }
 
@@ -281,7 +287,8 @@ namespace GroupProject
         //}
 
         protected void ddlReports_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {          
+
             switch (ddlReports.SelectedIndex)
             {
                 case 0:
@@ -301,7 +308,8 @@ namespace GroupProject
                     break;
                 case 5:
                     pnlAdditionalDetails.Visible = true;
-                    pnlClass.Visible = false;
+                    lblClass.Visible = false;
+                    ddlClass.Visible = false;
 
                     break;
                 case 6:
@@ -316,6 +324,8 @@ namespace GroupProject
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
+
             DataSet ds = LB.LoadClasses(ddlCourse.SelectedValue.ToString());
             ddlClass.DataTextField = "Classname";
             ddlClass.DataValueField = "Classid";
@@ -336,7 +346,9 @@ namespace GroupProject
         }
 
         protected void ddlQuiz_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
+            
+
             DataSet ds = LB.LoadQuizVersions(ddlQuiz.SelectedValue.ToString());
             ddlVersion.DataTextField = "Version";
             ddlVersion.DataValueField = "Versionid";

@@ -30,7 +30,7 @@
         <br />
         <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
           
-        <asp:DropDownList ID="ddlClassname" runat="server" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="ddlClassname" runat="server" AutoPostBack="true"></asp:DropDownList>
         <br />
         <br />
          <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"

@@ -71,7 +71,7 @@ LostPass varchar(20) null
 )
 go
 
-
+select * from tbUser
 insert into tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
