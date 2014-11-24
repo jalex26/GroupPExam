@@ -540,7 +540,7 @@ else
 	end
 end
 go
- -- spStartQuiz @IssuedQuizId = 0
+ -- spStartQuiz @IssuedQuizId = 1
 -- spGetQuizStudentByStudent @UserId=9
 -- spStartQuizStudent @UserId= 8,@QuizStudentId= 1
 -- spStartQuizStudent @UserId= 9,@QuizStudentId= 0

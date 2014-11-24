@@ -3,6 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <div id="content">
+      
+        <asp:Panel ID="pnlQuiz" HorizontalAlign="Center" runat="server">
+
+            <img src="Pictures/Quiz.jpg" style="width: 750px; height: 246px;" />
+            <br />
+           <h2> Welcome to the Online Test Page! </h2>
+
+            </asp:Panel>
+
     <script src="js/jquery-2.1.1.js"></script>
     <link href="styles/GroupPExam.css" rel="stylesheet" />
     <script type="text/javascript">
@@ -233,11 +244,20 @@
     </script>
 
     <div>
+        
         <asp:Xml ID="XMLquiz" runat="server"></asp:Xml>
+        
+<br />
+<br />   
+        <asp:Panel ID="pnlbuttons" HorizontalAlign="Center" runat="server">
         <input type="button" id="back" name="back" value="BACK" />
         <input type="button" id="next" name="next" value="NEXT" />
         <input type="hidden" name="tempXML" id="tempXML" />
+            </asp:Panel>
 
         <%--use the hiddenfield to SET the SESSION since it cannot set by SERVER using JAVASCRIPT. but i can retrieve it from USER BROWSER. --%>
     </div>
+
+
+        </div>
 </asp:Content>

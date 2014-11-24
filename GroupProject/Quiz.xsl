@@ -5,20 +5,30 @@
   <!--<xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>-->
 
   
-  <xsl:template match="/t:Quiz">
+  <xsl:template match="/t:Quiz">  
     <html>
       <body>
         <div>
+     
           <xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>
           <br/>
           <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
-            <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
+            <xsl:variable name="QuestionID" select="@ID"></xsl:variable>        
             <div class="Question">
-              <div class="">
-                Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
+              <div style="font-style:italic;">
+                <br />
+                <br />             
+            You are viewing Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
               </div>
+
+              <br />
+              <br />
+          
+              Question:
               <xsl:value-of select="t:Questi"/>
-              <br/>
+             
+              <br />
+             
               <xsl:variable name="UserAnswer" select="t:UserAnswer"></xsl:variable>
               <panel class="options">
                 <xsl:for-each select="t:Options/t:Option">

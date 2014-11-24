@@ -13,6 +13,15 @@ namespace GroupProject {
     public partial class QuizPage {
         
         /// <summary>
+        /// pnlQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlQuiz;
+        
+        /// <summary>
         /// XMLquiz control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Xml XMLquiz;
+        
+        /// <summary>
+        /// pnlbuttons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlbuttons;
     }
 }
