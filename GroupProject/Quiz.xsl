@@ -14,7 +14,7 @@
             <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
             <div class="Question">
               <div class="">
-                Question <input type="text" id="PageNumber" size="4" /> of <xsl:value-of select="$recordCount"/>
+                Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
               </div>
               <xsl:value-of select="t:Questi"/>
               <br/>
@@ -51,6 +51,9 @@
             <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
             <xsl:variable name="CorrectAnswer" select="t:Answer"></xsl:variable>
             <div class="Question">
+              <div class="">
+                Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
+              </div>
               <xsl:value-of select="t:Questi"/>
               <br/>
               <xsl:variable name="UserAnswer" select="t:UserAnswer"></xsl:variable>
@@ -93,6 +96,9 @@
             <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
 
             <div class="Question">
+              <div class="">
+                Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
+              </div>
               <xsl:value-of select="t:Questi"/>
               <xsl:variable name="BlankToDropDown" select="________________"></xsl:variable>
               <panel class="options">
