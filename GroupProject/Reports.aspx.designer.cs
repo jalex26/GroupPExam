@@ -49,13 +49,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
         
         /// <summary>
-        /// pnlClass control.
+        /// lblClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlClass;
+        protected global::System.Web.UI.WebControls.Label lblClass;
         
         /// <summary>
         /// ddlClass control.

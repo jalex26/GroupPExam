@@ -30,17 +30,16 @@
             <br />
 
             <asp:Panel ID="pnlAdditionalDetails" Visible="false" runat="server">
+                                
                 Select Course:
                 <asp:DropDownList ID="ddlCourse" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged" AutoPostBack="true" runat="server">
                 </asp:DropDownList>
-                &nbsp; 
-
-                <asp:Panel ID="pnlClass" runat="server">
-               Select Class:
+                         
+                    <asp:Label ID="lblClass" runat="server" Text="Select Class:"></asp:Label>
             <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server">
             </asp:DropDownList>
-                    </asp:Panel>
-                &nbsp;
+                
+            
 
                 Select Quiz:
             <asp:DropDownList ID="ddlQuiz" OnSelectedIndexChanged="ddlQuiz_SelectedIndexChanged" AutoPostBack="true" runat="server">
@@ -50,6 +49,7 @@
                    <asp:DropDownList ID="ddlVersion" runat="server">
                    </asp:DropDownList>
             </asp:Panel>
+            <br /> <br />
             Click the View Report Button to Get Data:
                <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClick="btnViewReport_Click" />
 

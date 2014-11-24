@@ -224,7 +224,7 @@ body {
 input, textarea, select {
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
-    height: 24px;
+    /*height: 24px;*/
 }
 
 .field {
