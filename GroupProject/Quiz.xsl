@@ -3,7 +3,6 @@
   
   <!--<xsl:variable name="PageNumber" select="0" />-->
   <!--<xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>-->
-
   
   <xsl:template match="/t:Quiz">
     <html>
