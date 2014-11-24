@@ -27,6 +27,8 @@
             });
             var item1 = document.getElementById('Question');
             var currentQuestion = GetUserLastPage();        // user currently at. default = 0
+            var currentPage = document.getElementById("PageNumber").innerHTML;
+            currentPage = currentQuestion + 1;
             var totalQuestions = $('.Question').size();
             var result;
             var UserID;
@@ -234,6 +236,7 @@
         <input type="button" id="back" name="back" value="BACK" />
         <input type="button" id="next" name="next" value="NEXT" />
         <input type="hidden" name="tempXML" id="tempXML" />
+       
         <%--use the hiddenfield to SET the SESSION since it cannot set by SERVER using JAVASCRIPT. but i can retrieve it from USER BROWSER. --%>
     </div>
 </asp:Content>

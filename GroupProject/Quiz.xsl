@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:t="urn:Question-Schema">
+  
+  <!--<xsl:variable name="PageNumber" select="0" />-->
+  <!--<xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>-->
 
   <xsl:template match="/t:Quiz">
     <html>
       <body>
         <div>
+          <xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>
+          <br/>
           <xsl:for-each select="t:Questions/t:MultipleChoice/t:Question">
             <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
             <div class="Question">
+              <div class="">
+                Question <input type="text" id="PageNumber" size="4" /> of <xsl:value-of select="$recordCount"/>
+              </div>
               <xsl:value-of select="t:Questi"/>
               <br/>
               <xsl:variable name="UserAnswer" select="t:UserAnswer"></xsl:variable>
