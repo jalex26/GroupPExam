@@ -4,13 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="js/jquery-2.1.1.js"></script>
+    <link href="styles/GroupPExam.css" rel="stylesheet" />
     <script type="text/javascript">
         $(document).ready(function () {
             answers = new Object();
             $('.option').change(function () {
                 var answer = ($(this).attr('value'))
+                if (answer == undefined) {
+                    answer = ($(this).find("Option:selected").attr('value'))
+                }
                 var question = ($(this).attr('name'))
                 var ChoicePosition = ($(this).attr('id'))
+                if (ChoicePosition == undefined) {
+                    ChoicePosition = ($(this).find("Option:selected").attr('id'))
+                }
                 // answers[question] = answer
                 var select = [answer, ChoicePosition]
                 answers[question] = select
@@ -18,6 +25,9 @@
             });
             var item1 = document.getElementById('Question');
             var currentQuestion = GetUserLastPage();        // user currently at. default = 0
+            var currentPage = currentQuestion + 1;
+            $('[id="PageNumber"]').val(currentPage);
+            //$('[id="PageNumber"]')
             var totalQuestions = $('.Question').size();
             var result;
             var UserID;
@@ -44,20 +54,20 @@
             $('#next').click(function () {
                 $($questions.get(currentQuestion)).fadeOut(function () {
                     currentQuestion = Number(currentQuestion) + 1;
+                    result = sum_values()
+                    var currentPage = currentQuestion + 1; //gets the current showing page
+                    $('[id="PageNumber"]').val(currentPage);
                     if (currentQuestion == totalQuestions) {
-                        result = sum_values()
+
                         //do stuff with the result
                         SendToServerAndStatus();
                         alert(result);
                     }
-                    else if(currentQuestion %3 == 0)
-                    {
+                    else if (currentQuestion % 3 == 0) {
                         SendToServerAndStatus();// send to web server every 3 questions to reduce server load
                         $($questions.get(currentQuestion)).fadeIn();
                     }
-
                     else {
-                        result = sum_values()
                         $($questions.get(currentQuestion)).fadeIn();
                     }
                 });
@@ -65,6 +75,8 @@
             $('#back').click(function () {
                 $($questions.get(currentQuestion)).fadeOut(function () {
                     currentQuestion = Number(currentQuestion) - 1;
+                    var currentPage = currentQuestion + 1; //gets the current showing page
+                    $('[id="PageNumber"]').val(currentPage);
                     if (currentQuestion == totalQuestions) {
                         result = sum_values()
                         //do stuff with the result
@@ -130,14 +142,19 @@
                 if ($Question.parents("TrueFalse").length != 0) {
                     $OptionSelected = UserAnswerPosition
                 }
-                if ($Question.parents("MultipleChoice").length != 0)
-                {
+                if ($Question.parents("MultipleChoice").length != 0) {
                     $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
                     $Option = $Question.find("Options");
                     //$OptionSelected now holds the Answer of the user. the TEXT answer
                     $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
                 }
-                
+                if ($Question.parents("FillBlanks").length != 0) {
+                    $Option = $xmlFile.find("Question[ID='" + QuestionID + "']").find("Options");
+                    $Option = $Question.find("Options");
+                    //$OptionSelected now holds the Answer of the user. the TEXT answer
+                    $OptionSelected = $Option.find("Option:eq('" + fixPosition + "')").text();
+                }
+
                 //Append the OptionSelected to USERANSWER element
                 if ($Question.attr('done') == undefined) {
                     $Question.attr('done', 'true'); //mark the question done!
@@ -153,7 +170,6 @@
                     //$($.parseXML('<UserAnswer>' + $OptionSelected + '</UserAnswer>')).text("UserAnswer").appendTo($Question);
                 }
 
-                //x = XMLDoc.getElementsByTagName("Question");
                 var XMLString;
                 //IE
                 if (window.ActiveXObject) {
@@ -221,6 +237,7 @@
         <input type="button" id="back" name="back" value="BACK" />
         <input type="button" id="next" name="next" value="NEXT" />
         <input type="hidden" name="tempXML" id="tempXML" />
+
         <%--use the hiddenfield to SET the SESSION since it cannot set by SERVER using JAVASCRIPT. but i can retrieve it from USER BROWSER. --%>
     </div>
 </asp:Content>
