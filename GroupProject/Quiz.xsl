@@ -4,6 +4,7 @@
   <!--<xsl:variable name="PageNumber" select="0" />-->
   <!--<xsl:variable name="recordCount" select="count(t:Questions/t:MultipleChoice/t:Question) + count(t:Questions/t:TrueFalse/t:Question) + count(t:Questions/t:FillBlanks/t:Question)"/>-->
 
+  
   <xsl:template match="/t:Quiz">
     <html>
       <body>
@@ -94,7 +95,6 @@
           <!--fillBlanks-->
           <xsl:for-each select="t:Questions/t:FillBlanks/t:Question">
             <xsl:variable name="QuestionID" select="@ID"></xsl:variable>
-
             <div class="Question">
               <div class="">
                 Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
