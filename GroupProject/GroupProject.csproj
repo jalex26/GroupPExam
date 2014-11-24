@@ -56,6 +56,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
@@ -162,6 +163,16 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="dsQuizDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExamDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExamDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,6 +203,7 @@
     <Compile Include="MyAccount.aspx.designer.cs">
       <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ObjectFillin.cs" />
     <Compile Include="ObjectMultiple.cs" />
     <Compile Include="ObjectParentQuiz.cs" />
     <Compile Include="ObjectTrueFalse.cs" />
@@ -261,6 +273,11 @@
       <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="StateCookies.cs" />
+    <Compile Include="StudentResponse.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentResponse.xsd</DependentUpon>
+    </Compile>
     <Compile Include="testxsl.aspx.cs">
       <DependentUpon>testxsl.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -275,6 +292,39 @@
     <Content Include="img\Thumbs.db" />
     <Content Include="packages.config" />
     <Content Include="QuizHandler.ashx" />
+    <Content Include="StudentResponse.xsc">
+      <DependentUpon>StudentResponse.xsd</DependentUpon>
+    </Content>
+    <Content Include="ExamDataSet.xsc">
+      <DependentUpon>ExamDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="dsQuizDetails.xsc">
+      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+    </Content>
+    <None Include="dsQuizDetails.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsQuizDetails.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsQuizDetails.xss">
+      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+    </Content>
+    <None Include="ExamDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExamDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ExamDataSet.xss">
+      <DependentUpon>ExamDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="StudentResponse.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentResponse.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="StudentResponse.xss">
+      <DependentUpon>StudentResponse.xsd</DependentUpon>
+    </Content>
     <None Include="validator.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -293,6 +343,10 @@
       <Project>{e3026510-5b06-4ff2-816b-3f06cbe5f7df}</Project>
       <Name>DAL_Project</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="Report2.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
