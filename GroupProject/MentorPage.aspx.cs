@@ -363,7 +363,7 @@ namespace GroupProject
                 {
                     myDal.ClearParams();
                     myDal.AddParam("@IssuedQuizId", IssuedQuizId.ToString());
-                    DataSet ds = myDal.ExecuteProcedure("getIssuedQuizDetails");
+                    DataSet ds = myDal.ExecuteProcedure("spgetIssuedQuizDetails");
                     if(ds.Tables[0].Rows.Count != 0)
                     {
                         lblIssuedQuizId.Text = ds.Tables[0].Rows[0]["IssuedQuizId"].ToString();

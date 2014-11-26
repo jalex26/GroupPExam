@@ -583,7 +583,7 @@ go
 spGetIssuedQuizByMentor @Userid= 0
 go
 
-create procedure getIssuedQuizDetails(
+create procedure spgetIssuedQuizDetails(
 @IssuedQuizId int
 )
 as begin
