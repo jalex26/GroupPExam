@@ -539,7 +539,7 @@ else
 	end
 end
 go
- -- spStartQuiz @IssuedQuizId = 1
+-- spStartQuiz @IssuedQuizId = 1
 -- spGetQuizStudentByStudent @UserId=9
 -- spStartQuizStudent @UserId= 8,@QuizStudentId= 1
 -- spStartQuizStudent @UserId= 9,@QuizStudentId= 0
@@ -1291,6 +1291,21 @@ GROUP BY
 
 end
 go
+
+create procedure spGetStudentResponseDetails(
+@QuizStudentid int = null
+)
+as begin
+select tbQuizStudent.QuizStudentid, tbQuizStudent.IssuedQuizId, tbQuizStudent.Status,
+       tbQuizStudent.Userid, XMLStudentResponse, tbQuizStudent.Points,
+	   Firstname + ' ' + Lastname as 'StudentName', StatusName
+from tbQuizStudent, tbUser, tbQuizStatus
+where tbQuizStudent.Userid = tbUser.Userid and
+      tbQuizStudent.Status = tbQuizStatus.StatusId and
+	  tbQuizStudent.QuizStudentid = isnull(@QuizStudentid, tbQuizStudent.QuizStudentid )
+end
+go
+
 --------------------------INSERTS FOR TESTING--------------------------
 spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
 go

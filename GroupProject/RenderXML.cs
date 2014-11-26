@@ -45,6 +45,19 @@ namespace GroupProject
             return ds;
         }
 
+        // this dataset gets Student repsonse xml from database
+        public DataSet XMLContent2(string QuizStudentid)
+        {
+            XmlNamespaceManager ns = new XmlNamespaceManager(XmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            myDal.ClearParams();
+            myDal.AddParam("@QuizStudentid", QuizStudentid);
+            DataSet ds = new DataSet();
+            ds = myDal.ExecuteProcedure("spGetStudentResponseDetails");
+            return ds;
+        }
+
+
         public void GetNRandomizeXMLContent(string QuizVersionId, ListItem Student, string IssueNewQuidId)
         {
             //DECLARATIONS
@@ -318,7 +331,6 @@ namespace GroupProject
                 ListQuestions.Add(new ObjectFillin(QuestionId, Question, correct, options));
                 //foreach()
             }
-
 
             ListQuestions.Shuffle();
         }
