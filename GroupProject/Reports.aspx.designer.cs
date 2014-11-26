@@ -130,13 +130,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.GridView gvIssuedQuizes;
         
         /// <summary>
-        /// gvStudentsResponseReport control.
+        /// gvViewStudentResponse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStudentsResponseReport;
+        protected global::System.Web.UI.WebControls.GridView gvViewStudentResponse;
         
         /// <summary>
         /// TSM1 control.
@@ -193,6 +193,33 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Button btnPopUpClose;
         
         /// <summary>
+        /// pnlViewResponseReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlViewResponseReport;
+        
+        /// <summary>
+        /// DLViewResponseReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList DLViewResponseReport;
+        
+        /// <summary>
+        /// btnClose2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose2;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -202,6 +229,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
         /// MPE1 control.
         /// </summary>
         /// <remarks>
@@ -209,5 +245,14 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE1;
+        
+        /// <summary>
+        /// MPE2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE2;
     }
 }

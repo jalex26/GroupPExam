@@ -34,6 +34,7 @@ namespace GroupProject
             myPanel.Visible = false;
 
             ReportViewer1.Visible = false;
+            
 
             if (!IsPostBack)
             {
@@ -145,8 +146,10 @@ namespace GroupProject
                     break;
 
                 case 4:
-                    // Loads 'Student Response Report' Report
+                    // Loads 'Studentwise Quiz Response Report' Report
                     lblMessage.Text = "";
+                    gvIssuedQuizes.Visible = false;
+    
                     ReportViewer1.ProcessingMode = ProcessingMode.Local;
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report1.rdlc");
                     ReportDataSource datasource = new ReportDataSource("dsStudentResponse", GetStudentResponseData());
@@ -158,6 +161,8 @@ namespace GroupProject
                 case 5:
                     // Loads 'Quiz Analysis'
                     lblMessage.Text = "";
+                    gvIssuedQuizes.Visible = false;
+
                     ReportViewer1.ProcessingMode = ProcessingMode.Local;
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report2.rdlc");
                     ReportDataSource datasource2 = new ReportDataSource("dsQuizDetails", GetQuizDetailsData());
@@ -166,8 +171,28 @@ namespace GroupProject
                     break;
 
                 case 6:
-                    // Graphical Analysis of Quiz Questions/ Test Data (overall 
+                    // View Student Responses
                     lblMessage.Text = "";
+                    gvIssuedQuizes.Visible = false;
+
+                    DataSet dsStudentResponse = new DataSet();
+                    myDal.ClearParams();
+                    dsStudentResponse = myDal.ExecuteProcedure("spGetStudentResponseDetails");
+
+                    if (dsStudentResponse.Tables[0].Rows.Count != 0)
+                    {
+                        lblMessage.Text = "";
+                        gvViewStudentResponse.DataSource = dsStudentResponse.Tables[0];
+                        gvViewStudentResponse.DataBind();
+                        gvViewStudentResponse.Visible = true;
+
+                    }
+                    else
+                    {
+                        lblMessage.Text = "No Issued Data to Display!";
+                        gvViewStudentResponse.Visible = false;
+                    }
+
 
                     break;
 
@@ -195,30 +220,32 @@ namespace GroupProject
         {
             ReportViewer1.Visible = true;
 
+            
+
             loadReports();
         }
 
-        protected void repIssuedQuizes_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if ((e.CommandName.ToString()) == "View")
-            {
-                int VersionID = Convert.ToInt32(e.CommandArgument.ToString());
+        //protected void repIssuedQuizes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        //{
+        //    if ((e.CommandName.ToString()) == "View")
+        //    {
+        //        int VersionID = Convert.ToInt32(e.CommandArgument.ToString());
 
-                RenderXML RX = new RenderXML();
+        //        RenderXML RX = new RenderXML();
 
-                DataSet ds = RX.XMLContent(VersionID.ToString());
-                XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+        //        DataSet ds = RX.XMLContent(VersionID.ToString());
+        //        XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
 
-                ns = new XmlNamespaceManager(XmlDoc.NameTable);
-                ns.AddNamespace("ns", "urn:Question-Schema");
-                string xpath = "/ns:Quiz";
-                XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
+        //        ns = new XmlNamespaceManager(XmlDoc.NameTable);
+        //        ns.AddNamespace("ns", "urn:Question-Schema");
+        //        string xpath = "/ns:Quiz";
+        //        XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
 
-                DLExamDemo.DataSource = QuizNode;
-                DLExamDemo.DataBind();
+        //        DLExamDemo.DataSource = QuizNode;
+        //        DLExamDemo.DataBind();
 
-            }
-        }
+        //    }
+        //}
 
 
         protected void btnPopUpClose_Click(object sender, EventArgs e)
@@ -356,6 +383,33 @@ namespace GroupProject
             ddlVersion.DataBind();
             ddlVersion.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlVersion.SelectedIndex = 0;
+        }
+
+        protected void lbViewStudentResponse_Click(object sender, EventArgs e)
+        {
+            LinkButton linkUpdate = sender as LinkButton;
+            GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
+            string tempID = gvViewStudentResponse.DataKeys[grid.RowIndex].Value.ToString();
+            ViewState["tempId"] = tempID;
+
+            RenderXML RX = new RenderXML();
+
+            DataSet ds = RX.XMLContent2(tempID);
+            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString());
+
+            ns = new XmlNamespaceManager(XmlDoc.NameTable);
+            ns.AddNamespace("ns", "urn:Question-Schema");
+            string xpath = "/ns:Quiz";
+            XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
+            DLViewResponseReport.DataSource = QuizNode;
+            DLViewResponseReport.DataBind();
+            MPE2.Show();
+
+        }
+
+        protected void btnClose2_Click(object sender, EventArgs e)
+        {
+            MPE2.Hide();
         }
 
 
