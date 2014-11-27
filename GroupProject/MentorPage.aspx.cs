@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Linq;
 
+
 namespace GroupProject
 {
     public partial class MentorPage : System.Web.UI.Page
@@ -28,8 +29,7 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadCourse();
-                
-                
+                              
             }
         }
         private void loadCourse()
@@ -66,7 +66,6 @@ namespace GroupProject
             cblStudents.DataValueField = "Userid";
             cblStudents.DataSource = ds;
             cblStudents.DataBind();
-
         }
 
         public void ViewQuiz()
@@ -80,7 +79,6 @@ namespace GroupProject
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
         {
-
             pnlIssueQuiz.Visible = true;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
@@ -326,8 +324,39 @@ namespace GroupProject
             DLExamDemoTrueFalse.DataSource = QuizNode;
             DLExamDemoTrueFalse.DataBind();
             MPE1.Show();
-
         }
+
+        protected void lbDownloadQuiz_Click(object sender, EventArgs e)
+        {
+            LinkButton linkUpdate = sender as LinkButton;
+            GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
+            string tempID = gvViewQuiz.DataKeys[grid.RowIndex].Value.ToString();
+            ViewState["tempId"] = tempID;
+
+            RenderXML RX = new RenderXML();
+
+            DataSet ds = RX.XMLContent(tempID);
+            XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
+
+            //string QuizTitle =  gvViewQuiz.SelectedRow.Cells[3].Text;
+
+            string filePath = Server.MapPath(DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml");
+
+            XmlDoc.Save(filePath);
+
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml";
+
+            Response.AppendHeader("content-disposition", "attachment; filename=" + fileName);
+
+            string type = "";
+            if (type != "")
+            Response.ContentType = type;
+            Response.WriteFile(filePath);
+            Response.End();
+            XmlDoc.Save(Response.OutputStream);
+        
+        }
+
 
         protected void btnStartQuiz_Click(object sender, EventArgs e)
         {
@@ -380,6 +409,8 @@ namespace GroupProject
         protected void btnCreateQuiz_Click(object sender, EventArgs e)
         {
             pnlStartQuiz.Visible = false;
+            pnlIssueQuiz.Visible = false;
+            pnlUploadQuiz.Visible = false;
         }
 
         protected void btnClosePopUp_Click(object sender, EventArgs e)
@@ -402,6 +433,7 @@ namespace GroupProject
             Response.Redirect("Reports.aspx");
         }
 
+      
        
 
     }
