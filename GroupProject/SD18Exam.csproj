@@ -87,14 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
-    <Content Include="App_Data\Bookstore.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\cdcatalog.xml" />
-    <Content Include="App_Data\XMLFile.xml" />
-    <Content Include="App_Data\XMLFileTEST.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="ForgotPassword.aspx" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
@@ -157,7 +149,9 @@
     <Content Include="installBACKUP.sql" />
     <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Home.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +162,7 @@
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DAL.cs" />
     <Compile Include="dsQuizDetails.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -322,6 +317,7 @@
     <Content Include="ExamDataSet.xss">
       <DependentUpon>ExamDataSet.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\ExamProfile.pubxml" />
     <None Include="StudentResponse.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -342,12 +338,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tempXML\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAL_Project\DAL_Project\DAL_Project.csproj">
-      <Project>{e3026510-5b06-4ff2-816b-3f06cbe5f7df}</Project>
-      <Name>DAL_Project</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Report1.rdlc" />

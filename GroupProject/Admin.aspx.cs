@@ -26,7 +26,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("SecurityLevel","1");
-            GVUsers.DataSource = myDal.ExecuteProcedure("spGetStudents");
+            GVUsers.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetStudents");
             GVUsers.DataBind();
         }
     }

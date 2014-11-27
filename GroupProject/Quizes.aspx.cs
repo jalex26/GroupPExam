@@ -31,7 +31,7 @@ namespace GroupProject
             {
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
-                DataSet ds = myDal.ExecuteProcedure("spGetQuizStudentByStudent");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizStudentByStudent");
                 if (ds.Tables.Count != 0 && ds.Tables[0].Rows[0][0].ToString() != "Empty")
                 {
                     dlPendingQuiz.DataSource = ds.Tables[0];
@@ -50,7 +50,7 @@ namespace GroupProject
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
                 HttpContext.Current.Session["QuizStudentId"] = QuizStudentid;
                 myDal.AddParam("@QuizStudentId", QuizStudentid);
-                DataSet ds = myDal.ExecuteProcedure("spStartQuizStudent");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStartQuizStudent");
 
                 if (ds.Tables[0].Rows.Count != 0)
                 {

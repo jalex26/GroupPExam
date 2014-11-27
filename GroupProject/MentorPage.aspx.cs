@@ -48,7 +48,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@Courseid", ddlCourse.SelectedValue.ToString());
-            ds = myDal.ExecuteProcedure("spLoadQuizes");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spLoadQuizes");
 
             ddlSelectQuiz.DataTextField = "Title";
             ddlSelectQuiz.DataValueField = "XMLQuizID";
@@ -72,7 +72,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spViewQuiz");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spViewQuiz");
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
         }
@@ -164,7 +164,7 @@ namespace GroupProject
                 {
                     myDal.ClearParams();
                     myDal.AddParam("@xml", xml);
-                   DataSet ds1 =  myDal.ExecuteProcedure("spInsertXMLContent");
+                   DataSet ds1 =  myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
                 }
                 catch (Exception)
                 {
@@ -279,7 +279,7 @@ namespace GroupProject
             myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
             myDal.AddParam("@ClassId", ddlClass.SelectedValue.ToString());
             myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
-            DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("spIssueNewQuiz");
+            DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("SD18EXAM_spIssueNewQuiz");
             string NewId = null;
 
             if (dsGetNewIssueQuizId.Tables[0].Columns["IssuedQuizId"] != null)
@@ -366,7 +366,7 @@ namespace GroupProject
 
             myDal.ClearParams();
             myDal.AddParam("@Userid",HttpContext.Current.Session["Userid"].ToString());
-            DataSet ds = myDal.ExecuteProcedure("spGetIssuedQuizByMentor");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
             if(ds.Tables[0].Rows.Count != 0)
             {
                 pnlStartQuiz.Visible = true;
@@ -392,7 +392,7 @@ namespace GroupProject
                 {
                     myDal.ClearParams();
                     myDal.AddParam("@IssuedQuizId", IssuedQuizId.ToString());
-                    DataSet ds = myDal.ExecuteProcedure("getIssuedQuizDetails");
+                    DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spgetIssuedQuizDetails");
                     if(ds.Tables[0].Rows.Count != 0)
                     {
                         lblIssuedQuizId.Text = ds.Tables[0].Rows[0]["IssuedQuizId"].ToString();
@@ -423,7 +423,7 @@ namespace GroupProject
             //MPEQuizAction.Show();
             myDal.ClearParams();
             myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
-            DataSet ds = myDal.ExecuteProcedure("spStartQuiz");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStartQuiz");
             PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
 
         }

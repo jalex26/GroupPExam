@@ -15,7 +15,7 @@ namespace GroupProject
         public DataSet LoadCourse()
         {
             myDal.ClearParams();
-            DataSet ds = myDal.ExecuteProcedure("spLoadCourse");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadCourse");
             return ds;
         }
 
@@ -23,7 +23,7 @@ namespace GroupProject
         {
             myDal.ClearParams();
             myDal.AddParam("@CourseId", CourseId);
-            DataSet ds = myDal.ExecuteProcedure("spLoadClass");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadClass");
             return ds;
         }
 
@@ -31,14 +31,14 @@ namespace GroupProject
         {
             myDal.ClearParams();
             myDal.AddParam("@CourseId", CourseId);
-            DataSet ds = myDal.ExecuteProcedure("spLoadQuizes");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadQuizes");
             return ds;
         }
         public DataSet LoadQuizVersions(string QuizId)
         {
             myDal.ClearParams();
             myDal.AddParam("@QuizId", QuizId);
-            DataSet ds = myDal.ExecuteProcedure("spLoadVersion");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadVersion");
             return ds;
         }
 
@@ -47,7 +47,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@Classid", ClassId);
-            ds = myDal.ExecuteProcedure("spLoadAllStudentClass");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spLoadAllStudentClass");
             return ds;
             
         }
@@ -56,7 +56,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@versionid", quizversionid);
-            ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizAndInfo");
             return ds;  
         }
     }

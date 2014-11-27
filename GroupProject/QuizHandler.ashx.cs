@@ -46,7 +46,7 @@ namespace GroupProject
             myDal.AddParam("@XMLStudentResponse", xml);
             myDal.AddParam("@QuizStudentid",qzSTDid);
             myDal.AddParam("@Points", points);
-            myDal.ExecuteProcedure("spUpdateQuizStudent");
+            myDal.ExecuteProcedure("SD18EXAM_spUpdateQuizStudent");
         }
 
         public bool IsReusable
