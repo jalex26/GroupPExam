@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="robertsoncollegesoftwarestudents.net/SD18Exam" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\KevinEmmanuel\\Documents\\GitHub\\GroupPExam\\GroupProject\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\KevinEmmanuel\\Documents\\GitHub\\GroupPExam\\GroupProject\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="RobertsonQuizConn-Web.config Connection String" description="" value="Data Source=tcp:sql2k1401.discountasp.net;Initial Catalog=SQL2014_961764_robertson;Persist Security Info=True;User ID=SQL2014_961764_robertson_user;Password=s0ftware1" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\KevinEmmanuel\\Documents\\GitHub\\GroupPExam\\GroupProject\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RobertsonQuizConn']/@connectionString" />
+  </parameter>
+</parameters>

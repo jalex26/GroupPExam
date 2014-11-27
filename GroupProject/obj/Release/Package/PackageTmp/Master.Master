@@ -1,0 +1,163 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.Master.cs" Inherits="GroupProject.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Exam Site</title>
+    <link href="styles/GroupPExam.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <%--DO NOT PUT ANYTHING HERE--%>
+    </asp:ContentPlaceHolder>
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+
+         <!-- Shell -->
+        <div class="shell">
+
+            <div>
+                <asp:ImageButton ID="RobertsonLogo" runat="server" CssClass="MainImage" ImageUrl="~/Pictures/NewLogo.png" PostBackUrl="~/Home.aspx"/>              
+            </div>
+      <br />
+         <br />
+
+           <!-- Header -->
+            <div id="header">               
+
+                <!-- Navigation -->
+                <div id="navigation">                                                      
+                            <asp:XmlDataSource ID="XmlDataSource1" runat="server" />  
+                    <asp:Menu ID="Menu1" runat="server" Font-Size="14px" Orientation="Vertical" DisappearAfter="10"
+                        Width="600px" DataSourceID="XmlDataSource1" StaticEnableDefaultPopOutImage="False">
+                        <StaticMenuItemStyle CssClass="MenuItem" />
+                        <DynamicHoverStyle CssClass="SubMenuItemHover" />
+                        <DynamicMenuItemStyle CssClass="SubMenuItem" />
+                        <StaticHoverStyle CssClass="MenuItemHover" />
+                        <DataBindings>
+                            <asp:MenuItemBinding DataMember="Item" NavigateUrlField="Url" TextField="Text" />
+                        </DataBindings>
+                    </asp:Menu>             
+                </div>
+                <!-- End Navigation -->
+        <div id="buttonLogout">
+            <asp:Panel ID="pnlLogout" runat="server">
+                <asp:Label ID="lblFirstname" Font-Size="Medium" ForeColor="White" runat="server" Text=""></asp:Label>
+                <br />
+                <asp:LinkButton ID="lbLogout" ForeColor="White" OnClick="lbLogout_Click" runat="server">Logout</asp:LinkButton>             
+            </asp:Panel>
+        </div>
+                  </div>
+            <!-- End Header -->
+
+
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <%--DO NOT PUT ANYTHING HERE--%>
+                  </asp:ContentPlaceHolder>
+
+        <br />
+            <br />
+
+            <div class="LoginPanel">
+            <asp:Panel ID="pnlLogin" runat="server">
+              
+                 <table style="column-width:50px;">                   
+            <tr>
+                <td>
+                    <asp:Label ID="lblUserName" CssClass="Text" runat="server" Text="Email:"></asp:Label>
+                </td>
+                <td >
+                    <asp:TextBox ID="txtUserName" CssClass="textbox" runat="server" Text="Nathaniel@robertsoncollege.net"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+                    <asp:Label ID="lblPassword" CssClass="Text" runat="server" Text="Password:"></asp:Label>
+                </td>
+                <td>
+                    <br />
+                    <asp:TextBox ID="txtPassword" CssClass="textbox" runat="server" Text="Nathaniel"></asp:TextBox>
+                </td>
+            </tr>
+                     <tr>
+                         <td></td>
+                         <td></td>
+                     </tr>
+            <tr>
+                <td>                   
+                </td>
+                <td>
+                    &nbsp; &nbsp;&nbsp; &nbsp;
+                    <asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Log In" OnClick="btnLogin_Click" />                   
+                </td>
+            </tr>
+                     <tr>
+                         <td></td>
+                         <td>
+                              &nbsp; &nbsp;
+                              <asp:LinkButton ID="lbForgotPassword" runat="server" OnClick="lbForgotPassword_Click">Forgot Password?</asp:LinkButton>
+                         </td>
+                     </tr>
+        </table>    
+                </asp:Panel> 
+                </div>  
+
+            <br />
+        <hr />
+            <!-- Text Cols -->
+            <div class="cols">
+                <div class="cl">&nbsp;</div>
+                <div class="col">
+                    <h3>Robertson College</h3>
+                    <p>Visit Robertson College's offical website here to get updates on courses offered and schedules.</p>
+                    <p class="more"><a href="http://www.robertsoncollege.com" class="bul">Robertson College's Website</a></p>
+                </div>
+                <div class="col">
+                    <h3 >Online Resources</h3>
+                    <p>Go to W3 schools to browse topics or learn new things in various technologies.</p>
+                    <p class="more"><a href="http://www.w3schools.com" class="bul">W3 Schools</a></p>
+                </div>
+
+                <div class="col">
+                    <h3>Social</h3>
+                    <p>Visit Robertson College's facebook page to view the latest updates and follow/ like.</p>
+                     <p class="more"><a href="https://www.facebook.com/OfficialRobertsonCollege" class="bul">Robertson College on Facebook</a></p>
+                </div>
+               
+                <div class="col col-last">
+                    <h3>Contact</h3>
+                    <p>Click on the link to get Robertson College's contact details, if you have any questions or queries.</p>
+                    <p class="more"><a href="http://www.robertsoncollege.com/contact-us.aspx" class="bul">Contact Us</a></p>
+                </div>
+                <div class="cl">&nbsp;</div>
+            </div>
+            <!-- End Text Cols -->
+
+        </div>
+        <!-- End Shell -->
+        
+    </form>
+
+    <br />
+
+    <!-- Footer -->
+    <div id="footer">
+        <p class="left">
+            <a href="Home.aspx">Home</a>
+            <span>|</span>
+            <a href="MyAccount.aspx">My Account</a>
+            <span>|</span>
+            <a href="Quizes.aspx">Quizes</a>
+
+        </p>
+        <p class="right">
+            &copy; 2014 Robertson College|
+			Design by <a href="http://robertsoncollege.com" target="_blank" title="Design By Software Development Class 18">Software Development Class 18</a>
+        </p>
+    </div>
+    <!-- End Footer -->
+
+</body>
+</html>
