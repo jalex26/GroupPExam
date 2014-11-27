@@ -65,17 +65,20 @@
 
         <asp:Panel ID="pnlbuttons" runat="server">
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View & Download Quiz" OnClick="btnViewQuiz_Click" Width="175px" Height="19px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue/ Assign Quiz to Students" OnClick="btnIssueQuiz_Click" Width="175px" Height="16px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" OnClick="btnCreateQuiz_Click" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Download ExamMaker App" Width="175px" OnClick="btnCreateQuiz_Click" Height="16px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+            <br />
+            <br />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz to Database" OnClick="btnUploadQuiz_Click" Width="175px" Height="19px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="Reports" OnClick="btnReports_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Issued Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
+
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
 
         </asp:Panel>
 
