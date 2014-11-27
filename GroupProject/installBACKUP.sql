@@ -353,7 +353,7 @@ go
 
 ------------------------STORED PROCEDURES-----------------------
 
-create procedure spInsertXMLContent(
+create procedure SD18EXAM_spInsertXMLContent(
 @xml xml
 )
 as begin
@@ -404,7 +404,7 @@ go
 
 
 --Login
-create procedure spLogin(
+create procedure SD18EXAM_spLogin(
 @Username varchar(60),
 @Password varchar(60)
 )
@@ -427,7 +427,7 @@ go
 -----------SELECTS------------
 
 --Loads students by Class
-create procedure spGetStudents(
+create procedure SD18EXAM_SD18EXAM_spGetStudents(
 @Classid int = null,
 @SecurityLevel int 
 )
@@ -438,7 +438,7 @@ as begin
 end
 go
 
-create procedure spGetStudents2(
+create procedure SD18EXAM_SD18EXAM_spGetStudents2(
 @Classid int = null,
 @SecurityLevel int 
 )
@@ -449,7 +449,7 @@ as begin
 end
 go
 
-create procedure spGetStudents3(
+create procedure SD18EXAM_SD18EXAM_spGetStudents3(
 @Classid int,
 @SecurityLevel int 
 )
@@ -461,7 +461,7 @@ end
 go
 
 --Difficulty
-create procedure spGetDifficulty(
+create procedure SD18EXAM_spGetDifficulty(
 @Difficultyid int = null
 )
 as begin
@@ -470,14 +470,14 @@ end
 go
 
 --Loads Class
-create procedure spLoadClass
+create procedure SD18EXAM_spLoadClass
 as begin
 	select * from tbClass
 end
 go
 
 --Loads Class
-create procedure spGetClass(
+create procedure SD18EXAM_spGetClass(
 @Classid int = null
 )
 as begin
@@ -486,7 +486,7 @@ end
 go
 
 --Loads Course by Courseid
-create procedure spGetCourse(
+create procedure SD18EXAM_spGetCourse(
 @Courseid int
 )
 as begin 
@@ -495,7 +495,7 @@ end
 go
 
 --Load Course by Classid
-create procedure spLoadCourse(
+create procedure SD18EXAM_spLoadCourse(
 @Classid int
 )
 as begin
@@ -504,14 +504,14 @@ end
 go
 
 --Load Quiz
-create procedure spLoadQuiz
+create procedure SD18EXAM_spLoadQuiz
 as begin 
 	select * from tbQuiz
 end 
 go
 
 --Load Quiz by Courseid
-create procedure spLoadQuiz2(
+create procedure SD18EXAM_spLoadQuiz2(
 @Courseid int
 )
 as begin 
@@ -520,7 +520,7 @@ end
 go
 
 --Load Quiz by Quizid
-create procedure spLoadQuiz5(
+create procedure SD18EXAM_spLoadQuiz5(
 @Quizid int
 )
 as begin 
@@ -529,14 +529,14 @@ end
 go
 
 --Loads Quiz
-create procedure spLoadQuiz4
+create procedure SD18EXAM_spLoadQuiz4
 as begin
 	select * from tbQuiz, tbQuizVersion where tbQuiz.Quizid = tbQuizVersion.Quizid
 end
 go
 
 --Loads Quiz by xmlQuizid and Version
-create procedure spLoadQuiz3(
+create procedure SD18EXAM_spLoadQuiz3(
 @xmlQuizid varchar(60),
 @Version int
 )
@@ -548,14 +548,14 @@ go
 
 
 --Loads Version
-create procedure spLoadVersion
+create procedure SD18EXAM_spLoadVersion
 as begin 
 	select * from tbQuizVersion
 end 
 go
 
 --Loads the Quiz 
-create procedure spViewQuiz
+create procedure SD18EXAM_spViewQuiz
 as begin 
 	select tbQuiz.Quizid,QuizTitle,QuizSubject,Courseid,TimetoTake,Difficulty,FileLocation, Version from tbQuiz,tbQuizVersion
 	where tbQuiz.Quizid = tbQuizVersion.Quizid
@@ -574,7 +574,7 @@ end
 go
 
 --Loads the Quiz Result (User side)
-create procedure spViewQuizResults(
+create procedure SD18EXAM_SD18EXAM_spViewQuizResults(
 @Userid int
 )
 
@@ -585,7 +585,7 @@ end
 go
 
 --Loads the Quiz Result of all students
-create procedure spViewQuizResults2
+create procedure SD18EXAM_SD18EXAM_SD18EXAM_spViewQuizResults2
 
 as begin 
 	select * from tbResults 
@@ -594,7 +594,7 @@ end
 go
 
 --Loads Pending Quiz (student side)
- create procedure spViewPendingQuiz2(
+ create procedure SD18EXAM_spViewPendingQuiz2(
  @Userid int
  )
 as begin 
@@ -651,7 +651,7 @@ end
 go
 
 --Insert Difficulty
-create procedure spInsertDifficulty(
+create procedure SD18EXAM_SD18EXAM_spInsertDifficulty(
 @Difficultyname varchar(60)
 )
 as begin
@@ -673,7 +673,7 @@ end
 go
 
 --Insert Course
-create procedure spInsertCourse(
+create procedure SD18EXAM_SD18EXAM_spInsertCourse(
 @Coursename varchar(60)
 )
 as begin 
@@ -702,7 +702,7 @@ end
 go
 
 --Update Difficulty
-create procedure spUpdateDifficulty(
+create procedure SD18EXAM_spUpdateDifficulty(
 @Difficultyid int = null,
 @Difficultyname varchar(60)
 )
@@ -713,7 +713,7 @@ end
 go
 
 --Update Class
-create procedure spUpdateClass(
+create procedure SD18EXAM_spUpdateClass(
 @Classid int = null,
 @Classname varchar (60),
 @Courseid int
@@ -725,7 +725,7 @@ end
 go
 
 --Update Course
-create procedure spUpdateCourse(
+create procedure SD18EXAM_spUpdateCourse(
 @Courseid int = null,
 @Coursename varchar(60)
 )
@@ -740,7 +740,7 @@ go
 
 --Delete Students
 
-create procedure spDeleteStudent(
+create procedure SD18EXAM_spDeleteStudent(
 @Userid int = null
 )
 as begin
@@ -756,7 +756,7 @@ end
 go
 
 --Delete Difficulty
-create procedure spDeleteDifficulty(
+create procedure SD18EXAM_spDeleteDifficulty(
 @Difficultyid int = null
 )
 as begin 
@@ -772,7 +772,7 @@ end
 go
 
 --Delete Class
-create procedure spDeleteClass(
+create procedure SD18EXAM_spDeleteClass(
 @Classid int
 )
 as begin
@@ -783,7 +783,7 @@ end
 go
 
 --Delete Course
-create procedure spDeleteCourse(
+create procedure SD18EXAM_spDeleteCourse(
 @Courseid int
 
 )
@@ -797,7 +797,7 @@ go
 ----------------Settings-------------
 
 --Update---
-create procedure spUpdateSettings(
+create procedure SD18EXAM_spUpdateSettings(
 @Userid int = null,
 @Firstname varchar (60),
 @Lastname varchar (60),

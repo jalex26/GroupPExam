@@ -29,7 +29,7 @@ namespace GroupProject
             {
                 myDal.ClearParams();
                 myDal.AddParam("@Token", Token);
-                DataSet ds = myDal.ExecuteProcedure("spCheckToken");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spCheckToken");
                 if (ds.Tables[0].Rows[0]["exist"].ToString() == "true")
                 {
                     ChangePass.Visible = true;
@@ -50,7 +50,7 @@ namespace GroupProject
             {
                 myDal.ClearParams();
                 myDal.AddParam("@EmailAddress", txtEmail.Text);
-                DataSet ds = myDal.ExecuteProcedure("spForgotPassword");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spForgotPassword");
                 if (ds.Tables[0].Rows[0]["message"].ToString() != "EmailInvalid")
                 {
                     CheckMail.Visible = true;
@@ -88,7 +88,7 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@Token", Token);
                 myDal.AddParam("@NewPass", txtPass.Text);
-                DataSet ds = myDal.ExecuteProcedure("spChangePassword");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spChangePassWord");
                 if (ds.Tables[0].Rows[0]["message"].ToString() != "invalid token")
                 {
                     ChangeSuccess.Visible = true;

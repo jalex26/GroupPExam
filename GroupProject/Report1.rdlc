@@ -1070,10 +1070,10 @@
       <rd:DataSetInfo>
         <rd:DataSetName>ExamDataSet</rd:DataSetName>
         <rd:SchemaPath>C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\ExamDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>spGetStudentResponseReport</rd:TableName>
+        <rd:TableName>SD18EXAM_spGetStudentResponseReport</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>spGetStudentResponseReportTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>SD18EXAM_spGetStudentResponseReportTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

@@ -32,7 +32,7 @@ namespace GroupProject
         {
             myDal.ClearParams();
             myDal.AddParam("@SortColumn", myState.SortColumn + " " + myState.Direction);
-            gvSettings.DataSource = myDal.ExecuteProcedure("spGetSortColumn");
+            gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetSortColumn");
             gvSettings.DataBind();
         }
 
@@ -40,7 +40,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("spGetCourse");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
             ddlCourse.DataTextField = "Coursename";
             ddlCourse.DataValueField = "Courseid";
             ddlCourse.DataSource = ds;
@@ -57,7 +57,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("Courseid", ddlCourse.SelectedValue);
-            ds = myDal.ExecuteProcedure("spGetClass");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
             ddlClass.DataTextField = "Classname";
             ddlClass.DataValueField = "Classid";
             ddlClass.DataSource = ds;
@@ -70,7 +70,7 @@ namespace GroupProject
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            gvSettings.DataSource = myDal.ExecuteProcedure("spGetUsers");
+            gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
             gvSettings.DataBind();
 
         }
@@ -86,7 +86,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@Userid", tempID);
-            ds = myDal.ExecuteProcedure("spGetUsers");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
             lblUserID.Text = tempID;
             txtFirstName.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
             txtLastName.Text = ds.Tables[0].Rows[0]["Lastname"].ToString();
@@ -130,7 +130,7 @@ namespace GroupProject
                 myDal.AddParam("@Password", txtPassword.Text);
                 myDal.AddParam("@SecurityLevel", ddlSecurity.SelectedValue);
                 myDal.AddParam("@Classid", ddlClass.SelectedValue);
-                myDal.ExecuteProcedure("spUpdateUser");
+                myDal.ExecuteProcedure("SD18EXAM_spUpdateUser");
                 loadUsers(myState);
                 mpeUpdate.Hide();
             }
@@ -152,7 +152,7 @@ namespace GroupProject
 
             myDal.ClearParams();
             myDal.AddParam("@Userid", lblSelectedUserid.Text);
-            myDal.ExecuteProcedure("spDeleteStudent");
+            myDal.ExecuteProcedure("SD18EXAM_spDeleteStudent");
             loadUsers(myState);
             mpeUpdate.Hide();
 

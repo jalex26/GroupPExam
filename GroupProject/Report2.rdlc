@@ -748,10 +748,10 @@
       <rd:DataSetInfo>
         <rd:DataSetName>dsQuizDetails</rd:DataSetName>
         <rd:SchemaPath>C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\dsQuizDetails.xsd</rd:SchemaPath>
-        <rd:TableName>spGetQuizDetails</rd:TableName>
+        <rd:TableName>SD18EXAM_spGetQuizDetails</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>spGetQuizDetailsTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>SD18EXAM_spGetQuizDetailsTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

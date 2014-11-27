@@ -24,7 +24,7 @@ namespace GroupProject
             DataSet ds = new DataSet();
             myDal.ClearParams();
             myDal.AddParam("@Userid",HttpContext.Current.Session["Userid"].ToString());
-            ds = myDal.ExecuteProcedure("spGetStudentInfo");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentInfo");
             lblUserid.Text = ds.Tables[0].Rows[0]["Userid"].ToString();
             Image1.ImageUrl = ds.Tables[0].Rows[0]["UserPicture"].ToString();
             lblFirstname.Text = ds.Tables[0].Rows[0]["Firstname"].ToString();
