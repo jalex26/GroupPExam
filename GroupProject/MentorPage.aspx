@@ -220,6 +220,14 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
+                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Download">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbDownloadQuiz" Text="Download"
+                                OnClick="lbDownloadQuiz_Click"
+                                runat="server"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="XMLQuizID" HeaderText="Quiz ID" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Subject" HeaderText="Subject" />

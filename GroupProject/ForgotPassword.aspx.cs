@@ -61,7 +61,9 @@ namespace GroupProject
                     message.From = new MailAddress("adrian.carter@robertsoncollege.net");
                     message.To.Add(new MailAddress(txtEmail.Text));
                     message.Subject = "retrieve account";
-                    message.Body = "Change password link: http://localhost:49966/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
+                    //message.Body = "Change password link: http://localhost:49966/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
+
+                    message.Body = "Change password link: http://www.robertsoncollegesoftwarestudents.net/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
                     SmtpClient client = new SmtpClient();
                     client.Host = "smtp.gmail.com";
                     client.Port = 587;
