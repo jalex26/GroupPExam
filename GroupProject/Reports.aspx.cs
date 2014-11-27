@@ -65,7 +65,7 @@ namespace GroupProject
                     // Loads 'Issued Quizes' Report
                     DataSet ds = new DataSet();
                     myDal.ClearParams();
-                    ds = myDal.ExecuteProcedure("spGetIssuedQuizes");
+                    ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizes");
 
                     if (ds.Tables[0].Rows.Count != 0)
                     {
@@ -89,7 +89,7 @@ namespace GroupProject
                     DataSet ds2 = new DataSet();
                     myDal.ClearParams();
                     myDal.AddParam("@QuizStatus", 0);
-                    ds2 = myDal.ExecuteProcedure("spGetQuizesByStatus");
+                    ds2 = myDal.ExecuteProcedure("SD18EXAM_spGetQuizesByStatus");
 
                     if (ds2.Tables[0].Rows.Count != 0)
                     {
@@ -110,7 +110,7 @@ namespace GroupProject
                     lblMessage.Text = "";
                     myDal.ClearParams();
                     myDal.AddParam("@QuizStatus", 1);
-                    ds = myDal.ExecuteProcedure("spGetQuizesByStatus");
+                    ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizesByStatus");
 
                     if (ds.Tables[0].Rows.Count != 0)
                     {
@@ -130,7 +130,7 @@ namespace GroupProject
                     lblMessage.Text = "";
                     myDal.ClearParams();
                     myDal.AddParam("@QuizStatus", 2);
-                    ds = myDal.ExecuteProcedure("spGetQuizesByStatus");
+                    ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizesByStatus");
 
                     if (ds.Tables[0].Rows.Count != 0)
                     {
@@ -177,7 +177,7 @@ namespace GroupProject
 
                     DataSet dsStudentResponse = new DataSet();
                     myDal.ClearParams();
-                    dsStudentResponse = myDal.ExecuteProcedure("spGetStudentResponseDetails");
+                    dsStudentResponse = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseDetails");
 
                     if (dsStudentResponse.Tables[0].Rows.Count != 0)
                     {
@@ -206,14 +206,14 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
                 myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
-                return myDal.ExecuteProcedure("spGetStudentResponseReport").Tables[0];
+                return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
         }
 
         public DataTable GetQuizDetailsData()
         {
             myDal.ClearParams();        
             myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
-            return myDal.ExecuteProcedure("spGetQuizDetails").Tables[0];
+            return myDal.ExecuteProcedure("SD18EXAM_spGetQuizDetails").Tables[0];
         }
 
         protected void btnViewReport_Click(object sender, EventArgs e)
@@ -281,7 +281,7 @@ namespace GroupProject
         //    DataSet ds = new DataSet();
         //    myDal.ClearParams();
         //    myDal.AddParam("@Versionid", HttpContext.Current.Session["Versionid"].ToString());
-        //    ds = myDal.ExecuteProcedure("spGetQuizDetails");
+        //    ds = myDal.ExecuteProcedure("SD18EXAM_SD18EXAM_spGetQuizDetails");
         //    GridView1.DataSource = ds;
         //    GridView1.DataBind();
 

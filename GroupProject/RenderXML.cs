@@ -41,7 +41,7 @@ namespace GroupProject
             myDal.ClearParams();
             myDal.AddParam("@versionid", QuizVersionId);
             DataSet ds = new DataSet();
-            ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizAndInfo");
             return ds;
         }
 
@@ -53,7 +53,7 @@ namespace GroupProject
             myDal.ClearParams();
             myDal.AddParam("@QuizStudentid", QuizStudentid);
             DataSet ds = new DataSet();
-            ds = myDal.ExecuteProcedure("spGetStudentResponseDetails");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseDetails");
             return ds;
         }
 
@@ -75,7 +75,7 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@versionid", QuizVersionId);
                 DataSet ds = new DataSet();
-                ds = myDal.ExecuteProcedure("spGetQuizAndInfo");
+                ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizAndInfo");
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
@@ -260,7 +260,7 @@ namespace GroupProject
                 myDal.AddParam("@IssuedQuizId", IssueNewQuidId);
                 myDal.AddParam("@UserId", Student.Value);
                 myDal.AddParam("@XMLStudentResponse", XmlNewDoc.OuterXml);
-                DataSet dsResultIssueQuiz = myDal.ExecuteProcedure("spIssueNewQuizStudent");
+                DataSet dsResultIssueQuiz = myDal.ExecuteProcedure("SD18EXAM_spIssueNewQuizStudent");
 
             }
 

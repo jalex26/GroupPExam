@@ -28,7 +28,7 @@ namespace GroupProject
             myDal.AddParam("@xmlQuizid", xmlQuizid);
             myDal.AddParam("@Version", Version);
 
-            DataSet ds = myDal.ExecuteProcedure("spLoadQuiz3");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadQuiz3");
 
             dlSelectedQuiz.DataSource = ds;
             dlSelectedQuiz.DataBind();
@@ -45,7 +45,7 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("xmlQuizid", Request.QueryString["xmlQuizid"].ToString());
                 myDal.AddParam("Version", Request.QueryString["Version"].ToString());
-                DataSet ds = myDal.ExecuteProcedure("spLoadQuiz3");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spLoadQuiz3");
 
                 string xmlQuizid = ds.Tables[0].Rows[0]["xmlQuizid"].ToString();
                 string Version = ds.Tables[0].Rows[0]["Version"].ToString();

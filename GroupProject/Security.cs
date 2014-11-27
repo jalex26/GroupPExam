@@ -49,7 +49,7 @@ namespace GroupProject
             myDal.ClearParams();
             myDal.AddParam("@Email", Email);
             myDal.AddParam("@Password", Password);
-            ds = myDal.ExecuteProcedure("spLogin");
+            ds = myDal.ExecuteProcedure("SD18EXAM_spLogin");
 
             if(ds.Tables[0].Rows.Count ==0)
             {

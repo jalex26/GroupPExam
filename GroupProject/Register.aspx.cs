@@ -59,7 +59,7 @@ namespace GroupProject
             myDal.AddParam("@Email", txtEmail.Text);
             myDal.AddParam("@Password", txtPassword.Text);
             myDal.AddParam("@SecurityLevel", lblSecurityLevel.Text);
-            myDal.ExecuteProcedure("spInsertUser");
+            myDal.ExecuteProcedure("SD18EXAM_spInsertUser");
 
          lblRegisterMessage.Text = "Congratulations! You have successfully registered to the Robertson Exam site. Please check your email for registration confirmation or proceed to homepage to access your account by logging in.";
 

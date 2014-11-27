@@ -24,7 +24,7 @@ namespace GroupProject {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class ExamDataSet : global::System.Data.DataSet {
         
-        private spGetStudentResponseReportDataTable tablespGetStudentResponseReport;
+        private SD18EXAM_spGetStudentResponseReportDataTable tableSD18EXAM_spGetStudentResponseReport;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -54,8 +54,8 @@ namespace GroupProject {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["spGetStudentResponseReport"] != null)) {
-                    base.Tables.Add(new spGetStudentResponseReportDataTable(ds.Tables["spGetStudentResponseReport"]));
+                if ((ds.Tables["SD18EXAM_spGetStudentResponseReport"] != null)) {
+                    base.Tables.Add(new SD18EXAM_spGetStudentResponseReportDataTable(ds.Tables["SD18EXAM_spGetStudentResponseReport"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace GroupProject {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public spGetStudentResponseReportDataTable spGetStudentResponseReport {
+        public SD18EXAM_spGetStudentResponseReportDataTable SD18EXAM_spGetStudentResponseReport {
             get {
-                return this.tablespGetStudentResponseReport;
+                return this.tableSD18EXAM_spGetStudentResponseReport;
             }
         }
         
@@ -152,8 +152,8 @@ namespace GroupProject {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["spGetStudentResponseReport"] != null)) {
-                    base.Tables.Add(new spGetStudentResponseReportDataTable(ds.Tables["spGetStudentResponseReport"]));
+                if ((ds.Tables["SD18EXAM_spGetStudentResponseReport"] != null)) {
+                    base.Tables.Add(new SD18EXAM_spGetStudentResponseReportDataTable(ds.Tables["SD18EXAM_spGetStudentResponseReport"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace GroupProject {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tablespGetStudentResponseReport = ((spGetStudentResponseReportDataTable)(base.Tables["spGetStudentResponseReport"]));
+            this.tableSD18EXAM_spGetStudentResponseReport = ((SD18EXAM_spGetStudentResponseReportDataTable)(base.Tables["SD18EXAM_spGetStudentResponseReport"]));
             if ((initTable == true)) {
-                if ((this.tablespGetStudentResponseReport != null)) {
-                    this.tablespGetStudentResponseReport.InitVars();
+                if ((this.tableSD18EXAM_spGetStudentResponseReport != null)) {
+                    this.tableSD18EXAM_spGetStudentResponseReport.InitVars();
                 }
             }
         }
@@ -204,13 +204,13 @@ namespace GroupProject {
             this.Namespace = "http://tempuri.org/ExamDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tablespGetStudentResponseReport = new spGetStudentResponseReportDataTable();
-            base.Tables.Add(this.tablespGetStudentResponseReport);
+            this.tableSD18EXAM_spGetStudentResponseReport = new SD18EXAM_spGetStudentResponseReportDataTable();
+            base.Tables.Add(this.tableSD18EXAM_spGetStudentResponseReport);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializespGetStudentResponseReport() {
+        private bool ShouldSerializeSD18EXAM_spGetStudentResponseReport() {
             return false;
         }
         
@@ -270,14 +270,14 @@ namespace GroupProject {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void spGetStudentResponseReportRowChangeEventHandler(object sender, spGetStudentResponseReportRowChangeEvent e);
+        public delegate void SD18EXAM_spGetStudentResponseReportRowChangeEventHandler(object sender, SD18EXAM_spGetStudentResponseReportRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class spGetStudentResponseReportDataTable : global::System.Data.TypedTableBase<spGetStudentResponseReportRow> {
+        public partial class SD18EXAM_spGetStudentResponseReportDataTable : global::System.Data.TypedTableBase<SD18EXAM_spGetStudentResponseReportRow> {
             
             private global::System.Data.DataColumn columnIssuedQuizId;
             
@@ -301,8 +301,8 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportDataTable() {
-                this.TableName = "spGetStudentResponseReport";
+            public SD18EXAM_spGetStudentResponseReportDataTable() {
+                this.TableName = "SD18EXAM_spGetStudentResponseReport";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -310,7 +310,7 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal spGetStudentResponseReportDataTable(global::System.Data.DataTable table) {
+            internal SD18EXAM_spGetStudentResponseReportDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -327,7 +327,7 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected spGetStudentResponseReportDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected SD18EXAM_spGetStudentResponseReportDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -423,34 +423,34 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportRow this[int index] {
+            public SD18EXAM_spGetStudentResponseReportRow this[int index] {
                 get {
-                    return ((spGetStudentResponseReportRow)(this.Rows[index]));
+                    return ((SD18EXAM_spGetStudentResponseReportRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event spGetStudentResponseReportRowChangeEventHandler spGetStudentResponseReportRowChanging;
+            public event SD18EXAM_spGetStudentResponseReportRowChangeEventHandler SD18EXAM_spGetStudentResponseReportRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event spGetStudentResponseReportRowChangeEventHandler spGetStudentResponseReportRowChanged;
+            public event SD18EXAM_spGetStudentResponseReportRowChangeEventHandler SD18EXAM_spGetStudentResponseReportRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event spGetStudentResponseReportRowChangeEventHandler spGetStudentResponseReportRowDeleting;
+            public event SD18EXAM_spGetStudentResponseReportRowChangeEventHandler SD18EXAM_spGetStudentResponseReportRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event spGetStudentResponseReportRowChangeEventHandler spGetStudentResponseReportRowDeleted;
+            public event SD18EXAM_spGetStudentResponseReportRowChangeEventHandler SD18EXAM_spGetStudentResponseReportRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddspGetStudentResponseReportRow(spGetStudentResponseReportRow row) {
+            public void AddSD18EXAM_spGetStudentResponseReportRow(SD18EXAM_spGetStudentResponseReportRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportRow AddspGetStudentResponseReportRow(int IssuedQuizId, int StudentID, string StudentName, string StatusName, string Column1, int MultipleChoiceCount, int FillBlanksCount, int TrueFalseCount, int TotalQuestions, string Points) {
-                spGetStudentResponseReportRow rowspGetStudentResponseReportRow = ((spGetStudentResponseReportRow)(this.NewRow()));
+            public SD18EXAM_spGetStudentResponseReportRow AddSD18EXAM_spGetStudentResponseReportRow(int IssuedQuizId, int StudentID, string StudentName, string StatusName, string Column1, int MultipleChoiceCount, int FillBlanksCount, int TrueFalseCount, int TotalQuestions, string Points) {
+                SD18EXAM_spGetStudentResponseReportRow rowSD18EXAM_spGetStudentResponseReportRow = ((SD18EXAM_spGetStudentResponseReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IssuedQuizId,
                         StudentID,
@@ -462,15 +462,15 @@ namespace GroupProject {
                         TrueFalseCount,
                         TotalQuestions,
                         Points};
-                rowspGetStudentResponseReportRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowspGetStudentResponseReportRow);
-                return rowspGetStudentResponseReportRow;
+                rowSD18EXAM_spGetStudentResponseReportRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSD18EXAM_spGetStudentResponseReportRow);
+                return rowSD18EXAM_spGetStudentResponseReportRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                spGetStudentResponseReportDataTable cln = ((spGetStudentResponseReportDataTable)(base.Clone()));
+                SD18EXAM_spGetStudentResponseReportDataTable cln = ((SD18EXAM_spGetStudentResponseReportDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -478,7 +478,7 @@ namespace GroupProject {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new spGetStudentResponseReportDataTable();
+                return new SD18EXAM_spGetStudentResponseReportDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -534,28 +534,28 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportRow NewspGetStudentResponseReportRow() {
-                return ((spGetStudentResponseReportRow)(this.NewRow()));
+            public SD18EXAM_spGetStudentResponseReportRow NewSD18EXAM_spGetStudentResponseReportRow() {
+                return ((SD18EXAM_spGetStudentResponseReportRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new spGetStudentResponseReportRow(builder);
+                return new SD18EXAM_spGetStudentResponseReportRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(spGetStudentResponseReportRow);
+                return typeof(SD18EXAM_spGetStudentResponseReportRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.spGetStudentResponseReportRowChanged != null)) {
-                    this.spGetStudentResponseReportRowChanged(this, new spGetStudentResponseReportRowChangeEvent(((spGetStudentResponseReportRow)(e.Row)), e.Action));
+                if ((this.SD18EXAM_spGetStudentResponseReportRowChanged != null)) {
+                    this.SD18EXAM_spGetStudentResponseReportRowChanged(this, new SD18EXAM_spGetStudentResponseReportRowChangeEvent(((SD18EXAM_spGetStudentResponseReportRow)(e.Row)), e.Action));
                 }
             }
             
@@ -563,8 +563,8 @@ namespace GroupProject {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.spGetStudentResponseReportRowChanging != null)) {
-                    this.spGetStudentResponseReportRowChanging(this, new spGetStudentResponseReportRowChangeEvent(((spGetStudentResponseReportRow)(e.Row)), e.Action));
+                if ((this.SD18EXAM_spGetStudentResponseReportRowChanging != null)) {
+                    this.SD18EXAM_spGetStudentResponseReportRowChanging(this, new SD18EXAM_spGetStudentResponseReportRowChangeEvent(((SD18EXAM_spGetStudentResponseReportRow)(e.Row)), e.Action));
                 }
             }
             
@@ -572,8 +572,8 @@ namespace GroupProject {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.spGetStudentResponseReportRowDeleted != null)) {
-                    this.spGetStudentResponseReportRowDeleted(this, new spGetStudentResponseReportRowChangeEvent(((spGetStudentResponseReportRow)(e.Row)), e.Action));
+                if ((this.SD18EXAM_spGetStudentResponseReportRowDeleted != null)) {
+                    this.SD18EXAM_spGetStudentResponseReportRowDeleted(this, new SD18EXAM_spGetStudentResponseReportRowChangeEvent(((SD18EXAM_spGetStudentResponseReportRow)(e.Row)), e.Action));
                 }
             }
             
@@ -581,14 +581,14 @@ namespace GroupProject {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.spGetStudentResponseReportRowDeleting != null)) {
-                    this.spGetStudentResponseReportRowDeleting(this, new spGetStudentResponseReportRowChangeEvent(((spGetStudentResponseReportRow)(e.Row)), e.Action));
+                if ((this.SD18EXAM_spGetStudentResponseReportRowDeleting != null)) {
+                    this.SD18EXAM_spGetStudentResponseReportRowDeleting(this, new SD18EXAM_spGetStudentResponseReportRowChangeEvent(((SD18EXAM_spGetStudentResponseReportRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemovespGetStudentResponseReportRow(spGetStudentResponseReportRow row) {
+            public void RemoveSD18EXAM_spGetStudentResponseReportRow(SD18EXAM_spGetStudentResponseReportRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -615,7 +615,7 @@ namespace GroupProject {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "spGetStudentResponseReportDataTable";
+                attribute2.FixedValue = "SD18EXAM_spGetStudentResponseReportDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -659,15 +659,15 @@ namespace GroupProject {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class spGetStudentResponseReportRow : global::System.Data.DataRow {
+        public partial class SD18EXAM_spGetStudentResponseReportRow : global::System.Data.DataRow {
             
-            private spGetStudentResponseReportDataTable tablespGetStudentResponseReport;
+            private SD18EXAM_spGetStudentResponseReportDataTable tableSD18EXAM_spGetStudentResponseReport;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal spGetStudentResponseReportRow(global::System.Data.DataRowBuilder rb) : 
+            internal SD18EXAM_spGetStudentResponseReportRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablespGetStudentResponseReport = ((spGetStudentResponseReportDataTable)(this.Table));
+                this.tableSD18EXAM_spGetStudentResponseReport = ((SD18EXAM_spGetStudentResponseReportDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -675,15 +675,15 @@ namespace GroupProject {
             public int IssuedQuizId {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.IssuedQuizIdColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.IssuedQuizIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IssuedQuizId\' in table \'spGetStudentResponseReport\' is DBNu" +
-                                "ll.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'IssuedQuizId\' in table \'SD18EXAM_spGetStudentResponseReport" +
+                                "\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.IssuedQuizIdColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.IssuedQuizIdColumn] = value;
                 }
             }
             
@@ -692,15 +692,15 @@ namespace GroupProject {
             public int StudentID {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.StudentIDColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.StudentIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'StudentID\' in table \'spGetStudentResponseReport\' is DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'StudentID\' in table \'SD18EXAM_spGetStudentResponseReport\' i" +
+                                "s DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.StudentIDColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.StudentIDColumn] = value;
                 }
             }
             
@@ -709,15 +709,15 @@ namespace GroupProject {
             public string StudentName {
                 get {
                     try {
-                        return ((string)(this[this.tablespGetStudentResponseReport.StudentNameColumn]));
+                        return ((string)(this[this.tableSD18EXAM_spGetStudentResponseReport.StudentNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'StudentName\' in table \'spGetStudentResponseReport\' is DBNul" +
-                                "l.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'StudentName\' in table \'SD18EXAM_spGetStudentResponseReport\'" +
+                                " is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.StudentNameColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.StudentNameColumn] = value;
                 }
             }
             
@@ -726,15 +726,15 @@ namespace GroupProject {
             public string StatusName {
                 get {
                     try {
-                        return ((string)(this[this.tablespGetStudentResponseReport.StatusNameColumn]));
+                        return ((string)(this[this.tableSD18EXAM_spGetStudentResponseReport.StatusNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'StatusName\' in table \'spGetStudentResponseReport\' is DBNull" +
-                                ".", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'StatusName\' in table \'SD18EXAM_spGetStudentResponseReport\' " +
+                                "is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.StatusNameColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.StatusNameColumn] = value;
                 }
             }
             
@@ -743,14 +743,15 @@ namespace GroupProject {
             public string Column1 {
                 get {
                     try {
-                        return ((string)(this[this.tablespGetStudentResponseReport.Column1Column]));
+                        return ((string)(this[this.tableSD18EXAM_spGetStudentResponseReport.Column1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column1\' in table \'spGetStudentResponseReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Column1\' in table \'SD18EXAM_spGetStudentResponseReport\' is " +
+                                "DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.Column1Column] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.Column1Column] = value;
                 }
             }
             
@@ -759,15 +760,15 @@ namespace GroupProject {
             public int MultipleChoiceCount {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.MultipleChoiceCountColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.MultipleChoiceCountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MultipleChoiceCount\' in table \'spGetStudentResponseReport\' " +
-                                "is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'MultipleChoiceCount\' in table \'SD18EXAM_spGetStudentRespons" +
+                                "eReport\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.MultipleChoiceCountColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.MultipleChoiceCountColumn] = value;
                 }
             }
             
@@ -776,15 +777,15 @@ namespace GroupProject {
             public int FillBlanksCount {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.FillBlanksCountColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.FillBlanksCountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FillBlanksCount\' in table \'spGetStudentResponseReport\' is D" +
-                                "BNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'FillBlanksCount\' in table \'SD18EXAM_spGetStudentResponseRep" +
+                                "ort\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.FillBlanksCountColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.FillBlanksCountColumn] = value;
                 }
             }
             
@@ -793,15 +794,15 @@ namespace GroupProject {
             public int TrueFalseCount {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.TrueFalseCountColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.TrueFalseCountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TrueFalseCount\' in table \'spGetStudentResponseReport\' is DB" +
-                                "Null.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TrueFalseCount\' in table \'SD18EXAM_spGetStudentResponseRepo" +
+                                "rt\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.TrueFalseCountColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.TrueFalseCountColumn] = value;
                 }
             }
             
@@ -810,15 +811,15 @@ namespace GroupProject {
             public int TotalQuestions {
                 get {
                     try {
-                        return ((int)(this[this.tablespGetStudentResponseReport.TotalQuestionsColumn]));
+                        return ((int)(this[this.tableSD18EXAM_spGetStudentResponseReport.TotalQuestionsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalQuestions\' in table \'spGetStudentResponseReport\' is DB" +
-                                "Null.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalQuestions\' in table \'SD18EXAM_spGetStudentResponseRepo" +
+                                "rt\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.TotalQuestionsColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.TotalQuestionsColumn] = value;
                 }
             }
             
@@ -827,135 +828,136 @@ namespace GroupProject {
             public string Points {
                 get {
                     try {
-                        return ((string)(this[this.tablespGetStudentResponseReport.PointsColumn]));
+                        return ((string)(this[this.tableSD18EXAM_spGetStudentResponseReport.PointsColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Points\' in table \'spGetStudentResponseReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Points\' in table \'SD18EXAM_spGetStudentResponseReport\' is D" +
+                                "BNull.", e);
                     }
                 }
                 set {
-                    this[this.tablespGetStudentResponseReport.PointsColumn] = value;
+                    this[this.tableSD18EXAM_spGetStudentResponseReport.PointsColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIssuedQuizIdNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.IssuedQuizIdColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.IssuedQuizIdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIssuedQuizIdNull() {
-                this[this.tablespGetStudentResponseReport.IssuedQuizIdColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.IssuedQuizIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStudentIDNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.StudentIDColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.StudentIDColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStudentIDNull() {
-                this[this.tablespGetStudentResponseReport.StudentIDColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.StudentIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStudentNameNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.StudentNameColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.StudentNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStudentNameNull() {
-                this[this.tablespGetStudentResponseReport.StudentNameColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.StudentNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsStatusNameNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.StatusNameColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.StatusNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetStatusNameNull() {
-                this[this.tablespGetStudentResponseReport.StatusNameColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.StatusNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsColumn1Null() {
-                return this.IsNull(this.tablespGetStudentResponseReport.Column1Column);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.Column1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetColumn1Null() {
-                this[this.tablespGetStudentResponseReport.Column1Column] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.Column1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsMultipleChoiceCountNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.MultipleChoiceCountColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.MultipleChoiceCountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetMultipleChoiceCountNull() {
-                this[this.tablespGetStudentResponseReport.MultipleChoiceCountColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.MultipleChoiceCountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsFillBlanksCountNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.FillBlanksCountColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.FillBlanksCountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetFillBlanksCountNull() {
-                this[this.tablespGetStudentResponseReport.FillBlanksCountColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.FillBlanksCountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTrueFalseCountNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.TrueFalseCountColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.TrueFalseCountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTrueFalseCountNull() {
-                this[this.tablespGetStudentResponseReport.TrueFalseCountColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.TrueFalseCountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTotalQuestionsNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.TotalQuestionsColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.TotalQuestionsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTotalQuestionsNull() {
-                this[this.tablespGetStudentResponseReport.TotalQuestionsColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.TotalQuestionsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPointsNull() {
-                return this.IsNull(this.tablespGetStudentResponseReport.PointsColumn);
+                return this.IsNull(this.tableSD18EXAM_spGetStudentResponseReport.PointsColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetPointsNull() {
-                this[this.tablespGetStudentResponseReport.PointsColumn] = global::System.Convert.DBNull;
+                this[this.tableSD18EXAM_spGetStudentResponseReport.PointsColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -963,22 +965,22 @@ namespace GroupProject {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class spGetStudentResponseReportRowChangeEvent : global::System.EventArgs {
+        public class SD18EXAM_spGetStudentResponseReportRowChangeEvent : global::System.EventArgs {
             
-            private spGetStudentResponseReportRow eventRow;
+            private SD18EXAM_spGetStudentResponseReportRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportRowChangeEvent(spGetStudentResponseReportRow row, global::System.Data.DataRowAction action) {
+            public SD18EXAM_spGetStudentResponseReportRowChangeEvent(SD18EXAM_spGetStudentResponseReportRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public spGetStudentResponseReportRow Row {
+            public SD18EXAM_spGetStudentResponseReportRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1006,7 +1008,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class spGetStudentResponseReportTableAdapter : global::System.ComponentModel.Component {
+    public partial class SD18EXAM_spGetStudentResponseReportTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1020,7 +1022,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public spGetStudentResponseReportTableAdapter() {
+        public SD18EXAM_spGetStudentResponseReportTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1117,7 +1119,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "spGetStudentResponseReport";
+            tableMapping.DataSetTable = "SD18EXAM_spGetStudentResponseReport";
             tableMapping.ColumnMappings.Add("IssuedQuizId", "IssuedQuizId");
             tableMapping.ColumnMappings.Add("StudentID", "StudentID");
             tableMapping.ColumnMappings.Add("StudentName", "StudentName");
@@ -1144,7 +1146,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.spGetStudentResponseReport";
+            this._commandCollection[0].CommandText = "dbo.SD18EXAM_spGetStudentResponseReport";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Userid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1154,7 +1156,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ExamDataSet.spGetStudentResponseReportDataTable dataTable, global::System.Nullable<int> Userid) {
+        public virtual int Fill(ExamDataSet.SD18EXAM_spGetStudentResponseReportDataTable dataTable, global::System.Nullable<int> Userid) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Userid.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Userid.Value));
@@ -1173,7 +1175,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ExamDataSet.spGetStudentResponseReportDataTable GetData(global::System.Nullable<int> Userid) {
+        public virtual ExamDataSet.SD18EXAM_spGetStudentResponseReportDataTable GetData(global::System.Nullable<int> Userid) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Userid.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Userid.Value));
@@ -1181,7 +1183,7 @@ namespace GroupProject.ExamDataSetTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            ExamDataSet.spGetStudentResponseReportDataTable dataTable = new ExamDataSet.spGetStudentResponseReportDataTable();
+            ExamDataSet.SD18EXAM_spGetStudentResponseReportDataTable dataTable = new ExamDataSet.SD18EXAM_spGetStudentResponseReportDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
