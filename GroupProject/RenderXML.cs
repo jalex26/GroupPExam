@@ -283,7 +283,6 @@ namespace GroupProject
 
                 XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Options", ns);
                 string[] option = new string[4];
-                
                 string Correct = null;
                 int x = 0;
                 foreach (XmlNode xn2 in xn["Options"])
@@ -294,6 +293,7 @@ namespace GroupProject
                         Correct = xn2.InnerText;
                     x++;
                 }
+                option.Shuffle();
                 //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
                 ListQuestions.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
                 //foreach()

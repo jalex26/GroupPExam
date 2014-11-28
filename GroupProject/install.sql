@@ -541,8 +541,8 @@ end
 go
 -- SD18EXAM_spStartQuiz @IssuedQuizId = 1
 -- SD18EXAM_spGetQuizStudentByStudent @UserId=9
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
+-- SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
+-- SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
 select * from SD18EXAM_tbQuizStudent
 select * from SD18EXAM_tbUser
 select * from SD18EXAM_tbXMLQuizContent
@@ -817,7 +817,7 @@ end
 
 go
 select * from SD18EXAM_tbXMLQuizContent
--- SD18EXAM_SD18EXAM_spLoadQuizes @Courseid = 0;
+-- SD18EXAM_spLoadQuizes @Courseid = 0;
 go
 
 
@@ -922,13 +922,12 @@ create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
 @Email varchar(60),
-@Password varchar(60),
-@Classid int = null
+@Password varchar(60)
 )
 as begin
-	if EXISTS(select * from SD18EXAM_tbUser where Firstname=@Firstname and Lastname=@Lastname and Classid=@Classid)
+	if EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
 	insert into SD18EXAM_tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname, @Email,@Password,@Classid,1)
+					  (@Firstname,@Lastname, @Email,@Password,null,1)
 end
 go
 
