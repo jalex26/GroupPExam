@@ -25,6 +25,7 @@ namespace GroupProject
                 loadUsers(myState);
                 loadClass();
                 loadSelect();
+                loadSelectClass();
 
             }
         }
@@ -171,6 +172,18 @@ namespace GroupProject
             gvSettings.PageIndex = e.NewPageIndex;
 
             loadUsers(myState);
+        }
+
+        private void loadSelectClass()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+
+            ddlClassname.DataSource = ds;
+            ddlClassname.DataTextField = "Classname";
+            ddlClassname.DataValueField = "Classid";
+            ddlClassname.DataBind();
         }
 
 

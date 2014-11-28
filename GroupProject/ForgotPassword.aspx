@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div>
+    <div id="content">
         <asp:Panel ID="pnlForgot" CssClass="ForgotTextbox" runat="server">
     <div id="RetrievePass" runat="server">
         <a>Forgotten Password</a>
