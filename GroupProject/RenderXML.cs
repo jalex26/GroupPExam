@@ -283,6 +283,7 @@ namespace GroupProject
 
                 XmlNodeList GetQuestionInfo = XmlDoc.SelectNodes("/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/ns:Options", ns);
                 string[] option = new string[4];
+                
                 string Correct = null;
                 int x = 0;
                 foreach (XmlNode xn2 in xn["Options"])
