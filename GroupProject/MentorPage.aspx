@@ -76,7 +76,7 @@
 
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz to Database" OnClick="btnUploadQuiz_Click" Width="175px" Height="19px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Issued Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start or End Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
 
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
 
@@ -92,7 +92,14 @@
             <a class="close" href="/">Close</a>
         </div>--%>
         <asp:Panel ID="pnlStartQuiz" runat="server">
-            <asp:GridView ID="gvQuizes" runat="server" AutoGenerateColumns="false" DataKeyNames="IssuedQuizId" OnRowCommand="gvQuizes_RowCommand">
+            <asp:GridView ID="gvQuizes"
+                 runat="server" 
+                GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                 DataKeyNames="IssuedQuizId" 
+                OnRowCommand="gvQuizes_RowCommand">
                 <Columns>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="QuizId" HeaderText="Quiz ID" />
@@ -207,13 +214,14 @@
         <asp:Panel ID="pnlViewQuiz" runat="server">
 
             <asp:GridView ID="gvViewQuiz"
-                runat="server"
-                AutoGenerateColumns="false"
+                runat="server"              
                 HorizontalAlign="Center"
                 DataKeyNames="Versionid"
-                Visible="false" Height="200px">
-                <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
-                <AlternatingRowStyle BackColor="#CCCCCC" />
+                 GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                Visible="false" Height="200px">          
                 <Columns>
                     <asp:TemplateField HeaderText="View Quiz">
                         <ItemTemplate>

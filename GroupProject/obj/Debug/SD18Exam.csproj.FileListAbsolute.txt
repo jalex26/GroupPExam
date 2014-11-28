@@ -133,3 +133,4 @@ C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile.compiled
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.dll
 C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.pdb
+C:\Users\anshulika\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\SD18Exam.csprojResolveAssemblyReference.cache

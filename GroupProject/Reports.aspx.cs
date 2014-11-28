@@ -220,8 +220,6 @@ namespace GroupProject
         {
             ReportViewer1.Visible = true;
 
-            
-
             loadReports();
         }
 

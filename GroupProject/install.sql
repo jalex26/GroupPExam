@@ -1225,6 +1225,10 @@ as begin
 declare @xmlvar XML;
 set     @xmlvar = (select top 1 XMLStudentResponse from SD18EXAM_tbQuizStudent)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
+select @xmlvar
+;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
 select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'StudentID', 
         Firstname + ' ' + Lastname as 'StudentName',
         SD18EXAM_tbQuizStudentStatus.StatusName, Points,
@@ -1266,8 +1270,13 @@ create procedure SD18EXAM_spGetQuizDetails(
 )
 as begin
 declare @xmlvar XML;
-set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion)
+set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion
+                   where Versionid = @Versionid)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
+select @xmlvar
+;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
 select  
 		-- casting xml as varchar as xml data type cannot be used in group by clause
 		CAST([XmlFile] AS VARCHAR(MAX)),
@@ -1278,19 +1287,21 @@ select
 	                 AS 'FillBlanksCount',
 		@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT') 
 		             AS 'TrueFalseCount',
+					 
 		-- using sum in this statement to get total questions count here
-		(sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT')) +
-		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')) +
-		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT'))) 
+		((@xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT')) +
+		 (@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')) +
+		 (@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT'))) 
 		             AS 'TotalQuestions'		
-from    SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz, SD18EXAM_tbXMLQuizContent
-where   SD18EXAM_tbQuizVersion.Versionid = SD18EXAM_tbIssuedQuiz.Versionid and
+from    SD18EXAM_tbQuizVersion, SD18EXAM_tbXMLQuizContent
+where   
         SD18EXAM_tbQuizVersion.Versionid = @Versionid
 GROUP BY 
          CAST([XmlFile] AS VARCHAR(MAX))
 
 end
 go
+
 
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null

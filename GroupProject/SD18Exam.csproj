@@ -86,7 +86,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
@@ -98,6 +97,9 @@
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
     <Content Include="Pictures\career-focused.png" />
+    <Content Include="Pictures\grd_alt.png" />
+    <Content Include="Pictures\grd_head.png" />
+    <Content Include="Pictures\grd_pgr.png" />
     <Content Include="Pictures\greenquiz_hd.jpg" />
     <Content Include="Pictures\Logo.png" />
     <Content Include="Pictures\MAINcompanylogos.png" />
@@ -135,16 +137,12 @@
     <Content Include="img\prev.gif" />
     <Content Include="install.sql" />
     <Content Include="js\jquery-2.1.1.js" />
-    <Content Include="LoginPage.aspx" />
     <Content Include="MentorPage.aspx" />
     <Content Include="MyAccount.aspx" />
-    <Content Include="Navigation.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Pictures\college.jpg" />
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
-    <Content Include="ManageProfiles.aspx" />
+    <Content Include="AdminPage.aspx" />
     <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="testxsl.aspx" />
@@ -155,18 +153,11 @@
     <Content Include="Home.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.aspx.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin.aspx.designer.cs">
-      <DependentUpon>Admin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DAL.cs" />
-    <Compile Include="dsQuizDetails.Designer.cs">
+    <Compile Include="dsQuiz.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+      <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Compile>
     <Compile Include="ExamDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -182,13 +173,6 @@
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="LoadBoxes.cs" />
-    <Compile Include="LoginPage.aspx.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginPage.aspx.designer.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MentorPage.aspx.cs">
       <DependentUpon>MentorPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -258,12 +242,12 @@
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Security.cs" />
-    <Compile Include="ManageProfiles.aspx.cs">
-      <DependentUpon>ManageProfiles.aspx</DependentUpon>
+    <Compile Include="AdminPage.aspx.cs">
+      <DependentUpon>AdminPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ManageProfiles.aspx.designer.cs">
-      <DependentUpon>ManageProfiles.aspx</DependentUpon>
+    <Compile Include="AdminPage.aspx.designer.cs">
+      <DependentUpon>AdminPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="StartQuizes.aspx.cs">
       <DependentUpon>StartQuizes.aspx</DependentUpon>
@@ -298,16 +282,16 @@
     <Content Include="ExamDataSet.xsc">
       <DependentUpon>ExamDataSet.xsd</DependentUpon>
     </Content>
-    <Content Include="dsQuizDetails.xsc">
-      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+    <Content Include="dsQuiz.xsc">
+      <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Content>
-    <None Include="dsQuizDetails.xsd">
+    <None Include="dsQuiz.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsQuizDetails.Designer.cs</LastGenOutput>
+      <LastGenOutput>dsQuiz.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <Content Include="dsQuizDetails.xss">
-      <DependentUpon>dsQuizDetails.xsd</DependentUpon>
+    <Content Include="dsQuiz.xss">
+      <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Content>
     <None Include="ExamDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>

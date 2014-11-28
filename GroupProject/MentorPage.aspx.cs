@@ -164,7 +164,13 @@ namespace GroupProject
                 {
                     myDal.ClearParams();
                     myDal.AddParam("@xml", xml);
-                   DataSet ds1 =  myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
+                    DataSet ds1 =  myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
+
+                    // this deletes file from temporary folder after inserting in database
+                    System.IO.File.Delete(fullFilePath);
+
+                    Response.Write("<script>alert('The selected file has been succesfully uploaded to the database!');</script>");
+
                 }
                 catch (Exception)
                 {

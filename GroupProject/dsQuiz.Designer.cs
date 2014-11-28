@@ -20,9 +20,9 @@ namespace GroupProject {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("dsQuizDetails")]
+    [global::System.Xml.Serialization.XmlRootAttribute("dsQuiz")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class dsQuizDetails : global::System.Data.DataSet {
+    public partial class dsQuiz : global::System.Data.DataSet {
         
         private SD18EXAM_spGetQuizDetailsDataTable tableSD18EXAM_spGetQuizDetails;
         
@@ -30,7 +30,7 @@ namespace GroupProject {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public dsQuizDetails() {
+        public dsQuiz() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace GroupProject {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected dsQuizDetails(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected dsQuiz(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace GroupProject {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            dsQuizDetails cln = ((dsQuizDetails)(base.Clone()));
+            dsQuiz cln = ((dsQuiz)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,9 +199,9 @@ namespace GroupProject {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "dsQuizDetails";
+            this.DataSetName = "dsQuiz";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/dsQuizDetails.xsd";
+            this.Namespace = "http://tempuri.org/dsQuiz.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableSD18EXAM_spGetQuizDetails = new SD18EXAM_spGetQuizDetailsDataTable();
@@ -225,7 +225,7 @@ namespace GroupProject {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            dsQuizDetails ds = new dsQuizDetails();
+            dsQuiz ds = new dsQuiz();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -281,14 +281,6 @@ namespace GroupProject {
             
             private global::System.Data.DataColumn columnColumn1;
             
-            private global::System.Data.DataColumn columnMultipleChoiceCount;
-            
-            private global::System.Data.DataColumn columnFillBlanksCount;
-            
-            private global::System.Data.DataColumn columnTrueFalseCount;
-            
-            private global::System.Data.DataColumn columnTotalQuestions;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SD18EXAM_spGetQuizDetailsDataTable() {
@@ -332,38 +324,6 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn MultipleChoiceCountColumn {
-                get {
-                    return this.columnMultipleChoiceCount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn FillBlanksCountColumn {
-                get {
-                    return this.columnFillBlanksCount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TrueFalseCountColumn {
-                get {
-                    return this.columnTrueFalseCount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TotalQuestionsColumn {
-                get {
-                    return this.columnTotalQuestions;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +359,10 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SD18EXAM_spGetQuizDetailsRow AddSD18EXAM_spGetQuizDetailsRow(string Column1, int MultipleChoiceCount, int FillBlanksCount, int TrueFalseCount, int TotalQuestions) {
+            public SD18EXAM_spGetQuizDetailsRow AddSD18EXAM_spGetQuizDetailsRow(string Column1) {
                 SD18EXAM_spGetQuizDetailsRow rowSD18EXAM_spGetQuizDetailsRow = ((SD18EXAM_spGetQuizDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Column1,
-                        MultipleChoiceCount,
-                        FillBlanksCount,
-                        TrueFalseCount,
-                        TotalQuestions};
+                        Column1};
                 rowSD18EXAM_spGetQuizDetailsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSD18EXAM_spGetQuizDetailsRow);
                 return rowSD18EXAM_spGetQuizDetailsRow;
@@ -430,10 +386,6 @@ namespace GroupProject {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnColumn1 = base.Columns["Column1"];
-                this.columnMultipleChoiceCount = base.Columns["MultipleChoiceCount"];
-                this.columnFillBlanksCount = base.Columns["FillBlanksCount"];
-                this.columnTrueFalseCount = base.Columns["TrueFalseCount"];
-                this.columnTotalQuestions = base.Columns["TotalQuestions"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -441,20 +393,8 @@ namespace GroupProject {
             private void InitClass() {
                 this.columnColumn1 = new global::System.Data.DataColumn("Column1", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColumn1);
-                this.columnMultipleChoiceCount = new global::System.Data.DataColumn("MultipleChoiceCount", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMultipleChoiceCount);
-                this.columnFillBlanksCount = new global::System.Data.DataColumn("FillBlanksCount", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFillBlanksCount);
-                this.columnTrueFalseCount = new global::System.Data.DataColumn("TrueFalseCount", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTrueFalseCount);
-                this.columnTotalQuestions = new global::System.Data.DataColumn("TotalQuestions", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalQuestions);
                 this.columnColumn1.ReadOnly = true;
                 this.columnColumn1.MaxLength = 2147483647;
-                this.columnMultipleChoiceCount.ReadOnly = true;
-                this.columnFillBlanksCount.ReadOnly = true;
-                this.columnTrueFalseCount.ReadOnly = true;
-                this.columnTotalQuestions.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -522,7 +462,7 @@ namespace GroupProject {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dsQuizDetails ds = new dsQuizDetails();
+                dsQuiz ds = new dsQuiz();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -613,74 +553,6 @@ namespace GroupProject {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int MultipleChoiceCount {
-                get {
-                    try {
-                        return ((int)(this[this.tableSD18EXAM_spGetQuizDetails.MultipleChoiceCountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MultipleChoiceCount\' in table \'SD18EXAM_spGetQuizDetails\' i" +
-                                "s DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSD18EXAM_spGetQuizDetails.MultipleChoiceCountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int FillBlanksCount {
-                get {
-                    try {
-                        return ((int)(this[this.tableSD18EXAM_spGetQuizDetails.FillBlanksCountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FillBlanksCount\' in table \'SD18EXAM_spGetQuizDetails\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableSD18EXAM_spGetQuizDetails.FillBlanksCountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int TrueFalseCount {
-                get {
-                    try {
-                        return ((int)(this[this.tableSD18EXAM_spGetQuizDetails.TrueFalseCountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TrueFalseCount\' in table \'SD18EXAM_spGetQuizDetails\' is DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSD18EXAM_spGetQuizDetails.TrueFalseCountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int TotalQuestions {
-                get {
-                    try {
-                        return ((int)(this[this.tableSD18EXAM_spGetQuizDetails.TotalQuestionsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalQuestions\' in table \'SD18EXAM_spGetQuizDetails\' is DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSD18EXAM_spGetQuizDetails.TotalQuestionsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsColumn1Null() {
                 return this.IsNull(this.tableSD18EXAM_spGetQuizDetails.Column1Column);
             }
@@ -689,54 +561,6 @@ namespace GroupProject {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetColumn1Null() {
                 this[this.tableSD18EXAM_spGetQuizDetails.Column1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsMultipleChoiceCountNull() {
-                return this.IsNull(this.tableSD18EXAM_spGetQuizDetails.MultipleChoiceCountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetMultipleChoiceCountNull() {
-                this[this.tableSD18EXAM_spGetQuizDetails.MultipleChoiceCountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFillBlanksCountNull() {
-                return this.IsNull(this.tableSD18EXAM_spGetQuizDetails.FillBlanksCountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetFillBlanksCountNull() {
-                this[this.tableSD18EXAM_spGetQuizDetails.FillBlanksCountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTrueFalseCountNull() {
-                return this.IsNull(this.tableSD18EXAM_spGetQuizDetails.TrueFalseCountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTrueFalseCountNull() {
-                this[this.tableSD18EXAM_spGetQuizDetails.TrueFalseCountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTotalQuestionsNull() {
-                return this.IsNull(this.tableSD18EXAM_spGetQuizDetails.TotalQuestionsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTotalQuestionsNull() {
-                this[this.tableSD18EXAM_spGetQuizDetails.TotalQuestionsColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -775,7 +599,7 @@ namespace GroupProject {
         }
     }
 }
-namespace GroupProject.dsQuizDetailsTableAdapters {
+namespace GroupProject.dsQuizTableAdapters {
     
     
     /// <summary>
@@ -900,10 +724,6 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "SD18EXAM_spGetQuizDetails";
             tableMapping.ColumnMappings.Add("Column1", "Column1");
-            tableMapping.ColumnMappings.Add("MultipleChoiceCount", "MultipleChoiceCount");
-            tableMapping.ColumnMappings.Add("FillBlanksCount", "FillBlanksCount");
-            tableMapping.ColumnMappings.Add("TrueFalseCount", "TrueFalseCount");
-            tableMapping.ColumnMappings.Add("TotalQuestions", "TotalQuestions");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -911,7 +731,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ExamConnectionString"].ConnectionString;
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["RobertsonQuizConn"].ConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -930,7 +750,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(dsQuizDetails.SD18EXAM_spGetQuizDetailsDataTable dataTable, global::System.Nullable<int> Versionid) {
+        public virtual int Fill(dsQuiz.SD18EXAM_spGetQuizDetailsDataTable dataTable, global::System.Nullable<int> Versionid) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Versionid.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Versionid.Value));
@@ -949,7 +769,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsQuizDetails.SD18EXAM_spGetQuizDetailsDataTable GetData(global::System.Nullable<int> Versionid) {
+        public virtual dsQuiz.SD18EXAM_spGetQuizDetailsDataTable GetData(global::System.Nullable<int> Versionid) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((Versionid.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Versionid.Value));
@@ -957,7 +777,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            dsQuizDetails.SD18EXAM_spGetQuizDetailsDataTable dataTable = new dsQuizDetails.SD18EXAM_spGetQuizDetailsDataTable();
+            dsQuiz.SD18EXAM_spGetQuizDetailsDataTable dataTable = new dsQuiz.SD18EXAM_spGetQuizDetailsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1031,7 +851,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateUpdatedRows(dsQuizDetails dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(dsQuiz dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1041,7 +861,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateInsertedRows(dsQuizDetails dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(dsQuiz dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1051,7 +871,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateDeletedRows(dsQuizDetails dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(dsQuiz dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1085,7 +905,7 @@ namespace GroupProject.dsQuizDetailsTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public virtual int UpdateAll(dsQuizDetails dataSet) {
+        public virtual int UpdateAll(dsQuiz dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
