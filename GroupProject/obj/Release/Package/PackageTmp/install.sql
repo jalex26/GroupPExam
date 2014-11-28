@@ -923,12 +923,12 @@ create procedure SD18EXAM_spInsertUser(
 @Lastname varchar(60),
 @Email varchar(60),
 @Password varchar(60),
-@Classid int = null,
-@SecurityLevel int
+@Classid int = null
 )
 as begin
+	if EXISTS(select * from SD18EXAM_tbUser where Firstname=@Firstname and Lastname=@Lastname and Classid=@Classid)
 	insert into SD18EXAM_tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname, @Email,@Password,@Classid,@SecurityLevel)
+					  (@Firstname,@Lastname, @Email,@Password,@Classid,1)
 end
 go
 
