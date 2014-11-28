@@ -12,7 +12,6 @@ Courseid int primary key identity(0,1),
 Coursename varchar(60)
 )
 go
-
 insert into SD18EXAM_tbCourse(Coursename)values
  ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional'),
  ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
@@ -541,8 +540,8 @@ end
 go
 -- SD18EXAM_spStartQuiz @IssuedQuizId = 1
 -- SD18EXAM_spGetQuizStudentByStudent @UserId=9
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
+-- SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
+-- SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
 select * from SD18EXAM_tbQuizStudent
 select * from SD18EXAM_tbUser
 select * from SD18EXAM_tbXMLQuizContent
@@ -692,8 +691,6 @@ from SD18EXAM_tbUser
 where Userid = @Userid
 end
 go
-
-
 go
 create procedure SD18EXAM_spGetStudents(
 @Classid int = null,
@@ -730,8 +727,6 @@ as begin
 	    
 end
 go
-
-
 create procedure SD18EXAM_spLoadAllStudentClass(
 @Classid int
 )
@@ -817,7 +812,7 @@ end
 
 go
 select * from SD18EXAM_tbXMLQuizContent
--- SD18EXAM_SD18EXAM_spLoadQuizes @Courseid = 0;
+-- SD18EXAM_spLoadQuizes @Courseid = 0;
 go
 
 
@@ -922,13 +917,12 @@ create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
 @Email varchar(60),
-@Password varchar(60),
-@Classid int = null,
-@SecurityLevel int
+@Password varchar(60)
 )
 as begin
+	if EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
 	insert into SD18EXAM_tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname, @Email,@Password,@Classid,@SecurityLevel)
+					  (@Firstname,@Lastname, @Email,@Password,null,1)
 end
 go
 

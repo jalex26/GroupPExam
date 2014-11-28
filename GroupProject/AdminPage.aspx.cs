@@ -26,6 +26,7 @@ namespace GroupProject
                 loadClass();
                 loadSelect();
                 loadSelectClass();
+                loadNewCourse();
 
             }
         }
@@ -64,13 +65,12 @@ namespace GroupProject
             ddlClass.DataSource = ds;
             ddlClass.DataBind();
         }
-
-
-        private void loadUsers(StateCookies mySate)
+        private void loadUsers(StateCookies myState)
         {
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
             myDal.ClearParams();
+            myDal.AddParam("@Classid",ddlClassname.SelectedValue);
             gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
             gvSettings.DataBind();
 
@@ -184,6 +184,67 @@ namespace GroupProject
             ddlClassname.DataTextField = "Classname";
             ddlClassname.DataValueField = "Classid";
             ddlClassname.DataBind();
+        }
+
+        protected void ddlClassname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadUsers(myState);
+        }
+
+        protected void lbUsers_Click(object sender, EventArgs e)
+        {
+            ddlClassname.Visible = true;
+            gvSettings.Visible = true;
+            lblSelectClass.Visible = true;
+            lblNewCourse.Visible = false;
+            ddlCourseList.Visible = false;
+            txtNewCourse.Visible = false;
+            btnSaveCourse.Visible = false;
+            btnDeleteCourse.Visible = false;
+            lblCourseSelection.Visible = false;
+
+        }
+
+        protected void lbCourse_Click(object sender, EventArgs e)
+        {
+            ddlClassname.Visible = false;
+            gvSettings.Visible = false;
+            lblSelectClass.Visible = false;
+            lblNewCourse.Visible = true;
+            ddlCourseList.Visible = true;
+            txtNewCourse.Visible = true;
+            btnSaveCourse.Visible = true;
+            btnDeleteCourse.Visible = true;
+            lblCourseSelection.Visible = true;
+        }
+        private void loadNewCourse()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
+
+            ddlCourseList.DataSource = ds;
+            ddlCourseList.DataTextField = "Coursename";
+            ddlCourseList.DataValueField = "Courseid";
+            ddlCourseList.DataBind();
+        }
+
+        protected void btnSaveCourse_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@Coursename", txtNewCourse.Text);
+            myDal.ExecuteProcedure("SD18EXAM_spInsertCourse");
+            loadNewCourse();
+            txtNewCourse.Text = "";
+         
+        }
+
+        protected void btnDeleteCourse_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
+            myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
+            loadNewCourse();
         }
 
 

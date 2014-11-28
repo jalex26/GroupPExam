@@ -23,13 +23,13 @@ namespace GroupProject
         protected XmlDocument XmlDoc = new XmlDocument();
 
         protected void Page_Load(object sender, EventArgs e)
-        {          
+        {
             Security mySecurity = new Security(2);
 
             if (!IsPostBack)
             {
                 loadCourse();
-                              
+
             }
         }
         private void loadCourse()
@@ -131,54 +131,62 @@ namespace GroupProject
             string serverPath = Server.MapPath(".") + "\\tempXML\\";
 
             string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
-            fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
+            string strUploadExtension = System.IO.Path.GetExtension(fuploadQuiz.PostedFile.FileName.ToString());
+
 
             string fullFilePath;
             fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
+            if (fuploadQuiz.HasFile)
+            {// file upload control on asp.net has no filtering that's why i need to check the file extension first before upload
+                if (strUploadExtension == ".xqz")
+                {
+                    fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
+                    // saving xml file content in a string to pass it to stored proc later
+                    string xml = File.ReadAllText(fullFilePath);
 
-            // saving xml file content in a string to pass it to stored proc later
-            string xml = File.ReadAllText(fullFilePath);
+                    // validating xml file here before inserting into database
+                    string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
+                    OpenValidate OV = new OpenValidate();
+                    OV.ValidateXml(fullFilePath, xsd);
+                    if (OV.failed)
+                    {
+                        Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
+                    }
+                    else
+                    {
+                        // after validation removing al namespaces from xml file before inserting in database
+                        fullXml = new XmlDocument();
+                        fullXml.LoadXml(xml);
+                        RemoveNamespaceAttributes(fullXml.DocumentElement);
 
-            // validating xml file here before inserting into database
-            string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
-            OpenValidate OV = new OpenValidate();
-            OV.ValidateXml(fullFilePath, xsd);
-            if (OV.failed)
-            {
-                Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
+                        // saving xml data in database if file is in correct format
+                        XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
+                        DataSet ds = new DataSet();
+                        ds.ReadXml(xmlreader);
+                        xmlreader.Close();
+                        if (ds.Tables.Count != 0)
+                        {
+                            try
+                            {
+                                myDal.ClearParams();
+                                myDal.AddParam("@xml", xml);
+                                DataSet ds1 = myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
+                            }
+                            catch (Exception)
+                            {
+                                System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('File could not be uploaded')</SCRIPT>");
+                }
+
             }
 
-            // after validation removing al namespaces from xml file before inserting in database
-            fullXml = new XmlDocument();
-            fullXml.LoadXml(xml);
-            RemoveNamespaceAttributes(fullXml.DocumentElement);
 
-            // saving xml data in database if file is in correct format
-            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
-            DataSet ds = new DataSet();
-            ds.ReadXml(xmlreader);
-            xmlreader.Close();
-            if (ds.Tables.Count != 0)
-            {
-                try
-                {
-                    myDal.ClearParams();
-                    myDal.AddParam("@xml", xml);
-                    DataSet ds1 =  myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
-
-                    // this deletes file from temporary folder after inserting in database
-                    System.IO.File.Delete(fullFilePath);
-
-                    Response.Write("<script>alert('The selected file has been succesfully uploaded to the database!');</script>");
-
-                }
-                catch (Exception)
-                {
-                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
-                }
-                
-
-            }
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
@@ -195,7 +203,7 @@ namespace GroupProject
             loadQuiz();
 
             DataSet ds1 = LB.LoadQuizes(ddlCourse.SelectedValue.ToString());
-            if(ds1.Tables[0].Rows.Count != 0)
+            if (ds1.Tables[0].Rows.Count != 0)
             {
                 ddlSelectQuiz.DataTextField = "Title";
                 ddlSelectQuiz.DataValueField = "XMLQuizID";
@@ -205,7 +213,7 @@ namespace GroupProject
                 ddlSelectQuiz.SelectedIndex = 0;
                 lblQuizDuration.Text = "Select quiz first";
             }
-            
+
         }
 
         protected void ddlSelectQuiz_SelectedIndexChanged(object sender, EventArgs e)
@@ -356,11 +364,11 @@ namespace GroupProject
 
             string type = "";
             if (type != "")
-            Response.ContentType = type;
+                Response.ContentType = type;
             Response.WriteFile(filePath);
             Response.End();
             XmlDoc.Save(Response.OutputStream);
-        
+
         }
 
 
@@ -371,20 +379,20 @@ namespace GroupProject
             gvViewQuiz.Visible = false;
 
             myDal.ClearParams();
-            myDal.AddParam("@Userid",HttpContext.Current.Session["Userid"].ToString());
+            myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
-            if(ds.Tables[0].Rows.Count != 0)
+            if (ds.Tables[0].Rows.Count != 0)
             {
                 pnlStartQuiz.Visible = true;
                 gvQuizes.DataSource = ds.Tables[0];
                 gvQuizes.DataBind();
             }
-            
+
         }
 
         protected void gvQuizes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if(e.CommandName == "Action")
+            if (e.CommandName == "Action")
             {
                 int IssuedQuizId = -1;
                 gvQuizes.SelectedIndex = Convert.ToInt32(e.CommandArgument.ToString());
@@ -395,21 +403,21 @@ namespace GroupProject
         private void PopUpQuizAction(int IssuedQuizId)
         {
             if (IssuedQuizId != -1)
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@IssuedQuizId", IssuedQuizId.ToString());
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spgetIssuedQuizDetails");
+                if (ds.Tables[0].Rows.Count != 0)
                 {
-                    myDal.ClearParams();
-                    myDal.AddParam("@IssuedQuizId", IssuedQuizId.ToString());
-                    DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spgetIssuedQuizDetails");
-                    if(ds.Tables[0].Rows.Count != 0)
-                    {
-                        lblIssuedQuizId.Text = ds.Tables[0].Rows[0]["IssuedQuizId"].ToString();
-                        lblTitle.Text = ds.Tables[0].Rows[0]["Title"].ToString();
-                        lblTime.Text = ds.Tables[0].Rows[0]["Time"].ToString();
-                        lblClass.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
-                        lblStatus.Text = ds.Tables[0].Rows[0]["StatusName"].ToString();
-                        
-                        MPEQuizAction.Show();
-                    }
+                    lblIssuedQuizId.Text = ds.Tables[0].Rows[0]["IssuedQuizId"].ToString();
+                    lblTitle.Text = ds.Tables[0].Rows[0]["Title"].ToString();
+                    lblTime.Text = ds.Tables[0].Rows[0]["Time"].ToString();
+                    lblClass.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
+                    lblStatus.Text = ds.Tables[0].Rows[0]["StatusName"].ToString();
+
+                    MPEQuizAction.Show();
                 }
+            }
         }
 
         protected void btnCreateQuiz_Click(object sender, EventArgs e)
@@ -439,8 +447,8 @@ namespace GroupProject
             Response.Redirect("Reports.aspx");
         }
 
-      
-       
+
+
 
     }
 }
