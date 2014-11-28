@@ -12,7 +12,6 @@ Courseid int primary key identity(0,1),
 Coursename varchar(60)
 )
 go
-
 insert into SD18EXAM_tbCourse(Coursename)values
  ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional'),
  ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
@@ -692,8 +691,6 @@ from SD18EXAM_tbUser
 where Userid = @Userid
 end
 go
-
-
 go
 create procedure SD18EXAM_spGetStudents(
 @Classid int = null,
@@ -730,8 +727,6 @@ as begin
 	    
 end
 go
-
-
 create procedure SD18EXAM_spLoadAllStudentClass(
 @Classid int
 )

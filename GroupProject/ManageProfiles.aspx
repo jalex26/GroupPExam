@@ -12,7 +12,6 @@
         }
     </style>
     <%-- style ends here--%>
-
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,14 +25,34 @@
            
         <br />
         <br />
+        <asp:LinkButton ID="lbUsers" runat="server" OnClick="lbUsers_Click">Manage Users</asp:LinkButton> 
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:LinkButton ID="lbCourse" runat="server" OnClick="lbCourse_Click">Manage Course</asp:LinkButton>
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:LinkButton ID="lbClass" runat="server">Manage Class</asp:LinkButton>
         <br />
         <br />
-        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
-          
-        <asp:DropDownList ID="ddlClassname" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
+
+        <asp:TextBox ID="txtNewCourse" runat="server" Visible="false"></asp:TextBox>
+        &nbsp
+        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:" Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+
+        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: " Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+        
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
+        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
         <br />
-         <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
+         <asp:GridView ID="gvSettings" Visible="false" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
             HorizontalAlign="Center"
             Width="800px"                  
