@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Download\setup.exe" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
@@ -285,6 +286,7 @@
     <Content Include="dsQuiz.xsc">
       <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Content>
+    <Content Include="Download\QuizMaker_Install.msi" />
     <None Include="dsQuiz.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsQuiz.Designer.cs</LastGenOutput>

@@ -83,6 +83,7 @@ namespace GroupProject
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            pnlDownload.Visible = false;
         }
 
         protected void btnUploadQuiz_Click(object sender, EventArgs e)
@@ -92,10 +93,12 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            pnlDownload.Visible = false;
         }
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
+            pnlDownload.Visible = false;
             gvViewQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
@@ -377,7 +380,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
-
+            pnlDownload.Visible = false;
             myDal.ClearParams();
             myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
@@ -386,6 +389,7 @@ namespace GroupProject
                 pnlStartQuiz.Visible = true;
                 gvQuizes.DataSource = ds.Tables[0];
                 gvQuizes.DataBind();
+
             }
 
         }
@@ -422,6 +426,7 @@ namespace GroupProject
 
         protected void btnCreateQuiz_Click(object sender, EventArgs e)
         {
+            pnlDownload.Visible = true;
             pnlStartQuiz.Visible = false;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;

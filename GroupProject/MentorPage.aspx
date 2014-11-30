@@ -248,8 +248,12 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
-
-
+        <asp:Panel ID="pnlDownload" runat="server" Visible="false">
+           <a href="Download/QuizMaker_Install.msi">Download MSI Installer</a>
+            <br />
+            <a href="Download/setup.exe">Download EXE Installer</a>
+            <br />
+        </asp:Panel>
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
                 <hr />

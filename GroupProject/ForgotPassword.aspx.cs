@@ -30,13 +30,16 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@Token", Token);
                 DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spCheckToken");
-                if (ds.Tables[0].Rows[0]["exist"].ToString() == "true")
+                if (ds.Tables[0].Rows[0]["exist"].ToString() == "true" && ds.Tables[0].Rows[0]["TokenType"].ToString()== "LostPass")
                 {
+                    pnlChangePassword.Visible = true;
+                    pnlForgot.Visible = false;
                     ChangePass.Visible = true;
                     RetrievePass.Visible = false;
                 }
                 else
                 {
+                    pnlChangePassword.Visible = false;
                     InvalidToken.Visible = true;
                     RetrievePass.Visible = false;
                 }
@@ -63,7 +66,7 @@ namespace GroupProject
                     message.Subject = "retrieve account";
                     //message.Body = "Change password link: http://localhost:49966/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
 
-                    message.Body = "Change password link: http://www.robertsoncollegesoftwarestudents.net/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
+                    message.Body = "Change password link: http://www.robertsoncollegesoftwarestudents.net/SD18Exam/ForgotPassword.aspx?NewLinkChangePass=" + NewLinkChangePass;
                     SmtpClient client = new SmtpClient();
                     client.Host = "smtp.gmail.com";
                     client.Port = 587;
@@ -71,10 +74,12 @@ namespace GroupProject
                     client.Credentials = new System.Net.NetworkCredential("adrian.carter@robertsoncollege.net", "Catage032908");
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.Send(message);
+                    RetrievePass.Visible = false;
+                    CheckMailInvalid.Visible = false;
                 }
                 else
                 {//invalid Email
-                    CheckMailInvalid.Visible = false;
+                    CheckMailInvalid.Visible = true;
                 }
             }
         }
@@ -91,6 +96,7 @@ namespace GroupProject
                 DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spChangePassWord");
                 if (ds.Tables[0].Rows[0]["message"].ToString() != "invalid token")
                 {
+                    ChangePass.Visible = false;
                     ChangeSuccess.Visible = true;
                     RetrievePass.Visible = false;
                 }
