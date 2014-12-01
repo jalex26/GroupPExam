@@ -263,6 +263,11 @@
       <DependentUpon>AdminPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="StateCookies.cs" />
+    <Compile Include="StudentReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="StudentResponse.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -320,6 +325,17 @@
       <DependentUpon>ExamDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\ExamProfile.pubxml" />
+    <Content Include="StudentReport.xsc">
+      <DependentUpon>StudentReport.xsd</DependentUpon>
+    </Content>
+    <None Include="StudentReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudentReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="StudentReport.xss">
+      <DependentUpon>StudentReport.xsd</DependentUpon>
+    </Content>
     <None Include="StudentResponse.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -344,7 +360,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="Report2.rdlc" />
-    <EmbeddedResource Include="Report3.rdlc" />
+    <EmbeddedResource Include="StudentReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

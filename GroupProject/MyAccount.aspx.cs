@@ -16,20 +16,28 @@ namespace GroupProject
         DAL myDal = new DAL(Globals.conn);
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-
+        {       
             Security mySecurity = new Security(1);
 
             LoadStudentInfo();
 
-            ReportViewer1.ProcessingMode = ProcessingMode.Local;
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report3.rdlc");
-            ReportDataSource datasource = new ReportDataSource("DataSet1", StudentQuizReport());
-            ReportViewer1.LocalReport.DataSources.Clear();
-            ReportViewer1.LocalReport.DataSources.Add(datasource);
+            if (mySecurity.GetSecurityLevel() != 1)
+            {
+                ReportViewer1.Visible = false;
 
+            }
+
+            else
+            {
+
+                ReportViewer1.ProcessingMode = ProcessingMode.Local;
+                ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/StudentReport.rdlc");
+                ReportDataSource datasource = new ReportDataSource("DataSet1", StudentQuizReport());
+                ReportViewer1.LocalReport.DataSources.Clear();
+                ReportViewer1.LocalReport.DataSources.Add(datasource);
+
+            }
         }
-
 
         public void LoadStudentInfo()
         {

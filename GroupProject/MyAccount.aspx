@@ -63,7 +63,7 @@
          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
          <rsweb:ReportViewer ID="ReportViewer1" 
-                AsyncRendering="false" SizeToReportContent="true" Width="700px"
+                AsyncRendering="false" SizeToReportContent="true" Width="545px"
              runat="server"></rsweb:ReportViewer>
 
 
