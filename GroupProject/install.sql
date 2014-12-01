@@ -1458,6 +1458,12 @@ else
     end
 end
 go
+
+create procedure SD18EXAM_spGetUnAssignedStudents
+as begin
+select Userid,Lastname + ', ' + Firstname as Name,Email from SD18EXAM_tbUser where Classid = null
+end
+go
 --select * from SD18EXAM_tbIssuedQuiz
 --select * from dbo.SD18EXAM_tbQuizStatus
 --SD18EXAM_spStartQuiz @IssuedQuizId = 3

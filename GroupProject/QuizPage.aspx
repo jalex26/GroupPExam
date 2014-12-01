@@ -72,7 +72,7 @@
 
                         //do stuff with the result
                         SendToServerAndStatus();
-                        alert(result);
+                        //alert(result);
                     }
                     else if (currentQuestion % 3 == 0) {
                         SendToServerAndStatus();// send to web server every 3 questions to reduce server load
@@ -228,8 +228,7 @@
                     success: function (data, status) {
                         //alert(data.d);
                         console.log(data);
-                        //alert(JSON.stringify(data));
-                        alert(data.status)// getting the data.d values
+                        //alert(data.status)// getting the data.d values
                     },
                     error: function (error) {
                         alert("Error: " + error.status + "/ " +
