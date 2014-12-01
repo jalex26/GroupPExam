@@ -65,17 +65,20 @@
 
         <asp:Panel ID="pnlbuttons" runat="server">
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View Quiz" OnClick="btnViewQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View & Download Quiz" OnClick="btnViewQuiz_Click" Width="175px" Height="19px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue Quiz" OnClick="btnIssueQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue/ Assign Quiz to Students" OnClick="btnIssueQuiz_Click" Width="175px" Height="16px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Create Quiz" Width="98px" OnClick="btnCreateQuiz_Click" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Download ExamMaker App" Width="175px" OnClick="btnCreateQuiz_Click" Height="16px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz" OnClick="btnUploadQuiz_Click" Width="98px" />
+            <br />
+            <br />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start Quiz" OnClick="btnStartQuiz_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz to Database" OnClick="btnUploadQuiz_Click" Width="175px" Height="19px" />
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="Reports" OnClick="btnReports_Click" Width="98px" />
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start or End Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
+
+            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
 
         </asp:Panel>
 
@@ -89,7 +92,14 @@
             <a class="close" href="/">Close</a>
         </div>--%>
         <asp:Panel ID="pnlStartQuiz" runat="server">
-            <asp:GridView ID="gvQuizes" runat="server" AutoGenerateColumns="false" DataKeyNames="IssuedQuizId" OnRowCommand="gvQuizes_RowCommand">
+            <asp:GridView ID="gvQuizes"
+                 runat="server" 
+                GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                 DataKeyNames="IssuedQuizId" 
+                OnRowCommand="gvQuizes_RowCommand">
                 <Columns>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="QuizId" HeaderText="Quiz ID" />
@@ -204,13 +214,14 @@
         <asp:Panel ID="pnlViewQuiz" runat="server">
 
             <asp:GridView ID="gvViewQuiz"
-                runat="server"
-                AutoGenerateColumns="false"
+                runat="server"              
                 HorizontalAlign="Center"
                 DataKeyNames="Versionid"
-                Visible="false" Height="200px">
-                <HeaderStyle BackColor="#ADADAD"></HeaderStyle>
-                <AlternatingRowStyle BackColor="#CCCCCC" />
+                 GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                Visible="false" Height="200px">          
                 <Columns>
                     <asp:TemplateField HeaderText="View Quiz">
                         <ItemTemplate>
@@ -237,8 +248,12 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
-
-
+        <asp:Panel ID="pnlDownload" runat="server" Visible="false">
+           <a href="Download/QuizMaker_Install.msi">Download MSI Installer</a>
+            <br />
+            <a href="Download/setup.exe">Download EXE Installer</a>
+            <br />
+        </asp:Panel>
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
                 <hr />

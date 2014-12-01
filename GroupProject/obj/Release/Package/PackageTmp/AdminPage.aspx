@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ManageProfiles.aspx.cs" Inherits="GroupProject.ManageProfiles" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="AdminPage.aspx.cs" Inherits="GroupProject.ManageProfiles" %>
 
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
@@ -12,7 +12,6 @@
         }
     </style>
     <%-- style ends here--%>
-
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,20 +25,60 @@
            
         <br />
         <br />
+        <asp:LinkButton ID="lbUsers" runat="server" OnClick="lbUsers_Click">Manage Users</asp:LinkButton> 
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:LinkButton ID="lbCourse" runat="server" OnClick="lbCourse_Click">Manage Course</asp:LinkButton>
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click">Manage Class</asp:LinkButton>
         <br />
         <br />
-        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
-          
-        <asp:DropDownList ID="ddlClassname" runat="server" AutoPostBack="true"></asp:DropDownList>
+
+        <asp:Button ID="btnCreateCourse" runat="server" Text="Create Course" Visible="false" OnClick="btnCreateCourse_Click" />
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:Button ID="btnEditDelete" runat="server" Text="Edit / Delete" Visible="false" OnClick="btneditDelete_Click" />
+
+        <asp:Label ID="lblNewClass" runat="server" Text="Class Name:" Visible="false"></asp:Label>
+
+        <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
+
+        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+
         <br />
+        <asp:Button ID="btnSaveClass" runat="server" OnClick="btnSaveClass_Click" Visible="false" Text="Save" />
+
+        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
+
+        <asp:TextBox ID="txtNewCourse" runat="server" Visible="false"></asp:TextBox>
+        &nbsp
+        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:" Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+
+        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: " Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+        
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
-         <asp:GridView ID="gvSettings" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
+        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
+        <br />
+         <asp:GridView ID="gvSettings" Visible="false" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
-            HorizontalAlign="Center"
-            Width="800px"                  
-            AutoGenerateColumns="False" RowStyle-Height="30px" GridLines="Horizontal">
-            <HeaderStyle Height="30px" ForeColor="White" BackColor="#E3170D"></HeaderStyle>
-            <AlternatingRowStyle BackColor="#CCCCCC" />
+            HorizontalAlign="Center"                   
+              GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+             AlternatingRowStyle-CssClass="alt"         
+            AutoGenerateColumns="False" >
+             
             <Columns>
                 <asp:TemplateField HeaderText="Update">
                     <ItemTemplate>

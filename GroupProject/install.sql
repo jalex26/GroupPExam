@@ -66,7 +66,7 @@ Classid int foreign key references SD18EXAM_tbClass(Classid)on delete cascade nu
 SecurityLevel int,
 UserPicture varchar(60) null,
 Email varchar(60) Unique,
-LostPass varchar(20) null
+IsActivated bit
 )
 go
 
@@ -74,7 +74,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
-('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
+('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
@@ -171,6 +171,8 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Patrick','Garcia','Patrick1',47,1,'Patrick.jpg','Patrick@robertsoncollege.net')
 
 go
+update SD18EXAM_tbUser set IsActivated=1
+go
 
 create table SD18EXAM_tbMentorCourse(
 MentorCourseID int primary key identity(0,1),
@@ -178,6 +180,14 @@ Mentorid int foreign key references SD18EXAM_tbUser(Userid),
 CourseID int foreign key references SD18EXAM_tbCourse(Courseid)
 )
 go
+create table SD18EXAM_tbTokenType(
+TokenTypeId int primary key identity(0,1),
+TokenDescription varchar(60)
+)
+
+go
+
+insert into SD18EXAM_tbTokenType values('UserPassLost'),('UserActivation')
 
 insert into SD18EXAM_tbMentorCourse (MentorID, CourseID) values
 (1, 0), (2, 1), (3,3)
@@ -185,7 +195,8 @@ insert into SD18EXAM_tbMentorCourse (MentorID, CourseID) values
 create table SD18EXAM_tbToken(
 Tokenid int primary key identity (0,1),
 TToken varchar(50),
-TUserid int foreign key references SD18EXAM_tbUser(Userid)
+TUserid int foreign key references SD18EXAM_tbUser(Userid),
+TokenType int foreign key references SD18EXAM_tbTokenType(TokenTypeId)
 )
 go
 
@@ -253,6 +264,7 @@ XMLStudentResponse xml,
 Status int foreign key references SD18EXAM_tbQuizStudentStatus(StatusId),
 Points decimal(5,2) null,   -- results or number of correct responses by each student
 DateTaken datetime null
+
 )
 go
 
@@ -605,19 +617,21 @@ create procedure SD18EXAM_spForgotPassword(
 )
 as declare
 @message varchar (50),
-@Token varchar (50)='notExists'
+@Token varchar (50)='notExists',
+@userId int
 begin
 begin transaction
 if Exists (select 1 from SD18EXAM_tbUser where Email = @EmailAddress)
 begin 
-while not Exists (select 1 from SD18EXAM_tbUser where LostPass = @Token)
+while not Exists (select 1 from SD18EXAM_tbToken where TToken = @Token OR TUserid in(select Userid from SD18EXAM_tbUser where Email = @EmailAddress))
 begin 
 SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
-update SD18EXAM_tbUser set LostPass=@Token where Email=@EmailAddress
+set @userId = (select Userid from SD18EXAM_tbUser where Email = @EmailAddress)
+insert into SD18EXAM_tbToken values (@Token,@userId,0)
 set @Message = 'CheckMail'
 end
 end
@@ -641,10 +655,20 @@ go
 create procedure SD18EXAM_spCheckToken(
 @Token varchar(20)
 )
-as begin
-if exists(select 1 from SD18EXAM_tbUser where LostPass=@Token)
+as declare
+@tokenType int
+ begin
+if exists(select 1 from SD18EXAM_tbToken where TToken=@Token)
 begin
-select 'true' as exist
+	set @tokenType = (select TokenType from SD18EXAM_tbToken where TToken=@Token)
+	if (@tokenType = 0)
+	begin
+	select 'true' as exist, 'LostPass' as TokenType
+end
+else
+begin
+select 'true' as exist, 'AccountActivation' as TokenType
+	end
 end
 else
 begin
@@ -663,9 +687,10 @@ as declare
 @message varchar(60)
  begin
 begin transaction
-if Exists(select 1 from SD18EXAM_tbUser where LostPass = @Token)
+if Exists(select 1 from SD18EXAM_tbToken where TToken = @Token and TokenType=0)
 begin
-	update SD18EXAM_tbUser set password=@NewPass, LostPass=null where LostPass=@Token
+	update SD18EXAM_tbUser set password=@NewPass where Userid in (select TUserid from SD18EXAM_tbToken where TToken = @Token and TokenType=0)
+	delete SD18EXAM_tbToken where TToken=@Token
 	set @message = 'success'
 end
 else
@@ -915,20 +940,81 @@ as begin
 	end 
 go
 
---SD18EXAM_spViewPendingQuiz2 @Userid=3
+create procedure SD18EXAM_spValidateAccount(
+@Token varchar(60))
+as begin
+begin transaction
+	if EXISTS (select 1 from SD18EXAM_tbToken where TToken = @Token)
+	begin
+		update SD18EXAM_tbUser set IsActivated = 1 where Userid in (select TUserid from SD18EXAM_tbToken where TToken = @Token)
+		delete SD18EXAM_tbToken where TToken=@Token
+	end
+	else 
+	begin
+		select 'Token Invalid' as status
+	end
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+go
+
+--SD18EXAM_spInsertUser @Firstname='as', @Lastname='as', @Email='as', @Password='as'
+--select * from SD18EXAM_tbUser
+--select * from SD18EXAM_tbToken
+--SD18EXAM_spValidateAccount @Token ='OOMDOVQZDNRYISU'
+go
 create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
 @Email varchar(60),
 @Password varchar(60)
 )
-as begin
-	if EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
-	insert into SD18EXAM_tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname, @Email,@Password,null,1)
+as declare
+@Token varchar(20)='notExists'
+ begin
+begin transaction
+	if not EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
+	begin
+	while not Exists (select 1 from SD18EXAM_tbToken where TToken = @Token)
+begin 
+SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
+
+insert into SD18EXAM_tbUser values (@Firstname,@Lastname,@Password,null,1,null,@Email,0)
+insert into SD18EXAM_tbToken values (@Token,@@IDENTITY,1)
+	end
+	end
+	else
+		begin
+		select 'User Exists' as status
+		end
+
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status, @Token as AcctTokenValidation
+    end
+
 end
 go
-
+select * from SD18EXAM_tbUser
+go
 --Insert Difficulty
 create procedure SD18EXAM_spInsertDifficulty(
 @Difficultyname varchar(60)
@@ -940,7 +1026,14 @@ end
 go
 
 ----Insert Class
-
+create procedure SD18EXAM_spInsertClass(
+@Classname varchar(60)
+)
+as begin 
+	insert into SD18EXAM_tbClass (Classname) values
+						 (@Classname)
+end
+go
 --Insert Course
 create procedure SD18EXAM_spInsertCourse(
 @Coursename varchar(60)
@@ -1317,7 +1410,70 @@ where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 end
 go
 
+select * from SD18EXAM_tbIssuedQuiz
+select * from SD18EXAM_tbUser
+go
+create procedure SD18EXAM_spActionQuiz(
+@IssuedQuizId int,
+@MentorId int,
+@Action varchar(60)
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	if EXISTS (select * from SD18EXAM_tbUser where SecurityLevel!=1 and Userid = @MentorId)
+	begin
+	if(@Action='CloseQuiz')
+	begin
+		if EXISTS(select * from SD18EXAM_tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and Mentorid=@MentorId and QuizStatus = 1 )
+		begin
+		--set to completed
+			update SD18EXAM_tbIssuedQuiz set QuizStatus = 2	where IssuedQuizId=@IssuedQuizId
+			set @msg='closeSuccess'
+		end
+		else
+		begin
+		set @msg = 'InvalidQuiz'
+		end
+	end
+	if(@Action='DeleteQuiz')
+	begin
+		if EXISTS(select * from SD18EXAM_tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and Mentorid=@MentorId)
+		begin
+			delete SD18EXAM_tbQuizStudent where IssuedQuizId = @IssuedQuizId
+			delete SD18EXAM_tbIssuedQuiz where IssuedQuizId = @IssuedQuizId
+			set @msg='QuizDeleted'
+		end
+		else
+		begin
+		set @msg='QuizNotFound'
+		end
+	end
+	end
+	else
+	begin
+	set @msg = 'userlevelNotEnough'
+	end
 
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'Failed' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
+end
+go
+--select * from SD18EXAM_tbIssuedQuiz
+--select * from dbo.SD18EXAM_tbQuizStatus
+--SD18EXAM_spStartQuiz @IssuedQuizId = 3
+--SD18EXAM_spCloseQuiz @IssuedQuizId=3, @MentorId=5
+
+go
 --------------------------INSERTS FOR TESTING--------------------------
 SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
 go
@@ -1360,6 +1516,61 @@ insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizI
 go
 insert into SD18EXAM_tbQuizStudent values (2,10,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 4, getdate())
 go
+
+----Logs--
+create table logStudents(
+logID int primary key identity(0,1),
+Userid int,
+Firstname varchar(60),
+Lastname varchar(60),
+Password varchar(60),
+Classid int foreign key references SD18EXAM_tbClass(Classid)on delete cascade null,
+SecurityLevel int,
+UserPicture varchar(60) null,
+Email varchar(60) Unique,
+IsActivated bit,
+Action varchar(20),
+LogDateTime datetime
+)
+go
+
+insert into SD18EXAM_tbUser values
+('Patrick1','Garcia1','Patrick11',47,1,'Patrick.jpg','Patrick1@robertsoncollege.net',1)
+select * from logStudents
+go
+
+-- triggers
+-- Note: before event(trigger) fires just before the sql command happens
+-- after event(trigger) fires just after sql command happens
+create trigger triggerInsertStudent
+on SD18EXAM_tbUser 
+after insert as
+begin 
+	insert into logStudents
+		select *, 'Inserted' as Action, getdate() as logDateTime from INSERTED 
+end
+go
+
+create trigger triggerDeleteStudent 
+ on SD18EXAM_tbUser 
+after delete as
+begin 
+	insert into logStudents
+		select *, 'Deleted' as Action, getdate() as logDateTime from DELETED
+end
+go
+
+create trigger triggerUpdateStudent
+on SD18EXAM_tbUser
+after update as -- update is actually a delete followed by an insert
+begin
+	insert into logStudents
+		select *, 'Before Update' as Action, getdate()as logDateTime from DELETED
+	insert into logStudents
+		select *, 'After Update' as Action, getdate()as logDateTime from INSERTED
+end
+go
+
 
 
 select * from SD18EXAM_tbQuizStatus 

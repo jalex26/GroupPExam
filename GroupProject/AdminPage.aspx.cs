@@ -27,6 +27,7 @@ namespace GroupProject
                 loadSelect();
                 loadSelectClass();
                 loadNewCourse();
+                loadNewClasses();
 
             }
         }
@@ -202,20 +203,33 @@ namespace GroupProject
             btnSaveCourse.Visible = false;
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = false;
+            lblClassSelection.Visible = false;
+            lblNewClass.Visible = false;
+            txtNewClass.Visible = false;
+            ddlClassSelection.Visible = false;
+            btnSaveClass.Visible = false;
 
         }
-
         protected void lbCourse_Click(object sender, EventArgs e)
         {
             ddlClassname.Visible = false;
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
-            lblNewCourse.Visible = true;
-            ddlCourseList.Visible = true;
-            txtNewCourse.Visible = true;
-            btnSaveCourse.Visible = true;
-            btnDeleteCourse.Visible = true;
-            lblCourseSelection.Visible = true;
+            //Edited
+            lblNewCourse.Visible = false;
+            ddlCourseList.Visible = false;
+            txtNewCourse.Visible = false;
+            btnSaveCourse.Visible = false;
+            btnDeleteCourse.Visible = false;
+            lblCourseSelection.Visible = false;
+            btnCreateCourse.Visible = true;
+            btnEditDelete.Visible = true;
+            //End
+            lblClassSelection.Visible = false;
+            lblNewClass.Visible = false;
+            txtNewClass.Visible = false;
+            ddlClassSelection.Visible = false;
+            btnSaveClass.Visible = false;
         }
         private void loadNewCourse()
         {
@@ -247,6 +261,68 @@ namespace GroupProject
             loadNewCourse();
         }
 
+<<<<<<< HEAD:GroupProject/ManageProfiles.aspx.cs
+        protected void lbClass_Click(object sender, EventArgs e)
+        {
+            ddlClassname.Visible = false;
+            gvSettings.Visible = false;
+            lblSelectClass.Visible = false;
+            lblNewCourse.Visible = false;
+            ddlCourseList.Visible = false;
+            txtNewCourse.Visible = false;
+            btnSaveCourse.Visible = false;
+            btnDeleteCourse.Visible = false;
+            lblCourseSelection.Visible = false;
+            lblClassSelection.Visible = true;
+            lblNewClass.Visible = true;
+            txtNewClass.Visible = true;
+            ddlClassSelection.Visible = true;
+            btnSaveClass.Visible = true;
+        }
+        private void loadNewClasses()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+
+            ddlClassSelection.DataSource = ds;
+            ddlClassSelection.DataTextField = "Classname";
+            ddlClassSelection.DataValueField = "Classid";
+            ddlClassSelection.DataBind();
+        }
+
+        protected void btnSaveClass_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@Classname", txtNewClass.Text);
+            myDal.ExecuteProcedure("SD18EXAM_spInsertClass");
+            loadNewClasses();
+            txtNewClass.Text = "";
+        }
+
+        protected void btnCreateCourse_Click(object sender, EventArgs e)
+        {
+            lblNewCourse.Visible = true;
+            txtNewCourse.Visible = true;
+            btnSaveCourse.Visible = true;
+            btnCreateCourse.Visible = false;
+            btnEditDelete.Visible = false;
+        }
+        protected void btneditDelete_Click(object sender, EventArgs e)
+        {
+            btnDeleteCourse.Visible = true;
+            lblCourseSelection.Visible = true;
+            ddlCourseList.Visible = true;
+            btnEditDelete.Visible = false;
+            btnCreateCourse.Visible = false;
+        }
+=======
+        protected void lbStudentLogHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+>>>>>>> origin/master:GroupProject/AdminPage.aspx.cs
 
     }
 }

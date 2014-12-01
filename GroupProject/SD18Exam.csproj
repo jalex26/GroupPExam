@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Download\setup.exe" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-func.js" />
@@ -151,7 +152,6 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="AdminPage.aspx" />
-    <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
@@ -262,13 +262,6 @@
     <Compile Include="AdminPage.aspx.designer.cs">
       <DependentUpon>AdminPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StartQuizes.aspx.cs">
-      <DependentUpon>StartQuizes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StartQuizes.aspx.designer.cs">
-      <DependentUpon>StartQuizes.aspx</DependentUpon>
-    </Compile>
     <Compile Include="StateCookies.cs" />
     <Compile Include="StudentResponse.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -298,6 +291,7 @@
     <Content Include="dsQuiz.xsc">
       <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Content>
+    <Content Include="Download\QuizMaker_Install.msi" />
     <None Include="dsQuiz.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsQuiz.Designer.cs</LastGenOutput>

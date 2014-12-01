@@ -34,8 +34,30 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 LoadRegisterPanel();
+                CheckActivation();
             }
 
+        }
+        private void CheckActivation()
+        {
+            string token = Request.QueryString["Token"];
+            if (token != null)
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@Token", token);
+                DataSet ds = new DataSet();
+                ds = myDal.ExecuteProcedure("SD18EXAM_spValidateAccount");
+
+                if (ds.Tables[0].Rows[0]["status"].ToString() == "success")
+                {
+                    lblRegisterMessage.Text = "Congratulations! You have successfully registered to the Robertson Exam site. Proceed to homepage to access your account by logging in.";
+                    pnlRegister.Visible = false;
+                }
+                else
+                {
+                    lblRegisterMessage.Text = "Token not found!";
+                }
+            }
         }
 
         private void LoadRegisterPanel()
@@ -48,36 +70,43 @@ namespace GroupProject
 
         private void NewUserRegistration()
         {
-            if (rfvFirstName.IsValid && rfvLastName.IsValid &&
-                rfvEmail.IsValid && rfvPassword.IsValid)
+            Page.Validate("ValGroupRegister");
+            if (Page.IsValid)
+            //if (rfvFirstName.IsValid && rfvLastName.IsValid &&
+            //    rfvEmail.IsValid && rfvPassword.IsValid)
             {
+                string fullEmail = txtEmail.Text + "@robertsoncollege.net";
                 myDal.ClearParams();
                 myDal.AddParam("@Firstname", txtFirstName.Text);
                 myDal.AddParam("@Lastname", txtLastName.Text);
-                myDal.AddParam("@Email", txtEmail.Text);
+                myDal.AddParam("@Email", fullEmail);
                 myDal.AddParam("@Password", txtPassword.Text);
-                DataSet ds= myDal.ExecuteProcedure("SD18EXAM_spInsertUser");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spInsertUser");
 
-                if(ds.Tables.Count !=0)
+                if (ds.Tables[0].Rows[0]["status"].ToString() == "success")
                 {
-                    lblRegisterMessage.Text = "Congratulations! You have successfully registered to the Robertson Exam site. Please check your email for registration confirmation or proceed to homepage to access your account by logging in.";
+                    lblRegisterMessage.Text = "Congratulations! You have successfully registered to the Robertson Exam site. Please check your email for registration confirmation.";
+                    sendNewUserConfirmation(ds);
+                    pnlRegister.Visible = false;
                 }
-
-                
-
-                sendNewUserConfirmation();
+                else
+                {
+                    lblRegisterMessage.Text = "Invalid Email or Email in used already.";
+                    pnlRegister.Visible = true;
+                }
             }
         }
 
         //sends a confirmation email to user after new insert
-        private void sendNewUserConfirmation()
+        private void sendNewUserConfirmation(DataSet ds)
         {
-            string fullEmail = txtEmail.Text + "@robertsoncollege.net";   
+            string token = ds.Tables[0].Rows[0]["AcctTokenValidation"].ToString();
+            string fullEmail = txtEmail.Text + "@robertsoncollege.net";
             MailMessage message = new MailMessage();
             message.From = new MailAddress("nupur.singh@robertsoncollege.net");
             message.To.Add(new MailAddress(fullEmail));
             message.Subject = "New User Confirmation!";
-            message.Body = "Dear" + " " + txtFirstName.Text + "," + "\r\n\r\n This is an auto generated confirmation email.\r\n\r\n You have successfully registered to the Robertson College's Exam site.\r\n\r\n Please login to the site to access your account. \r\n\r\n Thank You!\r\n Robertson College\r\n RobertsonCollege.com\r\n +1 888-892-5262";
+            message.Body = "Dear" + " " + txtFirstName.Text + "," + "\r\n\r\n This is an auto generated confirmation email.\r\n\r\n You have successfully registered to the Robertson College's Exam site.\r\n\r\n Please follow this link for account activation. \r\n http://www.robertsoncollegesoftwarestudents.net/SD18Exam/Register.aspx?Token="+token+" \r\n Thank You!\r\n Robertson College\r\n RobertsonCollege.com\r\n +1 888-892-5262";
             SmtpClient client = new SmtpClient();
             client.Host = "smtp.gmail.com";
             client.Port = 587;

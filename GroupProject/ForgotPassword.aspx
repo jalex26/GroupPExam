@@ -19,7 +19,7 @@
 </div>
         
     <div id="CheckMail" runat="server" visible="false">
-            <strong>Account Retrieval Successful. Please Check Your Current Valid Email Account.
+            <strong>Account reset successfull. <br /> Please check your email to change password
                      </strong>
         </div>
         <div id="CheckMailInvalid" runat="server" visible="false" >
@@ -27,7 +27,7 @@
             <strong>You entered an Invalid Email or not existed on our database.</strong>
         </div>
         <div id="InvalidToken" runat="server" visible="false">
-            Invalid Link.
+           <strong>Invalid Link/Token.</strong> 
         </div>
                 </asp:Panel>
         <asp:Panel ID="pnlChangePassword" CssClass="ForgotTextbox" runat="server">
@@ -54,7 +54,7 @@
         <div id="ChangeSuccess" runat="server" visible="false">
            Change Password Successful. Please LogIn.</div>
         <div id="ChangeFailed" runat="server" visible="false">
-            <span class="auto-style2"><strong>Password Failed. </strong></span>
+            <span class="auto-style2"><strong>Password Failed/Invalid Account. </strong></span>
         </div>
             </asp:Panel>
     </div>
