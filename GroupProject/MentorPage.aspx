@@ -389,7 +389,7 @@
                 </tr>
             </table>
             <asp:Button ID="btnStart" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
-            <asp:Button ID="btnEnd" runat="server" Text="End Quiz" />
+            <asp:Button ID="btnEnd" runat="server" Text="End Quiz" OnClick="btnEnd_Click" />
             <asp:Button ID="btnDelete" runat="server" Text="Cancel Quiz" /><br />
             <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" />
         </asp:Panel>
