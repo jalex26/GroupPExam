@@ -222,8 +222,8 @@ namespace GroupProject
             btnSaveCourse.Visible = false;
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = false;
-            btnCreateCourse.Visible = true;
-            btnEditDelete.Visible = true;
+            //btnCreateCourse.Visible = true;
+            //btnEditDelete.Visible = true;
             //End
             lblClassSelection.Visible = false;
             lblNewClass.Visible = false;
@@ -260,8 +260,6 @@ namespace GroupProject
             myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
             loadNewCourse();
         }
-
-<<<<<<< HEAD:GroupProject/ManageProfiles.aspx.cs
         protected void lbClass_Click(object sender, EventArgs e)
         {
             ddlClassname.Visible = false;
@@ -305,24 +303,21 @@ namespace GroupProject
             lblNewCourse.Visible = true;
             txtNewCourse.Visible = true;
             btnSaveCourse.Visible = true;
-            btnCreateCourse.Visible = false;
-            btnEditDelete.Visible = false;
+            //btnCreateCourse.Visible = false;
+            //btnEditDelete.Visible = false;
         }
         protected void btneditDelete_Click(object sender, EventArgs e)
         {
             btnDeleteCourse.Visible = true;
             lblCourseSelection.Visible = true;
             ddlCourseList.Visible = true;
-            btnEditDelete.Visible = false;
-            btnCreateCourse.Visible = false;
+            //btnEditDelete.Visible = false;
+            //btnCreateCourse.Visible = false;
         }
-=======
         protected void lbStudentLogHistory_Click(object sender, EventArgs e)
         {
 
         }
-
->>>>>>> origin/master:GroupProject/AdminPage.aspx.cs
 
     }
 }

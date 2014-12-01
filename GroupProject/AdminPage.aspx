@@ -54,6 +54,15 @@
         
         <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
+        <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
+
+        <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
+        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:"></asp:Label>
+
+        <asp:DropDownList ID="ddlClassSelection" runat="server" AutoPostBack="true"></asp:DropDownList>
+
+        <br />
+        <asp:Button ID="btnSaveClass" runat="server" Text="Save" Visible="false" />
         <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
         <br />
          <asp:GridView ID="gvSettings" Visible="false" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
