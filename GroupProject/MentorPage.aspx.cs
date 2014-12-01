@@ -452,6 +452,23 @@ namespace GroupProject
             Response.Redirect("Reports.aspx");
         }
 
+        protected void btnEnd_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
+            myDal.AddParam("@MentorId", HttpContext.Current.Session["Userid"].ToString());
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spCloseQuiz");
+            if (ds.Tables.Count !=0)//not null
+            {
+                switch(ds.Tables[0].Rows[0]["status"].ToString())
+                {
+                    case "closeSuccess":
+                        Console.WriteLine("<SCRIPT>alert('Close')</SCRIPT>");
+                        break;
+                }
+            }
+        }
+
 
 
 

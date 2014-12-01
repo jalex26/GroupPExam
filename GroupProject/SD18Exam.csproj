@@ -144,7 +144,6 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="AdminPage.aspx" />
-    <Content Include="StartQuizes.aspx" />
     <Content Include="installBACKUP.sql" />
     <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
@@ -249,13 +248,6 @@
     </Compile>
     <Compile Include="AdminPage.aspx.designer.cs">
       <DependentUpon>AdminPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="StartQuizes.aspx.cs">
-      <DependentUpon>StartQuizes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StartQuizes.aspx.designer.cs">
-      <DependentUpon>StartQuizes.aspx</DependentUpon>
     </Compile>
     <Compile Include="StateCookies.cs" />
     <Compile Include="StudentResponse.Designer.cs">

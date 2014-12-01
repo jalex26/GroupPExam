@@ -73,7 +73,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
-('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
+('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
@@ -1400,7 +1400,55 @@ where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	  SD18EXAM_tbQuizStudent.QuizStudentid = isnull(@QuizStudentid, SD18EXAM_tbQuizStudent.QuizStudentid )
 end
 go
+select * from SD18EXAM_tbIssuedQuiz
+select * from SD18EXAM_tbUser
+go
+create procedure SD18EXAM_spCloseQuiz(
+@IssuedQuizId int,
+@MentorId int
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	if EXISTS (select * from SD18EXAM_tbUser where SecurityLevel!=1 and Userid = @MentorId)
+	begin
+		if EXISTS(select * from SD18EXAM_tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and Mentorid=@MentorId and QuizStatus = 1 )
+		begin
+		--set to completed
+			update SD18EXAM_tbIssuedQuiz set QuizStatus = 2	where IssuedQuizId=@IssuedQuizId
+			set @msg='closeSuccess'
+		end
+		else
+		begin
+		set @msg = 'InvalidQuiz'
+		end
+	end
+	else
+	begin
+	set @msg = 'userlevelNotEnough'
+	end
 
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'Failed' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
+end
+
+
+go
+--select * from SD18EXAM_tbIssuedQuiz
+--select * from dbo.SD18EXAM_tbQuizStatus
+--SD18EXAM_spStartQuiz @IssuedQuizId = 3
+--SD18EXAM_spCloseQuiz @IssuedQuizId=3, @MentorId=0
+
+go
 --------------------------INSERTS FOR TESTING--------------------------
 SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
 go
