@@ -937,7 +937,14 @@ end
 go
 
 ----Insert Class
-
+create procedure SD18EXAM_spInsertClass(
+@Classname varchar(60)
+)
+as begin 
+	insert into SD18EXAM_tbClass (Classname) values
+						 (@Classname)
+end
+go
 --Insert Course
 create procedure SD18EXAM_spInsertCourse(
 @Coursename varchar(60)
