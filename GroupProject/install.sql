@@ -1572,7 +1572,6 @@ end
 go
 
 
-
 select * from SD18EXAM_tbQuizStatus 
 select * from SD18EXAM_tbIssuedQuiz
 select * from SD18EXAM_tbQuizStudent
