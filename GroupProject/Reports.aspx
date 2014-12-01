@@ -125,7 +125,7 @@
         </rsweb:ReportViewer>
 
 
-        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+        <asp:GridView ID="gvTest" runat="server"></asp:GridView>
 
         <%--<asp:PieChart ID="pieChartQuizDetails" runat="server"
             ChartHeight="300" ChartWidth = "400" Visible="false"

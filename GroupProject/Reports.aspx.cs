@@ -206,14 +206,28 @@ namespace GroupProject
                 myDal.ClearParams();
                 myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
                 myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
-                return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
+
+                DataSet ds = new DataSet();
+
+                ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport");
+
+                
+                //return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
+
+                return ds.Tables[0];
+
         }
 
         public DataTable GetQuizDetailsData()
         {
             myDal.ClearParams();        
             myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
+
+           
+
             return myDal.ExecuteProcedure("SD18EXAM_spGetQuizDetails").Tables[0];
+
+           
         }
 
         protected void btnViewReport_Click(object sender, EventArgs e)

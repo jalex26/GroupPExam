@@ -33,9 +33,27 @@
         &nbsp
         &nbsp
         &nbsp
-        <asp:LinkButton ID="lbClass" runat="server">Manage Class</asp:LinkButton>
+        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click">Manage Class</asp:LinkButton>
         <br />
         <br />
+
+        <asp:Button ID="btnCreateCourse" runat="server" Text="Create Course" Visible="false" OnClick="btnCreateCourse_Click" />
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:Button ID="btnEditDelete" runat="server" Text="Edit / Delete" Visible="false" OnClick="btneditDelete_Click" />
+
+        <asp:Label ID="lblNewClass" runat="server" Text="Class Name:" Visible="false"></asp:Label>
+
+        <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
+
+        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
+
+        <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+
+        <br />
+        <asp:Button ID="btnSaveClass" runat="server" OnClick="btnSaveClass_Click" Visible="false" Text="Save" />
+
         <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
 
         <asp:TextBox ID="txtNewCourse" runat="server" Visible="false"></asp:TextBox>

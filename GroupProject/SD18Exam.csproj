@@ -97,7 +97,10 @@
     <Content Include="NavigationXmlFiles\user_menu.xml" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\assignQuiz.jpg" />
     <Content Include="Pictures\career-focused.png" />
+    <Content Include="Pictures\checklist.png" />
+    <Content Include="Pictures\download.jpg" />
     <Content Include="Pictures\grd_alt.png" />
     <Content Include="Pictures\grd_head.png" />
     <Content Include="Pictures\grd_pgr.png" />
@@ -110,8 +113,11 @@
     <Content Include="Pictures\OnlineTest_0.jpg" />
     <Content Include="Pictures\program-variety.png" />
     <Content Include="Pictures\Quiz.jpg" />
+    <Content Include="Pictures\Reports.png" />
+    <Content Include="Pictures\Reports2.png" />
     <Content Include="Pictures\s2.jpg" />
     <Content Include="Pictures\school_soft_banner1.jpg" />
+    <Content Include="Pictures\StartEnd.png" />
     <Content Include="Pictures\student-oriented.png" />
     <Content Include="Pictures\students1.jpg" />
     <Content Include="Pictures\students3.jpg" />
@@ -124,7 +130,9 @@
     <Content Include="Pictures\top-business-school.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\upload.png" />
     <Content Include="Pictures\veberly.jpg" />
+    <Content Include="Pictures\ViewQuiz.jpg" />
     <Content Include="Quiz.xsl">
       <SubType>Designer</SubType>
     </Content>
@@ -158,6 +166,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsQuiz.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsStudentQuizReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStudentQuizReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="ExamDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -287,6 +300,17 @@
     <Content Include="dsQuiz.xss">
       <DependentUpon>dsQuiz.xsd</DependentUpon>
     </Content>
+    <Content Include="dsStudentQuizReport.xsc">
+      <DependentUpon>dsStudentQuizReport.xsd</DependentUpon>
+    </Content>
+    <None Include="dsStudentQuizReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStudentQuizReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsStudentQuizReport.xss">
+      <DependentUpon>dsStudentQuizReport.xsd</DependentUpon>
+    </Content>
     <None Include="ExamDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ExamDataSet.Designer.cs</LastGenOutput>
@@ -320,6 +344,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="Report2.rdlc" />
+    <EmbeddedResource Include="Report3.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

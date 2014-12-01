@@ -74,22 +74,36 @@
 
 
         <asp:Panel ID="pnlbuttons" runat="server">
-
+       
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgView" runat="server"  Width="103px" Height="95px" ImageUrl="~/Pictures/ViewQuiz.jpg" style="margin-top: 0px"  />     
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View & Download Quiz" OnClick="btnViewQuiz_Click" Width="175px" Height="19px" />
-
+               
+               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgIssue" runat="server" Width="116px" Height="94px" ImageUrl="~/Pictures/checklist.png" />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue/ Assign Quiz to Students" OnClick="btnIssueQuiz_Click" Width="175px" Height="16px" />
+              
+            <br />
+            <br />
 
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgCreate" runat="server" Width="115px" Height="99px" ImageUrl="~/Pictures/download.jpg" />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Download ExamMaker App" Width="175px" OnClick="btnCreateQuiz_Click" Height="16px" />
-
-            <br />
-            <br />
-
+                     
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgUploadQuiz" runat="server" Width="112px" Height="104px" ImageUrl="~/Pictures/Upload.png"  />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz to Database" OnClick="btnUploadQuiz_Click" Width="175px" Height="19px" />
-
+                
+            <br />
+            <br />
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgStart" runat="server" Width="88px" Height="79px" ImageUrl="~/Pictures/StartEnd.png"   />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start or End Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
-
+              
+             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgViewReports" runat="server" Width="126px" Height="98px" ImageUrl="~/Pictures/Reports2.png"   />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
-
+           
         </asp:Panel>
 
         <br />
