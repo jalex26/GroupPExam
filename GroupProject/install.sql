@@ -75,7 +75,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
 ('Jane','Doe','pass',0,9,'SamplePicture2.jpg','Jane@yahoo.com'),
 ('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
-('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
+('Janry','Alex','Janry1',0,3,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
 ('Samuel','Gear','Samuel1',1,1,'Samuel.jpg','Samuel.Gear@robertsoncollege.net'),
@@ -1448,3 +1448,60 @@ select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbClass
 select * from SD18EXAM_tbCourse
 select * from SD18EXAM_tbQuizVersion
+
+
+
+----Logs--
+create table logStudents(
+logID int primary key identity(0,1),
+Userid int,
+Firstname varchar(60),
+Lastname varchar(60),
+Password varchar(60),
+Classid int foreign key references SD18EXAM_tbClass(Classid)on delete cascade null,
+SecurityLevel int,
+UserPicture varchar(60) null,
+Email varchar(60) Unique,
+IsActivated bit,
+Action varchar(20),
+LogDateTime datetime
+)
+go
+
+insert into SD18EXAM_tbUser values
+('Patrick1','Garcia1','Patrick11',47,1,'Patrick.jpg','Patrick1@robertsoncollege.net',1)
+select * from logStudents
+go
+
+-- triggers
+-- Note: before event(trigger) fires just before the sql command happens
+-- after event(trigger) fires just after sql command happens
+create trigger triggerInsertStudent
+on SD18EXAM_tbUser 
+after insert as
+begin 
+	insert into logStudents
+		select *, 'Inserted' as Action, getdate() as logDateTime from INSERTED 
+end
+go
+
+create trigger triggerDeleteStudent 
+ on SD18EXAM_tbUser 
+after delete as
+begin 
+	insert into logStudents
+		select *, 'Deleted' as Action, getdate() as logDateTime from DELETED
+end
+go
+
+create trigger triggerUpdateStudent
+on SD18EXAM_tbUser
+after update as -- update is actually a delete followed by an insert
+begin
+	insert into logStudents
+		select *, 'Before Update' as Action, getdate()as logDateTime from DELETED
+	insert into logStudents
+		select *, 'After Update' as Action, getdate()as logDateTime from INSERTED
+end
+go
+
