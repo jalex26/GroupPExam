@@ -457,16 +457,61 @@ namespace GroupProject
             myDal.ClearParams();
             myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
             myDal.AddParam("@MentorId", HttpContext.Current.Session["Userid"].ToString());
-            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spCloseQuiz");
-            if (ds.Tables.Count !=0)//not null
+            myDal.AddParam("@Action", "CloseQuiz");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spActionQuiz");
+            if (ds.Tables.Count != 0)//not null
             {
-                switch(ds.Tables[0].Rows[0]["status"].ToString())
+                switch (ds.Tables[0].Rows[0]["status"].ToString())
                 {
                     case "closeSuccess":
-                        Console.WriteLine("<SCRIPT>alert('Close')</SCRIPT>");
+                        Response.Write("<SCRIPT>alert('Quiz Closed')</SCRIPT>");
+                        break;
+                    case "InvalidQuiz":
+                        Response.Write("<SCRIPT>alert('Cannot close this because it is invalid Quiz')</SCRIPT>");
+                        break;
+                    case "userlevelNotEnough":
+                        Response.Write("<SCRIPT>alert('User Account level is not enough!')</SCRIPT>");
+                        break;
+
+                    default:
+                        Response.Write("<SCRIPT>alert('Error(s) Found.')</SCRIPT>");
                         break;
                 }
             }
+            MPEQuizAction.Show();
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
+                myDal.AddParam("@MentorId", HttpContext.Current.Session["Userid"].ToString());
+                myDal.AddParam("@Action", "DeleteQuiz");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spActionQuiz");
+                if (ds.Tables.Count != 0)//not null
+                {
+                    switch (ds.Tables[0].Rows[0]["status"].ToString())
+                    {
+                        case "QuizDeleted":
+                            Response.Write("<SCRIPT>alert('Quiz Deleted')</SCRIPT>");
+                            break;
+                        case "QuizNotFound":
+                            Response.Write("<SCRIPT>alert('Cannot Delete this because it is invalid Quiz')</SCRIPT>");
+                            break;
+                        default:
+                            Response.Write("<SCRIPT>alert('Error(s) Found.')</SCRIPT>");
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                MPEQuizAction.Show();
+            }
+
         }
 
 

@@ -50,7 +50,17 @@
         };
         deselect($('#aGetStudents'));
 
-
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Do you want to delete this Quiz?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
     </script>
     <!--[if IE 6]>
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
@@ -390,7 +400,7 @@
             </table>
             <asp:Button ID="btnStart" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
             <asp:Button ID="btnEnd" runat="server" Text="End Quiz" OnClick="btnEnd_Click" />
-            <asp:Button ID="btnDelete" runat="server" Text="Cancel Quiz" /><br />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete Quiz" OnClick="btnDelete_Click" Width="96px" OnClientClick="Confirm()" /><br />
             <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" />
         </asp:Panel>
 

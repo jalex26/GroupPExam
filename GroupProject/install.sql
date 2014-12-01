@@ -1403,15 +1403,18 @@ go
 select * from SD18EXAM_tbIssuedQuiz
 select * from SD18EXAM_tbUser
 go
-create procedure SD18EXAM_spCloseQuiz(
+create procedure SD18EXAM_spActionQuiz(
 @IssuedQuizId int,
-@MentorId int
+@MentorId int,
+@Action varchar(60)
 )
 as declare
 @msg varchar(60)
  begin
 begin transaction
 	if EXISTS (select * from SD18EXAM_tbUser where SecurityLevel!=1 and Userid = @MentorId)
+	begin
+	if(@Action='CloseQuiz')
 	begin
 		if EXISTS(select * from SD18EXAM_tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and Mentorid=@MentorId and QuizStatus = 1 )
 		begin
@@ -1423,6 +1426,20 @@ begin transaction
 		begin
 		set @msg = 'InvalidQuiz'
 		end
+	end
+	if(@Action='DeleteQuiz')
+	begin
+		if EXISTS(select * from SD18EXAM_tbIssuedQuiz where IssuedQuizId=@IssuedQuizId and Mentorid=@MentorId)
+		begin
+			delete SD18EXAM_tbQuizStudent where IssuedQuizId = @IssuedQuizId
+			delete SD18EXAM_tbIssuedQuiz where IssuedQuizId = @IssuedQuizId
+			set @msg='QuizDeleted'
+		end
+		else
+		begin
+		set @msg='QuizNotFound'
+		end
+	end
 	end
 	else
 	begin
@@ -1440,13 +1457,11 @@ else
 		select @msg as status
     end
 end
-
-
 go
 --select * from SD18EXAM_tbIssuedQuiz
 --select * from dbo.SD18EXAM_tbQuizStatus
 --SD18EXAM_spStartQuiz @IssuedQuizId = 3
---SD18EXAM_spCloseQuiz @IssuedQuizId=3, @MentorId=0
+--SD18EXAM_spCloseQuiz @IssuedQuizId=3, @MentorId=5
 
 go
 --------------------------INSERTS FOR TESTING--------------------------
