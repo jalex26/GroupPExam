@@ -278,6 +278,30 @@
             <a href="Download/setup.exe">Download EXE Installer</a>
             <br />
         </asp:Panel>
+        <asp:Panel ID="pnlUnAssignedStudent" runat="server">
+            <asp:GridView ID="gvUnAssignedStudents"
+                runat="server"              
+                HorizontalAlign="Center"
+                DataKeyNames="Userid"
+                 GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                Visible="false" Height="200px">          
+                <Columns>
+                    <asp:TemplateField HeaderText="View Quiz">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="CBUser" runat="server" AutoPostBack="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Name" HeaderText="Name" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email" />
+                </Columns>
+            </asp:GridView>
+            <hr />
+            Assign to Class: &nbsp ; <select id="SelCourse"></select>
+        </asp:Panel>
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
                 <hr />

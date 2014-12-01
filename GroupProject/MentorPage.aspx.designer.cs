@@ -364,6 +364,24 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Panel pnlDownload;
         
         /// <summary>
+        /// pnlUnAssignedStudent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlUnAssignedStudent;
+        
+        /// <summary>
+        /// gvUnAssignedStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvUnAssignedStudents;
+        
+        /// <summary>
         /// pnlViewExam control.
         /// </summary>
         /// <remarks>
