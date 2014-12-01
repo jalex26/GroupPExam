@@ -247,6 +247,11 @@ namespace GroupProject
             loadNewCourse();
         }
 
+        protected void lbStudentLogHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

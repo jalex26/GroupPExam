@@ -34,6 +34,10 @@
         &nbsp
         &nbsp
         <asp:LinkButton ID="lbClass" runat="server">Manage Class</asp:LinkButton>
+        &nbsp
+        &nbsp
+        &nbsp
+        <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
         <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
