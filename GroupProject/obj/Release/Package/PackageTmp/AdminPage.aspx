@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ManageProfiles.aspx.cs" Inherits="GroupProject.ManageProfiles" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="AdminPage.aspx.cs" Inherits="GroupProject.ManageProfiles" %>
 
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
@@ -72,11 +72,13 @@
         <br />
          <asp:GridView ID="gvSettings" Visible="false" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"
             DataKeyNames="Userid"
-            HorizontalAlign="Center"
-            Width="800px"                  
-            AutoGenerateColumns="False" RowStyle-Height="30px" GridLines="Horizontal">
-            <HeaderStyle Height="30px" ForeColor="White" BackColor="#E3170D"></HeaderStyle>
-            <AlternatingRowStyle BackColor="#CCCCCC" />
+            HorizontalAlign="Center"                   
+              GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+             AlternatingRowStyle-CssClass="alt"         
+            AutoGenerateColumns="False" >
+             
             <Columns>
                 <asp:TemplateField HeaderText="Update">
                     <ItemTemplate>

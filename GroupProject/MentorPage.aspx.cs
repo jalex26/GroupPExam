@@ -83,6 +83,7 @@ namespace GroupProject
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            pnlDownload.Visible = false;
         }
 
         protected void btnUploadQuiz_Click(object sender, EventArgs e)
@@ -92,10 +93,12 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            pnlDownload.Visible = false;
         }
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
+            pnlDownload.Visible = false;
             gvViewQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
@@ -377,7 +380,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
-
+            pnlDownload.Visible = false;
             myDal.ClearParams();
             myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
@@ -386,6 +389,7 @@ namespace GroupProject
                 pnlStartQuiz.Visible = true;
                 gvQuizes.DataSource = ds.Tables[0];
                 gvQuizes.DataBind();
+
             }
 
         }
@@ -422,6 +426,7 @@ namespace GroupProject
 
         protected void btnCreateQuiz_Click(object sender, EventArgs e)
         {
+            pnlDownload.Visible = true;
             pnlStartQuiz.Visible = false;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
@@ -445,6 +450,68 @@ namespace GroupProject
         protected void btnReports_Click(object sender, EventArgs e)
         {
             Response.Redirect("Reports.aspx");
+        }
+
+        protected void btnEnd_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
+            myDal.AddParam("@MentorId", HttpContext.Current.Session["Userid"].ToString());
+            myDal.AddParam("@Action", "CloseQuiz");
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spActionQuiz");
+            if (ds.Tables.Count != 0)//not null
+            {
+                switch (ds.Tables[0].Rows[0]["status"].ToString())
+                {
+                    case "closeSuccess":
+                        Response.Write("<SCRIPT>alert('Quiz Closed')</SCRIPT>");
+                        break;
+                    case "InvalidQuiz":
+                        Response.Write("<SCRIPT>alert('Cannot close this because it is invalid Quiz')</SCRIPT>");
+                        break;
+                    case "userlevelNotEnough":
+                        Response.Write("<SCRIPT>alert('User Account level is not enough!')</SCRIPT>");
+                        break;
+
+                    default:
+                        Response.Write("<SCRIPT>alert('Error(s) Found.')</SCRIPT>");
+                        break;
+                }
+            }
+            MPEQuizAction.Show();
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
+                myDal.AddParam("@MentorId", HttpContext.Current.Session["Userid"].ToString());
+                myDal.AddParam("@Action", "DeleteQuiz");
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spActionQuiz");
+                if (ds.Tables.Count != 0)//not null
+                {
+                    switch (ds.Tables[0].Rows[0]["status"].ToString())
+                    {
+                        case "QuizDeleted":
+                            Response.Write("<SCRIPT>alert('Quiz Deleted')</SCRIPT>");
+                            break;
+                        case "QuizNotFound":
+                            Response.Write("<SCRIPT>alert('Cannot Delete this because it is invalid Quiz')</SCRIPT>");
+                            break;
+                        default:
+                            Response.Write("<SCRIPT>alert('Error(s) Found.')</SCRIPT>");
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                MPEQuizAction.Show();
+            }
+
         }
 
 

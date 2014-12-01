@@ -40,12 +40,17 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.LinkButton lbClass;
         
         /// <summary>
+<<<<<<< HEAD:GroupProject/ManageProfiles.aspx.designer.cs
         /// btnCreateCourse control.
+=======
+        /// lbStudentLogHistory control.
+>>>>>>> origin/master:GroupProject/AdminPage.aspx.designer.cs
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+<<<<<<< HEAD:GroupProject/ManageProfiles.aspx.designer.cs
         protected global::System.Web.UI.WebControls.Button btnCreateCourse;
         
         /// <summary>
@@ -101,6 +106,9 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveClass;
+=======
+        protected global::System.Web.UI.WebControls.LinkButton lbStudentLogHistory;
+>>>>>>> origin/master:GroupProject/AdminPage.aspx.designer.cs
         
         /// <summary>
         /// lblNewCourse control.

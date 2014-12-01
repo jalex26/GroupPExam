@@ -12,7 +12,6 @@ Courseid int primary key identity(0,1),
 Coursename varchar(60)
 )
 go
-
 insert into SD18EXAM_tbCourse(Coursename)values
  ('Software and Database Developer'),('Accounting Specialist'),('Administrative Professional'),
  ('Business Administration'),('Casino / Resort / Event Coordinator'),('Legal Assistant'),
@@ -57,7 +56,6 @@ go
 insert into SD18EXAM_tbDifficulty(Difficultyname)values
 ('Beginner'),('Intermediate'),('Advanced')
 go
-
 create table SD18EXAM_tbUser(
 Userid int primary key identity (0,1),
 Firstname varchar(60),
@@ -67,7 +65,7 @@ Classid int foreign key references SD18EXAM_tbClass(Classid)on delete cascade nu
 SecurityLevel int,
 UserPicture varchar(60) null,
 Email varchar(60) Unique,
-LostPass varchar(20) null
+IsActivated bit
 )
 go
 
@@ -172,6 +170,8 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Patrick','Garcia','Patrick1',47,1,'Patrick.jpg','Patrick@robertsoncollege.net')
 
 go
+update SD18EXAM_tbUser set IsActivated=1
+go
 
 create table SD18EXAM_tbMentorCourse(
 MentorCourseID int primary key identity(0,1),
@@ -183,13 +183,23 @@ go
 insert into SD18EXAM_tbMentorCourse (MentorID, CourseID) values
 (1, 0), (2, 1), (3,3)
 
+create table SD18EXAM_tbTokenType(
+TokenTypeId int primary key identity(0,1),
+TokenDescription varchar(60)
+)
+
+go
+
+insert into SD18EXAM_tbTokenType values('UserPassLost'),('UserActivation')
+
 create table SD18EXAM_tbToken(
 Tokenid int primary key identity (0,1),
 TToken varchar(50),
-TUserid int foreign key references SD18EXAM_tbUser(Userid)
+TUserid int foreign key references SD18EXAM_tbUser(Userid),
+TokenType int foreign key references SD18EXAM_tbTokenType(TokenTypeId)
 )
 go
-
+go
 
 create table SD18EXAM_tbQuizStatus(
 StatusId int primary key identity (0,1),
@@ -541,8 +551,8 @@ end
 go
 -- SD18EXAM_spStartQuiz @IssuedQuizId = 1
 -- SD18EXAM_spGetQuizStudentByStudent @UserId=9
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
--- SD18EXAM_SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
+-- SD18EXAM_spStartQuizStudent @UserId= 8,@QuizStudentId= 1
+-- SD18EXAM_spStartQuizStudent @UserId= 9,@QuizStudentId= 0
 select * from SD18EXAM_tbQuizStudent
 select * from SD18EXAM_tbUser
 select * from SD18EXAM_tbXMLQuizContent
@@ -595,7 +605,6 @@ join SD18EXAM_tbXMLQuizContent on SD18EXAM_tbXMLQuizContent.XMLQuizID = SD18EXAM
 
  where IssuedQuizId = @IssuedQuizId
 end
-go
 
 go
 create procedure SD18EXAM_spForgotPassword(
@@ -603,19 +612,21 @@ create procedure SD18EXAM_spForgotPassword(
 )
 as declare
 @message varchar (50),
-@Token varchar (50)='notExists'
+@Token varchar (50)='notExists',
+@userId int
 begin
 begin transaction
 if Exists (select 1 from SD18EXAM_tbUser where Email = @EmailAddress)
 begin 
-while not Exists (select 1 from SD18EXAM_tbUser where LostPass = @Token)
+while not Exists (select 1 from SD18EXAM_tbToken where TToken = @Token OR TUserid in(select Userid from SD18EXAM_tbUser where Email = @EmailAddress))
 begin 
 SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
-update SD18EXAM_tbUser set LostPass=@Token where Email=@EmailAddress
+set @userId = (select Userid from SD18EXAM_tbUser where Email = @EmailAddress)
+insert into SD18EXAM_tbToken values (@Token,@userId,0)
 set @Message = 'CheckMail'
 end
 end
@@ -635,14 +646,27 @@ select @Message as message, @Token as Token
 end
 end
 go
---SD18EXAM_spCheckToken @Token= 'COSNMXEDEEDMSAK'
+
+--SD18EXAM_spForgotPassword @EmailAddress='kevin.coliat@robertsoncollege.net'
+--SD18EXAM_spCheckToken @Token='ZOZIHBUQYPVBTWP'
+go
 create procedure SD18EXAM_spCheckToken(
 @Token varchar(20)
 )
-as begin
-if exists(select 1 from SD18EXAM_tbUser where LostPass=@Token)
+as declare
+@tokenType int
+ begin
+if exists(select 1 from SD18EXAM_tbToken where TToken=@Token)
 begin
-select 'true' as exist
+	set @tokenType = (select TokenType from SD18EXAM_tbToken where TToken=@Token)
+	if (@tokenType = 0)
+	begin
+	select 'true' as exist, 'LostPass' as TokenType
+	end
+	else
+	begin
+	select 'true' as exist, 'AccountActivation' as TokenType
+	end
 end
 else
 begin
@@ -650,8 +674,10 @@ select 'false' as exist
 end
 end
 go
-
---spChangePass @Token='UMZSWKHAOMWHWVC', @NewPass = 'new'
+--SD18EXAM_spForgotPassword @EmailAddress='kevin.coliat@robertsoncollege.net'
+--select * from SD18EXAM_tbToken
+--select * from SD18EXAM_tbUser
+--SD18EXAM_spChangePassWord @Token='HLURZWRHPVJKJYJ', @NewPass = 'hey'
 go
 create procedure SD18EXAM_spChangePassWord(
 @Token varchar(20),
@@ -661,9 +687,10 @@ as declare
 @message varchar(60)
  begin
 begin transaction
-if Exists(select 1 from SD18EXAM_tbUser where LostPass = @Token)
+if Exists(select 1 from SD18EXAM_tbToken where TToken = @Token and TokenType=0)
 begin
-	update SD18EXAM_tbUser set password=@NewPass, LostPass=null where LostPass=@Token
+	update SD18EXAM_tbUser set password=@NewPass where Userid in (select TUserid from SD18EXAM_tbToken where TToken = @Token and TokenType=0)
+	delete SD18EXAM_tbToken where TToken=@Token
 	set @message = 'success'
 end
 else
@@ -692,8 +719,6 @@ from SD18EXAM_tbUser
 where Userid = @Userid
 end
 go
-
-
 go
 create procedure SD18EXAM_spGetStudents(
 @Classid int = null,
@@ -730,8 +755,6 @@ as begin
 	    
 end
 go
-
-
 create procedure SD18EXAM_spLoadAllStudentClass(
 @Classid int
 )
@@ -817,7 +840,7 @@ end
 
 go
 select * from SD18EXAM_tbXMLQuizContent
--- SD18EXAM_SD18EXAM_spLoadQuizes @Courseid = 0;
+-- SD18EXAM_spLoadQuizes @Courseid = 0;
 go
 
 
@@ -917,22 +940,83 @@ as begin
 	end 
 go
 
---SD18EXAM_spViewPendingQuiz2 @Userid=3
+create procedure SD18EXAM_spValidateAccount(
+@Token varchar(60))
+as begin
+begin transaction
+	if EXISTS (select 1 from SD18EXAM_tbToken where TToken = @Token)
+	begin
+		update SD18EXAM_tbUser set IsActivated = 1 where Userid in (select TUserid from SD18EXAM_tbToken where TToken = @Token)
+		delete SD18EXAM_tbToken where TToken=@Token
+	end
+	else 
+	begin
+		select 'Token Invalid' as status
+	end
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status
+    end
+go
+
+--SD18EXAM_spInsertUser @Firstname='as', @Lastname='as', @Email='as', @Password='as'
+--select * from SD18EXAM_tbUser
+--select * from SD18EXAM_tbToken
+--SD18EXAM_spValidateAccount @Token ='OOMDOVQZDNRYISU'
+go
 create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
 @Lastname varchar(60),
 @Email varchar(60),
-@Password varchar(60),
-@Classid int = null
+@Password varchar(60)
 )
-as begin
-	if EXISTS(select * from SD18EXAM_tbUser where Firstname=@Firstname and Lastname=@Lastname and Classid=@Classid)
-	insert into SD18EXAM_tbUser(Firstname,Lastname, Email,Password,Classid,SecurityLevel)values
-					  (@Firstname,@Lastname, @Email,@Password,@Classid,1)
+as declare
+@Token varchar(20)='notExists'
+ begin
+begin transaction
+	if not EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
+	begin
+	while not Exists (select 1 from SD18EXAM_tbToken where TToken = @Token)
+begin 
+SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
++char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
+
+insert into SD18EXAM_tbUser values (@Firstname,@Lastname,@Password,null,1,null,@Email,0)
+insert into SD18EXAM_tbToken values (@Token,@@IDENTITY,1)
+	end
+	end
+	else
+		begin
+		select 'User Exists' as status
+		end
+
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select 'success' as status, @Token as AcctTokenValidation
+    end
+
 end
 go
-
+select * from SD18EXAM_tbUser
+go
 --Insert Difficulty
+
 create procedure SD18EXAM_spInsertDifficulty(
 @Difficultyname varchar(60)
 )
@@ -1225,6 +1309,10 @@ as begin
 declare @xmlvar XML;
 set     @xmlvar = (select top 1 XMLStudentResponse from SD18EXAM_tbQuizStudent)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
+select @xmlvar
+;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
 select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'StudentID', 
         Firstname + ' ' + Lastname as 'StudentName',
         SD18EXAM_tbQuizStudentStatus.StatusName, Points,
@@ -1266,8 +1354,13 @@ create procedure SD18EXAM_spGetQuizDetails(
 )
 as begin
 declare @xmlvar XML;
-set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion)
+set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion
+                   where Versionid = @Versionid)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
+select @xmlvar
+;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
 select  
 		-- casting xml as varchar as xml data type cannot be used in group by clause
 		CAST([XmlFile] AS VARCHAR(MAX)),
@@ -1278,19 +1371,21 @@ select
 	                 AS 'FillBlanksCount',
 		@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT') 
 		             AS 'TrueFalseCount',
+					 
 		-- using sum in this statement to get total questions count here
-		(sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT')) +
-		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')) +
-		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT'))) 
+		((@xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT')) +
+		 (@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')) +
+		 (@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT'))) 
 		             AS 'TotalQuestions'		
-from    SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz, SD18EXAM_tbXMLQuizContent
-where   SD18EXAM_tbQuizVersion.Versionid = SD18EXAM_tbIssuedQuiz.Versionid and
+from    SD18EXAM_tbQuizVersion, SD18EXAM_tbXMLQuizContent
+where   
         SD18EXAM_tbQuizVersion.Versionid = @Versionid
 GROUP BY 
          CAST([XmlFile] AS VARCHAR(MAX))
 
 end
 go
+
 
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null

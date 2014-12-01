@@ -261,6 +261,7 @@ namespace GroupProject
             loadNewCourse();
         }
 
+<<<<<<< HEAD:GroupProject/ManageProfiles.aspx.cs
         protected void lbClass_Click(object sender, EventArgs e)
         {
             ddlClassname.Visible = false;
@@ -315,6 +316,13 @@ namespace GroupProject
             btnEditDelete.Visible = false;
             btnCreateCourse.Visible = false;
         }
+=======
+        protected void lbStudentLogHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+>>>>>>> origin/master:GroupProject/AdminPage.aspx.cs
 
     }
 }

@@ -67,13 +67,12 @@
             <asp:GridView ID="gvIssuedQuizes"
                 DataKeyNames="Versionid"
                 HorizontalAlign="Center"
-                RowStyle-Height="30px"
-                RowStyle-Width="120px"
+                 GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
                 Visible="false"
-                AutoGenerateColumns="false" runat="server"
-                BorderStyle="None" GridLines="Both">
-                <HeaderStyle ForeColor="White" Height="30px" BackColor="#E3170D"></HeaderStyle>
-                <AlternatingRowStyle BackColor="#CCCCCC" />
+                 runat="server" >           
                 <Columns>
                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center"
                         ItemStyle-HorizontalAlign="Center" HeaderText="View Quiz">
@@ -94,9 +93,11 @@
 
         <asp:GridView ID="gvViewStudentResponse" runat="server"
             DataKeyNames="QuizStudentid" HorizontalAlign="Center"
-            visible="false"  AutoGenerateColumns="false"   >
-             <HeaderStyle ForeColor="White" Height="30px" BackColor="#E3170D"></HeaderStyle>
-                <AlternatingRowStyle BackColor="#CCCCCC" />
+             GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+            visible="false"   >           
                 <Columns>
                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center"
                         ItemStyle-HorizontalAlign="Center" HeaderText="View Response Report">

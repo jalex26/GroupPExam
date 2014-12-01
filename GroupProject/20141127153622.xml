@@ -1,0 +1,82 @@
+<Quiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema" QuizId="208285">
+  <Details>
+    <Title>ASKadjhkjahjlkja</Title>
+    <Subject>asdasdqweqwdas</Subject>
+    <Course>Accounting Specialist</Course>
+    <Time>31</Time>
+    <Difficulty>Beginner</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>312</Questi>
+        <Options>
+          <Option Correct="yes">31</Option>
+          <Option>23</Option>
+          <Option>123</Option>
+          <Option>123</Option>
+        </Options>
+      </Question>
+      <Question ID="2">
+        <Questi>sada</Questi>
+        <Options>
+          <Option Correct="yes">qwe</Option>
+          <Option>123</Option>
+          <Option>3123</Option>
+          <Option>12</Option>
+        </Options>
+      </Question>
+      <Question ID="3">
+        <Questi>asdzxc</Questi>
+        <Options>
+          <Option Correct="yes">wqeqw</Option>
+          <Option>123123123</Option>
+          <Option>12</Option>
+          <Option>3123</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks>
+      <Question ID="4">
+        <Questi>zeqwe</Questi>
+        <Options>
+          <Option Correct="yes">123saq23seq</Option>
+          <Option Correct="yes">aa21</Option>
+          <Option>weqwe</Option>
+          <Option>123123</Option>
+        </Options>
+      </Question>
+      <Question ID="5">
+        <Questi>xzce</Questi>
+        <Options>
+          <Option Correct="yes">qwezxd</Option>
+          <Option Correct="yes">qwezxdxz</Option>
+          <Option>q3123</Option>
+          <Option>q3123x</Option>
+        </Options>
+      </Question>
+    </FillBlanks>
+    <TrueFalse>
+      <Question ID="6">
+        <Questi>1323</Questi>
+        <Answer>True</Answer>
+      </Question>
+      <Question ID="7">
+        <Questi>1323</Questi>
+        <Answer>True</Answer>
+      </Question>
+      <Question ID="8">
+        <Questi>ascz</Questi>
+        <Answer>True</Answer>
+      </Question>
+      <Question ID="9">
+        <Questi>aseqw3</Questi>
+        <Answer>True</Answer>
+      </Question>
+      <Question ID="10">
+        <Questi>qweqwe</Questi>
+        <Answer>True</Answer>
+      </Question>
+    </TrueFalse>
+  </Questions>
+</Quiz>

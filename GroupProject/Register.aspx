@@ -16,7 +16,7 @@
                         ErrorMessage="FirstName is required!"
                         ControlToValidate="txtFirstName"
                         EnableClientScript="False"
-                        ForeColor="Red"></asp:RequiredFieldValidator>
+                        ForeColor="Red" ValidationGroup="ValGroupRegister"></asp:RequiredFieldValidator>
                 </td>
             </tr>
 
@@ -30,7 +30,7 @@
                         ErrorMessage="LastName is required!"
                         ControlToValidate="txtLastName"
                         EnableClientScript="False"
-                        ForeColor="Red"></asp:RequiredFieldValidator>
+                        ForeColor="Red" ValidationGroup="ValGroupRegister"></asp:RequiredFieldValidator>
                 </td>
             </tr>
 
@@ -38,12 +38,12 @@
                 <td>Email</td>
                 <td>
                     <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox> &nbsp;
-                    @robertsoncollege.net
+                    @robertsoncollege.net <br />
                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
                         ControlToValidate="txtEmail" 
                         ErrorMessage="Please Enter Email!"
                         ForeColor="Red"                   
-                        Display="Dynamic" EnableClientScript="False">
+                        Display="Dynamic" EnableClientScript="False" ValidationGroup="ValGroupRegister">
                     </asp:RequiredFieldValidator>
                    <%-- <asp:RegularExpressionValidator 
                         ID="revEmail" 
@@ -67,14 +67,14 @@
                         ErrorMessage="Please enter Password!"
                         ControlToValidate="txtPassword"
                         EnableClientScript="False"
-                        ForeColor="Red"></asp:RequiredFieldValidator>
+                        ForeColor="Red" ValidationGroup="ValGroupRegister"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td>Re-type Password</td>
                 <td>
                     <asp:TextBox ID="txtRePassword" runat="server"></asp:TextBox>
-                    <asp:CompareValidator ID="CMPPass" runat="server" ErrorMessage="*Password do not match" ControlToValidate="txtRePassword" ControlToCompare="txtPassword" ValidationGroup="ValGroupRegister"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CMPPass" runat="server" ErrorMessage="*Password do not match" ControlToValidate="txtRePassword" ControlToCompare="txtPassword" ValidationGroup="ValGroupRegister" ForeColor="Red"></asp:CompareValidator>
 
                 </td>
             </tr>
@@ -90,7 +90,7 @@
         <br />
         <br />
 
-        <asp:Label ID="lblRegisterMessage" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblRegisterMessage" runat="server" ForeColor="Red" Text=""></asp:Label>
 
     </div>
 
