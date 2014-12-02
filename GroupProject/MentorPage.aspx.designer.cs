@@ -130,6 +130,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Button btnReports;
         
         /// <summary>
+        /// btnAllocateStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAllocateStudents;
+        
+        /// <summary>
         /// pnlStartQuiz control.
         /// </summary>
         /// <remarks>
@@ -364,22 +373,40 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Panel pnlDownload;
         
         /// <summary>
-        /// pnlUnAssignedStudent control.
+        /// pnlAllocateStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUnAssignedStudent;
+        protected global::System.Web.UI.WebControls.Panel pnlAllocateStudents;
         
         /// <summary>
-        /// gvUnAssignedStudents control.
+        /// gvAllocateStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUnAssignedStudents;
+        protected global::System.Web.UI.WebControls.GridView gvAllocateStudents;
+        
+        /// <summary>
+        /// ddlAssignClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignClass;
+        
+        /// <summary>
+        /// btnAccept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAccept;
         
         /// <summary>
         /// pnlViewExam control.

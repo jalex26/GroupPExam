@@ -103,7 +103,7 @@
              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <asp:Image ID="imgViewReports" runat="server" Width="126px" Height="98px" ImageUrl="~/Pictures/Reports2.png"   />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
-           
+           <asp:Button CssClass="ButtonsOnMentorPage" ID="btnAllocateStudents" runat="server" Text="Allocate Students" Width="175px" Height="16px" OnClick="btnAllocateStudents_Click" />
         </asp:Panel>
 
         <br />
@@ -278,8 +278,9 @@
             <a href="Download/setup.exe">Download EXE Installer</a>
             <br />
         </asp:Panel>
-        <asp:Panel ID="pnlUnAssignedStudent" runat="server">
-            <asp:GridView ID="gvUnAssignedStudents"
+
+        <asp:Panel ID="pnlAllocateStudents" runat="server" Visible="false">
+            <asp:GridView ID="gvAllocateStudents"
                 runat="server"              
                 HorizontalAlign="Center"
                 DataKeyNames="Userid"
@@ -287,9 +288,9 @@
                 CssClass="mGrid"  
                 PagerStyle-CssClass="pgr" 
                 AutoGenerateColumns="false"
-                Visible="false" Height="200px">          
+                Height="200px">          
                 <Columns>
-                    <asp:TemplateField HeaderText="View Quiz">
+                    <asp:TemplateField HeaderText="Add">
                         <ItemTemplate>
                             <asp:CheckBox ID="CBUser" runat="server" AutoPostBack="false" />
                         </ItemTemplate>
@@ -297,11 +298,15 @@
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Name" HeaderText="Name" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Status" HeaderText="Status" />
                 </Columns>
             </asp:GridView>
             <hr />
-            Assign to Class: &nbsp ; <select id="SelCourse"></select>
+            Assign to Class: &nbsp 
+            <asp:DropDownList ID="ddlAssignClass" runat="server"></asp:DropDownList>
+            <asp:Button ID="btnAccept" runat="server" Text="Submit" OnClick="btnAccept_Click" />
         </asp:Panel>
+
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
                 <hr />

@@ -793,7 +793,6 @@ end
 go
 -- SD18EXAM_spLoadClass @CourseId = 1
 go
-
 --Loads Class
 create procedure SD18EXAM_spGetClass(
 @Classid int = null,
@@ -966,10 +965,12 @@ else
     end
 go
 
---SD18EXAM_spInsertUser @Firstname='as', @Lastname='as', @Email='as', @Password='as'
+--SD18EXAM_spInsertUser @Firstname='as1', @Lastname='as1', @Email='as1', @Password='as1'
 --select * from SD18EXAM_tbUser
 --select * from SD18EXAM_tbToken
---SD18EXAM_spValidateAccount @Token ='OOMDOVQZDNRYISU'
+--SD18EXAM_spValidateAccount @Token ='ZULAXFHNBIRNRKA'
+--select * from SD18EXAM_tblogStudents
+--SD18EXAM_spGetUnAssignedStudents
 go
 create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
@@ -978,7 +979,8 @@ create procedure SD18EXAM_spInsertUser(
 @Password varchar(60)
 )
 as declare
-@Token varchar(20)='notExists'
+@Token varchar(20)='notExists',
+@NewUserId varchar(10)
  begin
 begin transaction
 	if not EXISTS(select * from SD18EXAM_tbUser where Email=@Email)
@@ -992,7 +994,8 @@ SELECT @Token = (select char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65)
 +char(rand()*26+65)+char(rand()*26+65)+char(rand()*26+65))
 
 insert into SD18EXAM_tbUser values (@Firstname,@Lastname,@Password,null,1,null,@Email,0)
-insert into SD18EXAM_tbToken values (@Token,@@IDENTITY,1)
+insert into SD18EXAM_tbToken values (@Token,IDENT_CURRENT('SD18EXAM_tbUser'),1)
+--i use ident_current rather than @@identity because we are using triggers on tbuser and the @@identity value will give invalid result because it will refer new identity from table logs
 	end
 	end
 	else
@@ -1471,13 +1474,52 @@ go
 
 create procedure SD18EXAM_spGetUnAssignedStudents
 as begin
-select Userid,Lastname + ', ' + Firstname as Name,Email from SD18EXAM_tbUser where Classid = null
+select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
+	CASE
+		WHEN IsActivated=1
+			THEN 'Validated'
+		ELSE
+			'Not Validated'
+	END AS varchar(20)) as Status from SD18EXAM_tbUser where Classid is null
+end
+go
+
+create procedure SD18EXAM_spAllocateStudent(
+@UserID int,
+@ClassID int
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	if EXISTS (select * from SD18EXAM_tbUser where Userid=@UserID)
+	begin
+	update SD18EXAM_tbUser set Classid = @ClassID where Userid= @UserID
+	set @msg= 'Success'
+	end
+	
+	else
+	begin
+		set @msg ='UserNotFound'
+	end
+
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'Failed' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
 end
 go
 --select * from SD18EXAM_tbIssuedQuiz
 --select * from dbo.SD18EXAM_tbQuizStatus
 --SD18EXAM_spStartQuiz @IssuedQuizId = 3
 --SD18EXAM_spCloseQuiz @IssuedQuizId=3, @MentorId=5
+--select * from SD18EXAM_tbUser
 
 go
 --------------------------INSERTS FOR TESTING--------------------------
@@ -1524,7 +1566,7 @@ insert into SD18EXAM_tbQuizStudent values (2,10,'<?xml version="1.0"?><Quiz Quiz
 go
 
 ----Logs--
-create table logStudents(
+create table SD18EXAM_tblogStudents(
 logID int primary key identity(0,1),
 Userid int,
 Firstname varchar(60),
@@ -1533,7 +1575,7 @@ Password varchar(60),
 Classid int foreign key references SD18EXAM_tbClass(Classid)on delete cascade null,
 SecurityLevel int,
 UserPicture varchar(60) null,
-Email varchar(60) Unique,
+Email varchar(60),
 IsActivated bit,
 Action varchar(20),
 LogDateTime datetime
@@ -1542,7 +1584,6 @@ go
 
 insert into SD18EXAM_tbUser values
 ('Patrick1','Garcia1','Patrick11',47,1,'Patrick.jpg','Patrick1@robertsoncollege.net',1)
-select * from logStudents
 go
 
 -- triggers
@@ -1552,7 +1593,7 @@ create trigger triggerInsertStudent
 on SD18EXAM_tbUser 
 after insert as
 begin 
-	insert into logStudents
+	insert into SD18EXAM_tblogStudents
 		select *, 'Inserted' as Action, getdate() as logDateTime from INSERTED 
 end
 go
@@ -1561,7 +1602,7 @@ create trigger triggerDeleteStudent
  on SD18EXAM_tbUser 
 after delete as
 begin 
-	insert into logStudents
+	insert into SD18EXAM_tblogStudents
 		select *, 'Deleted' as Action, getdate() as logDateTime from DELETED
 end
 go
@@ -1570,9 +1611,9 @@ create trigger triggerUpdateStudent
 on SD18EXAM_tbUser
 after update as -- update is actually a delete followed by an insert
 begin
-	insert into logStudents
+	insert into SD18EXAM_tblogStudents
 		select *, 'Before Update' as Action, getdate()as logDateTime from DELETED
-	insert into logStudents
+	insert into SD18EXAM_tblogStudents
 		select *, 'After Update' as Action, getdate()as logDateTime from INSERTED
 end
 go
