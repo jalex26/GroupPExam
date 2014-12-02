@@ -49,6 +49,24 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.LinkButton lbStudentLogHistory;
         
         /// <summary>
+        /// btnCreateCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateCourse;
+        
+        /// <summary>
+        /// btnEditDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditDelete;
+        
+        /// <summary>
         /// lblNewCourse control.
         /// </summary>
         /// <remarks>

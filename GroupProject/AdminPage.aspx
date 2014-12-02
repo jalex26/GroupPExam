@@ -33,36 +33,46 @@
         &nbsp
         &nbsp
         &nbsp
-        <asp:LinkButton ID="lbClass" runat="server">Manage Class</asp:LinkButton>
+        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click1">Manage Class</asp:LinkButton>
         &nbsp
         &nbsp
         &nbsp
         <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
+
+        <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
+        &nbsp
+        &nbsp
+        <asp:Button ID="btnEditDelete" ToolTip="Click Here To Delete A Course" runat="server" Visible="false" Text="Edit-Delete" OnClick="btneditDelete_Click" />
         <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
 
-        <asp:TextBox ID="txtNewCourse" runat="server" Visible="false"></asp:TextBox>
+        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server" Visible="false"></asp:TextBox>
         &nbsp
         <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:" Visible="false"></asp:Label>
 
         <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
 
-        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: " Visible="false"></asp:Label>
+        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
 
         <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
         
         <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
+        <br />
+        &nbsp
+        &nbsp
+        &nbsp
         <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
 
-        <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
-        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:"></asp:Label>
+        <asp:TextBox ID="txtNewClass" ToolTip="Enter A New Class" runat="server" Visible="false"></asp:TextBox>
+        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
 
-        <asp:DropDownList ID="ddlClassSelection" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
 
         <br />
-        <asp:Button ID="btnSaveClass" runat="server" Text="Save" Visible="false" />
+        <br />
+        <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
         <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
         <br />
          <asp:GridView ID="gvSettings" Visible="false" runat="server" AllowSorting="True" AllowPaging="true" PageSize="9" OnSorting="gvSettings_Sorting" OnPageIndexChanging="gvSettings_PageIndexChanging"

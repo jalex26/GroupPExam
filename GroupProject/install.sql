@@ -1034,6 +1034,7 @@ as begin
 						 (@Classname)
 end
 go
+--Select * from SD18EXAM_tbClass
 --Insert Course
 create procedure SD18EXAM_spInsertCourse(
 @Coursename varchar(60)
