@@ -236,7 +236,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            //myDal.AddParam("Courseid", ddlCourse.SelectedValue);
+            //myDal.AddParam("@Classname", ddlCourseList.SelectedValue);
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
 
             ddlCourseList.DataSource = ds;
@@ -248,7 +248,7 @@ namespace GroupProject
         protected void btnSaveCourse_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Coursename", txtNewCourse.Text);
+            myDal.AddParam("@Classname", txtNewCourse.Text);
             myDal.ExecuteProcedure("SD18EXAM_spInsertCourse");
             loadNewCourse();
             txtNewCourse.Text = "";
@@ -267,7 +267,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
-           // myDal.AddParam("Courseid", ddlCourse.SelectedValue);
+            myDal.AddParam("Courseid", ddlClassSelection.SelectedValue);
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
 
             ddlClassSelection.DataSource = ds;
@@ -281,7 +281,7 @@ namespace GroupProject
             myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
             myDal.AddParam("@Classname", txtNewClass.Text);
             myDal.ExecuteProcedure("SD18EXAM_spInsertClass");
-            loadNewClasses();
+            loadSelectClass();
             txtNewClass.Text = "";
         }
 
