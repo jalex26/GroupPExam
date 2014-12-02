@@ -45,23 +45,42 @@
 
         <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
 
-        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: " Visible="false"></asp:Label>
-
-        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
-
+      
         <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
         <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
 
         <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
-        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:"></asp:Label>
+        <asp:Label ID="lblClassSelection" runat="server" Visible="false" Text="Class Selection:"></asp:Label>
 
-        <asp:DropDownList ID="ddlClassSelection" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="ddlClassSelection" Visible="false" runat="server" AutoPostBack="true"></asp:DropDownList>
 
         <br />
         <asp:Button ID="btnSaveClass" runat="server" Text="Save" Visible="false" />
         <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
-        <br />
+      
+
+        <asp:Panel ID="pnlUsers" Visible="false" HorizontalAlign="Center" runat="server">
+
+            <h3>Manage Users/ Students</h3>
+
+            <asp:Label ID="lblSortbyCourse" runat="server" Text="Select Course:"></asp:Label>
+
+            <asp:DropDownList ID="ddlSortbyCourse" AutoPostBack="true" OnSelectedIndexChanged="ddlSortbyCourse_SelectedIndexChanged" runat="server"></asp:DropDownList>
+
+          <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
+
+        <asp:DropDownList ID="ddlClassname" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+
+           
+            <asp:Label ID="lblSearch" runat="server" Text="Search by Name:"></asp:Label>
+                &nbsp;
+            <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
+            &nbsp; &nbsp;
+             <asp:Button ID="btnSearch" runat="server" Text="Search" />
+
+            <br />
+           
         <asp:GridView ID="gvSettings" Visible="false"
             runat="server" AllowSorting="True"
             AllowPaging="true" PageSize="9"
@@ -101,6 +120,7 @@
                 <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level" />
             </Columns>
         </asp:GridView>
+            </asp:Panel>
         <br />
         <br />
 

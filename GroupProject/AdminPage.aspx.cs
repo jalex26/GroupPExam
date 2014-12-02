@@ -25,7 +25,6 @@ namespace GroupProject
                 loadUsers(myState);
                 loadClass();
                 loadSelect();
-                loadSelectClass();
                 loadNewCourse();
                 loadNewClasses();
                 loadCourse();
@@ -49,6 +48,11 @@ namespace GroupProject
             ddlCourse.DataValueField = "Courseid";
             ddlCourse.DataSource = ds;
             ddlCourse.DataBind();
+
+            ddlSortbyCourse.DataTextField = "Coursename";
+            ddlSortbyCourse.DataValueField = "Courseid";
+            ddlSortbyCourse.DataSource = ds;
+            ddlSortbyCourse.DataBind();
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,17 +180,17 @@ namespace GroupProject
             loadUsers(myState);
         }
 
-        private void loadSelectClass()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+        //private void loadSelectClass()
+        //{
+        //    DataSet ds = new DataSet();
+        //    myDal.ClearParams();
+        //    ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
 
-            ddlClassname.DataSource = ds;
-            ddlClassname.DataTextField = "Classname";
-            ddlClassname.DataValueField = "Classid";
-            ddlClassname.DataBind();
-        }
+        //    ddlClassname.DataSource = ds;
+        //    ddlClassname.DataTextField = "Classname";
+        //    ddlClassname.DataValueField = "Classid";
+        //    ddlClassname.DataBind();
+        //}
 
         protected void ddlClassname_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -195,9 +199,9 @@ namespace GroupProject
 
         protected void lbUsers_Click(object sender, EventArgs e)
         {
-            ddlClassname.Visible = true;
+            pnlUsers.Visible = true;
+    
             gvSettings.Visible = true;
-            lblSelectClass.Visible = true;
             lblNewCourse.Visible = false;
             ddlCourseList.Visible = false;
             txtNewCourse.Visible = false;
@@ -213,6 +217,8 @@ namespace GroupProject
         }
         protected void lbCourse_Click(object sender, EventArgs e)
         {
+            pnlUsers.Visible = false;
+
             ddlClassname.Visible = false;
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
@@ -263,6 +269,8 @@ namespace GroupProject
         }
         protected void lbClass_Click(object sender, EventArgs e)
         {
+            pnlUsers.Visible = false;
+
             ddlClassname.Visible = false;
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
@@ -317,7 +325,20 @@ namespace GroupProject
         }
         protected void lbStudentLogHistory_Click(object sender, EventArgs e)
         {
+            pnlUsers.Visible = false;
+        }
 
+        // loads Class dropdown in Users panel depending on Course dropdown selection
+        protected void ddlSortbyCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            myDal.AddParam("Courseid", ddlSortbyCourse.SelectedValue);
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+            ddlClassname.DataTextField = "Classname";
+            ddlClassname.DataValueField = "Classid";
+            ddlClassname.DataSource = ds;
+            ddlClassname.DataBind();
         }
 
     }
