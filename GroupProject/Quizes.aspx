@@ -15,6 +15,10 @@
         <br />
 
         <h3>Your Available Quizes:</h3>
+        <br />
+        <br />
+
+        <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 
         <asp:DataList ID="dlPendingQuiz" RepeatColumns="3"  runat="server" DataKeyField="QuizStudentid" OnItemCommand="dlPendingQuiz_ItemCommand" CellSpacing="20" CellPadding="-1">
             <ItemTemplate>

@@ -127,13 +127,6 @@
 
         <asp:GridView ID="gvTest" runat="server"></asp:GridView>
 
-        <%--<asp:PieChart ID="pieChartQuizDetails" runat="server"
-            ChartHeight="300" ChartWidth = "400" Visible="false"
-           ChartTitle="" BorderWidth="0" ChartTitleColor="#333">
-              <PieChartValues>         
-                </PieChartValues>
-        </asp:PieChart>--%>
-
 
         <%--    Pop View Quiz Repeater Starts Here--%>
 

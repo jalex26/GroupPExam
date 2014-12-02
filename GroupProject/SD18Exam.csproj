@@ -100,7 +100,10 @@
     <Content Include="Pictures\assignQuiz.jpg" />
     <Content Include="Pictures\career-focused.png" />
     <Content Include="Pictures\checklist.png" />
+    <Content Include="Pictures\contact.jpg" />
+    <Content Include="Pictures\contactus.jpg" />
     <Content Include="Pictures\download.jpg" />
+    <Content Include="Pictures\facebooklogo.jpg" />
     <Content Include="Pictures\grd_alt.png" />
     <Content Include="Pictures\grd_head.png" />
     <Content Include="Pictures\grd_pgr.png" />
@@ -111,8 +114,10 @@
     <Content Include="Pictures\NewLogo.png" />
     <Content Include="Pictures\online-testing-assessments2.jpg" />
     <Content Include="Pictures\OnlineTest_0.jpg" />
+    <Content Include="Pictures\phone.png" />
     <Content Include="Pictures\program-variety.png" />
     <Content Include="Pictures\Quiz.jpg" />
+    <Content Include="Pictures\RCLogo.jpg" />
     <Content Include="Pictures\Reports.png" />
     <Content Include="Pictures\Reports2.png" />
     <Content Include="Pictures\s2.jpg" />
@@ -130,9 +135,12 @@
     <Content Include="Pictures\top-business-school.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\twitterlogo.png" />
     <Content Include="Pictures\upload.png" />
     <Content Include="Pictures\veberly.jpg" />
     <Content Include="Pictures\ViewQuiz.jpg" />
+    <Content Include="Pictures\youtube.png" />
+    <Content Include="Pictures\YT.png" />
     <Content Include="Quiz.xsl">
       <SubType>Designer</SubType>
     </Content>
