@@ -514,6 +514,84 @@ namespace GroupProject
 
         }
 
+        protected void btnAllocateStudents_Click(object sender, EventArgs e)
+        {
+            myDal.ClearParams();
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetUnAssignedStudents");
+            if(ds.Tables[0].Rows.Count != 0)
+            {
+                gvAllocateStudents.DataSource = ds.Tables[0];
+                gvAllocateStudents.DataBind();
+            }
+            myDal.ClearParams();
+            ds.Clear();
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+            if(ds.Tables[0].Rows.Count!=0)
+            {
+                ddlAssignClass.DataSource = ds.Tables[0];
+                ddlAssignClass.DataValueField = "Classid";
+                ddlAssignClass.DataTextField = "Classname";
+                ddlAssignClass.DataBind();
+            }
+            pnlAllocateStudents.Visible = true;
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            List<string> Errors = new List<string>();
+            if(ddlAssignClass.SelectedIndex != -1)
+            {
+                foreach(GridViewRow row in gvAllocateStudents.Rows)
+                {
+                    if(((CheckBox)row.FindControl("CBUser")).Checked)
+                    {
+                        gvAllocateStudents.SelectedIndex= row.DataItemIndex;
+                        string UserID =gvAllocateStudents.SelectedDataKey.Value.ToString();
+                        myDal.ClearParams();
+                        myDal.AddParam("@UserID", UserID);
+                        myDal.AddParam("@ClassID", ddlAssignClass.SelectedValue.ToString());
+                        DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spAllocateStudent");
+                        if (ds.Tables[0].Rows.Count !=0)
+                        {
+                            if(ds.Tables[0].Rows[0]["status"] != null)
+                            {
+                                switch(ds.Tables[0].Rows[0]["status"].ToString())
+                                {
+                                    case "UserNotFound":
+                                        Errors.Add("User Not Found: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
+                                        break;
+                                    case "Failed":
+                                        Errors.Add("Operation Failed at USERID: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Response.Write("<SCRIPT>alert('Error in Retrieving values on database. Please Try again.')</SCRIPT>");
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<SCRIPT>alert('Error in Retrieving values on database. Please Try again.')</SCRIPT>");
+                        }
+                    }
+                }
+                if(Errors.Count != 0)
+                {
+                    foreach(string LI in Errors)
+                    {
+                        Response.Write("<SCRIPT>alert('"+LI.ToString()+"')</SCRIPT>");
+                    }
+                }
+            }
+            else
+            {
+                Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
+            }
+        }
+
 
 
 
