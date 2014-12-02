@@ -46,7 +46,7 @@ insert into SD18EXAM_tbClass(Classname,Courseid)values
 ('NA15',14),('NA16',14),('NA17',14),
 ('PT007',15),('PT008',15),('PT009',15)
 go
-
+select * from SD18EXAM_tbClass
 create table SD18EXAM_tbDifficulty(
 Difficultyid int primary key identity(0,1),
 Difficultyname varchar(60)
@@ -1030,13 +1030,15 @@ go
 
 ----Insert Class
 create procedure SD18EXAM_spInsertClass(
+@Courseid int,
 @Classname varchar(60)
 )
 as begin 
-	insert into SD18EXAM_tbClass (Classname) values
-						 (@Classname)
+	insert into SD18EXAM_tbClass (Courseid,Classname) values
+						 (@Courseid,@Classname)
 end
 go
+--Select * from SD18EXAM_tbClass
 --Insert Course
 create procedure SD18EXAM_spInsertCourse(
 @Coursename varchar(60)
