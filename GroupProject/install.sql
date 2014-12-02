@@ -75,7 +75,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
 ('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),
-('Nupur','Singh','Nupur1',0,3,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
+('Nupur','Singh','Nupur1',0,1,'Nupur.jpg','nupur.singh@robertsoncollege.net'),
 ('Janry','Alex','Janry1',0,1,'janry.jpg','janry.alex@robertsoncollege.net'),
 ('Adrian','Carter','Adrian1',0,3,'AdrianCarter2.jpg','adrian.carter@robertsoncollege.net'),
 ('Veberly','Carvalho','Veberly1',0,1,'veberly.jpg','veberly.carvalho@robertsoncollege.net'),
