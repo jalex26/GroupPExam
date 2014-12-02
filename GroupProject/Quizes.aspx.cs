@@ -29,6 +29,8 @@ namespace GroupProject
         {
             if (HttpContext.Current.Session["Userid"].ToString() != null)
             {
+                lblMessage.Text = "";
+
                 myDal.ClearParams();
                 myDal.AddParam("@UserId", HttpContext.Current.Session["Userid"].ToString());
                 DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetQuizStudentByStudent");
@@ -36,6 +38,11 @@ namespace GroupProject
                 {
                     dlPendingQuiz.DataSource = ds.Tables[0];
                     dlPendingQuiz.DataBind();
+                }
+
+                else
+                {
+                    lblMessage.Text = "You currently do not have any assigned quizes!";
                 }
             }
         }

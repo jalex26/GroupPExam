@@ -9,19 +9,19 @@
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>1.53125in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>2.32292in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>1.40625in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -503,7 +503,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Height>0.5in</Height>
-        <Width>6in</Width>
+        <Width>8.26042in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -787,10 +787,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>DataSet1</DataSetName>
-        <Top>0.70708in</Top>
-        <Left>0.55083in</Left>
-        <Height>2.44792in</Height>
-        <Width>4.90625in</Width>
+        <Top>0.93625in</Top>
+        <Left>1.39583in</Left>
+        <Height>2.35417in</Height>
+        <Width>5.45833in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -805,7 +805,7 @@
     <Height>3.54042in</Height>
     <Style />
   </Body>
-  <Width>8in</Width>
+  <Width>8.26042in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

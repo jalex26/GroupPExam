@@ -27,7 +27,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Security mySecurity = new Security(2);
+            Security mySecurity = new Security(2);
 
             // makes login panel on masterpage invisible
             Panel myPanel = (Panel)Master.FindControl("pnlLogin");
@@ -237,27 +237,7 @@ namespace GroupProject
             loadReports();
         }
 
-        //protected void repIssuedQuizes_ItemCommand(object source, RepeaterCommandEventArgs e)
-        //{
-        //    if ((e.CommandName.ToString()) == "View")
-        //    {
-        //        int VersionID = Convert.ToInt32(e.CommandArgument.ToString());
-
-        //        RenderXML RX = new RenderXML();
-
-        //        DataSet ds = RX.XMLContent(VersionID.ToString());
-        //        XmlDoc.LoadXml(ds.Tables[0].Rows[0]["XmlFile"].ToString());
-
-        //        ns = new XmlNamespaceManager(XmlDoc.NameTable);
-        //        ns.AddNamespace("ns", "urn:Question-Schema");
-        //        string xpath = "/ns:Quiz";
-        //        XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
-
-        //        DLExamDemo.DataSource = QuizNode;
-        //        DLExamDemo.DataBind();
-
-        //    }
-        //}
+   
 
 
         protected void btnPopUpClose_Click(object sender, EventArgs e)
@@ -287,43 +267,7 @@ namespace GroupProject
 
         }
 
-        //private void LoadQuizPieChart()
-        //{
-        //    pieChartQuizDetails.Visible = true;
-        //    DataSet ds = new DataSet();
-        //    myDal.ClearParams();
-        //    myDal.AddParam("@Versionid", HttpContext.Current.Session["Versionid"].ToString());
-        //    ds = myDal.ExecuteProcedure("SD18EXAM_SD18EXAM_spGetQuizDetails");
-        //    GridView1.DataSource = ds;
-        //    GridView1.DataBind();
-
-        //    if (ds.Tables[0].Rows.Count > 0)
-        //    {
-        //        pieChartQuizDetails.PieChartValues.Add(new AjaxControlToolkit.PieChartValue
-        //            {
-        //                Category = "Multiple Choice",
-        //                Data = Convert.ToInt32(ds.Tables[0].Rows[0]["MultipleChoiceCount"]),
-        //                PieChartValueColor = "#6C1E83",
-        //                PieChartValueStrokeColor = "#000"
-        //            });
-
-        //        pieChartQuizDetails.PieChartValues.Add(new AjaxControlToolkit.PieChartValue
-        //        {
-        //            Category = "Fill in the Blanks",
-        //            Data = Convert.ToInt32(ds.Tables[0].Rows[0]["FillBlanksCount"]),
-        //            PieChartValueColor = "#D08AD9",
-        //            PieChartValueStrokeColor = "#000"
-        //        });
-
-        //        pieChartQuizDetails.PieChartValues.Add(new AjaxControlToolkit.PieChartValue
-        //        {
-        //            Category = "True or False",
-        //            Data = Convert.ToInt32(ds.Tables[0].Rows[0]["TrueFalseCount"]),
-        //            PieChartValueColor = "#09C",
-        //            PieChartValueStrokeColor = "#000"
-        //        });
-        //    }
-        //}
+     
 
         protected void ddlReports_SelectedIndexChanged(object sender, EventArgs e)
         {          

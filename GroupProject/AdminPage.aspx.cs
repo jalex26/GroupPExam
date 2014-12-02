@@ -28,6 +28,7 @@ namespace GroupProject
                 loadSelectClass();
                 loadNewCourse();
                 loadNewClasses();
+                loadCourse();
 
             }
         }

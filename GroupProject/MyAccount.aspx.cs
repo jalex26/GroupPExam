@@ -23,7 +23,7 @@ namespace GroupProject
 
             if (mySecurity.GetSecurityLevel() != 1)
             {
-                ReportViewer1.Visible = false;
+                pnlStudentQuizReport.Visible = false;
 
             }
 
