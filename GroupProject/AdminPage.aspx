@@ -41,20 +41,30 @@
         <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
         &nbsp
         &nbsp
-        <asp:Button ID="btnEditDelete" ToolTip="Click Here To Delete A Course" runat="server" Visible="false" Text="Edit-Delete" OnClick="btneditDelete_Click" />
-        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
-
-        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server" Visible="false"></asp:TextBox>
-        &nbsp
-        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:" Visible="false"></asp:Label>
-
-        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
-
+       
+         <asp:Button ID="btnEditDelete" ToolTip="Click Here To Delete A Course" runat="server" Visible="false" Text="Edit-Delete" OnClick="btneditDelete_Click" />
+         <%--New Course Panel--%>
+        <asp:Panel ID="pnlNewCourse" runat="server" Height="65px" Width="210px">
+        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:"></asp:Label>
+            &nbsp
+        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server" ></asp:TextBox>
+            <br />
+        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" OnClick="btnSaveCourse_Click" />
+            </asp:Panel>
+        <%--End Of Course Panel--%>
+        <%--Start Of Course Panel--%>
+        <asp:Panel ID="pnlCourse" runat="server" Visible="false" Height="68px" Width="326px">
+        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:"></asp:Label>
+            &nbsp
+        <asp:DropDownList ID="ddlCourseList" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <br />
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
+            </asp:Panel>
+        <%--End Of Course Panel--%>
         <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
 
         <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
 
-        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
         <br />
         <br />
         &nbsp
@@ -70,7 +80,6 @@
         <br />
         <br />
         <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
-        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
         <br />
         <asp:GridView ID="gvSettings" Visible="false"
             runat="server" AllowSorting="True"
