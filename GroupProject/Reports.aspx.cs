@@ -263,6 +263,12 @@ namespace GroupProject
             XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
             DLExamDemo.DataSource = QuizNode;
             DLExamDemo.DataBind();
+            //Adrian Entered
+            DLExamDemoFillBlanks.DataSource = QuizNode;
+            DLExamDemoFillBlanks.DataBind();
+            DLExamDemoTrueFalse.DataSource = QuizNode;
+            DLExamDemoTrueFalse.DataBind();
+            //End
             MPE1.Show();
 
         }
