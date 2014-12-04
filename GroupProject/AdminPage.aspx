@@ -37,6 +37,9 @@
         <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
+        <asp:DropDownList ID="ddlCourses" runat="server" Height="16px" Width="227px" AutoPostBack="true">
+        </asp:DropDownList>
+        <br />
 
         <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
         &nbsp
@@ -58,12 +61,18 @@
             &nbsp
         <asp:DropDownList ID="ddlCourseList" runat="server" AutoPostBack="true"></asp:DropDownList>
             <br />
-        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
+            <asp:Button ID="btnUpdateCourse" runat="server" Text="Update" OnClick="btnUpdateCourse_Click" Width="99px"/>
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="102px" />
+            
+            <br />
+            <asp:TextBox ID="txtCourse" runat="server" Height="16px" Width="126px"></asp:TextBox>
+            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />    
             </asp:Panel>
         <%--End Of Course Panel--%>
+        <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
         <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
 
-        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+        <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
 
         <br />
         <br />

@@ -1153,11 +1153,21 @@ create procedure SD18EXAM_spDeleteCourse(
 
 )
 as begin 
+	--delete from SD18EXAM_tbMentorCourse
+	--where SD18EXAM_tbMentorCourse.CourseID = @Courseid
+
+	--delete from SD18EXAM_tbXMLQuizContent
+	--where SD18EXAM_tbXMLQuizContent.CourseID =@Courseid
+	
+	--delete from SD18EXAM_tbClass
+	--where SD18EXAM_tbClass.Courseid = @Courseid
+
 	delete from SD18EXAM_tbCourse 
 	where SD18EXAM_tbCourse.Courseid =@Courseid
 end 
 go
 
+--SD18EXAM_spDeleteCourse @Courseid = 2
 
 ----------------Settings-------------
 
@@ -1630,3 +1640,4 @@ select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbClass
 select * from SD18EXAM_tbCourse
 select * from SD18EXAM_tbQuizVersion
+
