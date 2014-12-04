@@ -61,7 +61,12 @@
             &nbsp
         <asp:DropDownList ID="ddlCourseList" runat="server" AutoPostBack="true"></asp:DropDownList>
             <br />
-        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
+            <asp:Button ID="btnUpdateCourse" runat="server" Text="Update" OnClick="btnUpdateCourse_Click" Width="99px"/>
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="102px" />
+            
+            <br />
+            <asp:TextBox ID="txtCourse" runat="server" Height="16px" Width="126px"></asp:TextBox>
+            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />    
             </asp:Panel>
         <%--End Of Course Panel--%>
         <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>

@@ -326,6 +326,8 @@ namespace GroupProject
             ddlCourseList.Visible = true;
             ddlCourseforClass.Visible = true;
             lbListofClasses.Visible = true;
+            txtCourse.Visible = false;
+            btnSave.Visible = false;
 
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = true;
@@ -338,6 +340,23 @@ namespace GroupProject
             btnEditDelete.Visible = false;
             ddlCourses.Visible = false;
             lblSelectCourse.Visible = true;
+        }
+
+        protected void btnUpdateCourse_Click(object sender, EventArgs e)
+        {
+            string Courseid = ddlCourseList.SelectedValue.ToString();
+            myDal.ClearParams();
+            myDal.AddParam("Courseid", Courseid);
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
+
+            btnSave.Visible = true;
+            txtCourse.Visible = true;
+            txtCourse.Text = ds.Tables[0].Rows[0]["Coursename"].ToString();
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
