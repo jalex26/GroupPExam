@@ -1496,6 +1496,7 @@ select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
 end
 go
 
+
 create procedure SD18EXAM_spAllocateStudent(
 @UserID int,
 @ClassID int

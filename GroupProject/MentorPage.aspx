@@ -103,6 +103,8 @@
              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <asp:Image ID="imgViewReports" runat="server" Width="126px" Height="98px" ImageUrl="~/Pictures/Reports2.png"   />
             <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgAllocateStudent" runat="server" Width="128px" Height="100px" ImageUrl="~/Pictures/Assignstudenticon.png" style="margin-left: 10px; margin-top: 0px" />
            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnAllocateStudents" runat="server" Text="Allocate Students" Width="175px" Height="16px" OnClick="btnAllocateStudents_Click" />
         </asp:Panel>
 

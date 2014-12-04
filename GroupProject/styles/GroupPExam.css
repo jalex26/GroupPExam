@@ -276,17 +276,22 @@ input, textarea, select {
 
 /*dummy buttons used for for modal pop up extender*/
 .JavascriptButtons {
-    visibility: hidden;
-}
+    visib
 
 .ButtonsOnMentorPage {
-    background: none !important;
-    border: none;
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    background: !important;
     padding: 0 !important;
     font-family: arial,sans-serif;
     color: #069;
     text-decoration: underline;
     cursor: pointer;
+    margin-left: 0px;
+}
+
+    inter;
 }
 
     .ButtonsOnMentorPage:hover {
