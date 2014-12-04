@@ -64,9 +64,10 @@
         <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
             </asp:Panel>
         <%--End Of Course Panel--%>
+        <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
         <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
 
-        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+        <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
 
         <br />
         <br />

@@ -31,6 +31,8 @@ namespace GroupProject
                 loadCourse();
                 pnlNewCourse.Visible = false;
                 ddlCourses.Visible = false;
+                ddlCourseforClass.Visible = false;
+                lblSelectCourse.Visible = false;
             }
         }
         private void loadSelect()
@@ -247,6 +249,11 @@ namespace GroupProject
             ddlCourses.DataTextField = "Coursename";
             ddlCourses.DataValueField = "Courseid";
             ddlCourses.DataBind();
+
+            ddlCourseforClass.DataSource = ds;
+            ddlCourseforClass.DataTextField = "Coursename";
+            ddlCourseforClass.DataValueField = "Courseid";
+            ddlCourseforClass.DataBind();
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
@@ -262,7 +269,7 @@ namespace GroupProject
         protected void btnDeleteCourse_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
+            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue.ToString());
             myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
             loadNewCourse();
         }
@@ -282,7 +289,7 @@ namespace GroupProject
         protected void btnSaveClass_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
+            myDal.AddParam("@Courseid", ddlCourseforClass.SelectedValue.ToString());
             myDal.AddParam("@Classname", txtNewClass.Text);
             myDal.ExecuteProcedure("SD18EXAM_spInsertClass");
             loadSelectClass();
@@ -300,6 +307,7 @@ namespace GroupProject
             pnlCourse.Visible = true;
             btnEditDelete.Visible = false;
             btnCreateCourse.Visible = false;
+            ddlCourses.Visible = false;
         }
         protected void lbStudentLogHistory_Click(object sender, EventArgs e)
         {
@@ -307,11 +315,12 @@ namespace GroupProject
         }
         protected void lbClass_Click1(object sender, EventArgs e)
         {
-            ddlClassname.Visible = false;
+            ddlClassname.Visible = true;
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
             pnlNewCourse.Visible = false;
             ddlCourseList.Visible = true;
+            ddlCourseforClass.Visible = true;
 
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = true;
@@ -323,6 +332,7 @@ namespace GroupProject
             btnCreateCourse.Visible = false;
             btnEditDelete.Visible = false;
             ddlCourses.Visible = false;
+            lblSelectCourse.Visible = true;
         }
 
     }
