@@ -312,6 +312,8 @@ namespace GroupProject
                         RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString(), Student, NewId);
                         //RenderXML RX = new RenderXML();
                         //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
+
+                        //im currently working at question without Correct Answers
                     }
                 }
             }

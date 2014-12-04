@@ -30,57 +30,66 @@
         &nbsp
         &nbsp
         &nbsp
-        <asp:LinkButton ID="lbClass" runat="server">Manage Class</asp:LinkButton>
+        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click1">Manage Class</asp:LinkButton>
         &nbsp
         &nbsp
         &nbsp
         <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
-        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:" Visible="false"></asp:Label>
-
-        <asp:TextBox ID="txtNewCourse" runat="server" Visible="false"></asp:TextBox>
-        &nbsp
-        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:" Visible="false"></asp:Label>
-
-        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
-
-      
-        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" Visible="false" OnClick="btnDeleteCourse_Click" Width="74px" />
+        <asp:DropDownList ID="ddlCourses" runat="server" Height="16px" Width="227px" AutoPostBack="true">
+        </asp:DropDownList>
         <br />
+
+        <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
+        &nbsp
+        &nbsp
+       
+         <asp:Button ID="btnEditDelete" ToolTip="Click Here To Delete A Course" runat="server" Visible="false" Text="Edit-Delete" OnClick="btneditDelete_Click" />
+         <%--New Course Panel--%>
+        <asp:Panel ID="pnlNewCourse" runat="server" Height="65px" Width="210px">
+        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:"></asp:Label>
+            &nbsp
+        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server" ></asp:TextBox>
+            <br />
+        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" OnClick="btnSaveCourse_Click" />
+            </asp:Panel>
+        <%--End Of Course Panel--%>
+        <%--Start Of Course Panel--%>
+        <asp:Panel ID="pnlCourse" runat="server" Visible="false" Height="68px" Width="326px">
+        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:"></asp:Label>
+            &nbsp
+        <asp:DropDownList ID="ddlCourseList" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <br />
+            <asp:Button ID="btnUpdateCourse" runat="server" Text="Update" OnClick="btnUpdateCourse_Click" Width="99px"/>
+        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="102px" />
+            
+            <br />
+            <asp:TextBox ID="txtCourse" runat="server" Height="16px" Width="126px"></asp:TextBox>
+            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />    
+            </asp:Panel>
+        <%--End Of Course Panel--%>
+        <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
+        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
+
+        <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+
+        <br />
+        <br />
+        &nbsp
+        &nbsp
+        &nbsp
         <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
 
-        <asp:TextBox ID="txtNewClass" runat="server" Visible="false"></asp:TextBox>
-        <asp:Label ID="lblClassSelection" runat="server" Visible="false" Text="Class Selection:"></asp:Label>
+        <asp:TextBox ID="txtNewClass" ToolTip="Enter A New Class" runat="server" Visible="false"></asp:TextBox>
+        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
 
-        <asp:DropDownList ID="ddlClassSelection" Visible="false" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
 
         <br />
-        <asp:Button ID="btnSaveClass" runat="server" Text="Save" Visible="false" />
-        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" Visible="false" OnClick="btnSaveCourse_Click" />
-      
-
-        <asp:Panel ID="pnlUsers" Visible="false" HorizontalAlign="Center" runat="server">
-
-            <h3>Manage Users/ Students</h3>
-
-            <asp:Label ID="lblSortbyCourse" runat="server" Text="Select Course:"></asp:Label>
-
-            <asp:DropDownList ID="ddlSortbyCourse" AutoPostBack="true" OnSelectedIndexChanged="ddlSortbyCourse_SelectedIndexChanged" runat="server"></asp:DropDownList>
-
-          <asp:Label ID="lblSelectClass" runat="server" Text="Select Class: "></asp:Label>
-
-        <asp:DropDownList ID="ddlClassname" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
-
-           
-            <asp:Label ID="lblSearch" runat="server" Text="Search by Name:"></asp:Label>
-                &nbsp;
-            <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
-            &nbsp; &nbsp;
-             <asp:Button ID="btnSearch" runat="server" Text="Search" />
-
-            <br />
-           
+        <br />
+        <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
+        <br />
         <asp:GridView ID="gvSettings" Visible="false"
             runat="server" AllowSorting="True"
             AllowPaging="true" PageSize="9"
@@ -120,7 +129,6 @@
                 <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level" />
             </Columns>
         </asp:GridView>
-            </asp:Panel>
         <br />
         <br />
 
