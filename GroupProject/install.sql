@@ -904,7 +904,26 @@ as begin
 end 
 go
 
+create procedure spGetConstraintResult(
+@TableName varchar(60)
+) as
+DECLARE @mytable VARCHAR(30)
+begin
+SET @mytable = @TableName
 
+SELECT t1.CONSTRAINT_TYPE AS ConstraintType,
+t1.CONSTRAINT_NAME AS ConstraintName,
+t1.TABLE_NAME AS PointsFrom,
+t2.TABLE_NAME AS PointTo
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS r
+JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS t1
+ON t1.CONSTRAINT_NAME = r.CONSTRAINT_NAME
+JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS t2
+ON t2.CONSTRAINT_NAME = r.UNIQUE_CONSTRAINT_NAME
+WHERE t2.table_name = @mytable
+end
+
+go
 --Loads the Quiz Result (User side)
 create procedure SD18EXAM_spViewQuizResults(
 @Userid int
@@ -1092,17 +1111,40 @@ end
 go
 
 --Update Course
-create procedure SD18EXAM_spUpdateCourse(
-@Courseid int = null,
-@Coursename varchar(60)
-)
-as begin
-	update SD18EXAM_tbCourse set Coursename = @Coursename 
-	where Courseid=@Courseid
-end
+--SD18EXAM_spUpdateCourse @Courseid=0, @NewCoursename='tsadasd'
+--select * from SD18EXAM_tbCourse
 go
+create procedure SD18EXAM_spUpdateCourse(
+@Courseid int,
+@NewCoursename varchar(60)
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	if EXISTS (select * from SD18EXAM_tbCourse where Courseid=@Courseid)
+	begin
+	update SD18EXAM_tbCourse set Coursename = @NewCoursename 
+	where Courseid=@Courseid
+	set @msg = 'Success'
+	end
+	else
+	begin
+	set @msg= 'Course not Found'
+	end
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
 
-
+go
 -----------------DELETES----------------
 
 --Delete Students
@@ -1148,22 +1190,34 @@ end
 go
 
 --Delete Course
+--SD18EXAM_spDeleteCourse @Courseid=0
+--select * from SD18EXAM_tbUser
+--select * from SD18EXAM_tbClass
+--select * from SD18EXAM_tbCourse
+--select * from SD18EXAM_tbIssuedQuiz
+--select * from SD18EXAM_tbQuizStudent
+--select * from SD18EXAM_tbIssuedQuiz
+--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
+--delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid = 0)
+--delete SD18EXAM_tbIssuedQuiz where ClassId = 0
+--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
+--select * from SD18EXAM_tbMentorCourse
+go
+spGetConstraintResult @TableName = 'SD18EXAM_tbClass'
+go
+
 create procedure SD18EXAM_spDeleteCourse(
 @Courseid int
-
 )
 as begin 
-	--delete from SD18EXAM_tbMentorCourse
-	--where SD18EXAM_tbMentorCourse.CourseID = @Courseid
+	--delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)) 
+	--delete SD18EXAM_tbIssuedQuiz where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)
 
-	--delete from SD18EXAM_tbXMLQuizContent
-	--where SD18EXAM_tbXMLQuizContent.CourseID =@Courseid
-	
-	--delete from SD18EXAM_tbClass
-	--where SD18EXAM_tbClass.Courseid = @Courseid
-
-	delete from SD18EXAM_tbCourse 
-	where SD18EXAM_tbCourse.Courseid =@Courseid
+	--update SD18EXAM_tbMentorCourse set CourseID=null where CourseID=@Courseid
+	update SD18EXAM_tbIssuedQuiz set Mentorid = null where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)
+	delete SD18EXAM_tbClass where Courseid = @Courseid
+	--delete SD18EXAM_tbXMLQuizContent where CourseID = @Courseid
+	--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid =@Courseid
 end 
 go
 
