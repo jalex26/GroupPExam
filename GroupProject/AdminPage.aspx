@@ -56,7 +56,7 @@
         <asp:Panel ID="pnlCourse" runat="server" Visible="false" Height="68px" Width="326px">
         <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:"></asp:Label>
             &nbsp
-        <asp:DropDownList ID="ddlCourseList" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
             <br />
         <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
             </asp:Panel>
