@@ -8,6 +8,7 @@ using DAL_Project;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.Windows;
 
 namespace GroupProject
 {
@@ -34,6 +35,8 @@ namespace GroupProject
                 ddlCourseforClass.Visible = false;
                 lblSelectCourse.Visible = false;
                 lbListofClasses.Visible = false;
+                lbSelectMentor.Visible = false;
+                ddlSelectMentor.Visible = false;
             }
         }
         private void loadSelect()
@@ -200,6 +203,8 @@ namespace GroupProject
         protected void lbUsers_Click(object sender, EventArgs e)
         {
             ddlClassname.Visible = true;
+            btnCreateCourse.Visible = false;
+            btnEditDelete.Visible = false;
             gvSettings.Visible = true;
             lblSelectClass.Visible = true;
             lblNewCourse.Visible = false;
@@ -214,6 +219,8 @@ namespace GroupProject
             txtNewClass.Visible = false;
             ddlClassSelection.Visible = false;
             btnSaveClass.Visible = false;
+            lbSelectMentor.Visible = true;
+            ddlSelectMentor.Visible = true;
 
         }
         protected void lbCourse_Click(object sender, EventArgs e)
@@ -232,6 +239,8 @@ namespace GroupProject
             lbListofClasses.Visible = false;
             txtCourse.Visible = false;
             btnSave.Visible = false;
+            lbSelectMentor.Visible = false;
+            ddlSelectMentor.Visible = false;
             //End
             lblClassSelection.Visible = false;
             lblNewClass.Visible = false;
@@ -321,15 +330,17 @@ namespace GroupProject
         }
         protected void lbClass_Click1(object sender, EventArgs e)
         {
-            ddlClassname.Visible = true;
+            ddlClassname.Visible = false;
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
             pnlNewCourse.Visible = false;
             ddlCourseList.Visible = true;
             ddlCourseforClass.Visible = true;
-            lbListofClasses.Visible = true;
+            lbListofClasses.Visible = false;
             txtCourse.Visible = false;
             btnSave.Visible = false;
+            lbSelectMentor.Visible = false;
+            ddlSelectMentor.Visible = false;
 
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = true;
@@ -354,6 +365,7 @@ namespace GroupProject
             btnSave.Visible = true;
             txtCourse.Visible = true;
             txtCourse.Text = ds.Tables[0].Rows[0]["Coursename"].ToString();
+            
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -364,6 +376,81 @@ namespace GroupProject
             myDal.ExecuteProcedure("SD18EXAM_spUpdateCourse");
 
             loadNewCourse();
+            
+        }
+
+        protected void ddlCourseforClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlCourseforClass.SelectedValue == "0")
+            {
+                txtNewClass.Text = "SD";
+            }
+            if (ddlCourseforClass.SelectedValue == "1")
+            {
+                txtNewClass.Text = "AS";
+            }
+            if (ddlCourseforClass.SelectedValue == "2")
+            {
+                txtNewClass.Text = "AP";
+            }
+            if (ddlCourseforClass.SelectedValue == "3")
+            {
+                txtNewClass.Text = "BA";
+            }
+            if (ddlCourseforClass.SelectedValue == "4")
+            {
+                txtNewClass.Text = "CREC";
+            }
+            if (ddlCourseforClass.SelectedValue == "5")
+            {
+                txtNewClass.Text = "LA";
+            }
+            if (ddlCourseforClass.SelectedValue == "6")
+            {
+                txtNewClass.Text = "TC";
+            }
+            if (ddlCourseforClass.SelectedValue == "7")
+            {
+                txtNewClass.Text = "VOA";
+            }
+            if (ddlCourseforClass.SelectedValue == "8")
+            {
+                txtNewClass.Text = "NE";
+            }
+            if (ddlCourseforClass.SelectedValue == "9")
+            {
+                txtNewClass.Text = "EHCA";
+            }
+            if (ddlCourseforClass.SelectedValue == "10")
+            {
+                txtNewClass.Text = "HCA";
+            }
+            if (ddlCourseforClass.SelectedValue == "11")
+            {
+                txtNewClass.Text = "MT";
+            }
+            if (ddlCourseforClass.SelectedValue == "12")
+            {
+                txtNewClass.Text = "MLA";
+            }
+            if (ddlCourseforClass.SelectedValue == "13")
+            {
+                txtNewClass.Text = "MOA";
+            }
+            if (ddlCourseforClass.SelectedValue == "14")
+            {
+                txtNewClass.Text = "NA";
+            }
+            if (ddlCourseforClass.SelectedValue == "15")
+            {
+                txtNewClass.Text = "PT";
+            }
+            
+        }
+
+        protected void ddlSelectMentor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }
