@@ -71,7 +71,7 @@ IsActivated bit
 go
 
 insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1',0,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
+('Kevin','Coliat','Kevin1',-1,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
 ('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),
@@ -1197,13 +1197,26 @@ go
 --select * from SD18EXAM_tbIssuedQuiz
 --select * from SD18EXAM_tbQuizStudent
 --select * from SD18EXAM_tbIssuedQuiz
+--select * from SD18EXAM_tbMentorCourse
 --delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
 --delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid = 0)
 --delete SD18EXAM_tbIssuedQuiz where ClassId = 0
 --delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
 --select * from SD18EXAM_tbMentorCourse
+
+
+--delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)) 
+--delete SD18EXAM_tbIssuedQuiz where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = 0)
+--delete SD18EXAM_tbMentorCourse where CourseID=0
+select * from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)
+select * from SD18EXAM_tbIssuedQuiz
+delete SD18EXAM_tbUser where Classid=
+--delete SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)
+--delete SD18EXAM_tbClass where Courseid = 0
+--update SD18EXAM_tbXMLQuizContent set CourseID = null where CourseID=0
+--delete SD18EXAM_tbCourse where Courseid = 0
 go
-spGetConstraintResult @TableName = 'SD18EXAM_tbClass'
+spGetConstraintResult @TableName = 'SD18EXAM_tbUser'
 go
 
 create procedure SD18EXAM_spDeleteCourse(
