@@ -93,7 +93,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" CssClass="myButton"/>
                 </td>
             </tr>
         </table>
