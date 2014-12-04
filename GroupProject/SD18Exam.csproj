@@ -97,6 +97,7 @@
     <Content Include="NavigationXmlFiles\user_menu.xml" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
+    <Content Include="Pictures\allocate.png" />
     <Content Include="Pictures\assignQuiz.jpg" />
     <Content Include="Pictures\career-focused.png" />
     <Content Include="Pictures\checklist.png" />
@@ -179,6 +180,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsStudentQuizReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsStudentReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStudentReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="ExamDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -271,11 +277,6 @@
       <DependentUpon>AdminPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="StateCookies.cs" />
-    <Compile Include="StudentReport.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StudentReport.xsd</DependentUpon>
-    </Compile>
     <Compile Include="StudentResponse.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +325,17 @@
     <Content Include="dsStudentQuizReport.xss">
       <DependentUpon>dsStudentQuizReport.xsd</DependentUpon>
     </Content>
+    <Content Include="dsStudentReport.xsc">
+      <DependentUpon>dsStudentReport.xsd</DependentUpon>
+    </Content>
+    <None Include="dsStudentReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStudentReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="dsStudentReport.xss">
+      <DependentUpon>dsStudentReport.xsd</DependentUpon>
+    </Content>
     <None Include="ExamDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ExamDataSet.Designer.cs</LastGenOutput>
@@ -333,17 +345,6 @@
       <DependentUpon>ExamDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\ExamProfile.pubxml" />
-    <Content Include="StudentReport.xsc">
-      <DependentUpon>StudentReport.xsd</DependentUpon>
-    </Content>
-    <None Include="StudentReport.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>StudentReport.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="StudentReport.xss">
-      <DependentUpon>StudentReport.xsd</DependentUpon>
-    </Content>
     <None Include="StudentResponse.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -368,7 +369,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="Report2.rdlc" />
-    <EmbeddedResource Include="StudentReport.rdlc" />
+    <EmbeddedResource Include="ReportForStudents.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

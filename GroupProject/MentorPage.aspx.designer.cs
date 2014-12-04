@@ -31,15 +31,6 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Image imgView;
         
         /// <summary>
-        /// btnViewQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewQuiz;
-        
-        /// <summary>
         /// imgIssue control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgIssue;
-        
-        /// <summary>
-        /// btnIssueQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnIssueQuiz;
         
         /// <summary>
         /// imgCreate control.
@@ -67,6 +49,33 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Image imgCreate;
         
         /// <summary>
+        /// imgAllocate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgAllocate;
+        
+        /// <summary>
+        /// btnViewQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewQuiz;
+        
+        /// <summary>
+        /// btnIssueQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnIssueQuiz;
+        
+        /// <summary>
         /// btnCreateQuiz control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateQuiz;
+        
+        /// <summary>
+        /// btnAllocateStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAllocateStudents;
         
         /// <summary>
         /// imgUploadQuiz control.
@@ -85,15 +103,6 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Image imgUploadQuiz;
         
         /// <summary>
-        /// btnUploadQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUploadQuiz;
-        
-        /// <summary>
         /// imgStart control.
         /// </summary>
         /// <remarks>
@@ -101,15 +110,6 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgStart;
-        
-        /// <summary>
-        /// btnStartQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStartQuiz;
         
         /// <summary>
         /// imgViewReports control.
@@ -121,6 +121,24 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Image imgViewReports;
         
         /// <summary>
+        /// btnUploadQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadQuiz;
+        
+        /// <summary>
+        /// btnStartQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStartQuiz;
+        
+        /// <summary>
         /// btnReports control.
         /// </summary>
         /// <remarks>
@@ -128,15 +146,6 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReports;
-        
-        /// <summary>
-        /// btnAllocateStudents control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAllocateStudents;
         
         /// <summary>
         /// pnlStartQuiz control.
