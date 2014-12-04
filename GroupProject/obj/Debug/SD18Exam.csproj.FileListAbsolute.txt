@@ -129,7 +129,6 @@ C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\bin\ko\System.Spatia
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\bin\ru\System.Spatial.resources.dll
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\SD18Exam.csprojResolveAssemblyReference.cache
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile.cache
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\RdlCompile.compiled
 C:\Users\JanryAlex\Documents\GitHub\GroupPExam\GroupProject\obj\Debug\GroupProject.dll
