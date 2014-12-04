@@ -69,11 +69,11 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />    
             </asp:Panel>
         <%--End Of Course Panel--%>
-        <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
+        <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server" OnSelectedIndexChanged="ddlCourseforClass_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
         <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
 
         <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
-
+        <asp:Label ID="lbSelectMentor" runat="server" Text="Select a Mentor: "></asp:Label><asp:DropDownList ID="ddlSelectMentor" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSelectMentor_SelectedIndexChanged"></asp:DropDownList>
         <br />
         <br />
         &nbsp
