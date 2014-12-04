@@ -227,6 +227,9 @@ namespace GroupProject
             pnlCourse.Visible = false;
             btnCreateCourse.Visible = true;
             btnEditDelete.Visible = true;
+            ddlCourseforClass.Visible = false;
+            lblSelectCourse.Visible = false;
+            lbListofClasses.Visible = false;
             //End
             lblClassSelection.Visible = false;
             lblNewClass.Visible = false;
