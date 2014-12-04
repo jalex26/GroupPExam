@@ -37,6 +37,9 @@
         <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
+        <asp:DropDownList ID="ddlCourses" runat="server" Height="16px" Width="227px" AutoPostBack="true">
+        </asp:DropDownList>
+        <br />
 
         <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
         &nbsp

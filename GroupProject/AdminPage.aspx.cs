@@ -30,6 +30,7 @@ namespace GroupProject
                 loadNewClasses();
                 loadCourse();
                 pnlNewCourse.Visible = false;
+                ddlCourses.Visible = false;
             }
         }
         private void loadSelect()
@@ -200,6 +201,7 @@ namespace GroupProject
             lblSelectClass.Visible = true;
             lblNewCourse.Visible = false;
             ddlCourseList.Visible = false;
+            ddlCourses.Visible = false;
             txtNewCourse.Visible = false;
             btnSaveCourse.Visible = false;
             btnDeleteCourse.Visible = false;
@@ -217,6 +219,7 @@ namespace GroupProject
             gvSettings.Visible = false;
             lblSelectClass.Visible = false;
             //Edited
+            ddlCourses.Visible = true;
             pnlNewCourse.Visible = false;
             pnlCourse.Visible = false;
             btnCreateCourse.Visible = true;
@@ -239,12 +242,17 @@ namespace GroupProject
             ddlCourseList.DataTextField = "Coursename";
             ddlCourseList.DataValueField = "Courseid";
             ddlCourseList.DataBind();
+
+            ddlCourses.DataSource = ds;
+            ddlCourses.DataTextField = "Coursename";
+            ddlCourses.DataValueField = "Courseid";
+            ddlCourses.DataBind();
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Classname", txtNewCourse.Text);
+            myDal.AddParam("@Coursename", txtNewCourse.Text);
             myDal.ExecuteProcedure("SD18EXAM_spInsertCourse");
             loadNewCourse();
             txtNewCourse.Text = "";
@@ -314,6 +322,7 @@ namespace GroupProject
             btnSaveClass.Visible = true;
             btnCreateCourse.Visible = false;
             btnEditDelete.Visible = false;
+            ddlCourses.Visible = false;
         }
 
     }
