@@ -58,6 +58,33 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.Image imgAllocate;
         
         /// <summary>
+        /// imgUploadQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgUploadQuiz;
+        
+        /// <summary>
+        /// imgStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgStart;
+        
+        /// <summary>
+        /// imgViewReports control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgViewReports;
+        
+        /// <summary>
         /// btnViewQuiz control.
         /// </summary>
         /// <remarks>
@@ -92,33 +119,6 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAllocateStudents;
-        
-        /// <summary>
-        /// imgUploadQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgUploadQuiz;
-        
-        /// <summary>
-        /// imgStart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgStart;
-        
-        /// <summary>
-        /// imgViewReports control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgViewReports;
         
         /// <summary>
         /// btnUploadQuiz control.
