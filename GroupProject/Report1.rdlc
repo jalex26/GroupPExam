@@ -726,17 +726,7 @@
         <ChartSeriesHierarchy>
           <ChartMembers>
             <ChartMember>
-              <Group Name="Chart2_SeriesGroup">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!TotalQuestions.Value</GroupExpression>
-                </GroupExpressions>
-              </Group>
-              <SortExpressions>
-                <SortExpression>
-                  <Value>=Fields!TotalQuestions.Value</Value>
-                </SortExpression>
-              </SortExpressions>
-              <Label>Acquired Points</Label>
+              <Label>Points</Label>
             </ChartMember>
           </ChartMembers>
         </ChartSeriesHierarchy>
@@ -862,7 +852,7 @@
                   <FontSize>8pt</FontSize>
                 </Style>
                 <ChartAxisTitle>
-                  <Caption> Total Questions</Caption>
+                  <Caption> Points Scored</Caption>
                   <Style>
                     <FontSize>12pt</FontSize>
                   </Style>

@@ -31,10 +31,12 @@ namespace GroupProject
             {
 
                 ReportViewer1.ProcessingMode = ProcessingMode.Local;
-                ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/StudentReport.rdlc");
+                ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/ReportForStudents.rdlc");
                 ReportDataSource datasource = new ReportDataSource("DataSet1", StudentQuizReport());
                 ReportViewer1.LocalReport.DataSources.Clear();
                 ReportViewer1.LocalReport.DataSources.Add(datasource);
+               
+             
 
             }
         }
