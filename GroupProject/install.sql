@@ -904,7 +904,26 @@ as begin
 end 
 go
 
+create procedure spGetConstraintResult(
+@TableName varchar(60)
+) as
+DECLARE @mytable VARCHAR(30)
+begin
+SET @mytable = @TableName
 
+SELECT t1.CONSTRAINT_TYPE AS ConstraintType,
+t1.CONSTRAINT_NAME AS ConstraintName,
+t1.TABLE_NAME AS PointsFrom,
+t2.TABLE_NAME AS PointTo
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS r
+JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS t1
+ON t1.CONSTRAINT_NAME = r.CONSTRAINT_NAME
+JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS t2
+ON t2.CONSTRAINT_NAME = r.UNIQUE_CONSTRAINT_NAME
+WHERE t2.table_name = @mytable
+end
+
+go
 --Loads the Quiz Result (User side)
 create procedure SD18EXAM_spViewQuizResults(
 @Userid int
@@ -1092,17 +1111,40 @@ end
 go
 
 --Update Course
-create procedure SD18EXAM_spUpdateCourse(
-@Courseid int = null,
-@Coursename varchar(60)
-)
-as begin
-	update SD18EXAM_tbCourse set Coursename = @Coursename 
-	where Courseid=@Courseid
-end
+--SD18EXAM_spUpdateCourse @Courseid=0, @NewCoursename='tsadasd'
+--select * from SD18EXAM_tbCourse
 go
+create procedure SD18EXAM_spUpdateCourse(
+@Courseid int,
+@NewCoursename varchar(60)
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	if EXISTS (select * from SD18EXAM_tbCourse where Courseid=@Courseid)
+	begin
+	update SD18EXAM_tbCourse set Coursename = @NewCoursename 
+	where Courseid=@Courseid
+	set @msg = 'Success'
+	end
+	else
+	begin
+	set @msg= 'Course not Found'
+	end
+end
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'error' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
 
-
+go
 -----------------DELETES----------------
 
 --Delete Students
@@ -1148,16 +1190,38 @@ end
 go
 
 --Delete Course
+--SD18EXAM_spDeleteCourse @Courseid=0
+--select * from SD18EXAM_tbUser
+--select * from SD18EXAM_tbClass
+--select * from SD18EXAM_tbCourse
+--select * from SD18EXAM_tbIssuedQuiz
+--select * from SD18EXAM_tbQuizStudent
+--select * from SD18EXAM_tbIssuedQuiz
+--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
+--delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid = 0)
+--delete SD18EXAM_tbIssuedQuiz where ClassId = 0
+--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid = 0
+--select * from SD18EXAM_tbMentorCourse
+go
+spGetConstraintResult @TableName = 'SD18EXAM_tbClass'
+go
+
 create procedure SD18EXAM_spDeleteCourse(
 @Courseid int
-
 )
 as begin 
-	delete from SD18EXAM_tbCourse 
-	where SD18EXAM_tbCourse.Courseid =@Courseid
+	--delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)) 
+	--delete SD18EXAM_tbIssuedQuiz where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)
+
+	--update SD18EXAM_tbMentorCourse set CourseID=null where CourseID=@Courseid
+	update SD18EXAM_tbIssuedQuiz set Mentorid = null where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = @Courseid)
+	delete SD18EXAM_tbClass where Courseid = @Courseid
+	--delete SD18EXAM_tbXMLQuizContent where CourseID = @Courseid
+	--delete from SD18EXAM_tbCourse where SD18EXAM_tbCourse.Courseid =@Courseid
 end 
 go
 
+--SD18EXAM_spDeleteCourse @Courseid = 2
 
 ----------------Settings-------------
 
@@ -1400,9 +1464,29 @@ create procedure SD18EXAM_spGetStudentResponseDetails(
 @Userid int = null
 )
 as begin
+
+declare @xmlvar XML;
+set     @xmlvar = (select top 1 XMLStudentResponse from SD18EXAM_tbQuizStudent)
+;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
 select SD18EXAM_tbQuizStudent.QuizStudentid, SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Status,
-       SD18EXAM_tbQuizStudent.Userid, XMLStudentResponse, SD18EXAM_tbQuizStudent.Points,
-	   Firstname + ' ' + Lastname as 'StudentName', StatusName, Title, DateTaken
+       SD18EXAM_tbQuizStudent.Userid, SD18EXAM_tbQuizStudent.Points,
+	   Firstname + ' ' + Lastname as 'StudentName', StatusName, Title, DateTaken,
+	   CAST([XMLStudentResponse] AS VARCHAR(MAX)),
+	   -- getting count of different question types
+	    @xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT') 
+		             AS 'MultipleChoiceCount',
+		@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')
+	                 AS 'FillBlanksCount',
+		@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT') 
+		             AS 'TrueFalseCount',
+		-- using sum in this statement to get total questions count here
+		(sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question/@ID)', 'INT')) +
+		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question/@ID)', 'INT')) +
+		 sum(@xmlvar.value('count(ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question/@ID)', 'INT'))) 
+		             AS 'TotalQuestions'
+		    
+
 from SD18EXAM_tbQuizStudent, SD18EXAM_tbUser, SD18EXAM_tbQuizStatus, SD18EXAM_tbXMLQuizContent,
      SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz
 where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
@@ -1412,6 +1496,11 @@ where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	  SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 	  SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
 	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
+
+	  GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, 
+	  Lastname, StatusName, Points, SD18EXAM_tbQuizStudent.QuizStudentid ,
+	  SD18EXAM_tbQuizStudent.Status, Title, DateTaken,
+         CAST([XMLStudentResponse] AS VARCHAR(MAX))
 end
 go
 
@@ -1485,6 +1574,7 @@ select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
 	END AS varchar(20)) as Status from SD18EXAM_tbUser where Classid is null
 end
 go
+
 
 create procedure SD18EXAM_spAllocateStudent(
 @UserID int,
@@ -1560,7 +1650,7 @@ insert into SD18EXAM_tbQuizStudent values (2,4,'<?xml version="1.0"?><Quiz QuizI
 go
 insert into SD18EXAM_tbQuizStudent values (3,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 8, getdate())
 go
-insert into SD18EXAM_tbQuizStudent values (2,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
+insert into SD18EXAM_tbQuizStudent values (0,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
 go
 insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 2, getdate())
 go
@@ -1630,3 +1720,4 @@ select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbClass
 select * from SD18EXAM_tbCourse
 select * from SD18EXAM_tbQuizVersion
+

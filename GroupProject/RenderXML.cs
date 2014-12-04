@@ -295,7 +295,16 @@ namespace GroupProject
                 }
                 option.Shuffle();
                 //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
-                ListQuestions.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                try
+                {
+                    ListQuestions.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
+                }
+                catch (Exception e)
+                {
+                   
+                    throw;
+                }
+                
                 //foreach()
             }
 

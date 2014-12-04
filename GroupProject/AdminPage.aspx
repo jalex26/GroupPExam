@@ -3,7 +3,41 @@
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+    <script type="text/javascript">
+        function ConfirmDelete() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Do you want to delete this Course? All datas associated with this course will also be deleted.")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+        function ConfirmUpdate() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Do you want to update this Course?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+            function ConfirmCreateCourse() {
+                var confirm_value = document.createElement("INPUT");
+                confirm_value.type = "hidden";
+                confirm_value.name = "confirm_value";
+                if (confirm("Save this new Course?")) {
+                    confirm_value.value = "Yes";
+                } else {
+                    confirm_value.value = "No";
+                }
+                document.forms[0].appendChild(confirm_value);
+        }
+    </script>
     <%--  style for pop up ajax control, it will grey out background during pop up--%>
     <style type="text/css">
         .modalBackground {
@@ -30,113 +64,117 @@
         &nbsp
         &nbsp
         &nbsp
-        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click1">Manage Class</asp:LinkButton>
+        <asp:LinkButton ID="lbClass" runat="server" OnClick="lbClass_Click">Manage Class</asp:LinkButton>
         &nbsp
         &nbsp
         &nbsp
         <asp:LinkButton ID="lbStudentLogHistory" runat="server" OnClick="lbStudentLogHistory_Click">Student Log History</asp:LinkButton>
         <br />
         <br />
-
-        <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" Visible="false" OnClick="btnCreateCourse_Click" Text="Create Course" />
-        &nbsp
-        &nbsp
-       
-         <asp:Button ID="btnEditDelete" ToolTip="Click Here To Delete A Course" runat="server" Visible="false" Text="Edit-Delete" OnClick="btneditDelete_Click" />
-         <%--New Course Panel--%>
-        <asp:Panel ID="pnlNewCourse" runat="server" Height="65px" Width="210px">
-        <asp:Label ID="lblNewCourse" runat="server" Text="New Course:"></asp:Label>
-            &nbsp
-        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server" ></asp:TextBox>
+        <asp:Panel ID="pnlManageCourse" runat="server" Visible="false">
             <br />
-        <asp:Button ID="btnSaveCourse" runat="server" Text="Save Course" OnClick="btnSaveCourse_Click" />
-            </asp:Panel>
-        <%--End Of Course Panel--%>
-        <%--Start Of Course Panel--%>
-        <asp:Panel ID="pnlCourse" runat="server" Visible="false" Height="68px" Width="326px">
-        <asp:Label ID="lblCourseSelection" runat="server" Text="Course Selection:"></asp:Label>
+            <asp:DropDownList ID="ddlCourses" runat="server" Height="16px" Width="227px" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_SelectedIndexChanged" />
+            <asp:Button ID="btnCreateCourse" ToolTip="Click Here To Make A New Course" runat="server" OnClick="btnCreateCourse_Click" Text="New Course" Width="84px" />
             &nbsp
-        <asp:DropDownList ID="ddlCourseList" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
-            <br />
-        <asp:Button ID="btnDeleteCourse" runat="server" Text="Delete" OnClick="btnDeleteCourse_Click" Width="74px" />
+            <asp:Button ID="btnEdit" ToolTip="Click Here To Delete A Course" runat="server" Text="Edit" OnClick="btnedit_Click" />
+            &nbsp
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClientClick="ConfirmDelete()" OnClick="btnDelete_Click"/>
+            <%--New Course Panel--%>
+            <asp:Panel ID="pnlNewCourse" runat="server" Height="65px" Visible="false" Width="210px">
+                <asp:Label ID="lblNewCourse" runat="server" Text="New Course:"></asp:Label>
+                &nbsp
+        <asp:TextBox ID="txtNewCourse" ToolTip="Enter A New Course Title" runat="server"></asp:TextBox>
+                <br />
+                <asp:Button ID="btnSaveCourse" runat="server" Text="Save new course" OnClick="btnSaveCourse_Click" OnClientClick="ConfirmCreateCourse()" />
             </asp:Panel>
-        <%--End Of Course Panel--%>
-        <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
+            <%--End Of Course Panel--%>
+            <%--Start Of Course Panel--%>
+            <asp:Panel ID="pnlCourse" runat="server" Visible="false" Height="68px" Width="326px">
+                <br />
+                Change Course name to: 
+                <asp:TextBox ID="txtCourse" runat="server" Height="16px" Width="259px"></asp:TextBox>
+                <br />
+                <asp:Button ID="btnCourseUpdate" runat="server" Text="Save"  OnClientClick="ConfirmUpdate()" OnClick="btnCourseUpdate_Click" />
+                &nbsp
+                <asp:Button ID="btnCancelUpdate" runat="server" Text="Cancel" OnClick="btnCancelUpdate_Click" />
+            </asp:Panel>
+            <%--End Of Course Panel--%>
+        </asp:Panel>
 
-        <asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+        <asp:Panel ID="pnlManageClass" runat="server" Visible="false">
+            <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
+            <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
+
+            <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
+            <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
+
+            <asp:TextBox ID="txtNewClass" ToolTip="Enter A New Class" runat="server" Visible="false"></asp:TextBox>
+            <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
+
+            <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+            <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
+        </asp:Panel>
 
         <br />
-        <br />
-        &nbsp
-        &nbsp
-        &nbsp
-        <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
+        <asp:Panel ID="pnlManageUsers" runat="server" Visible="false">
+            <asp:GridView ID="gvSettings"
+                runat="server" AllowSorting="True"
+                AllowPaging="true" PageSize="9"
+                OnSorting="gvSettings_Sorting"
+                OnPageIndexChanging="gvSettings_PageIndexChanging"
+                DataKeyNames="Userid"
+                HorizontalAlign="Center"
+                GridLines="None"
+                CssClass="mGrid"
+                PagerStyle-CssClass="pgr"
+                AlternatingRowStyle-CssClass="alt"
+                AutoGenerateColumns="False">
 
-        <asp:TextBox ID="txtNewClass" ToolTip="Enter A New Class" runat="server" Visible="false"></asp:TextBox>
-        <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
+                <Columns>
+                    <asp:TemplateField HeaderText="Update">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbUpdate" Text="Update"
+                                OnClick="lbUpdate_Click" CommandName="Upd"
+                                runat="server"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
-        <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
+                    <asp:TemplateField HeaderText="Delete">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbDelete" Text="Delete"
+                                OnClick="lbDelete_Click"
+                                runat="server"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Firstname" HeaderText="First Name" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Lastname" HeaderText="Last Name" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email Address" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Password" HeaderText="User Password" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class Name" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Coursename" HeaderText="Course/ Program" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level" />
+                </Columns>
+            </asp:GridView>
+            <br />
+            <br />
 
-        <br />
-        <br />
-        <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
-        <br />
-        <asp:GridView ID="gvSettings" Visible="false"
-            runat="server" AllowSorting="True"
-            AllowPaging="true" PageSize="9"
-            OnSorting="gvSettings_Sorting"
-            OnPageIndexChanging="gvSettings_PageIndexChanging"
-            DataKeyNames="Userid"
-            HorizontalAlign="Center"
-            GridLines="None"
-            CssClass="mGrid"
-            PagerStyle-CssClass="pgr"
-            AlternatingRowStyle-CssClass="alt"
-            AutoGenerateColumns="False">
+            <!--Panel to update selected record-->
+            <ajaxToolkit:ToolkitScriptManager ID="TSM2" runat="server">
+            </ajaxToolkit:ToolkitScriptManager>
 
-            <Columns>
-                <asp:TemplateField HeaderText="Update">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="lbUpdate" Text="Update"
-                            OnClick="lbUpdate_Click" CommandName="Upd"
-                            runat="server"></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
+            <div class="JavascriptButtons">
+                <asp:Button ID="btnDummyUpdate" runat="server" Text="Dummy Update" Visible="true" />
+            </div>
 
-                <asp:TemplateField HeaderText="Delete">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="lbDelete" Text="Delete"
-                            OnClick="lbDelete_Click"
-                            runat="server"></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Firstname" HeaderText="First Name" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Lastname" HeaderText="Last Name" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email Address" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Password" HeaderText="User Password" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class Name" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Coursename" HeaderText="Course/ Program" />
-                <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level" />
-            </Columns>
-        </asp:GridView>
-        <br />
-        <br />
+            <ajaxToolkit:ModalPopupExtender ID="mpeUpdate" runat="server"
+                TargetControlID="btnDummyUpdate" PopupControlID="panelUpdate"
+                RepositionMode="RepositionOnWindowResizeAndScroll" DropShadow="true"
+                PopupDragHandleControlID="panelUpdateTitle"
+                BackgroundCssClass="modalBackground">
+            </ajaxToolkit:ModalPopupExtender>
+        </asp:Panel>
 
-        <!--Panel to update selected record-->
-        <ajaxToolkit:ToolkitScriptManager ID="TSM2" runat="server">
-        </ajaxToolkit:ToolkitScriptManager>
-
-        <div class="JavascriptButtons">
-            <asp:Button ID="btnDummyUpdate" runat="server" Text="Dummy Update" Visible="true" />
-        </div>
-
-        <ajaxToolkit:ModalPopupExtender ID="mpeUpdate" runat="server"
-            TargetControlID="btnDummyUpdate" PopupControlID="panelUpdate"
-            RepositionMode="RepositionOnWindowResizeAndScroll" DropShadow="true"
-            PopupDragHandleControlID="panelUpdateTitle"
-            BackgroundCssClass="modalBackground">
-        </ajaxToolkit:ModalPopupExtender>
 
         <asp:Panel ID="panelUpdate" runat="server"
             Style="display: none; background-color: whitesmoke;"
@@ -144,9 +182,8 @@
             Width="400" Height="500">
 
             <asp:Panel ID="panelUpdateTitle" runat="server"
-                Style="cursor: move; font-family: Tahoma; Box-Shadow: 10px 10px 5px #424242;
-                padding: 10px; align-content: center"
-                HorizontalAlign="Center" BackColor="#E3170D"     
+                Style="cursor: move; font-family: Tahoma; box-shadow: 10px 10px 5px #424242; padding: 10px; align-content: center"
+                HorizontalAlign="Center" BackColor="#E3170D"
                 ForeColor="White" Height="30">
                 <b>Update Record</b>
             </asp:Panel>
@@ -309,8 +346,7 @@
         </ajaxToolkit:ModalPopupExtender>
 
         <asp:Panel ID="panelDelete" runat="server"
-            Style="display: none; Box-Shadow: 10px 10px 5px #424242;
-            background-color: whitesmoke;"
+            Style="display: none; box-shadow: 10px 10px 5px #424242; background-color: whitesmoke;"
             HorizontalAlign="Center"
             Width="300" Height="350">
 

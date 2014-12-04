@@ -26,10 +26,9 @@ namespace GroupProject
                 loadClass();
                 loadSelect();
                 loadSelectClass();
-                loadNewCourse();
+
                 loadNewClasses();
                 loadCourse();
-                pnlNewCourse.Visible = false;
             }
         }
         private void loadSelect()
@@ -72,7 +71,7 @@ namespace GroupProject
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
             myDal.ClearParams();
-            myDal.AddParam("@Classid",ddlClassname.SelectedValue);
+            myDal.AddParam("@Classid", ddlClassname.SelectedValue);
             gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
             gvSettings.DataBind();
 
@@ -195,68 +194,48 @@ namespace GroupProject
 
         protected void lbUsers_Click(object sender, EventArgs e)
         {
-            ddlClassname.Visible = true;
-            gvSettings.Visible = true;
-            lblSelectClass.Visible = true;
-            lblNewCourse.Visible = false;
-            ddlCourseList.Visible = false;
-            txtNewCourse.Visible = false;
-            btnSaveCourse.Visible = false;
-            btnDeleteCourse.Visible = false;
-            lblCourseSelection.Visible = false;
-            lblClassSelection.Visible = false;
-            lblNewClass.Visible = false;
-            txtNewClass.Visible = false;
-            ddlClassSelection.Visible = false;
-            btnSaveClass.Visible = false;
-
+            pnlManageUsers.Visible = true;
+            pnlManageClass.Visible = false;
+            pnlManageCourse.Visible = false;
         }
         protected void lbCourse_Click(object sender, EventArgs e)
         {
-            ddlClassname.Visible = false;
-            gvSettings.Visible = false;
-            lblSelectClass.Visible = false;
-            //Edited
-            pnlNewCourse.Visible = false;
+            loadNewCourse();
+            pnlManageCourse.Visible = true;
+            pnlManageUsers.Visible = false;
             pnlCourse.Visible = false;
-            btnCreateCourse.Visible = true;
-            btnEditDelete.Visible = true;
-            //End
-            lblClassSelection.Visible = false;
-            lblNewClass.Visible = false;
-            txtNewClass.Visible = false;
-            ddlClassSelection.Visible = false;
-            btnSaveClass.Visible = false;
         }
         private void loadNewCourse()
         {
+
             DataSet ds = new DataSet();
             myDal.ClearParams();
             //myDal.AddParam("@Classname", ddlCourseList.SelectedValue);
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
 
-            ddlCourseList.DataSource = ds;
-            ddlCourseList.DataTextField = "Coursename";
-            ddlCourseList.DataValueField = "Courseid";
-            ddlCourseList.DataBind();
+            ddlCourses.DataSource = ds;
+            ddlCourses.DataTextField = "Coursename";
+            ddlCourses.DataValueField = "Courseid";
+            ddlCourses.DataBind();
+
+            ddlCourseforClass.DataSource = ds;
+            ddlCourseforClass.DataTextField = "Coursename";
+            ddlCourseforClass.DataValueField = "Courseid";
+            ddlCourseforClass.DataBind();
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
         {
-            myDal.ClearParams();
-            myDal.AddParam("@Classname", txtNewCourse.Text);
-            myDal.ExecuteProcedure("SD18EXAM_spInsertCourse");
-            loadNewCourse();
-            txtNewCourse.Text = "";
-         
-        }
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@Coursename", txtNewCourse.Text);
+                myDal.ExecuteProcedure("SD18EXAM_spInsertCourse");
+                loadNewCourse();
+                txtNewCourse.Text = "";
+            }
 
-        protected void btnDeleteCourse_Click(object sender, EventArgs e)
-        {
-            myDal.ClearParams();
-            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
-            myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
-            loadNewCourse();
         }
 
         private void loadNewClasses()
@@ -274,7 +253,7 @@ namespace GroupProject
         protected void btnSaveClass_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Courseid", ddlCourseList.SelectedValue);
+            myDal.AddParam("@Courseid", ddlCourseforClass.SelectedValue.ToString());
             myDal.AddParam("@Classname", txtNewClass.Text);
             myDal.ExecuteProcedure("SD18EXAM_spInsertClass");
             loadSelectClass();
@@ -284,37 +263,87 @@ namespace GroupProject
         protected void btnCreateCourse_Click(object sender, EventArgs e)
         {
             pnlNewCourse.Visible = true;
-            btnCreateCourse.Visible = false;
-            btnEditDelete.Visible = false;
+            pnlCourse.Visible = false;
+            //btnCreateCourse.Visible = false;
+            //btnEditDelete.Visible = false;
         }
-        protected void btneditDelete_Click(object sender, EventArgs e)
+        protected void btnedit_Click(object sender, EventArgs e)
         {
             pnlCourse.Visible = true;
-            btnEditDelete.Visible = false;
-            btnCreateCourse.Visible = false;
+            pnlNewCourse.Visible = false;
+            UpdateCourse(Convert.ToInt16(ddlCourses.SelectedValue.ToString()));
         }
         protected void lbStudentLogHistory_Click(object sender, EventArgs e)
         {
-
+            pnlManageClass.Visible = false;
+            pnlManageCourse.Visible = false;
+            pnlManageUsers.Visible = false;
+            pnlCourse.Visible = false;
         }
-        protected void lbClass_Click1(object sender, EventArgs e)
+        protected void lbClass_Click(object sender, EventArgs e)
         {
-            ddlClassname.Visible = false;
-            gvSettings.Visible = false;
-            lblSelectClass.Visible = false;
-            pnlNewCourse.Visible = false;
-            ddlCourseList.Visible = true;
+            pnlManageClass.Visible = true;
+            pnlManageCourse.Visible = false;
+            pnlManageUsers.Visible = false;
+            pnlCourse.Visible = false;
 
-            btnDeleteCourse.Visible = false;
-            lblCourseSelection.Visible = true;
-            lblClassSelection.Visible = false;
-            lblNewClass.Visible = true;
-            txtNewClass.Visible = true;
-            ddlClassSelection.Visible = false;
-            btnSaveClass.Visible = true;
-            btnCreateCourse.Visible = false;
-            btnEditDelete.Visible = false;
         }
+        private void UpdateCourse(int Courseid)
+        {
+            myDal.ClearParams();
+            myDal.AddParam("Courseid", Courseid);
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
+            txtCourse.Text = ds.Tables[0].Rows[0]["Coursename"].ToString();
+        }
+
+        protected void btnUpdateCourse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCourseUpdate_Click(object sender, EventArgs e)
+        {//course name update
+             string confirmValue = Request.Form["confirm_value"];
+             if (confirmValue == "Yes")
+             {
+                 myDal.ClearParams();
+                 myDal.AddParam("@Courseid", ddlCourses.SelectedValue.ToString());
+                 myDal.AddParam("@NewCoursename", txtCourse.Text);
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spUpdateCourse");
+                if (ds.Tables[0].Rows[0]["status"].ToString() == "Success")
+                    Response.Write("<SCRIPT>alert('Course successfully Updated!.')</SCRIPT>");
+                else
+                    Response.Write("<SCRIPT>alert('Update Failed.')</SCRIPT>");
+                 loadNewCourse();
+
+                 pnlCourse.Visible = false; 
+             }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@Courseid", ddlCourses.SelectedValue.ToString());
+                myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
+                loadNewCourse();
+                Response.Write("<SCRIPT>alert('Course successfully deleted!.')</SCRIPT>");
+            }
+        }
+
+        protected void btnCancelUpdate_Click(object sender, EventArgs e)
+        {
+            pnlCourse.Visible = false;
+            txtCourse.Text = "";
+        }
+
+        protected void ddlCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlCourse.Visible = false;
+        }
+
 
     }
 }
