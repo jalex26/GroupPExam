@@ -280,13 +280,17 @@ input, textarea, select {
 }
 
 .ButtonsOnMentorPage {
-    background: none !important;
-    border: none;
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    background: !important;
     padding: 0 !important;
     font-family: arial,sans-serif;
     color: #069;
     text-decoration: underline;
     cursor: pointer;
+    margin-left: 7px;
+    margin-top: 14px;
 }
 
     .ButtonsOnMentorPage:hover {
