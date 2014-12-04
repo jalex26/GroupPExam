@@ -230,6 +230,8 @@ namespace GroupProject
             ddlCourseforClass.Visible = false;
             lblSelectCourse.Visible = false;
             lbListofClasses.Visible = false;
+            txtCourse.Visible = false;
+            btnSave.Visible = false;
             //End
             lblClassSelection.Visible = false;
             lblNewClass.Visible = false;
@@ -356,7 +358,12 @@ namespace GroupProject
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            myDal.ClearParams();
+            myDal.AddParam("Courseid", ddlCourseList.SelectedValue.ToString());
+            myDal.AddParam("Coursename", txtCourse.Text);
+            myDal.ExecuteProcedure("SD18EXAM_spUpdateCourse");
 
+            loadNewCourse();
         }
 
     }
