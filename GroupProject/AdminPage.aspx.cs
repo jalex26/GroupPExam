@@ -33,6 +33,7 @@ namespace GroupProject
                 ddlCourses.Visible = false;
                 ddlCourseforClass.Visible = false;
                 lblSelectCourse.Visible = false;
+                lbListofClasses.Visible = false;
             }
         }
         private void loadSelect()
@@ -321,6 +322,7 @@ namespace GroupProject
             pnlNewCourse.Visible = false;
             ddlCourseList.Visible = true;
             ddlCourseforClass.Visible = true;
+            lbListofClasses.Visible = true;
 
             btnDeleteCourse.Visible = false;
             lblCourseSelection.Visible = true;
