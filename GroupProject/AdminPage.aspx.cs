@@ -25,10 +25,8 @@ namespace GroupProject
                 loadUsers(myState);
                 loadClass();
                 loadSelect();
-                loadSelectClass();
-
-                loadNewClasses();
                 loadCourse();
+                loadNewCourse();
             }
         }
         private void loadSelect()
@@ -179,6 +177,7 @@ namespace GroupProject
         {
             DataSet ds = new DataSet();
             myDal.ClearParams();
+            myDal.AddParam("@Courseid", ddlCourseforClass.SelectedValue.ToString());
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
 
             ddlClassname.DataSource = ds;
@@ -222,6 +221,12 @@ namespace GroupProject
             ddlCourseforClass.DataTextField = "Coursename";
             ddlCourseforClass.DataValueField = "Courseid";
             ddlCourseforClass.DataBind();
+            ddlCourseforClass.Items.Insert(0, new ListItem("Please select","NA"));
+
+            ddlClassCourse.DataSource = ds;
+            ddlClassCourse.DataTextField = "Coursename";
+            ddlClassCourse.DataValueField = "Courseid";
+            ddlClassCourse.DataBind();
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
@@ -238,26 +243,23 @@ namespace GroupProject
 
         }
 
-        private void loadNewClasses()
-        {
-            DataSet ds = new DataSet();
-            myDal.ClearParams();
-            myDal.AddParam("Courseid", ddlClassSelection.SelectedValue);
-            ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
-
-            ddlClassSelection.DataSource = ds;
-            ddlClassSelection.DataTextField = "Classname";
-            ddlClassSelection.DataValueField = "Courseid";
-            ddlClassSelection.DataBind();
-        }
         protected void btnSaveClass_Click(object sender, EventArgs e)
         {
             myDal.ClearParams();
-            myDal.AddParam("@Courseid", ddlCourseforClass.SelectedValue.ToString());
+            myDal.AddParam("@Courseid", ddlClassCourse.SelectedValue.ToString());
             myDal.AddParam("@Classname", txtNewClass.Text);
-            myDal.ExecuteProcedure("SD18EXAM_spInsertClass");
+            if (btnSaveClass.Text == "Save")
+                myDal.AddParam("@ClassId", ddlClassname.SelectedValue.ToString());
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spInsertUpdateClass");
+            if (ds.Tables[0].Rows[0]["status"].ToString() == "UpdateSuccess")
+                Response.Write("<SCRIPT>alert('Update Success')</SCRIPT>");
+            else if(ds.Tables[0].Rows[0]["status"].ToString() == "InsertSuccess")
+                Response.Write("<SCRIPT>alert('Add new class: Success')</SCRIPT>");
+            else
+                Response.Write("<SCRIPT>alert('Transaction Failed')</SCRIPT>");
             loadSelectClass();
             txtNewClass.Text = "";
+            pnlAddUpdateClass.Visible = false;
         }
 
         protected void btnCreateCourse_Click(object sender, EventArgs e)
@@ -286,6 +288,7 @@ namespace GroupProject
             pnlManageCourse.Visible = false;
             pnlManageUsers.Visible = false;
             pnlCourse.Visible = false;
+            loadNewCourse();
 
         }
         private void UpdateCourse(int Courseid)
@@ -327,9 +330,13 @@ namespace GroupProject
             {
                 myDal.ClearParams();
                 myDal.AddParam("@Courseid", ddlCourses.SelectedValue.ToString());
-                myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
+                DataSet ds =myDal.ExecuteProcedure("SD18EXAM_spDeleteCourse");
+                if(ds.Tables[0].Rows[0]["status"].ToString() != null)
+                    Response.Write("<SCRIPT>alert('Course successfully deleted!.')</SCRIPT>");
+                else
+                    Response.Write("<SCRIPT>alert('Transaction Failed')</SCRIPT>");
                 loadNewCourse();
-                Response.Write("<SCRIPT>alert('Course successfully deleted!.')</SCRIPT>");
+                
             }
         }
 
@@ -342,6 +349,51 @@ namespace GroupProject
         protected void ddlCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
             pnlCourse.Visible = false;
+        }
+
+        protected void ddlCourseforClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadSelectClass();
+            pnlMainManageClass.Visible = true;
+        }
+
+        protected void btnAddClass_Click(object sender, EventArgs e)
+        {
+            pnlAddUpdateClass.Visible = true;
+            btnSaveClass.Text = "Add Class";
+            ddlClassCourse.SelectedIndex = -1;
+            ddlClassCourse.Items.FindByValue(ddlCourseforClass.SelectedValue.ToString()).Selected = true;
+        }
+
+        protected void btnUpdateClass_Click(object sender, EventArgs e)
+        {
+            txtNewClass.Text = ddlClassname.SelectedItem.ToString();
+            pnlAddUpdateClass.Visible = true;
+            btnSaveClass.Text = "Save";
+            myDal.ClearParams();
+            myDal.AddParam("@Classid", ddlClassname.SelectedValue.ToString());
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+            if(ds.Tables[0].Rows.Count != 0)
+            {
+                ddlClassCourse.SelectedIndex = -1;
+                ddlClassCourse.Items.FindByValue(ds.Tables[0].Rows[0]["Courseid"].ToString()).Selected = true;
+            }
+        }
+
+        protected void btnDeleteClass_Click(object sender, EventArgs e)
+        {
+            pnlAddUpdateClass.Visible = false;
+            myDal.ClearParams();
+            myDal.AddParam("@Classid", ddlClassname.SelectedValue.ToString());
+            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spDeleteClass");
+            if(ds.Tables[0].Rows[0]["status"].ToString() =="success")
+                Response.Write("<SCRIPT>alert('Delete Success')</SCRIPT>");
+            else if(ds.Tables[0].Rows[0]["status"].ToString() =="NotFound")
+                Response.Write("<SCRIPT>alert('Class ID not found!')</SCRIPT>");
+            else
+                Response.Write("<SCRIPT>alert('Transaction Failed')</SCRIPT>");
+            loadSelectClass();
+
         }
 
 

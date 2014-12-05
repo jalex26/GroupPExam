@@ -193,6 +193,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlCourseforClass;
         
         /// <summary>
+        /// pnlMainManageClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMainManageClass;
+        
+        /// <summary>
         /// lblSelectClass control.
         /// </summary>
         /// <remarks>
@@ -200,15 +209,6 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSelectClass;
-        
-        /// <summary>
-        /// lbListofClasses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbListofClasses;
         
         /// <summary>
         /// ddlClassname control.
@@ -220,13 +220,40 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlClassname;
         
         /// <summary>
-        /// lblNewClass control.
+        /// btnAddClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewClass;
+        protected global::System.Web.UI.WebControls.Button btnAddClass;
+        
+        /// <summary>
+        /// btnUpdateClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateClass;
+        
+        /// <summary>
+        /// btnDeleteClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteClass;
+        
+        /// <summary>
+        /// pnlAddUpdateClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddUpdateClass;
         
         /// <summary>
         /// txtNewClass control.
@@ -238,22 +265,13 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.TextBox txtNewClass;
         
         /// <summary>
-        /// lblClassSelection control.
+        /// ddlClassCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblClassSelection;
-        
-        /// <summary>
-        /// ddlClassSelection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClassSelection;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClassCourse;
         
         /// <summary>
         /// btnSaveClass control.

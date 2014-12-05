@@ -8,8 +8,13 @@
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
-            if (confirm("Do you want to delete this Course? All datas associated with this course will also be deleted.")) {
-                confirm_value.value = "Yes";
+            if (confirm("Do you want to delete this Course?")) {
+                if (confirm("All datas associated with this course will also be deleted including Quiz Results and Students. Continue?")) {
+                    confirm_value.value = "Yes";
+                }
+                else {
+                    confirm_value.value = "No";
+                }
             } else {
                 confirm_value.value = "No";
             }
@@ -26,16 +31,16 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
-            function ConfirmCreateCourse() {
-                var confirm_value = document.createElement("INPUT");
-                confirm_value.type = "hidden";
-                confirm_value.name = "confirm_value";
-                if (confirm("Save this new Course?")) {
-                    confirm_value.value = "Yes";
-                } else {
-                    confirm_value.value = "No";
-                }
-                document.forms[0].appendChild(confirm_value);
+        function ConfirmCreateCourse() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Save this new Course?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
         }
     </script>
     <%--  style for pop up ajax control, it will grey out background during pop up--%>
@@ -78,7 +83,7 @@
             &nbsp
             <asp:Button ID="btnEdit" ToolTip="Click Here To Delete A Course" runat="server" Text="Edit" OnClick="btnedit_Click" />
             &nbsp
-            <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClientClick="ConfirmDelete()" OnClick="btnDelete_Click"/>
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClientClick="ConfirmDelete()" OnClick="btnDelete_Click" />
             <%--New Course Panel--%>
             <asp:Panel ID="pnlNewCourse" runat="server" Height="65px" Visible="false" Width="210px">
                 <asp:Label ID="lblNewCourse" runat="server" Text="New Course:"></asp:Label>
@@ -94,7 +99,7 @@
                 Change Course name to: 
                 <asp:TextBox ID="txtCourse" runat="server" Height="16px" Width="259px"></asp:TextBox>
                 <br />
-                <asp:Button ID="btnCourseUpdate" runat="server" Text="Save"  OnClientClick="ConfirmUpdate()" OnClick="btnCourseUpdate_Click" />
+                <asp:Button ID="btnCourseUpdate" runat="server" Text="Save" OnClientClick="ConfirmUpdate()" OnClick="btnCourseUpdate_Click" />
                 &nbsp
                 <asp:Button ID="btnCancelUpdate" runat="server" Text="Cancel" OnClick="btnCancelUpdate_Click" />
             </asp:Panel>
@@ -102,19 +107,38 @@
         </asp:Panel>
 
         <asp:Panel ID="pnlManageClass" runat="server" Visible="false">
-            <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server"></asp:DropDownList>
-            <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:" Visible="false"></asp:Label>
+            <asp:Label ID="lblSelectCourse" runat="server" Text="Select a Course: "></asp:Label><asp:DropDownList ID="ddlCourseforClass" runat="server" OnSelectedIndexChanged="ddlCourseforClass_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+            <br />
+            <asp:Panel ID="pnlMainManageClass" runat="server" Visible="false">
+                <asp:Label ID="lblSelectClass" runat="server" Text="Select Class:"></asp:Label>
+                &nbsp
+            <asp:DropDownList ID="ddlClassname" runat="server" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged" Width="172px"></asp:DropDownList>
+                &nbsp
+            <asp:Button ID="btnAddClass" runat="server" Text="New Class" OnClick="btnAddClass_Click" Height="28px" />&nbsp
+            <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" Width="104px" OnClick="btnUpdateClass_Click" />&nbsp
+            <asp:Button ID="btnDeleteClass" runat="server" Text="Remove Class" OnClick="btnDeleteClass_Click" />
 
-            <asp:Label ID="lbListofClasses" runat="server" Text="Class List: "></asp:Label><asp:DropDownList ID="ddlClassname" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlClassname_SelectedIndexChanged"></asp:DropDownList>
-            <asp:Label ID="lblNewClass" runat="server" Text="New Class:" Visible="false"></asp:Label>
-
-            <asp:TextBox ID="txtNewClass" ToolTip="Enter A New Class" runat="server" Visible="false"></asp:TextBox>
-            <asp:Label ID="lblClassSelection" runat="server" Text="Class Selection:" Visible="false"></asp:Label>
-
-            <asp:DropDownList ID="ddlClassSelection" runat="server" Visible="false" AutoPostBack="true"></asp:DropDownList>
-            <asp:Button ID="btnSaveClass" runat="server" Text="Save" OnClick="btnSaveClass_Click" Visible="false" />
+                <asp:Panel ID="pnlAddUpdateClass" runat="server" Visible="false">
+                    <table>
+                        <tr>
+                            <td>Class name:</td>
+                            <td>
+                                <asp:TextBox ID="txtNewClass" runat="server" Width="262px"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>Associated Course: </td>
+                            <td>
+                                <asp:DropDownList ID="ddlClassCourse" runat="server" Width="265px"></asp:DropDownList></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <asp:Button ID="btnSaveClass" runat="server" OnClick="btnSaveClass_Click" /></td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+            </asp:Panel>
         </asp:Panel>
-
         <br />
         <asp:Panel ID="pnlManageUsers" runat="server" Visible="false">
             <asp:GridView ID="gvSettings"
