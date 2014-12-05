@@ -71,7 +71,7 @@ IsActivated bit
 go
 
 insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1',-1,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
+('Kevin','Coliat','Kevin1',null,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
 ('Doug','Jackson','pass',0,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',0,2,'SamplePicture2.jpg','Scott@yahoo.com'),
 ('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),
@@ -1210,7 +1210,7 @@ go
 --delete SD18EXAM_tbMentorCourse where CourseID=0
 select * from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)
 select * from SD18EXAM_tbIssuedQuiz
-delete SD18EXAM_tbUser where Classid=
+--delete SD18EXAM_tbUser where Classid=
 --delete SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)
 --delete SD18EXAM_tbClass where Courseid = 0
 --update SD18EXAM_tbXMLQuizContent set CourseID = null where CourseID=0
