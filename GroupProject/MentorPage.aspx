@@ -73,31 +73,31 @@
     <div id="content">
 
 
-        <asp:Panel ID="pnlbuttons" runat="server" Height="317px">
+        <asp:Panel ID="pnlbuttons" runat="server" Height="126px">
      
 
                 &nbsp; &nbsp; &nbsp; &nbsp;
-            <asp:Image ID="imgView" runat="server"  Width="103px" Height="95px" ImageUrl="~/Pictures/ViewQuiz.jpg" style="margin-top: 0px; margin-left: 25px;"  />
+            <asp:Image ID="imgView" runat="server"  Width="69px" Height="61px" ImageUrl="~/Pictures/ViewQuiz.jpg" style="margin-top: 0px; margin-left: 0px;"  />
             
-                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-            <asp:Image ID="imgIssue" runat="server" Width="110px" Height="94px" ImageUrl="~/Pictures/checklist.png" style="margin-left: 0px" />
-            <asp:Image ID="imgCreate" runat="server" Width="115px" Height="99px" ImageUrl="~/Pictures/download.jpg" style="margin-left: 58px" />
-                <asp:Image ID="imgAllocate" runat="server" Width="102px" Height="85px" ImageUrl="~/Pictures/allocate.png" style="margin-left: 44px; margin-top: 29px"  />
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgIssue" runat="server" Width="67px" Height="56px" ImageUrl="~/Pictures/checklist.png" style="margin-left: 0px" />
+            <asp:Image ID="imgCreate" runat="server" Width="75px" Height="67px" ImageUrl="~/Pictures/download.jpg" style="margin-left: 49px" />
+                <asp:Image ID="imgAllocate" runat="server" Width="70px" Height="51px" ImageUrl="~/Pictures/allocate.png" style="margin-left: 37px; margin-top: 29px"  />
+                <asp:Image ID="imgUploadQuiz" runat="server" Height="67px" ImageUrl="~/Pictures/Upload.png" style="margin-left: 16px" Width="86px" />
+                <asp:Image ID="imgStart" runat="server" Height="58px" ImageUrl="~/Pictures/StartEnd.png" style="margin-left: 16px" Width="61px" />
+                <asp:Image ID="imgViewReports" runat="server" Height="61px" ImageUrl="~/Pictures/Reports2.png" style="margin-left: 22px" Width="68px" />
                 <br />
-                <asp:Button ID="btnViewQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="19px" OnClick="btnViewQuiz_Click" Text="View &amp; Download Quiz" Width="175px" />
-                <asp:Button ID="btnIssueQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnIssueQuiz_Click" Text="Issue/ Assign Quiz to Students" Width="175px" />
-                <asp:Button ID="btnCreateQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnCreateQuiz_Click" Text="Download ExamMaker App" Width="175px" />
-           <asp:Button CssClass="ButtonsOnMentorPage" ID="btnAllocateStudents" runat="server" Text="Allocate Students" Width="134px" Height="16px" OnClick="btnAllocateStudents_Click" />
+                <asp:Button ID="btnViewQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnViewQuiz_Click" Text="View &amp; Download Quiz" Width="127px" />
+                <asp:Button ID="btnIssueQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnIssueQuiz_Click" Text="Issue/ Assign Quiz" Width="105px" />
+                <asp:Button ID="btnCreateQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnCreateQuiz_Click" Text="Download ExamMaker" Width="128px" />
+                <asp:Button ID="btnAllocateStudents" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnAllocateStudents_Click" Text="Allocate Students" Width="103px" />
+                <asp:Button ID="btnUploadQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnUploadQuiz_Click" Text="Upload Quiz" Width="71px" />
+                <asp:Button ID="btnStartQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="17px" OnClick="btnStartQuiz_Click" Text="Start/End Quiz" Width="84px" />
+                <asp:Button ID="btnReports" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnReports_Click" Text="View Reports" Width="81px" />
                 <br />
                 <br />
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<asp:Image ID="imgUploadQuiz" runat="server" Height="104px" ImageUrl="~/Pictures/Upload.png" style="margin-left: 16px" Width="112px" />
-                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-                <asp:Image ID="imgStart" runat="server" Height="79px" ImageUrl="~/Pictures/StartEnd.png" style="margin-left: 30px" Width="88px" />
-                <asp:Image ID="imgViewReports" runat="server" Height="98px" ImageUrl="~/Pictures/Reports2.png" style="margin-left: 65px" Width="126px" />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
                 <br />
-                <asp:Button ID="btnUploadQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="19px" OnClick="btnUploadQuiz_Click" Text="Upload Quiz to Database" Width="175px" />
-                <asp:Button ID="btnStartQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnStartQuiz_Click" Text="Start or End Quiz" Width="175px" />
-                <asp:Button ID="btnReports" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnReports_Click" Text="View Reports" Width="175px" />
                 <br />
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
         </asp:Panel>
@@ -111,7 +111,10 @@
             <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
             <a class="close" href="/">Close</a>
         </div>--%>
-        <asp:Panel ID="pnlStartQuiz" runat="server">
+        <asp:Panel ID="pnlStartQuiz" HorizontalAlign="Center" Visible="false" runat="server">
+
+            <h3>Start or End Quiz</h3>
+
             <asp:GridView ID="gvQuizes"
                  runat="server" 
                 GridLines="None" 
@@ -134,7 +137,11 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
+
         <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
+
+            <h3>Issue / Assign Quiz to Students</h3>
+
             <div style="text-align: center;">
                 <div style="width: 50%; margin: 0 auto; text-align: left;">
                     <table style="width: 100%;">
@@ -215,6 +222,9 @@
             </div>
         </asp:Panel>
         <asp:Panel ID="pnlUploadQuiz" runat="server" Visible="false">
+
+            <h3> Upload Quiz to Database</h3>
+
             <asp:Label ID="lblFileUpload" runat="server" Text="Browse and select a file to upload quiz:"></asp:Label>
             <br />
             <br />
@@ -231,7 +241,9 @@
             </table>
         </asp:Panel>
 
-        <asp:Panel ID="pnlViewQuiz" runat="server">
+        <asp:Panel ID="pnlViewQuiz" Visible="false" runat="server">
+
+            <h3> View and Download Available Quizes</h3>
 
             <asp:GridView ID="gvViewQuiz"
                 runat="server"              
@@ -241,7 +253,7 @@
                 CssClass="mGrid"  
                 PagerStyle-CssClass="pgr" 
                 AutoGenerateColumns="false"
-                Visible="false" Height="200px">          
+                Height="200px">          
                 <Columns>
                     <asp:TemplateField HeaderText="View Quiz">
                         <ItemTemplate>
@@ -269,6 +281,9 @@
             </asp:GridView>
         </asp:Panel>
         <asp:Panel ID="pnlDownload" runat="server" Visible="false">
+
+            <h3>Download Robertson ExamMaker Application </h3>
+
            <a href="Download/QuizMaker_Install.msi">Download MSI Installer</a>
             <br />
             <a href="Download/setup.exe">Download EXE Installer</a>
@@ -276,6 +291,9 @@
         </asp:Panel>
 
         <asp:Panel ID="pnlAllocateStudents" runat="server" Visible="false">
+
+            <h3>Allocate New Students to a Class</h3>
+
             <asp:GridView ID="gvAllocateStudents"
                 runat="server"              
                 HorizontalAlign="Center"

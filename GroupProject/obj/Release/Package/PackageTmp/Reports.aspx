@@ -125,14 +125,7 @@
         </rsweb:ReportViewer>
 
 
-        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
-
-        <%--<asp:PieChart ID="pieChartQuizDetails" runat="server"
-            ChartHeight="300" ChartWidth = "400" Visible="false"
-           ChartTitle="" BorderWidth="0" ChartTitleColor="#333">
-              <PieChartValues>         
-                </PieChartValues>
-        </asp:PieChart>--%>
+        <asp:GridView ID="gvTest" runat="server"></asp:GridView>
 
 
         <%--    Pop View Quiz Repeater Starts Here--%>
@@ -173,6 +166,64 @@
                     </asp:Repeater>
                 </ItemTemplate>
             </asp:DataList>
+             <hr />
+                Part II: Fill in the blanks
+                <hr />
+
+                <asp:DataList ID="DLExamDemoFillBlanks" Width="450px" runat="server">
+                    <HeaderTemplate />
+                    <ItemTemplate>
+                        <asp:Repeater ID="rptFillBlanks" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns) %>'>
+                            <ItemTemplate>
+                                <h4>QuestionID: <%# XPath("@ID") %><br />
+                                Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                </h4>
+                                <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                    <ItemTemplate>
+                                        Option: <%# XPath(".") %>
+                                        <br />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                Correct Answer(s): 
+                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
+                                    <ItemTemplate>
+                                         <%# XPath("..") %> 
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                <br />
+                            </ItemTemplate>
+                            <SeparatorTemplate>
+                                <hr style="border: solid 2px #c0c0c0" />
+                            </SeparatorTemplate>
+                        </asp:Repeater>
+                    </ItemTemplate>
+                </asp:DataList>
+
+                
+                <hr />
+                Part III: True or False
+                <hr />
+
+                <asp:DataList ID="DLExamDemoTrueFalse" Width="450px" runat="server">
+                    <HeaderTemplate />
+                    <ItemTemplate>
+                        <asp:Repeater ID="rptTrueFalse" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns) %>'>
+                            <ItemTemplate>
+                                <h4>QuestionID: <%# XPath("@ID") %><br />
+                                Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                </h4>
+                                
+                                <h4>
+                                    Answer: <%#XPath("*[local-name()='Answer' and namespace-uri()='urn:Question-Schema']")%>
+                                </h4>
+                                <br />
+                            </ItemTemplate>
+                            <SeparatorTemplate>
+                                <hr style="border: solid 2px #c0c0c0" />
+                            </SeparatorTemplate>
+                        </asp:Repeater>
+                    </ItemTemplate>
+                </asp:DataList>
             <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
         </asp:Panel>
 

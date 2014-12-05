@@ -147,6 +147,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="QuizPage.aspx" />
+    <Content Include="QuizResult.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Reports.aspx" />
     <Content Include="styles\GroupPExam.css" />
@@ -253,6 +254,13 @@
     </Compile>
     <Compile Include="QuizPage.aspx.designer.cs">
       <DependentUpon>QuizPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QuizResult.aspx.cs">
+      <DependentUpon>QuizResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuizResult.aspx.designer.cs">
+      <DependentUpon>QuizResult.aspx</DependentUpon>
     </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
