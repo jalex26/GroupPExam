@@ -24,7 +24,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Security mySecurity = new Security(2);
+            // Security mySecurity = new Security(2);
 
             if (!IsPostBack)
             {
@@ -81,7 +81,7 @@ namespace GroupProject
         {
             pnlIssueQuiz.Visible = true;
             pnlUploadQuiz.Visible = false;
-            gvViewQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlDownload.Visible = false;
         }
@@ -99,7 +99,7 @@ namespace GroupProject
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
             pnlDownload.Visible = false;
-            gvViewQuiz.Visible = true;
+            pnlViewQuiz.Visible = true;         
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
@@ -377,6 +377,7 @@ namespace GroupProject
 
         protected void btnStartQuiz_Click(object sender, EventArgs e)
         {
+            pnlStartQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
