@@ -7,10 +7,12 @@
         <asp:Panel ID="pnlRegister" HorizontalAlign="Center" style="margin-left:300px;" runat="server">
         <table>
             <tr>
-                <td>FirstName</td>
+                <td>FirstName:</td>
                 <td>
                     <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
-                     <asp:RequiredFieldValidator
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator
                         ID="rfvFirstName"
                         runat="server"
                         ErrorMessage="FirstName is required!"
@@ -21,10 +23,12 @@
             </tr>
 
             <tr>
-                <td>LastName</td>
+                <td>LastName:</td>
                 <td>
-                    <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
-                     <asp:RequiredFieldValidator
+                    <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox> 
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator
                         ID="rfvLastName"
                         runat="server"
                         ErrorMessage="LastName is required!"
@@ -35,16 +39,11 @@
             </tr>
 
             <tr>
-                <td>Email</td>
+                <td>Email:</td>
                 <td>
-                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox> &nbsp;
-                    @robertsoncollege.net <br />
-                       <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
-                        ControlToValidate="txtEmail" 
-                        ErrorMessage="Please Enter Email!"
-                        ForeColor="Red"                   
-                        Display="Dynamic" EnableClientScript="False" ValidationGroup="ValGroupRegister">
-                    </asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                    
+                       
                    <%-- <asp:RegularExpressionValidator 
                         ID="revEmail" 
                         runat="server" 
@@ -55,13 +54,24 @@
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
                     </asp:RegularExpressionValidator>--%>
                 </td>
+                <td>
+                    @robertsoncollege.net <br />
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
+                        ControlToValidate="txtEmail" 
+                        ErrorMessage="Please Enter Email!"
+                        ForeColor="Red"                   
+                        Display="Dynamic" EnableClientScript="False" ValidationGroup="ValGroupRegister">
+                    </asp:RequiredFieldValidator>
+                </td>
             </tr>
 
             <tr>
-                <td>Password</td>
+                <td>Password:</td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
-                     <asp:RequiredFieldValidator
+                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox> 
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator
                         ID="rfvPassword"
                         runat="server"
                         ErrorMessage="Please enter Password!"
@@ -71,18 +81,19 @@
                 </td>
             </tr>
             <tr>
-                <td>Re-type Password</td>
+                <td>Re-type Password:</td>
                 <td>
                     <asp:TextBox ID="txtRePassword" runat="server"></asp:TextBox>
+                </td>
+                <td>
                     <asp:CompareValidator ID="CMPPass" runat="server" ErrorMessage="*Password do not match" ControlToValidate="txtRePassword" ControlToCompare="txtPassword" ValidationGroup="ValGroupRegister" ForeColor="Red"></asp:CompareValidator>
-
                 </td>
             </tr>
 
             <tr>
                 <td></td>
                 <td>
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" CssClass="myButton"/>
                 </td>
             </tr>
         </table>

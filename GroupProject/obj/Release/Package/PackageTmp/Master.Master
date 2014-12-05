@@ -110,26 +110,48 @@
             <div class="cols">
                 <div class="cl">&nbsp;</div>
                 <div class="col">
-                    <h3>Robertson College</h3>
+                   <div class="colHeader">
+                       <h3>Robertson College</h3> 
+                   </div>
                     <p>Visit Robertson College's offical website here to get updates on courses offered and schedules.</p>
-                    <p class="more"><a href="http://www.robertsoncollege.com" class="bul">Robertson College's Website</a></p>
-                </div>
-                <div class="col">
-                    <h3 >Online Resources</h3>
-                    <p>Go to W3 schools to browse topics or learn new things in various technologies.</p>
-                    <p class="more"><a href="http://www.w3schools.com" class="bul">W3 Schools</a></p>
+                    <p class="more">               
+                          <asp:Image ID="Image3" Height="60px" Width="70px" ImageUrl="~/Pictures/RCLogo.jpg" runat="server" /> 
+                         &nbsp;
+                        <a href="http://www.robertsoncollege.com" class="bul">Official Website</a></p>
                 </div>
 
                 <div class="col">
-                    <h3>Social</h3>
-                    <p>Visit Robertson College's facebook page to view the latest updates and follow/ like.</p>
-                     <p class="more"><a href="https://www.facebook.com/OfficialRobertsonCollege" class="bul">Robertson College on Facebook</a></p>
+                   <div class="colHeader">
+                        <h3>Videos</h3>
+                       </div>
+                    <p>Watch Robertson College Videos on Youtube and Subscribe to channel.</p>
+                    <p class="more">
+                         <asp:Image ID="Image4" Height="60px" Width="70px" ImageUrl="~/Pictures/YT.png" runat="server" /> 
+                         &nbsp;
+                        <a href="https://www.youtube.com/user/RobertsonCollege" class="bul">YouTube</a></p>
+                </div>
+
+                <div class="col">
+                    <div class="colHeader">                        
+                    <h3>Social</h3>                   
+                        </div>
+                    <p>Visit Robertson College's facebook page to view the latest updates and follow/ like.</p>               
+                    <p class="more">
+                          <asp:Image ID="Image1" Height="60px" Width="60px" ImageUrl="~/Pictures/facebooklogo.jpg" runat="server" /> 
+                         &nbsp;
+                        <a href="https://www.facebook.com/OfficialRobertsonCollege" class="bul">Find us on Facebook</a>
+                    </p>
                 </div>
                
                 <div class="col col-last">
+                    <div class="colHeader">
                     <h3>Contact</h3>
+                        </div>
                     <p>Click on the link to get Robertson College's contact details, if you have any questions or queries.</p>
-                    <p class="more"><a href="http://www.robertsoncollege.com/contact-us.aspx" class="bul">Contact Us</a></p>
+                    <p class="more">
+                         <asp:Image ID="Image2" Height="60px" Width="70px" ImageUrl="~/Pictures/phone.png" runat="server" /> 
+                         &nbsp;
+                        <a href="http://www.robertsoncollege.com/contact-us.aspx" class="bul">Contact Us</a></p>
                 </div>
                 <div class="cl">&nbsp;</div>
             </div>
@@ -149,7 +171,7 @@
             <span>|</span>
             <a href="MyAccount.aspx">My Account</a>
             <span>|</span>
-            <a href="Quizes.aspx">Quizes</a>
+            <a href="Register.aspx">Register</a>
 
         </p>
         <p class="right">

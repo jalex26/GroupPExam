@@ -42,6 +42,35 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
+
+        function ConfirmCreateUpdateClass() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Update/Add Class?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+
+        function ConfirmDeleteClass() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Do you want to delete this Class?")) {
+                if (confirm("All datas associated with this Class will also be deleted including Quiz Results and Students. Continue?")) {
+                    confirm_value.value = "Yes";
+                }
+                else {
+                    confirm_value.value = "No";
+                }
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
     </script>
     <%--  style for pop up ajax control, it will grey out background during pop up--%>
     <style type="text/css">
@@ -116,7 +145,7 @@
                 &nbsp
             <asp:Button ID="btnAddClass" runat="server" Text="New Class" OnClick="btnAddClass_Click" Height="28px" />&nbsp
             <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" Width="104px" OnClick="btnUpdateClass_Click" />&nbsp
-            <asp:Button ID="btnDeleteClass" runat="server" Text="Remove Class" OnClick="btnDeleteClass_Click" />
+            <asp:Button ID="btnDeleteClass" runat="server" Text="Remove Class" OnClientClick="ConfirmDeleteClass()" OnClick="btnDeleteClass_Click" />
 
                 <asp:Panel ID="pnlAddUpdateClass" runat="server" Visible="false">
                     <table>
@@ -133,7 +162,8 @@
                         <tr>
                             <td></td>
                             <td>
-                                <asp:Button ID="btnSaveClass" runat="server" OnClick="btnSaveClass_Click" /></td>
+                                <input type="button" name="btnSaveClas" value="test" id="btnSaveClas" onclick="btnSaveClass_Click" />
+                                <asp:Button ID="btnSaveClass" runat="server" OnClick="btnSaveClass_Click" OnClientClick="ConfirmCreateUpdateClass()" /></td>
                         </tr>
                     </table>
                 </asp:Panel>

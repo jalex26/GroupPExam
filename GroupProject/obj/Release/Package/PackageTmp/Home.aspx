@@ -48,11 +48,13 @@
 
     <div id="content">
 
-        <asp:Panel ID="Panel1" HorizontalAlign="Center" style="margin-left:100px;" runat="server">  
+        <asp:Panel ID="Panel1" HorizontalAlign="Center" style="margin-left:100px;" runat="server">
+           
+             <div class="colHeader">  
         <h3>Be Employment Ready In 1 Year Or Less</h3>
-
         <h4>The college that sticks with you for life.</h4>
 
+                  </div>
         Robertson College will have you career ready in 12 months or less through one of our diploma programs in business, technology or healthcare. 
         Throughout your program, we work with you to find your first job in your new career.
         We will be here to help you not only now, but 25 years down your career path!

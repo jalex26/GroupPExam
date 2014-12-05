@@ -50,7 +50,17 @@
         };
         deselect($('#aGetStudents'));
 
-
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Do you want to delete this Quiz?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
     </script>
     <!--[if IE 6]>
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
@@ -63,23 +73,33 @@
     <div id="content">
 
 
-        <asp:Panel ID="pnlbuttons" runat="server">
+        <asp:Panel ID="pnlbuttons" runat="server" Height="126px">
+     
 
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnViewQuiz" runat="server" Text="View & Download Quiz" OnClick="btnViewQuiz_Click" Width="175px" Height="19px" />
-
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnIssueQuiz" runat="server" Text="Issue/ Assign Quiz to Students" OnClick="btnIssueQuiz_Click" Width="175px" Height="16px" />
-
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnCreateQuiz" runat="server" Text="Download ExamMaker App" Width="175px" OnClick="btnCreateQuiz_Click" Height="16px" />
-
-            <br />
-            <br />
-
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnUploadQuiz" runat="server" Text="Upload Quiz to Database" OnClick="btnUploadQuiz_Click" Width="175px" Height="19px" />
-
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnStartQuiz" runat="server" Text="Start or End Quiz" OnClick="btnStartQuiz_Click" Width="175px" Height="16px" />
-
-            <asp:Button CssClass="ButtonsOnMentorPage" ID="btnReports" runat="server" Text="View Reports" OnClick="btnReports_Click" Width="175px" Height="16px" />
-
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgView" runat="server"  Width="69px" Height="61px" ImageUrl="~/Pictures/ViewQuiz.jpg" style="margin-top: 0px; margin-left: 0px;"  />
+            
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+            <asp:Image ID="imgIssue" runat="server" Width="67px" Height="56px" ImageUrl="~/Pictures/checklist.png" style="margin-left: 0px" />
+            <asp:Image ID="imgCreate" runat="server" Width="75px" Height="67px" ImageUrl="~/Pictures/download.jpg" style="margin-left: 49px" />
+                <asp:Image ID="imgAllocate" runat="server" Width="70px" Height="51px" ImageUrl="~/Pictures/allocate.png" style="margin-left: 37px; margin-top: 29px"  />
+                <asp:Image ID="imgUploadQuiz" runat="server" Height="67px" ImageUrl="~/Pictures/Upload.png" style="margin-left: 16px" Width="86px" />
+                <asp:Image ID="imgStart" runat="server" Height="58px" ImageUrl="~/Pictures/StartEnd.png" style="margin-left: 16px" Width="61px" />
+                <asp:Image ID="imgViewReports" runat="server" Height="61px" ImageUrl="~/Pictures/Reports2.png" style="margin-left: 22px" Width="68px" />
+                <br />
+                <asp:Button ID="btnViewQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnViewQuiz_Click" Text="View &amp; Download Quiz" Width="127px" />
+                <asp:Button ID="btnIssueQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnIssueQuiz_Click" Text="Issue/ Assign Quiz" Width="105px" />
+                <asp:Button ID="btnCreateQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnCreateQuiz_Click" Text="Download ExamMaker" Width="128px" />
+                <asp:Button ID="btnAllocateStudents" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnAllocateStudents_Click" Text="Allocate Students" Width="103px" />
+                <asp:Button ID="btnUploadQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnUploadQuiz_Click" Text="Upload Quiz" Width="71px" />
+                <asp:Button ID="btnStartQuiz" runat="server" CssClass="ButtonsOnMentorPage" Height="17px" OnClick="btnStartQuiz_Click" Text="Start/End Quiz" Width="84px" />
+                <asp:Button ID="btnReports" runat="server" CssClass="ButtonsOnMentorPage" Height="16px" OnClick="btnReports_Click" Text="View Reports" Width="81px" />
+                <br />
+                <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                <br />
+                <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
         </asp:Panel>
 
         <br />
@@ -91,7 +111,10 @@
             <asp:CheckBoxList ID="cblStudents" runat="server" RepeatColumns="3"></asp:CheckBoxList>
             <a class="close" href="/">Close</a>
         </div>--%>
-        <asp:Panel ID="pnlStartQuiz" runat="server">
+        <asp:Panel ID="pnlStartQuiz" HorizontalAlign="Center" Visible="false" runat="server">
+
+            <h3>Start or End Quiz</h3>
+
             <asp:GridView ID="gvQuizes"
                  runat="server" 
                 GridLines="None" 
@@ -114,7 +137,11 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
+
         <asp:Panel ID="pnlIssueQuiz" runat="server" Visible="false">
+
+            <h3>Issue / Assign Quiz to Students</h3>
+
             <div style="text-align: center;">
                 <div style="width: 50%; margin: 0 auto; text-align: left;">
                     <table style="width: 100%;">
@@ -195,6 +222,9 @@
             </div>
         </asp:Panel>
         <asp:Panel ID="pnlUploadQuiz" runat="server" Visible="false">
+
+            <h3> Upload Quiz to Database</h3>
+
             <asp:Label ID="lblFileUpload" runat="server" Text="Browse and select a file to upload quiz:"></asp:Label>
             <br />
             <br />
@@ -211,7 +241,9 @@
             </table>
         </asp:Panel>
 
-        <asp:Panel ID="pnlViewQuiz" runat="server">
+        <asp:Panel ID="pnlViewQuiz" Visible="false" runat="server">
+
+            <h3> View and Download Available Quizes</h3>
 
             <asp:GridView ID="gvViewQuiz"
                 runat="server"              
@@ -221,7 +253,7 @@
                 CssClass="mGrid"  
                 PagerStyle-CssClass="pgr" 
                 AutoGenerateColumns="false"
-                Visible="false" Height="200px">          
+                Height="200px">          
                 <Columns>
                     <asp:TemplateField HeaderText="View Quiz">
                         <ItemTemplate>
@@ -249,11 +281,46 @@
             </asp:GridView>
         </asp:Panel>
         <asp:Panel ID="pnlDownload" runat="server" Visible="false">
+
+            <h3>Download Robertson ExamMaker Application </h3>
+
            <a href="Download/QuizMaker_Install.msi">Download MSI Installer</a>
             <br />
             <a href="Download/setup.exe">Download EXE Installer</a>
             <br />
         </asp:Panel>
+
+        <asp:Panel ID="pnlAllocateStudents" runat="server" Visible="false">
+
+            <h3>Allocate New Students to a Class</h3>
+
+            <asp:GridView ID="gvAllocateStudents"
+                runat="server"              
+                HorizontalAlign="Center"
+                DataKeyNames="Userid"
+                 GridLines="None" 
+                CssClass="mGrid"  
+                PagerStyle-CssClass="pgr" 
+                AutoGenerateColumns="false"
+                Height="200px">          
+                <Columns>
+                    <asp:TemplateField HeaderText="Add">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="CBUser" runat="server" AutoPostBack="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Name" HeaderText="Name" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Status" HeaderText="Status" />
+                </Columns>
+            </asp:GridView>
+            <hr />
+            Assign to Class: &nbsp 
+            <asp:DropDownList ID="ddlAssignClass" runat="server"></asp:DropDownList>
+            <asp:Button ID="btnAccept" runat="server" Text="Submit" OnClick="btnAccept_Click" />
+        </asp:Panel>
+
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
             <div>
                 <hr />
@@ -389,8 +456,8 @@
                 </tr>
             </table>
             <asp:Button ID="btnStart" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
-            <asp:Button ID="btnEnd" runat="server" Text="End Quiz" />
-            <asp:Button ID="btnDelete" runat="server" Text="Cancel Quiz" /><br />
+            <asp:Button ID="btnEnd" runat="server" Text="End Quiz" OnClick="btnEnd_Click" />
+            <asp:Button ID="btnDelete" runat="server" Text="Delete Quiz" OnClick="btnDelete_Click" Width="96px" OnClientClick="Confirm()" /><br />
             <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" />
         </asp:Panel>
 
