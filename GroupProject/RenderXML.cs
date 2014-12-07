@@ -235,6 +235,8 @@ namespace GroupProject
                     Questio.AppendChild(Options);
 
 
+                    FillBlank._Option.Shuffle();
+                    FillBlank._Option.Shuffle();
                     for (int i = 0; i < FillBlank._Option.Count; i++)
                     {
                         XmlElement Option = XmlNewDoc.CreateElement("Option", xmlNS);
