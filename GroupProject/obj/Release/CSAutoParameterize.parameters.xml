@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="RobertsonQuizConn-Web.config Connection String" description="RobertsonQuizConn Connection String used in web.config by the application to access the database." defaultValue="Data Source=localhost;Initial Catalog=Exam;Integrated Security=SSPI" tags="SqlConnectionString">
+  <parameter name="RobertsonQuizConn-Web.config Connection String" description="RobertsonQuizConn Connection String used in web.config by the application to access the database." defaultValue="Data Source=tcp:sql2k1401.discountasp.net;Initial Catalog=SQL2014_961764_robertson;Persist Security Info=True;User ID=SQL2014_961764_robertson_user;Password=s0ftware1" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\KevinEmmanuel\\Documents\\GitHub\\GroupPExam\\GroupProject\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RobertsonQuizConn']/@connectionString" />
   </parameter>
 </parameters>

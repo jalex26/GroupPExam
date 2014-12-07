@@ -337,7 +337,6 @@ namespace GroupProject
                         correct.Add(xn2.InnerText);
                     }
                 }
-                //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
                 ListQuestions.Add(new ObjectFillin(QuestionId, Question, correct, options));
                 //foreach()
             }
