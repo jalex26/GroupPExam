@@ -363,7 +363,7 @@
                 <hr />
                 Part I: Multiple Choice
                 <hr />
-                <asp:DataList ID="DLExamDemo" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemo" Width="100%" runat="server">
                     <HeaderTemplate>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -401,7 +401,7 @@
                 Part II: Fill in the blanks
                 <hr />
 
-                <asp:DataList ID="DLExamDemoFillBlanks" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemoFillBlanks" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
                         <asp:Repeater ID="rptFillBlanks" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns) %>'>
@@ -435,7 +435,7 @@
                 Part III: True or False
                 <hr />
 
-                <asp:DataList ID="DLExamDemoTrueFalse" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemoTrueFalse" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
                         <asp:Repeater ID="rptTrueFalse" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns) %>'>

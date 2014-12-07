@@ -1535,7 +1535,6 @@ GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Fir
 
 end
 go
-
 create procedure SD18EXAM_spGetQuizDetails(
 @Versionid int
 )

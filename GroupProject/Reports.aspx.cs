@@ -358,6 +358,11 @@ namespace GroupProject
             XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
             DLViewResponseReport.DataSource = QuizNode;
             DLViewResponseReport.DataBind();
+            DLViewResponseReportFillin.DataSource = QuizNode;
+            DLViewResponseReportFillin.DataBind();
+            DLViewResponseReportTrueFalse.DataSource = QuizNode;
+            DLViewResponseReportTrueFalse.DataBind();
+
             MPE2.Show();
 
         }

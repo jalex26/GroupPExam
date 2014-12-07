@@ -64,16 +64,38 @@
                 //GetUserLastPage()
 
                 $('#next').click(function () {
+                    //prevent double clicks first!! set timeout
+                    var $this = jQuery(this);
+                    if ($this.data('activated')) return false;  // Pending, return
+
+                    $this.data('activated', true);
+                    setTimeout(function () {
+                        $this.data('activated', false)
+                    }, 1000); // Freeze for 1000ms
+
+                    showNext();
+                    //do_all_functions();
+                    return false;
+                });
+
+                function showNext()
+                {
                     $($questions.get(currentQuestion)).fadeOut(function () {
                         currentQuestion = Number(currentQuestion) + 1;
                         result = sum_values()
                         var currentPage = currentQuestion + 1; //gets the current showing page
                         $('[id="PageNumber"]').val(currentPage);
-                        if (currentQuestion == totalQuestions || currentQuestion> totalQuestions) {
+                        if (currentQuestion == totalQuestions || currentQuestion > totalQuestions) {
                             isDone = true;
                             //do stuff with the result
                             SendToServerAndStatus();
-                            alert('temporary Quiz Result: Congratulations. You Score '+result+' out of '+totalQuestions);
+                            //alert('temporary Quiz Result: Congratulations. You Score ' + result + ' out of ' + totalQuestions);
+                            $('input[name=back]').hide();
+                            $('input[name=next]').hide();
+                            $('input[id=XMLquiz]').hide();
+                            $('#<%= pnlQuizResult.ClientID %>').toggle()
+                            $('#<%= lblTotal.ClientID %>').text(totalQuestions);
+                            $('#<%= lblScore.ClientID %>').text(result);
                         }
                         else if (currentQuestion % 3 == 0) {
                             SendToServerAndStatus();// send to web server every 3 questions to reduce server load
@@ -83,8 +105,23 @@
                             $($questions.get(currentQuestion)).fadeIn();
                         }
                     });
-                });
+                }
                 $('#back').click(function () {
+                    var $this = jQuery(this);
+                    if ($this.data('activated')) return false;  // Pending, return
+
+                    $this.data('activated', true);
+                    setTimeout(function () {
+                        $this.data('activated', false)
+                    }, 1000); // Freeze for 1000ms
+
+                    showPrev();
+                   // do_all_functions();
+                    return false;
+                });
+
+                function showPrev()
+                {
                     $($questions.get(currentQuestion)).fadeOut(function () {
                         currentQuestion = Number(currentQuestion) - 1;
                         var currentPage = currentQuestion + 1; //gets the current showing page
@@ -99,7 +136,7 @@
                             $($questions.get(currentQuestion)).fadeIn();
                         }
                     });
-                });
+                }
                 function sum_values() {
                     var the_sum = 0;
                     for (questions in answers) {
@@ -112,24 +149,24 @@
                     }
                     if (NewXMLwithAnswers != null) {
                         UserID = '<%=HttpContext.Current.Session["Userid"]%>';
-                    setSession(NewXMLwithAnswers)
+                        setSession(NewXMLwithAnswers)
+                    }
+                    return the_sum
                 }
-                return the_sum
-            }
 
-            function getXML() {
-                var xmlFile;
-                if (document.getElementById("tempXML").value != "") {
-                    xmlFile = document.getElementById("tempXML").value;
-                }
-                else {
+                function getXML() {
+                    var xmlFile;
+                    if (document.getElementById("tempXML").value != "") {
+                        xmlFile = document.getElementById("tempXML").value;
+                    }
+                    else {
                     <%-- xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
                     xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Session["Quiz"].ToString())%>';
                     <%--xmlFile = '<%= HttpUtility.UrlDecode(HttpContext.Current.Request.Cookies["userQuiz"]["XML"].ToString())%>'--%>
                 }
                 return xmlFile;
             }
-            function RecreateXML(QuestionID, UserAnswerPosition) {
+                function RecreateXML(QuestionID, UserAnswerPosition) {
                 <%-- var xmlFile = '<%=HttpContext.Current.Session["Quiz"]%>';--%>
                 var xmlFile = getXML();
                 // var QuestionElement = $($.parseXML(xmlFile)).find("Question[ID=QuestionID]");
@@ -197,12 +234,12 @@
                 return XMLString;
 
             }
-            function setSession(XMLString) {
-                //$("input:hidden[id$=tempXML]").val(XMLString)
-                //                               .trigger('change');
-                //var var1 = '{"var1": "' + XMLString + '"}'
-                var var1 = '{"var1": "' + escape(XMLString) + '"}';
-                var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
+                function setSession(XMLString) {
+                    //$("input:hidden[id$=tempXML]").val(XMLString)
+                    //                               .trigger('change');
+                    //var var1 = '{"var1": "' + XMLString + '"}'
+                    var var1 = '{"var1": "' + escape(XMLString) + '"}';
+                    var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
                 //var SendToServer = '{"var1": "' + escape(XMLString) + '", "var2": "' + UserID + '", "var3": "' + QuizStudentId + '", "var4": "' + result + '"}'
                 $.ajax({
                     type: "POST",
@@ -219,8 +256,8 @@
                     }
                 })
             }
-            function SendToServerAndStatus() {
-                var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
+                function SendToServerAndStatus() {
+                    var QuizStudentId = '<%=HttpContext.Current.Session["QuizStudentId"]%>';
                 var SendToServer = '{"var1": "' + escape(NewXMLwithAnswers) + '", "var2": "' + UserID + '", "var3": "' + QuizStudentId + '", "var4": "' + result + '", "var5": "' + isDone + '"}'
                 $.ajax({
                     type: "POST",
@@ -242,14 +279,14 @@
                     }
                 })
             }
-            function QuizAction(stat) {
-                if (stat == "ongoing") {
-                    var path = window.location.href + "?Result=1001";
-                    window.location.href = path;
+                function QuizAction(stat) {
+                    if (stat == "ongoing") {
+                        var path = window.location.href + "?Result=1001";
+                        window.location.href = path;
+                    }
                 }
-            }
 
-        })
+            })
 
         </script>
 
@@ -263,6 +300,11 @@
                 <input type="button" id="back" name="back" value="BACK" />
                 <input type="button" id="next" name="next" value="NEXT" />
                 <input type="hidden" name="tempXML" id="tempXML" />
+            </asp:Panel>
+            <asp:Panel ID="pnlQuizResult" runat="server" >
+                <h3>Congratulations on finishing up the Quiz:</h3>
+                <br />
+                Your score from this test is: <asp:Label ID="lblScore" runat="server"/> &nbsp out of &nbsp<asp:Label ID="lblTotal" runat="server"/> &nbsp!
             </asp:Panel>
         </div>
 
