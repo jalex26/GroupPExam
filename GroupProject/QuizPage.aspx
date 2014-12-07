@@ -264,8 +264,6 @@
                 <input type="button" id="next" name="next" value="NEXT" />
                 <input type="hidden" name="tempXML" id="tempXML" />
             </asp:Panel>
-
-            <%--use the hiddenfield to SET the SESSION since it cannot set by SERVER using JAVASCRIPT. but i can retrieve it from USER BROWSER. --%>
         </div>
 
 

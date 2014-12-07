@@ -99,7 +99,7 @@ namespace GroupProject
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
             pnlDownload.Visible = false;
-            pnlViewQuiz.Visible = true;         
+            pnlViewQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
@@ -129,67 +129,73 @@ namespace GroupProject
         // this button validates xml file and then saves it in a temporary folder 'tempXML'
         protected void btnUploadFile_Click(object sender, EventArgs e)
         {
-            XmlDocument fullXml;
-            string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
-            string serverPath = Server.MapPath(".") + "\\tempXML\\";
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+                XmlDocument fullXml;
+                string fileName = Path.GetFileName(fuploadQuiz.PostedFile.FileName);
+                string serverPath = Server.MapPath(".") + "\\tempXML\\";
 
-            string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
-            string strUploadExtension = System.IO.Path.GetExtension(fuploadQuiz.PostedFile.FileName.ToString());
+                string strUploadPath = System.IO.Path.GetFileName(fuploadQuiz.PostedFile.FileName.ToString());
+                string strUploadExtension = System.IO.Path.GetExtension(fuploadQuiz.PostedFile.FileName.ToString());
 
 
-            string fullFilePath;
-            fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
-            if (fuploadQuiz.HasFile)
-            {// file upload control on asp.net has no filtering that's why i need to check the file extension first before upload
-                if (strUploadExtension == ".xqz")
-                {
-                    fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
-                    // saving xml file content in a string to pass it to stored proc later
-                    string xml = File.ReadAllText(fullFilePath);
-
-                    // validating xml file here before inserting into database
-                    string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
-                    OpenValidate OV = new OpenValidate();
-                    OV.ValidateXml(fullFilePath, xsd);
-                    if (OV.failed)
+                string fullFilePath;
+                fullFilePath = serverPath + fuploadQuiz.FileName.ToString();
+                if (fuploadQuiz.HasFile)
+                {// file upload control on asp.net has no filtering that's why i need to check the file extension first before upload
+                    if (strUploadExtension == ".xqz")
                     {
-                        Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
-                    }
-                    else
-                    {
-                        // after validation removing al namespaces from xml file before inserting in database
-                        fullXml = new XmlDocument();
-                        fullXml.LoadXml(xml);
-                        RemoveNamespaceAttributes(fullXml.DocumentElement);
+                        fuploadQuiz.PostedFile.SaveAs(serverPath + strUploadPath);
+                        // saving xml file content in a string to pass it to stored proc later
+                        string xml = File.ReadAllText(fullFilePath);
 
-                        // saving xml data in database if file is in correct format
-                        XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
-                        DataSet ds = new DataSet();
-                        ds.ReadXml(xmlreader);
-                        xmlreader.Close();
-                        if (ds.Tables.Count != 0)
+                        // validating xml file here before inserting into database
+                        string xsd = Server.MapPath(".") + "\\" + "validator.xsd";
+                        OpenValidate OV = new OpenValidate();
+                        OV.ValidateXml(fullFilePath, xsd);
+                        if (OV.failed)
                         {
-                            try
+                            Response.Write("<script>alert('The selected file is not in correct format. Please check before trying again!');</script>");
+                        }
+                        else
+                        {
+                            // after validation removing all namespaces from xml file before inserting in database
+                            fullXml = new XmlDocument();
+                            fullXml.LoadXml(xml);
+                            RemoveNamespaceAttributes(fullXml.DocumentElement);
+
+                            // saving xml data in database if file is in correct format
+                            XmlTextReader xmlreader = new XmlTextReader(serverPath + fileName);
+                            DataSet ds = new DataSet();
+                            ds.ReadXml(xmlreader);
+                            xmlreader.Close();
+                            if (ds.Tables.Count != 0)
                             {
-                                myDal.ClearParams();
-                                myDal.AddParam("@xml", xml);
-                                DataSet ds1 = myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
-                            }
-                            catch (Exception)
-                            {
-                                System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
+                                try
+                                {
+                                    myDal.ClearParams();
+                                    myDal.AddParam("@xml", xml);
+                                    DataSet ds1 = myDal.ExecuteProcedure("SD18EXAM_spInsertXMLContent");
+                                    if (ds1.Tables[0].Rows[0]["status"].ToString() == "success")
+                                        Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Upload Successful')</SCRIPT>");
+                                    else
+                                        Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Upload Error. Please try again.')</SCRIPT>");
+                                }
+                                catch (Exception)
+                                {
+                                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('Error uploading the file or Unkown extension')</SCRIPT>");
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('File could not be uploaded')</SCRIPT>");
-                }
+                    else
+                    {
+                        System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>alert('File could not be uploaded')</SCRIPT>");
+                    }
 
+                }
             }
-
-
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
@@ -292,27 +298,32 @@ namespace GroupProject
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            myDal.ClearParams();
-            myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
-            myDal.AddParam("@ClassId", ddlClass.SelectedValue.ToString());
-            myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
-            DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("SD18EXAM_spIssueNewQuiz");
-            string NewId = null;
-
-            if (dsGetNewIssueQuizId.Tables[0].Columns["IssuedQuizId"] != null)
-                NewId = dsGetNewIssueQuizId.Tables[0].Rows[0]["IssuedQuizId"].ToString();
-
-            if (NewId != null)
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
             {
-                foreach (ListItem Student in cblStudents.Items)
-                {//default: all Students are selected
-                    if (Student.Selected == true)
-                    {
-                        RenderXML RX = new RenderXML();
-                        RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString(), Student, NewId);
-                        //RenderXML RX = new RenderXML();
-                        //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
+                myDal.ClearParams();
+                myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
+                myDal.AddParam("@ClassId", ddlClass.SelectedValue.ToString());
+                myDal.AddParam("@Mentorid", HttpContext.Current.Session["Userid"].ToString());
+                DataSet dsGetNewIssueQuizId = myDal.ExecuteProcedure("SD18EXAM_spIssueNewQuiz");
+                string NewId = null;
+
+                if (dsGetNewIssueQuizId.Tables[0].Columns["IssuedQuizId"] != null)
+                    NewId = dsGetNewIssueQuizId.Tables[0].Rows[0]["IssuedQuizId"].ToString();
+
+                if (NewId != null)
+                {
+                    foreach (ListItem Student in cblStudents.Items)
+                    {//default: all Students are selected
+                        if (Student.Selected == true)
+                        {
+                            RenderXML RX = new RenderXML();
+                            RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString(), Student, NewId);
+                            //RenderXML RX = new RenderXML();
+                            //RX.GetNRandomizeXMLContent(ddlVersion.SelectedValue.ToString());
+                        }
                     }
+                    Response.Write("<SCRIPT>alert('New Quiz has been issued')</SCRIPT>");
                 }
             }
         }
@@ -431,6 +442,7 @@ namespace GroupProject
             pnlStartQuiz.Visible = false;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
         }
 
         protected void btnClosePopUp_Click(object sender, EventArgs e)
@@ -517,9 +529,10 @@ namespace GroupProject
 
         protected void btnAllocateStudents_Click(object sender, EventArgs e)
         {
+
             myDal.ClearParams();
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetUnAssignedStudents");
-            if(ds.Tables[0].Rows.Count != 0)
+            if (ds.Tables[0].Rows.Count != 0)
             {
                 gvAllocateStudents.DataSource = ds.Tables[0];
                 gvAllocateStudents.DataBind();
@@ -527,45 +540,55 @@ namespace GroupProject
             myDal.ClearParams();
             ds.Clear();
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
-            if(ds.Tables[0].Rows.Count!=0)
+            if (ds.Tables[0].Rows.Count != 0)
             {
                 ddlAssignClass.DataSource = ds.Tables[0];
                 ddlAssignClass.DataValueField = "Classid";
                 ddlAssignClass.DataTextField = "Classname";
                 ddlAssignClass.DataBind();
             }
+            pnlIssueQuiz.Visible = false;
             pnlAllocateStudents.Visible = true;
+            pnlViewQuiz.Visible = false;
         }
 
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            List<string> Errors = new List<string>();
-            if(ddlAssignClass.SelectedIndex != -1)
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
             {
-                foreach(GridViewRow row in gvAllocateStudents.Rows)
+                List<string> Errors = new List<string>();
+                if (ddlAssignClass.SelectedIndex != -1)
                 {
-                    if(((CheckBox)row.FindControl("CBUser")).Checked)
+                    foreach (GridViewRow row in gvAllocateStudents.Rows)
                     {
-                        gvAllocateStudents.SelectedIndex= row.DataItemIndex;
-                        string UserID =gvAllocateStudents.SelectedDataKey.Value.ToString();
-                        myDal.ClearParams();
-                        myDal.AddParam("@UserID", UserID);
-                        myDal.AddParam("@ClassID", ddlAssignClass.SelectedValue.ToString());
-                        DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spAllocateStudent");
-                        if (ds.Tables[0].Rows.Count !=0)
+                        if (((CheckBox)row.FindControl("CBUser")).Checked)
                         {
-                            if(ds.Tables[0].Rows[0]["status"] != null)
+                            gvAllocateStudents.SelectedIndex = row.DataItemIndex;
+                            string UserID = gvAllocateStudents.SelectedDataKey.Value.ToString();
+                            myDal.ClearParams();
+                            myDal.AddParam("@UserID", UserID);
+                            myDal.AddParam("@ClassID", ddlAssignClass.SelectedValue.ToString());
+                            DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spAllocateStudent");
+                            if (ds.Tables[0].Rows.Count != 0)
                             {
-                                switch(ds.Tables[0].Rows[0]["status"].ToString())
+                                if (ds.Tables[0].Rows[0]["status"] != null)
                                 {
-                                    case "UserNotFound":
-                                        Errors.Add("User Not Found: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
-                                        break;
-                                    case "Failed":
-                                        Errors.Add("Operation Failed at USERID: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
-                                        break;
-                                    default:
-                                        break;
+                                    switch (ds.Tables[0].Rows[0]["status"].ToString())
+                                    {
+                                        case "UserNotFound":
+                                            Errors.Add("User Not Found: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
+                                            break;
+                                        case "Failed":
+                                            Errors.Add("Operation Failed at USERID: " + gvAllocateStudents.SelectedDataKey.Value.ToString());
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Response.Write("<SCRIPT>alert('Error in Retrieving values on database. Please Try again.')</SCRIPT>");
                                 }
                             }
                             else
@@ -573,28 +596,21 @@ namespace GroupProject
                                 Response.Write("<SCRIPT>alert('Error in Retrieving values on database. Please Try again.')</SCRIPT>");
                             }
                         }
-                        else
+                    }
+                    if (Errors.Count != 0)
+                    {
+                        foreach (string LI in Errors)
                         {
-                            Response.Write("<SCRIPT>alert('Error in Retrieving values on database. Please Try again.')</SCRIPT>");
+                            Response.Write("<SCRIPT>alert('" + LI.ToString() + "')</SCRIPT>");
                         }
                     }
                 }
-                if(Errors.Count != 0)
+                else
                 {
-                    foreach(string LI in Errors)
-                    {
-                        Response.Write("<SCRIPT>alert('"+LI.ToString()+"')</SCRIPT>");
-                    }
+                    Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
                 }
             }
-            else
-            {
-                Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
-            }
         }
-
-
-
 
     }
 }
