@@ -11,6 +11,15 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <script type="text/javascript" >
+
+        function HideMPE() {
+            $find("mpeView").hide();
+            $find("mpeAction").hide();
+            return false;
+        }
+
+    </script>
     <div id="content">
 
         <asp:Panel ID="Panel1" runat="server">
@@ -223,7 +232,7 @@
                     </asp:Repeater>
                 </ItemTemplate>
             </asp:DataList>
-            <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
+            <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClientClick="return HideMPE()" OnClick="btnPopUpClose_Click" />
         </asp:Panel>
 
         <%-- another datalist to show student repsonse report--%>
@@ -327,8 +336,8 @@
                     </ItemTemplate>
                 </asp:DataList>
             </div>
-            <asp:Button ID="btnClose2" Text="Close" OnClick="btnClose2_Click" runat="server" />
-
+            <asp:Button ID="btnClose2" Text="Close" OnClick="btnClose2_Click" OnClientClick="return HideMPE()" runat="server" />
+            
         </asp:Panel>
 
 
@@ -337,9 +346,9 @@
             <asp:Button ID="Button2" runat="server" Text="Button" Visible="true" />
         </div>
 
-        <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewQuiz" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+        <asp:ModalPopupExtender ID="MPE1" BehaviorID="mpeView" TargetControlID="Button1" PopupControlID="pnlViewQuiz" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
-        <asp:ModalPopupExtender ID="MPE2" TargetControlID="Button2" PopupControlID="pnlViewResponseReport" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+        <asp:ModalPopupExtender ID="MPE2" BehaviorID="mpeAction" TargetControlID="Button2" PopupControlID="pnlViewResponseReport" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
 
     </div>

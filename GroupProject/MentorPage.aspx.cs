@@ -84,6 +84,7 @@ namespace GroupProject
             pnlViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlDownload.Visible = false;
+            pnlAllocateStudents.Visible = false;
         }
 
         protected void btnUploadQuiz_Click(object sender, EventArgs e)
@@ -94,6 +95,7 @@ namespace GroupProject
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlDownload.Visible = false;
+            pnlAllocateStudents.Visible = false;
         }
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
@@ -103,6 +105,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
+            pnlAllocateStudents.Visible = false;
             ViewQuiz();
         }
 
@@ -388,6 +391,7 @@ namespace GroupProject
 
         protected void btnStartQuiz_Click(object sender, EventArgs e)
         {
+            pnlAllocateStudents.Visible = false;
             pnlStartQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
@@ -443,6 +447,7 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlViewQuiz.Visible = false;
+            pnlAllocateStudents.Visible = false;
         }
 
         protected void btnClosePopUp_Click(object sender, EventArgs e)
@@ -550,6 +555,9 @@ namespace GroupProject
             pnlIssueQuiz.Visible = false;
             pnlAllocateStudents.Visible = true;
             pnlViewQuiz.Visible = false;
+            pnlStartQuiz.Visible = false;
+            pnlUploadQuiz.Visible = false;
+            pnlDownload.Visible = false;
         }
 
         protected void btnAccept_Click(object sender, EventArgs e)

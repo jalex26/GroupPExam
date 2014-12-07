@@ -54,6 +54,12 @@
             document.forms[0].appendChild(confirm_value);
         }
 
+        function HideMPE() {
+            $find("mpeView").hide();
+            $find("mpeAction").hide();
+            return false;
+        }
+
         function ConfirmQuizUpload() {
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
@@ -456,7 +462,7 @@
                     </ItemTemplate>
                 </asp:DataList>
             </div>
-            <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClick="btnPopUpClose_Click" />
+            <asp:Button ID="btnPopUpClose" Text="Close" runat="server" OnClientClick="return HideMPE()" OnClick="btnPopUpClose_Click" />
         </asp:Panel>
 
         <div class="JavascriptButtons">
@@ -495,11 +501,11 @@
             <asp:Button ID="btnStart" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
             <asp:Button ID="btnEnd" runat="server" Text="End Quiz" OnClick="btnEnd_Click" />
             <asp:Button ID="btnDelete" runat="server" Text="Delete Quiz" OnClick="btnDelete_Click" Width="96px" OnClientClick="Confirm()" /><br />
-            <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" />
+            <asp:Button ID="btnClosePopUp" Text="Close" runat="server" OnClick="btnClosePopUp_Click" OnClientClick="return HideMPE()" />
         </asp:Panel>
 
-        <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
-        <asp:ModalPopupExtender ID="MPEQuizAction" TargetControlID="Button2" PopupControlID="pnlQuizAction" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
+        <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" BehaviorID="mpeView" runat="server"></asp:ModalPopupExtender>
+        <asp:ModalPopupExtender ID="MPEQuizAction" BehaviorID="mpeAction" TargetControlID="Button2" PopupControlID="pnlQuizAction" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>
 
     </div>
     <%-- main content panel ends here--%>
