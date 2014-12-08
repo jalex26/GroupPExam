@@ -210,8 +210,6 @@ namespace GroupProject
                 DataSet ds = new DataSet();
 
                 ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport");
-
-                
                 //return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
 
                 return ds.Tables[0];
@@ -222,12 +220,7 @@ namespace GroupProject
         {
             myDal.ClearParams();        
             myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
-
-           
-
             return myDal.ExecuteProcedure("SD18EXAM_spGetQuizDetails").Tables[0];
-
-           
         }
 
         protected void btnViewReport_Click(object sender, EventArgs e)
@@ -365,6 +358,11 @@ namespace GroupProject
             XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
             DLViewResponseReport.DataSource = QuizNode;
             DLViewResponseReport.DataBind();
+            DLViewResponseReportFillin.DataSource = QuizNode;
+            DLViewResponseReportFillin.DataBind();
+            DLViewResponseReportTrueFalse.DataSource = QuizNode;
+            DLViewResponseReportTrueFalse.DataBind();
+
             MPE2.Show();
 
         }
