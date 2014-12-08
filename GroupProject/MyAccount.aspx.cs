@@ -21,10 +21,9 @@ namespace GroupProject
 
             LoadStudentInfo();
 
-            if (mySecurity.GetSecurityLevel() != 1)
+            if (mySecurity.GetSecurityLevel() != 1) 
             {
                 pnlStudentQuizReport.Visible = false;
-
             }
 
             else
@@ -35,9 +34,7 @@ namespace GroupProject
                 ReportDataSource datasource = new ReportDataSource("DataSet1", StudentQuizReport());
                 ReportViewer1.LocalReport.DataSources.Clear();
                 ReportViewer1.LocalReport.DataSources.Add(datasource);
-               
-             
-
+                            
             }
         }
 
@@ -69,6 +66,7 @@ namespace GroupProject
             }
 
             return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseDetails").Tables[0];
+
         }
 
        

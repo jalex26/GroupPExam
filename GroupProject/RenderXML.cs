@@ -235,6 +235,8 @@ namespace GroupProject
                     Questio.AppendChild(Options);
 
 
+                    FillBlank._Option.Shuffle();
+                    FillBlank._Option.Shuffle();
                     for (int i = 0; i < FillBlank._Option.Count; i++)
                     {
                         XmlElement Option = XmlNewDoc.CreateElement("Option", xmlNS);
@@ -337,7 +339,6 @@ namespace GroupProject
                         correct.Add(xn2.InnerText);
                     }
                 }
-                //ListMult.Add(new ObjectMultiple(QuestionId, Question, option[0], option[1], option[2], option[3], Correct.ToString()));
                 ListQuestions.Add(new ObjectFillin(QuestionId, Question, correct, options));
                 //foreach()
             }

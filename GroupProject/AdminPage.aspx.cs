@@ -18,7 +18,7 @@ namespace GroupProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Security mySecurity = new Security(2);
+            Security mySecurity = new Security(3);
             if (!IsPostBack)
             {
 
@@ -74,6 +74,14 @@ namespace GroupProject
             gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
             gvSettings.DataBind();
 
+        }
+
+        private void loadStudents()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
+            gvSettings.DataBind();
         }
 
         // loads selected user values in pop up update panel to make changes
@@ -171,7 +179,7 @@ namespace GroupProject
             StateCookies myState = new StateCookies();
             gvSettings.PageIndex = e.NewPageIndex;
 
-            loadUsers(myState);
+            loadStudents();
         }
 
         private void loadSelectClass()

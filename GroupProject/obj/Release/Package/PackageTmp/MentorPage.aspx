@@ -42,6 +42,43 @@
             });
         });
 
+        function ConfirmIssueQuiz() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Issue this new Quiz?")) {
+                    confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+
+        function ConfirmQuizUpload() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Upload Quiz?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+
+        function ConfirmAllocateStudents() {
+            var confirm_value = document.createElement("INPUT");
+            var ClassToAdd = $('#ContentPlaceHolder1_ddlAssignClass option:selected').text()
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Add selected students to class '"+ClassToAdd+"'?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+
         $.fn.slideFadeToggle = function (easing, callback) {
             return this.animate({
                 opacity: 'toggle',
@@ -213,7 +250,7 @@
                         <tr>
                             <td>&nbsp;</td>
                             <td>
-                                <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" />
+                                <asp:Button ID="btnSubmit" runat="server" Text="Issue Quiz" OnClick="btnSubmit_Click" OnClientClick="ConfirmIssueQuiz()" />
                                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                             </td>
                         </tr>
@@ -235,7 +272,7 @@
                     <td>
 
                         <asp:FileUpload ID="fuploadQuiz" runat="server" />
-                        <asp:Button ID="btnUploadFile" runat="server" Text="Upload" OnClick="btnUploadFile_Click" />
+                        <asp:Button ID="btnUploadFile" runat="server" Text="Upload" OnClick="btnUploadFile_Click" OnClientClick="ConfirmQuizUpload()" />
                     </td>
                 </tr>
             </table>
@@ -317,8 +354,8 @@
             </asp:GridView>
             <hr />
             Assign to Class: &nbsp 
-            <asp:DropDownList ID="ddlAssignClass" runat="server"></asp:DropDownList>
-            <asp:Button ID="btnAccept" runat="server" Text="Submit" OnClick="btnAccept_Click" />
+            <asp:DropDownList ID="ddlAssignClass" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <asp:Button ID="btnAccept" runat="server" Text="Submit" OnClick="btnAccept_Click" OnClientClick="ConfirmAllocateStudents()" />
         </asp:Panel>
 
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">
@@ -326,7 +363,7 @@
                 <hr />
                 Part I: Multiple Choice
                 <hr />
-                <asp:DataList ID="DLExamDemo" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemo" Width="100%" runat="server">
                     <HeaderTemplate>
                     </HeaderTemplate>
                     <ItemTemplate>
@@ -364,7 +401,7 @@
                 Part II: Fill in the blanks
                 <hr />
 
-                <asp:DataList ID="DLExamDemoFillBlanks" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemoFillBlanks" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
                         <asp:Repeater ID="rptFillBlanks" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns) %>'>
@@ -398,7 +435,7 @@
                 Part III: True or False
                 <hr />
 
-                <asp:DataList ID="DLExamDemoTrueFalse" Width="450px" runat="server">
+                <asp:DataList ID="DLExamDemoTrueFalse" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
                         <asp:Repeater ID="rptTrueFalse" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns) %>'>

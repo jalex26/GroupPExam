@@ -40,6 +40,7 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadXML();
+                pnlQuizResult.Style.Add(HtmlTextWriterStyle.Display, "none");   //hide the result panel
             }
         }
         private void loadXML()

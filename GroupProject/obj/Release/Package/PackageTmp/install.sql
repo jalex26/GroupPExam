@@ -1011,9 +1011,10 @@ go
 --SD18EXAM_spInsertUser @Firstname='as1', @Lastname='as1', @Email='as1', @Password='as1'
 --select * from SD18EXAM_tbUser
 --select * from SD18EXAM_tbToken
---SD18EXAM_spValidateAccount @Token ='ZULAXFHNBIRNRKA'
+--SD18EXAM_spValidateAccount @Token ='INMOGEBCPMPMSLA'
 --select * from SD18EXAM_tblogStudents
 --SD18EXAM_spGetUnAssignedStudents
+
 go
 create procedure SD18EXAM_spInsertUser(
 @Firstname varchar(60),
@@ -1534,7 +1535,6 @@ GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Fir
 
 end
 go
-
 create procedure SD18EXAM_spGetQuizDetails(
 @Versionid int
 )
@@ -1676,7 +1676,6 @@ else
     end
 end
 go
-
 create procedure SD18EXAM_spGetUnAssignedStudents
 as begin
 select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
@@ -1685,7 +1684,8 @@ select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
 			THEN 'Validated'
 		ELSE
 			'Not Validated'
-	END AS varchar(20)) as Status from SD18EXAM_tbUser where Classid is null
+	END AS varchar(20)) as Status from SD18EXAM_tbUser
+	 where Classid is null  and SD18EXAM_tbUser.Userid not in (select SD18EXAM_tbMentorCourse.Mentorid from SD18EXAM_tbMentorCourse) and SecurityLevel != 3
 end
 go
 
