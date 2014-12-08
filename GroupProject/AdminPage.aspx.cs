@@ -21,7 +21,6 @@ namespace GroupProject
             Security mySecurity = new Security(2);
             if (!IsPostBack)
             {
-                StateCookies myState = new StateCookies();
 
                 loadUsers(myState);
                 loadClass();
