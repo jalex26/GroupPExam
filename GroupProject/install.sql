@@ -1425,17 +1425,20 @@ as begin
 	select * from SD18EXAM_tbTestSample
 end 
 go
-
-
+--SD18EXAM_spGetSortColumn @SortColumn='Firstname asc'
 create procedure SD18EXAM_spGetSortColumn(
-@SortColumn varchar (60)
+@SortColumn varchar (60),
+@SearchText varchar(60) = null,
+@SearchUserByCourse varchar(60) = null,
+@SearchUserByClass varchar(60) = null
 )
 as begin
 select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, SD18EXAM_tbClass.Classid, SecurityLevel,Email from SD18EXAM_tbUser, SD18EXAM_tbCourse, SD18EXAM_tbClass
-	where SD18EXAM_tbUser.Classid = SD18EXAM_tbClass.Classid and
-		  SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid 
+	where SD18EXAM_tbUser.Classid = ISNULL(@SearchUserByClass, SD18EXAM_tbClass.Classid) and
+		  SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbCourse.Courseid )
+
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
