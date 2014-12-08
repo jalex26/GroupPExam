@@ -814,7 +814,7 @@ as begin
 	      SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid
 end
 go
--- SD18EXAM_spGetClass @Classid = 1
+-- SD18EXAM_spGetClass @Courseid = 1
 go
 --Loads Class
 create procedure SD18EXAM_spGetClass(

@@ -172,6 +172,14 @@
         <br />
 
         <asp:Panel ID="pnlManageUsers" runat="server" Visible="false">
+           Search By: <asp:DropDownList ID="ddlSearchBy" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSearchBy_SelectedIndexChanged">
+               <asp:ListItem>-Select Option-</asp:ListItem>
+                <asp:ListItem>Course</asp:ListItem>
+               <asp:ListItem>Class</asp:ListItem>
+                      </asp:DropDownList>
+            &nbsp
+            <asp:DropDownList ID="ddlCourseUser" runat="server" Visible="false" OnSelectedIndexChanged="ddlCourseUser_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+            <asp:DropDownList ID="ddlClassUser" runat="server" Visible="false" OnSelectedIndexChanged="ddlClassUser_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
             <asp:GridView ID="gvSettings"
                 runat="server" AllowSorting="true"
                 AllowPaging="true" PageSize="9"
@@ -184,7 +192,7 @@
                 PagerStyle-CssClass="pgr"
                 AlternatingRowStyle-CssClass="alt"
                 AutoGenerateColumns="False">
-                
+                       
 
                 <Columns>
                     <asp:TemplateField HeaderText="Update">
