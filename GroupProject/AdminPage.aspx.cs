@@ -21,6 +21,7 @@ namespace GroupProject
             Security mySecurity = new Security(2);
             if (!IsPostBack)
             {
+                StateCookies myState = new StateCookies();
 
                 loadUsers(myState);
                 loadClass();
@@ -65,6 +66,7 @@ namespace GroupProject
             ddlClass.DataBind();
         }
         private void loadUsers(StateCookies myState)
+            //StateCookies myState
         {
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
