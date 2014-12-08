@@ -814,7 +814,7 @@ as begin
 	      SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid
 end
 go
--- SD18EXAM_spGetClass @Classid = 1
+-- SD18EXAM_spGetClass @Courseid = 1
 go
 --Loads Class
 create procedure SD18EXAM_spGetClass(
@@ -1425,7 +1425,11 @@ as begin
 	select * from SD18EXAM_tbTestSample
 end 
 go
---SD18EXAM_spGetSortColumn @SortColumn='Firstname asc'
+--SD18EXAM_spGetSortColumn @SortColumn='Firstname asc', @SearchUserByCourse=0
+--select * from SD18EXAM_tbUser
+select * from SD18EXAM_tbCourse
+select * from SD18EXAM_tbClass
+go
 create procedure SD18EXAM_spGetSortColumn(
 @SortColumn varchar (60),
 @SearchText varchar(60) = null,
@@ -1436,9 +1440,11 @@ as begin
 select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, SD18EXAM_tbClass.Classid, SecurityLevel,Email from SD18EXAM_tbUser, SD18EXAM_tbCourse, SD18EXAM_tbClass
-	where SD18EXAM_tbUser.Classid = ISNULL(@SearchUserByClass, SD18EXAM_tbClass.Classid) and
-		  SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbCourse.Courseid )
-
+	where SD18EXAM_tbUser.Classid =SD18EXAM_tbClass.Classid and SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid and SD18EXAM_tbClass.Classid = ISNULL(@SearchUserByClass,SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbClass.Courseid) and SD18EXAM_tbUser.Userid = SD18EXAM_tbUser.Userid
+	--and SD18EXAM_tbUser.Firstname like '%' + ISNULL(@SearchText,SD18EXAM_tbUser.Firstname)  + '%'
+	--where SD18EXAM_tbUser.Classid = ISNULL(@SearchUserByClass, SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbCourse.Courseid )
+		  
+		  --and SD18EXAM_tbUser.Firstname like '%' + @SearchText  + '%'
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
