@@ -170,9 +170,18 @@
             </asp:Panel>
         </asp:Panel>
         <br />
+
         <asp:Panel ID="pnlManageUsers" runat="server" Visible="false">
+           Search By: <asp:DropDownList ID="ddlSearchBy" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSearchBy_SelectedIndexChanged">
+               <asp:ListItem>-Select Option-</asp:ListItem>
+                <asp:ListItem>Course</asp:ListItem>
+               <asp:ListItem>Class</asp:ListItem>
+                      </asp:DropDownList>
+            &nbsp
+            <asp:DropDownList ID="ddlCourseUser" runat="server" Visible="false" OnSelectedIndexChanged="ddlCourseUser_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+            <asp:DropDownList ID="ddlClassUser" runat="server" Visible="false" OnSelectedIndexChanged="ddlClassUser_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
             <asp:GridView ID="gvSettings"
-                runat="server" AllowSorting="True"
+                runat="server" AllowSorting="true"
                 AllowPaging="true" PageSize="9"
                 OnSorting="gvSettings_Sorting"
                 OnPageIndexChanging="gvSettings_PageIndexChanging"
@@ -183,6 +192,7 @@
                 PagerStyle-CssClass="pgr"
                 AlternatingRowStyle-CssClass="alt"
                 AutoGenerateColumns="False">
+                       
 
                 <Columns>
                     <asp:TemplateField HeaderText="Update">
@@ -201,13 +211,13 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Userid" HeaderText="User ID" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Firstname" HeaderText="First Name" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Lastname" HeaderText="Last Name" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email Address" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Password" HeaderText="User Password" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class Name" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Coursename" HeaderText="Course/ Program" />
-                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Firstname" HeaderText="First Name" SortExpression="Firstname"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Lastname" HeaderText="Last Name" SortExpression="Lastname"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Email" HeaderText="Email Address" SortExpression="Email"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Password" HeaderText="User Password" SortExpression="Password"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class Name" SortExpression="Classname"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Coursename" HeaderText="Course/ Program" SortExpression="Coursename"/>
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="SecurityLevel" HeaderText="Security Level"/>
                 </Columns>
             </asp:GridView>
             <br />
