@@ -75,6 +75,14 @@ namespace GroupProject
 
         }
 
+        private void loadStudents()
+        {
+            DataSet ds = new DataSet();
+            myDal.ClearParams();
+            gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetUsers");
+            gvSettings.DataBind();
+        }
+
         // loads selected user values in pop up update panel to make changes
         protected void lbUpdate_Click(object sender, EventArgs e)
         {
@@ -170,7 +178,7 @@ namespace GroupProject
             StateCookies myState = new StateCookies();
             gvSettings.PageIndex = e.NewPageIndex;
 
-            loadUsers(myState);
+            loadStudents();
         }
 
         private void loadSelectClass()
