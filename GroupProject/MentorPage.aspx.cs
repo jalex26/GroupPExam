@@ -75,6 +75,7 @@ namespace GroupProject
             ds = myDal.ExecuteProcedure("SD18EXAM_spViewQuiz");
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
+            pnlViewQuiz.Visible = true;         
         }
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
@@ -100,8 +101,9 @@ namespace GroupProject
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
-            pnlDownload.Visible = false;
             pnlViewQuiz.Visible = true;
+            pnlViewExam.Visible = true;
+            pnlDownload.Visible = false;           
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
@@ -285,6 +287,7 @@ namespace GroupProject
             DLExamDemoTrueFalse.DataSource = QuizNode;
             DLExamDemoTrueFalse.DataBind();
             MPE1.Show();
+          
 
         }
 

@@ -71,6 +71,8 @@
         <asp:Panel ID="Panel2" HorizontalAlign="Center" Font-Size="Medium" Font-Italic="true" runat="server">
             <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
         </asp:Panel>
+        <br />
+        <br />
 
         <asp:Panel ID="pnlIssuedQuizes" runat="server">
             <asp:GridView ID="gvIssuedQuizes"
