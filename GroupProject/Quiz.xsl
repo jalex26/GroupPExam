@@ -109,9 +109,10 @@
                 Question <input type="text" id="PageNumber" size="4" value="12" /> of <xsl:value-of select="$recordCount"/>
               </div>
               <xsl:variable name="QuestionItem" select="t:Questi"></xsl:variable>
-              <xsl:value-of select="t:Questi"/>
-              
+              <xsl:value-of select="t:Questi"/> <!--shows the question-->
+              <!--<xsl:value-of select="substring-after($QuestionItem,)"/>-->
               <xsl:variable name="BlankToDropDown" select="________________"></xsl:variable>
+
               <panel class="options">
                 <div>
                   <SELECT name ="Question{$QuestionID}" class="option">
