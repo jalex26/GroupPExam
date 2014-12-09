@@ -23,6 +23,10 @@ namespace GroupProject
         LoadBoxes LB = new LoadBoxes();
         protected XmlNamespaceManager ns;
         protected XmlDocument XmlDoc = new XmlDocument();
+        string MatchCorrectAnswer;
+        bool isCorrect = false;
+        List<string> fillInCorrectAns = new List<string>();
+        string TrueFalseCorrectAnswer;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -408,21 +412,89 @@ namespace GroupProject
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                string a = ((Label)e.Item.FindControl("lblAnswer")).Text;
+                MatchCorrectAnswer = "";
+                MatchCorrectAnswer = ((Label)e.Item.FindControl("lblAnswer")).Text.ToString();
                 // ((Label)e.Item.FindControl("lblAnswer")).Text = "<b>***Good***</b>";
 
             }
         }
 
-        protected void rptMultiple_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        private void GreenORRed(RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                string a = ((HiddenField)e.Item.FindControl("lblAnswer")).Value;
-                // ((Label)e.Item.FindControl("lblAnswer")).Text = "<b>***Good***</b>";
+                if (isCorrect)
+                    ((Panel)e.Item.FindControl("pnlQuestion")).Style.Add(HtmlTextWriterStyle.BorderColor, "Green");
+                else
+                    ((Panel)e.Item.FindControl("pnlQuestion")).Style.Add(HtmlTextWriterStyle.BorderColor, "Red");
+            }
+            isCorrect = false;
+        }
+        protected void rptMultiple_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            GreenORRed(e);
+        }
 
+        protected void rptStudentAnswer_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string StudentAnswer = ((Label)e.Item.FindControl("lblStudentAnswer")).Text.ToString();
+                if (StudentAnswer == MatchCorrectAnswer)
+                    isCorrect = true;
             }
         }
+
+        protected void rpt3Fill_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string CorrectAnswer = ((Label)e.Item.FindControl("lblFillCorrectAns")).Text.ToString();
+                fillInCorrectAns.Add(CorrectAnswer);
+            }
+        }
+
+        protected void rptFillInUserAns_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string UserAns = ((Label)e.Item.FindControl("lblFillInUserAns")).Text.ToString();
+                if (fillInCorrectAns.Contains(UserAns))
+                    isCorrect = true;
+            }
+        }
+
+        protected void rptFillBlanks_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            GreenORRed(e);
+        }
+
+        protected void rptTrueFalseCorAns_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                TrueFalseCorrectAnswer = ((Label)e.Item.FindControl("lblTrueFalseCorrecAns")).Text.ToString();
+            }
+        }
+
+        protected void rptTrueFalseUserAns_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string UserAnswer = ((Label)e.Item.FindControl("lblTrueFalseUserAns")).Text.ToString();
+                if(TrueFalseCorrectAnswer == UserAnswer)
+                    isCorrect = true;
+            }
+        }
+
+        protected void rptTrueFalse_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                GreenORRed(e);
+            }
+        }
+
     }
 
 }
