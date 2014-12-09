@@ -9,8 +9,17 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script src="js/jquery-2.1.1.js"></script>
+    <link href="styles/QuizActionStylePoP.css" rel="stylesheet" />
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".tabs-menu a").click(function (event) {
+                event.preventDefault();
+                $(this).parent().addClass("current");
+                $(this).parent().siblings().removeClass("current");
+                var tab = $(this).attr("href");
+                $(".tab-content").not(tab).css("display", "none");
+                $(tab).fadeIn();
+            });
         });
 
         function PopOnShown() {
@@ -47,6 +56,18 @@
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
             if (confirm("Issue this new Quiz?")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+
+        function ConfirmChangeQuizStudentStatus() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Update Student quiz status?")) {
                 confirm_value.value = "Yes";
             } else {
                 confirm_value.value = "No";
@@ -104,6 +125,10 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
+
+        $(function () {
+            $("#tabs").tabs();
+        });
     </script>
     <!--[if IE 6]>
 	<script type="text/javascript" src="js/jquery.nyroModal-ie6.min.js"></script>
@@ -282,7 +307,7 @@
             </table>
         </asp:Panel>
 
-        <asp:Panel ID="pnlViewQuiz" visible="false" runat="server">
+        <asp:Panel ID="pnlViewQuiz" Visible="false" runat="server">
 
             <h3>View and Download Available Quizes</h3>
 
@@ -470,63 +495,101 @@
             <asp:Button ID="Button2" runat="server" Text="Button" Visible="true" />
         </div>
 
-            <asp:Panel ID="pnlQuizActionOuter"
-              Style="display: none; background-color: whitesmoke;"
+        <asp:Panel ID="pnlQuizActionOuter"
+            Style="display: none; background-color: whitesmoke;"
             HorizontalAlign="Center"
             Width="400" Height="400"
-             runat="server">
+            runat="server">
 
-        <asp:Panel ID="pnlQuizAction" ScrollBars="Auto"
-            BorderColor="White" runat="server"
-           Style="cursor: move; font-family: Tahoma; box-shadow: 10px 10px 5px #424242; padding: 10px; align-content: center"
+            <asp:Panel ID="pnlQuizAction" ScrollBars="Auto"
+                BorderColor="White" runat="server"
+                Style="cursor: move; font-family: Tahoma; box-shadow: 10px 10px 5px #424242; padding: 10px; align-content: center"
                 HorizontalAlign="Center" BackColor="#E3170D"
                 ForeColor="White" Height="30" Width="375"
-            CssClass="ModalPopUp">           
-            <b>Start or End Quiz</b>
+                CssClass="ModalPopUp">
+                <%--ModalPopUp--%>
 
-              </asp:Panel>
+                <b>Start or End Quiz</b>
 
-                <br />
-                <br />
+            </asp:Panel>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div id="tabs-container">
+                        <ul class="tabs-menu">
+                            <li class="current"><a href="#tab-1">Quiz</a></li>
+                            <li><a href="#tab-2">Student</a></li>
+                        </ul>
+                        <div class="tab">
+                            <div id="tab-1" class="tab-content">
+                                <br />
+                                <br />
 
-            <table align="center">
-                <tr>
-                    <td>ID:</td>
-                    <td>
-                        <asp:Label ID="lblIssuedQuizId" runat="server"></asp:Label></td>
-                </tr>
-                <tr>
-                    <td>Title:</td>
-                    <td>
-                        <asp:Label ID="lblTitle" runat="server"></asp:Label></td>
-                </tr>
-                <tr>
-                    <td>Time to take:</td>
-                    <td>
-                        <asp:Label ID="lblTime" runat="server"></asp:Label></td>
-                </tr>
-                <tr>
-                    <td>Class:</td>
-                    <td>
-                        <asp:Label ID="lblClass" runat="server"></asp:Label></td>
-                </tr>
-                <tr>
-                    <td>Status:</td>
-                    <td>
-                        <asp:Label ID="lblStatus" runat="server"></asp:Label></td>
-                </tr>
-            </table>
-                <br />
-                <br />
-            <asp:Button ID="btnStart" CssClass="ButtonsOnMentorPage" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
-                &nbsp;
+                                <table align="center">
+                                    <tr>
+                                        <td>ID:</td>
+                                        <td>
+                                            <asp:Label ID="lblIssuedQuizId" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Title:</td>
+                                        <td>
+                                            <asp:Label ID="lblTitle" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time to take:</td>
+                                        <td>
+                                            <asp:Label ID="lblTime" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class:</td>
+                                        <td>
+                                            <asp:Label ID="lblClass" runat="server"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status:</td>
+                                        <td>
+                                            <asp:Label ID="lblStatus" runat="server"></asp:Label></td>
+                                    </tr>
+                                </table>
+
+                                <asp:Button ID="btnStart" CssClass="ButtonsOnMentorPage" runat="server" Text="Start Quiz" OnClick="btnStart_Click" />
+                                &nbsp;
             <asp:Button ID="btnEnd" CssClass="ButtonsOnMentorPage" runat="server" Text="End Quiz" OnClick="btnEnd_Click" />
-              &nbsp;              
+                                &nbsp;              
             <asp:Button ID="btnDelete" CssClass="ButtonsOnMentorPage" runat="server" Text="Delete Quiz" OnClick="btnDelete_Click" OnClientClick="Confirm()" /><br />
-             
-            <asp:Button ID="btnClosePopUp" CssClass="ButtonsOnMentorPage" Text="Close" runat="server" OnClick="btnClosePopUp_Click" OnClientClick="return HideMPE()" />
+
+                                <asp:Button ID="btnClosePopUp" CssClass="ButtonsOnMentorPage" Text="Close" runat="server" OnClick="btnClosePopUp_Click" OnClientClick="return HideMPE()" />
+
+
+                            </div>
+                            <div id="tab-2" class="tab-content">
+                                <table>
+                                    <tr>
+                                        <td>Select Student </td>
+                                        <td>
+                                            <asp:DropDownList ID="ddlActionQuizStudent" runat="server"></asp:DropDownList></td> <%--im forced to disable Postback--%>
+                                    </tr>
+                                    <tr>
+                                        <td>Change User Quiz Status to: </td>
+                                        <td>
+                                            <asp:DropDownList ID="ddlQuizStudentStatus" runat="server"></asp:DropDownList></td>
+                                    </tr>
+                                    <tr><td></td></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <asp:Button ID="btnAcceptChanges" runat="server" Text="Accept Changes" OnClick="btnAcceptChanges_Click" OnClientClick="ConfirmChangeQuizStudentStatus()"/>&nbsp
+                                            <asp:Button ID="btnCancelChanges" runat="server" Text="Cancel" OnClick="btnCancelChanges_Click" /></td>
+                                        
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </asp:Panel>
-     
+
 
         <asp:ModalPopupExtender ID="MPE1" TargetControlID="Button1" PopupControlID="pnlViewExam" BackgroundCssClass="ModalBackground" BehaviorID="mpeView" runat="server"></asp:ModalPopupExtender>
         <asp:ModalPopupExtender ID="MPEQuizAction" BehaviorID="mpeAction" TargetControlID="Button2" PopupControlID="pnlQuizActionOuter" BackgroundCssClass="ModalBackground" runat="server"></asp:ModalPopupExtender>

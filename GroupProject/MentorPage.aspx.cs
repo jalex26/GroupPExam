@@ -29,7 +29,8 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadCourse();
-
+                loadStatus();
+                
             }
         }
         private void loadCourse()
@@ -41,6 +42,16 @@ namespace GroupProject
             ddlCourse.DataBind();
             ddlCourse.Items.Insert(0, new ListItem("-Select Course-", String.Empty));
             ddlCourse.SelectedIndex = 0;
+        }
+
+        private void loadStatus()
+        {
+            //load statuses
+            myDal.ClearParams();
+            ddlQuizStudentStatus.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetQuizStudentStatus");
+            ddlQuizStudentStatus.DataTextField = "StatusName";
+            ddlQuizStudentStatus.DataValueField = "StatusId";
+            ddlQuizStudentStatus.DataBind();
         }
 
         public void loadQuiz()
@@ -453,6 +464,18 @@ namespace GroupProject
                     lblClass.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
                     lblStatus.Text = ds.Tables[0].Rows[0]["StatusName"].ToString();
 
+                    //load Student
+                    //ddlActionQuizStudent
+                    myDal.ClearParams();
+                    myDal.AddParam("@IssuedQuizId", IssuedQuizId);
+                    ddlActionQuizStudent.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetStudentsFromIssuedQuizID");
+                    ddlActionQuizStudent.DataTextField = "Name";
+                    ddlActionQuizStudent.DataValueField = "QuizStudentid";
+                    ddlActionQuizStudent.DataBind();
+                    ddlActionQuizStudent.Items.Insert(0, new ListItem("Please select", "-1"));
+
+                    
+                    //SD18EXAM_spGetStudentResponseDetails
                     MPEQuizAction.Show();
                 }
             }
@@ -642,6 +665,43 @@ namespace GroupProject
                     Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
                 }
             }
+        }
+
+        protected void ddlActionQuizStudent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlActionQuizStudent.SelectedIndex != -1 || ddlActionQuizStudent.SelectedValue != "-1")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@QuizStudentid", ddlActionQuizStudent.SelectedValue.ToString());
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStudentQuizInfoUser");
+                ddlActionQuizStudent.SelectedIndex = ddlActionQuizStudent.Items.IndexOf(ddlActionQuizStudent.Items.FindByText(ds.Tables[0].Rows[0]["StatusName"].ToString()));
+
+            }
+            MPEQuizAction.Show();
+        }
+
+        protected void btnAcceptChanges_Click(object sender, EventArgs e)
+        {
+             string confirmValue = Request.Form["confirm_value"];
+             if (confirmValue == "Yes")
+             {
+                 myDal.ClearParams();
+                 myDal.AddParam("@QuizStudentid", ddlActionQuizStudent.SelectedValue.ToString());
+                 myDal.AddParam("@StatusId", ddlQuizStudentStatus.SelectedValue.ToString());
+                 DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spUpdateQuizStudentStatus");
+                 if (ds.Tables[0].Rows[0]["status"].ToString() == "success")
+                 {
+                     Response.Write("<SCRIPT>alert('Student quiz status change SUCCESSFULL')</SCRIPT>");
+                 }
+                 else
+                     Response.Write("<SCRIPT>alert('Student quiz status change FAILED')</SCRIPT>");
+             }
+
+        }
+
+        protected void btnCancelChanges_Click(object sender, EventArgs e)
+        {
+            MPEQuizAction.Hide();
         }
 
     }

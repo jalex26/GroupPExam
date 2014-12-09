@@ -106,8 +106,8 @@
                     //$('input[id=XMLquiz]').hide();
                     $('#<%= pnlQuizItem.ClientID %>').toggle()
                     $('#<%= pnlQuizResult.ClientID %>').toggle()
-                    $('#<%= lblTotal.ClientID %>').text(totalQuestions);
-                    $('#<%= lblScore.ClientID %>').text(result);
+<%--                    $('#<%= lblTotal.ClientID %>').text(totalQuestions);
+                    $('#<%= lblScore.ClientID %>').text(result);--%>
                     SendToServerAndStatus();
                 }
 
@@ -335,12 +335,8 @@
                 <input type="hidden" name="tempXML" id="tempXML" />
             </asp:Panel>
             <asp:Panel ID="pnlQuizResult" runat="server">
-                <h3>Congratulations on finishing up the Quiz:</h3>
+                <h3>Congratulations on finishing up the Quiz!</h3>
                 <br />
-                Your score from this test is:
-                <asp:Label ID="lblScore" runat="server" />
-                &nbsp out of &nbsp<asp:Label ID="lblTotal" runat="server" />
-                &nbsp!
             </asp:Panel>
         </div>
 
