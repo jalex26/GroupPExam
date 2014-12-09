@@ -1700,6 +1700,56 @@ select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
 end
 go
 
+--select * from SD18EXAM_tbQuizStudent
+--select * from SD18EXAM_tbQuizStudentStatus
+-- SD18EXAM_spGetStudentsFromIssuedQuizID @IssuedQuizId=0
+create procedure SD18EXAM_spGetStudentsFromIssuedQuizID(
+@IssuedQuizId int
+)
+as begin
+	select SD18EXAM_tbQuizStudent.QuizStudentid, SD18EXAM_tbUser.Userid,SD18EXAM_tbUser.Lastname + ', ' + SD18EXAM_tbUser.Firstname as Name, SD18EXAM_tbQuizStudentStatus.StatusName from SD18EXAM_tbUser
+	join SD18EXAM_tbQuizStudent on SD18EXAM_tbUser.Userid = SD18EXAM_tbQuizStudent.Userid
+	join SD18EXAM_tbQuizStudentStatus on SD18EXAM_tbQuizStudentStatus.StatusId = SD18EXAM_tbQuizStudent.Status
+	where SD18EXAM_tbQuizStudent.IssuedQuizId = @IssuedQuizId
+end
+go
+--SD18EXAM_spStudentQuizInfoUser @QuizStudentid=1
+create procedure SD18EXAM_spUpdateQuizStudentStatus(
+@QuizStudentid int,
+@StatusId int
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	update SD18EXAM_tbQuizStudent set Status=@StatusId where QuizStudentid=@QuizStudentid
+	set @msg = 'success'
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'Failed' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
+end
+
+go
+create procedure SD18EXAM_spStudentQuizInfoUser(
+@QuizStudentid int
+)
+as begin
+	select * from SD18EXAM_tbQuizStudent, SD18EXAM_tbQuizStudentStatus where QuizStudentid=@QuizStudentid and Status=StatusId
+end
+go
+
+create procedure SD18EXAM_spGetQuizStudentStatus
+as begin
+	select * from SD18EXAM_tbQuizStudentStatus
+end
+go
 
 create procedure SD18EXAM_spAllocateStudent(
 @UserID int,
