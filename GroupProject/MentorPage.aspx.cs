@@ -81,12 +81,13 @@ namespace GroupProject
 
         public void ViewQuiz()
         {
+            pnlViewQuiz.Visible = true; 
             DataSet ds = new DataSet();
             myDal.ClearParams();
             ds = myDal.ExecuteProcedure("SD18EXAM_spViewQuiz");
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
-            pnlViewQuiz.Visible = true;         
+                   
         }
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
@@ -104,6 +105,7 @@ namespace GroupProject
             //Response.Redirect("MentorPage.aspx");
             pnlUploadQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlDownload.Visible = false;
@@ -112,14 +114,18 @@ namespace GroupProject
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
-            pnlViewQuiz.Visible = true;
-            pnlViewExam.Visible = true;
+           
             pnlDownload.Visible = false;           
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlAllocateStudents.Visible = false;
+           
+            pnlViewQuiz.Visible = true;
+            pnlViewExam.Visible = true;
+            gvViewQuiz.Visible = true;
             ViewQuiz();
+          
         }
 
         // method to remove all namespaces from xml document
@@ -408,9 +414,18 @@ namespace GroupProject
             pnlAllocateStudents.Visible = false;
             pnlStartQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlDownload.Visible = false;
+            LoadQuizStatus();
+           
+        }
+
+        private void LoadQuizStatus()
+        {
+            gvQuizes.DataSource = null;
+
             myDal.ClearParams();
             myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
@@ -420,8 +435,8 @@ namespace GroupProject
                 gvQuizes.DataSource = ds.Tables[0];
                 gvQuizes.DataBind();
 
-            }
 
+            }
         }
 
         protected void gvQuizes_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -479,15 +494,21 @@ namespace GroupProject
         protected void btnClosePopUp_Click(object sender, EventArgs e)
         {
             MPEQuizAction.Hide();
+            
         }
 
         protected void btnStart_Click(object sender, EventArgs e)
         {
             //MPEQuizAction.Show();
+
             myDal.ClearParams();
             myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStartQuiz");
             PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
+
+
+            LoadQuizStatus();
+           
 
         }
 
