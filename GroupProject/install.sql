@@ -1473,11 +1473,14 @@ go
 create procedure SD18EXAM_spGetIssuedQuizes
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-       convert (varchar(12),DateIssued,107) as DateIssued, 
+       convert (varchar(12),DateIssued,107) as DateIssued, Title ,
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, Classname
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass,
+     SD18EXAM_tbXMLQuizContent
+     
 where SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
@@ -1487,14 +1490,16 @@ create procedure SD18EXAM_spGetQuizesByStatus(
 )
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-        convert (varchar(12),DateIssued,107) as DateIssued, 
+        convert (varchar(12),DateIssued,107) as DateIssued, Title,
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, SD18EXAM_tbClass.Classname,
 	   SD18EXAM_tbIssuedQuiz.QuizStatus, SD18EXAM_tbQuizStatus.StatusName
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbQuizStatus, SD18EXAM_tbClass
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, 
+     SD18EXAM_tbQuizStatus, SD18EXAM_tbClass, SD18EXAM_tbXMLQuizContent
 where SD18EXAM_tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
       SD18EXAM_tbIssuedQuiz.QuizStatus = SD18EXAM_tbQuizStatus.StatusId and
       SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
