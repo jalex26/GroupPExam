@@ -11,7 +11,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <script type="text/javascript" >
+    <script type="text/javascript">
 
         function HideMPE() {
             $find("mpeView").hide();
@@ -244,33 +244,40 @@
                 <hr />
                 Part I: Multiple Choice
                 <hr />
-                <asp:DataList ID="DLViewResponseReport" width="100%" runat="server">
+                <asp:DataList ID="DLViewResponseReport" Width="100%" runat="server" Style="margin-bottom: 0px">
                     <HeaderTemplate>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                        <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>' OnItemDataBound="rptMultiple_ItemDataBound">
                             <ItemTemplate>
-                                <h4>QuestionID: <%# XPath("@ID") %><br />
+                                <div id="Question" runat="server">
+                                    <h4>QuestionID: <%# XPath("@ID") %><br />
 
-                                    Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                        Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
 
-                                </h4>
-                                <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
-                                    <ItemTemplate>
-                                        Option: <%# XPath(".") %>
-                                        <br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                                    </h4>
+                                    <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                        <ItemTemplate>
+                                            Option: <%# XPath(".") %>
+                                            <br />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
-                                    <ItemTemplate>
-                                        Correct Answer: <%# XPath("..") %>
-                                        <br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                                   
+                                    <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>' OnItemDataBound="rpt3_ItemDataBound">
+                                        <ItemTemplate>
+                                            Correct Answer: 
+                                            <asp:Label ID="lblAnswer" runat="server" Text='<%# XPath("..") %>'></asp:Label>
+                                            <br /></ItemTemplate></asp:Repeater>
 
-                                <h4>Student Answer: <%#XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%></h4>
+                                    <h4>Student Answer: 
+                          <%# XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%> </h4>
+                                    <%--<asp:HiddenField ID="HiddenField1" runat="server" Value='<%# XPath("*[local-name()='UserAnswer' and namespace-uri()=urn:Question-Schema]")%>' />--%>
 
+                                   <%-- <input type="hidden" id="lblStuAnswer"
+               value="<%# XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%>" />--%>
+                                            <%--<asp:Label ID="lblStuAnswer" runat="server" Text='<%# XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%> '></asp:Label>--%>
+                                </div>
                             </ItemTemplate>
                             <SeparatorTemplate>
                                 <hr style="border: solid 2px #c0c0c0" />
@@ -339,7 +346,7 @@
                 </asp:DataList>
             </div>
             <asp:Button ID="btnClose2" Text="Close" OnClick="btnClose2_Click" OnClientClick="return HideMPE()" runat="server" />
-            
+
         </asp:Panel>
 
 

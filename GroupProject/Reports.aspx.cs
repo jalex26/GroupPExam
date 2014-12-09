@@ -34,11 +34,11 @@ namespace GroupProject
             myPanel.Visible = false;
 
             ReportViewer1.Visible = false;
-            
+
 
             if (!IsPostBack)
             {
-                loadCourse();           
+                loadCourse();
             }
         }
 
@@ -171,7 +171,7 @@ namespace GroupProject
                     gvIssuedQuizes.Visible = false;
                     gvViewStudentResponse.Visible = false;
                     ReportViewer1.Visible = false;
-    
+
                     ReportViewer1.ProcessingMode = ProcessingMode.Local;
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report1.rdlc");
                     ReportDataSource datasource = new ReportDataSource("dsStudentResponse", GetStudentResponseData());
@@ -235,22 +235,22 @@ namespace GroupProject
 
         public DataTable GetStudentResponseData()
         {
-                myDal.ClearParams();
-                myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
-                myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
+            myDal.ClearParams();
+            myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
+            myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
 
-                DataSet ds = new DataSet();
+            DataSet ds = new DataSet();
 
-                ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport");
-                //return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
+            ds = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport");
+            //return myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseReport").Tables[0];
 
-                return ds.Tables[0];
+            return ds.Tables[0];
 
         }
 
         public DataTable GetQuizDetailsData()
         {
-            myDal.ClearParams();        
+            myDal.ClearParams();
             myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
             return myDal.ExecuteProcedure("SD18EXAM_spGetQuizDetails").Tables[0];
         }
@@ -262,7 +262,7 @@ namespace GroupProject
             loadReports();
         }
 
-   
+
 
 
         protected void btnPopUpClose_Click(object sender, EventArgs e)
@@ -276,7 +276,7 @@ namespace GroupProject
             GridViewRow grid = (GridViewRow)linkUpdate.NamingContainer;
             string tempID = gvIssuedQuizes.DataKeys[grid.RowIndex].Value.ToString();
             ViewState["tempId"] = tempID;
-           
+
             RenderXML RX = new RenderXML();
 
             DataSet ds = RX.XMLContent(tempID);
@@ -298,10 +298,10 @@ namespace GroupProject
 
         }
 
-     
+
 
         protected void ddlReports_SelectedIndexChanged(object sender, EventArgs e)
-        {          
+        {
 
             switch (ddlReports.SelectedIndex)
             {
@@ -333,12 +333,12 @@ namespace GroupProject
                     break;
             }
 
-         
+
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
 
             DataSet ds = LB.LoadClasses(ddlCourse.SelectedValue.ToString());
             ddlClass.DataTextField = "Classname";
@@ -356,12 +356,12 @@ namespace GroupProject
             ddlQuiz.DataBind();
             ddlQuiz.Items.Insert(0, new ListItem("-Select Quiz-", String.Empty));
             ddlQuiz.SelectedIndex = 0;
-           
+
         }
 
         protected void ddlQuiz_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
 
             DataSet ds = LB.LoadQuizVersions(ddlQuiz.SelectedValue.ToString());
             ddlVersion.DataTextField = "Version";
@@ -404,7 +404,25 @@ namespace GroupProject
             MPE2.Hide();
         }
 
+        protected void rpt3_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string a = ((Label)e.Item.FindControl("lblAnswer")).Text;
+                // ((Label)e.Item.FindControl("lblAnswer")).Text = "<b>***Good***</b>";
 
+            }
+        }
+
+        protected void rptMultiple_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                string a = ((HiddenField)e.Item.FindControl("lblAnswer")).Value;
+                // ((Label)e.Item.FindControl("lblAnswer")).Text = "<b>***Good***</b>";
+
+            }
+        }
     }
 
 }
