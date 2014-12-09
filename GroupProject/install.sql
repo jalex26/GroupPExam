@@ -1504,16 +1504,32 @@ where SD18EXAM_tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
 end
 go
 
-
-
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="139037" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Programming Basics</Title><Subject>Software Development </Subject><Course>Software and Database Developer</Course><Time>60</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What does SQL stand for?</Questi><Options><Option Correct="yes">Structured Query Language</Option><Option>Structured Question Language</Option><Option>Strong Question Language</Option><Option>Stress Question Language</Option></Options></Question><Question ID="2"><Questi>Which SQL statement is used to extract data from a database?</Questi><Options><Option>EXTRACT</Option><Option>GET</Option><Option Correct="yes"> SELECT</Option><Option>OPEN</Option></Options></Question><Question ID="3"><Questi>Which SQL statement is used to update data in a database?</Questi><Options><Option>MODIFY</Option><Option>SAVE</Option><Option Correct="yes">UPDATE</Option><Option>SAVE AS</Option></Options></Question><Question ID="4"><Questi>Which SQL statement is used to delete data from a database?</Questi><Options><Option> COLLAPSE</Option><Option>EDIT</Option><Option>REMOVE</Option><Option Correct="yes">DELETE</Option></Options></Question><Question ID="5"><Questi>Which SQL statement is used to insert new data in a database?</Questi><Options><Option Correct="yes">INSERT INTO</Option><Option> ADD RECORD</Option><Option> INSERT NEW</Option><Option> ADD NEW</Option></Options></Question><Question ID="6"><Questi>With SQL, how do you select a column named "FirstName" from a table named "Persons"?</Questi><Options><Option Correct="yes">SELECT FirstName FROM Persons</Option><Option>EXTRACT FirstName FROM Persons</Option><Option> SELECT Persons.FirstName</Option><Option>GET FirstName from Persons</Option></Options></Question><Question ID="7"><Questi>With SQL, how do you select all the columns from a table named "Persons"?</Questi><Options><Option>SELECT Persons</Option><Option>SELECT [all] FROM Persons</Option><Option Correct="yes">SELECT * FROM Persons</Option><Option>SELECT *.Persons</Option></Options></Question><Question ID="9"><Questi>  Which SQL keyword is used to sort the result-set?</Questi><Options><Option>SORT BY</Option><Option>ORDER</Option><Option Correct="yes">ORDER BY</Option><Option>SORT</Option></Options></Question><Question ID="10"><Questi>What does HTML stand for?</Questi><Options><Option> Home Tool Markup Language</Option><Option Correct="yes">Hyper Text Markup Language</Option><Option>Hyperlinks and Text Markup Language</Option><Option>Hyper Text Mail List</Option></Options></Question><Question ID="11"><Questi>Who is making the Web standards?</Questi><Options><Option>Google</Option><Option>Microsoft</Option><Option>Firefox</Option><Option Correct="yes"> The World Wide Web Consortium</Option></Options></Question><Question ID="14"><Questi>What does XML stand for?</Questi><Options><Option> Example Markup Language</Option><Option Correct="yes">eXtensible Markup Language</Option><Option>eXtra Modern Link</Option><Option> X-Markup Language</Option></Options></Question><Question ID="19"><Questi>What is the correct HTML tag for a break?</Questi><Options><Option Correct="yes">"&lt;br /&gt;"</Option><Option>"&lt;break&gt;"</Option><Option>"&lt;lb&gt;"</Option><Option>"&lt;/b&gt;"</Option></Options></Question></MultipleChoice><FillBlanks></FillBlanks><TrueFalse><Question ID="8"><Questi>  The OR operator displays a record if ANY conditions listed are true. The AND operator displays a record if ALL of the conditions listed are true</Questi><Answer>True</Answer></Question><Question ID="17"><Questi>XML elements cannot be empty</Questi><Answer>False</Answer></Question><Question ID="18"><Questi>XML attribute values must always be enclosed in quotes</Questi><Answer>True</Answer></Question></TrueFalse></Questions></Quiz>'
+go
+SD18EXAM_spIssueNewQuiz @Versionid = 6, @ClassId = 0, @Mentorid =1
+--select * from SD18EXAM_tbQuizStudent
+--select * from SD18EXAM_tbIssuedQuiz 
+--SD18EXAM_spGetStudentResponseReport @Versionid= 6, @Classid=0
+go
 create procedure SD18EXAM_spGetStudentResponseReport(
 @Userid int = null,
-@XMLQuizID int = null,
-@CourseID int = null
+@Versionid int =null,
+@Classid int = null
 )
 as begin
-declare @xmlvar XML;
-set     @xmlvar = (select top 1 XMLStudentResponse from SD18EXAM_tbQuizStudent)
+declare @xmlvar XML,
+@IssuedQuizId int;
+
+set @IssuedQuizId = (select SD18EXAM_tbIssuedQuiz.IssuedQuizId from SD18EXAM_tbIssuedQuiz
+						 where SD18EXAM_tbIssuedQuiz.Versionid = @Versionid and SD18EXAM_tbIssuedQuiz.ClassId = @Classid)
+set     @xmlvar = (select top 1 XMLStudentResponse 
+                   from SD18EXAM_tbQuizStudent, SD18EXAM_tbIssuedQuiz,
+				        SD18EXAM_tbQuizVersion
+                   where SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
+				         SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
+						 SD18EXAM_tbQuizStudent.IssuedQuizId in (select SD18EXAM_tbIssuedQuiz.IssuedQuizId from SD18EXAM_tbIssuedQuiz
+						 where SD18EXAM_tbIssuedQuiz.Versionid = @Versionid and SD18EXAM_tbIssuedQuiz.ClassId = @Classid)
+				  )			  
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
 
 select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'StudentID', 
@@ -1536,15 +1552,19 @@ select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'St
 		    
 from    SD18EXAM_tbQuizStudent, SD18EXAM_tbQuizStudentStatus, SD18EXAM_tbUser, 
         SD18EXAM_tbXMLQuizContent, SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz
+
 where   SD18EXAM_tbQuizStudent.Status = SD18EXAM_tbQuizStudentStatus.StatusId and
         SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	    SD18EXAM_tbQuizStudent.Userid = isnull(@Userid, SD18EXAM_tbQuizStudent.Userid) and
-		SD18EXAM_tbXMLQuizContent.XMLQuizID = isnull(@XMLQuizID, SD18EXAM_tbXMLQuizContent.XMLQuizID) and
-		SD18EXAM_tbXMLQuizContent.CourseID = isnull(@CourseID, SD18EXAM_tbXMLQuizContent.CourseID) and
+		SD18EXAM_tbUser.Classid = isnull(@Classid, 	SD18EXAM_tbUser.Classid) and
+		--SD18EXAM_tbXMLQuizContent.XMLQuizID = isnull(@XMLQuizID, SD18EXAM_tbXMLQuizContent.XMLQuizID) and
+		--SD18EXAM_tbXMLQuizContent.CourseID = isnull(@CourseID, SD18EXAM_tbXMLQuizContent.CourseID) and
 		-- 4 more tables here to get XMLQuizID
 		SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 		SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-		SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
+		SD18EXAM_tbQuizStudent.IssuedQuizId = @IssuedQuizId
+		--SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
+
 
 GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, Lastname, StatusName, Points,
          CAST([XMLStudentResponse] AS VARCHAR(MAX))
@@ -1559,9 +1579,6 @@ declare @xmlvar XML;
 set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion
                    where Versionid = @Versionid)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
-
---select @xmlvar
---;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
 
 select  
 		-- casting xml as varchar as xml data type cannot be used in group by clause
@@ -1587,11 +1604,12 @@ GROUP BY
 
 end
 go
---select * from SD18EXAM_tbQuizStudent
---SD18EXAM_spGetStudentResponseDetails @QuizStudentid=10, @Userid=4
+
+
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null,
-@Userid int = null
+@Userid int = null,
+@Classid int = null
 )
 as begin
 
@@ -1621,6 +1639,7 @@ from SD18EXAM_tbQuizStudent, SD18EXAM_tbUser, SD18EXAM_tbQuizStatus, SD18EXAM_tb
      SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz
 where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbQuizStudent.Status = SD18EXAM_tbQuizStatus.StatusId and
+	  SD18EXAM_tbUser.Classid = isnull(@Classid,   SD18EXAM_tbUser.Classid ) and
 	  SD18EXAM_tbQuizStudent.QuizStudentid = isnull(@QuizStudentid, SD18EXAM_tbQuizStudent.QuizStudentid ) and
 	  SD18EXAM_tbQuizStudent.Userid = ISNULL(@Userid, SD18EXAM_tbQuizStudent.Userid) and
 	  SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and

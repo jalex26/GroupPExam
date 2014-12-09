@@ -31,13 +31,22 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlReports;
         
         /// <summary>
-        /// pnlAdditionalDetails control.
+        /// pnlAdditionalDetailsOuter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAdditionalDetails;
+        protected global::System.Web.UI.WebControls.Panel pnlAdditionalDetailsOuter;
+        
+        /// <summary>
+        /// pnlCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCourse;
         
         /// <summary>
         /// ddlCourse control.
@@ -47,6 +56,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
+        
+        /// <summary>
+        /// pnlClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlClass;
         
         /// <summary>
         /// lblClass control.
@@ -67,6 +85,15 @@ namespace GroupProject {
         protected global::System.Web.UI.WebControls.DropDownList ddlClass;
         
         /// <summary>
+        /// pnlQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlQuiz;
+        
+        /// <summary>
         /// ddlQuiz control.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,15 @@ namespace GroupProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlQuiz;
+        
+        /// <summary>
+        /// pnlVersion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlVersion;
         
         /// <summary>
         /// ddlVersion control.

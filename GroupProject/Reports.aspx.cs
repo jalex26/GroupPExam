@@ -86,7 +86,7 @@ namespace GroupProject
                     }
                     else
                     {
-                        lblMessage.Text = "No Issued Data to Display!";
+                        lblMessage.Text = "No Issued Quiz Data to Display!";
                         gvIssuedQuizes.Visible = false;
                     }
 
@@ -209,9 +209,10 @@ namespace GroupProject
                     gvIssuedQuizes.Visible = false;
                     gvViewStudentResponse.Visible = false;
                     ReportViewer1.Visible = false;
-
+                
                     DataSet dsStudentResponse = new DataSet();
                     myDal.ClearParams();
+                    myDal.AddParam("@Classid", ddlClass.SelectedValue.ToString());
                     dsStudentResponse = myDal.ExecuteProcedure("SD18EXAM_spGetStudentResponseDetails");
 
                     if (dsStudentResponse.Tables[0].Rows.Count != 0)
@@ -225,7 +226,7 @@ namespace GroupProject
                     }
                     else
                     {
-                        lblMessage.Text = "No Issued Data to Display!";
+                        lblMessage.Text = "No Data to Display for selected !";
                         gvViewStudentResponse.Visible = false;
                     }
 
@@ -239,9 +240,9 @@ namespace GroupProject
 
         public DataTable GetStudentResponseData()
         {
-            myDal.ClearParams();
-            myDal.AddParam("@CourseID", ddlCourse.SelectedValue.ToString());
-            myDal.AddParam("@XMLQuizID", ddlQuiz.SelectedValue.ToString());
+            myDal.ClearParams();          
+            myDal.AddParam("@Classid", ddlClass.SelectedValue.ToString());
+            myDal.AddParam("@Versionid", ddlVersion.SelectedValue.ToString());
 
             DataSet ds = new DataSet();
 
@@ -291,13 +292,11 @@ namespace GroupProject
             string xpath = "/ns:Quiz";
             XmlNodeList QuizNode = XmlDoc.SelectNodes(xpath, ns);
             DLExamDemo.DataSource = QuizNode;
-            DLExamDemo.DataBind();
-            //Adrian Entered
+            DLExamDemo.DataBind();        
             DLExamDemoFillBlanks.DataSource = QuizNode;
             DLExamDemoFillBlanks.DataBind();
             DLExamDemoTrueFalse.DataSource = QuizNode;
-            DLExamDemoTrueFalse.DataBind();
-            //End
+            DLExamDemoTrueFalse.DataBind();      
             MPE1.Show();
 
         }
@@ -310,28 +309,47 @@ namespace GroupProject
             switch (ddlReports.SelectedIndex)
             {
                 case 0:
-                    pnlAdditionalDetails.Visible = false;
+                    pnlCourse.Visible = false;
+                    pnlClass.Visible = false;
+                    pnlQuiz.Visible = false;
+                    pnlVersion.Visible = false;
                     break;
                 case 1:
-                    pnlAdditionalDetails.Visible = false;
+                    pnlCourse.Visible = false;
+                    pnlClass.Visible = false;
+                    pnlQuiz.Visible = false;
+                    pnlVersion.Visible = false;
                     break;
                 case 2:
-                    pnlAdditionalDetails.Visible = false;
+                    pnlCourse.Visible = false;
+                    pnlClass.Visible = false;
+                    pnlQuiz.Visible = false;
+                    pnlVersion.Visible = false;
                     break;
                 case 3:
-                    pnlAdditionalDetails.Visible = false;
+                    pnlCourse.Visible = false;
+                    pnlClass.Visible = false;
+                    pnlQuiz.Visible = false;
+                    pnlVersion.Visible = false;
                     break;
                 case 4:
-                    pnlAdditionalDetails.Visible = true;
+                    pnlCourse.Visible = true;
+                    pnlClass.Visible = true;
+                    pnlQuiz.Visible = true;
+                    pnlVersion.Visible = true;
                     break;
                 case 5:
-                    pnlAdditionalDetails.Visible = true;
-                    lblClass.Visible = false;
-                    ddlClass.Visible = false;
+                    pnlCourse.Visible = true;
+                    pnlClass.Visible = true;
+                    pnlQuiz.Visible = true;
+                    pnlVersion.Visible = true;
 
                     break;
                 case 6:
-                    pnlAdditionalDetails.Visible = false;
+                    pnlClass.Visible = true;
+                    pnlCourse.Visible = true;
+                    pnlQuiz.Visible = false;
+                    pnlVersion.Visible = false;
                     break;
                 default:
                     break;
