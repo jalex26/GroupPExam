@@ -69,24 +69,10 @@ namespace GroupProject
                         HttpContext.Current.Session["Quiz"] = HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString());
                     }
                     
-
-                    //HttpCookie myCookie1 = new HttpCookie("userQuiz");
-                    ////it is required to encode the XML document when store/retrieve to Cookies
-                    //myCookie1.Values.Add("XML", HttpUtility.UrlEncode(ds.Tables[0].Rows[0]["XMLStudentResponse"].ToString()));
-                    //myCookie1.Expires = DateTime.Now.AddDays(1);
-                    //if (HttpContext.Current.Request.Cookies["userQuiz"] == null || HttpContext.Current.Request.Cookies["userQuiz"]["UID"].ToString() != HttpContext.Current.Session["Userid"].ToString())
-                    //{// cookie does not exists yet.
-                    //    HttpContext.Current.Response.Cookies.Add(myCookie1);
-                    //}
                     Response.Redirect("QuizPage.aspx");
                 }
 
             }
-        }
-
-        protected void dlPendingQuiz_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

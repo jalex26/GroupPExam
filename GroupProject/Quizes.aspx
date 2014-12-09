@@ -21,7 +21,7 @@
         <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 
 
-        <asp:DataList ID="dlPendingQuiz" RepeatColumns="1" runat="server" DataKeyField="QuizStudentid" OnItemCommand="dlPendingQuiz_ItemCommand" CellSpacing="20" CellPadding="-1" OnSelectedIndexChanged="dlPendingQuiz_SelectedIndexChanged">
+        <asp:DataList ID="dlPendingQuiz" RepeatColumns="1" runat="server" DataKeyField="QuizStudentid" OnItemCommand="dlPendingQuiz_ItemCommand" CellSpacing="20" CellPadding="-1">
             <ItemTemplate>
                 <div id="Quizes" style="border:solid; border-color:maroon; border-width:thin">
                     
