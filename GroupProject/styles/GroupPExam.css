@@ -557,78 +557,120 @@ label {
 box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);*/
 }
 
-    .mGrid {   
-        width: 100%;   
-        background-color: #fff;   
-        margin: 5px 0 10px 0;   
-        border: solid 1px #525252;   
-        border-collapse:collapse;   
-    }  
-    .mGrid td {   
-        padding: 2px;   
-        border: solid 1px #c1c1c1;   
-        color: #717171;   
-       
-    }  
-    .mGrid th {   
-        padding: 4px 2px;   
-        color: #fff;   
-        background: #e3170d url(~/Pictures/grd_head.png) repeat-x top;   
-        border-left: solid 1px #525252;   
-        font-size: 0.9em;   
+.mGrid {
+    width: 100%;
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #525252;
+    border-collapse: collapse;
+}
+
+    .mGrid td {
+        padding: 2px;
+        border: solid 1px #c1c1c1;
+        color: #717171;
+    }
+
+    .mGrid th {
+        padding: 4px 2px;
+        color: #fff;
+        background: #e3170d url(~/Pictures/grd_head.png) repeat-x top;
+        border-left: solid 1px #525252;
+        font-size: 0.9em;
         box-shadow: 10px 10px 5px #424242;
-    }  
-    .mGrid .alt { background: #fcfcfc url(~/Pictures/grd_alt.png) repeat-x top; }  
-    .mGrid .pgr { background: #e3170d url(~/Pictures/grd_pgr.png) repeat-x top; }  
-    .mGrid .pgr table { margin: 5px 0; }  
-    .mGrid .pgr td {   
-        border-width: 0;   
-        padding: 0 6px;   
-        border-left: solid 1px #666;   
-        font-weight: bold;   
-        color: #fff;   
-        line-height: 12px;   
-     }     
-    .mGrid .pgr a { color: #666; text-decoration: none; }  
-    .mGrid .pgr a:hover { color: #000; text-decoration: none; }  
+    }
+
+    .mGrid .alt {
+        background: #fcfcfc url(~/Pictures/grd_alt.png) repeat-x top;
+    }
+
+    .mGrid .pgr {
+        background: #e3170d url(~/Pictures/grd_pgr.png) repeat-x top;
+    }
+
+        .mGrid .pgr table {
+            margin: 5px 0;
+        }
+
+        .mGrid .pgr td {
+            border-width: 0;
+            padding: 0 6px;
+            border-left: solid 1px #666;
+            font-weight: bold;
+            color: #fff;
+            line-height: 12px;
+        }
+
+        .mGrid .pgr a {
+            color: #666;
+            text-decoration: none;
+        }
+
+            .mGrid .pgr a:hover {
+                color: #000;
+                text-decoration: none;
+            }
 
 
-    .myButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;
-	box-shadow:inset 0px 1px 0px 0px #cf866c;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff0000), color-stop(1, #ff0303));
-	background:-moz-linear-gradient(top, #ff0000 5%, #ff0303 100%);
-	background:-webkit-linear-gradient(top, #ff0000 5%, #ff0303 100%);
-	background:-o-linear-gradient(top, #ff0000 5%, #ff0303 100%);
-	background:-ms-linear-gradient(top, #ff0000 5%, #ff0303 100%);
-	background:linear-gradient(to bottom, #ff0000 5%, #ff0303 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#ff0303',GradientType=0);
-	background-color:#ff0000;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	border:1px solid #942911;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #854629;
+.myButton {
+    -moz-box-shadow: inset 0px 1px 0px 0px #cf866c;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #cf866c;
+    box-shadow: inset 0px 1px 0px 0px #cf866c;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff0000), color-stop(1, #ff0303));
+    background: -moz-linear-gradient(top, #ff0000 5%, #ff0303 100%);
+    background: -webkit-linear-gradient(top, #ff0000 5%, #ff0303 100%);
+    background: -o-linear-gradient(top, #ff0000 5%, #ff0303 100%);
+    background: -ms-linear-gradient(top, #ff0000 5%, #ff0303 100%);
+    background: linear-gradient(to bottom, #ff0000 5%, #ff0303 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#ff0303',GradientType=0);
+    background-color: #ff0000;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #942911;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: arial;
+    font-size: 13px;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #854629;
 }
-.myButton:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff0303), color-stop(1, #ff0000));
-	background:-moz-linear-gradient(top, #ff0303 5%, #ff0000 100%);
-	background:-webkit-linear-gradient(top, #ff0303 5%, #ff0000 100%);
-	background:-o-linear-gradient(top, #ff0303 5%, #ff0000 100%);
-	background:-ms-linear-gradient(top, #ff0303 5%, #ff0000 100%);
-	background:linear-gradient(to bottom, #ff0303 5%, #ff0000 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0303', endColorstr='#ff0000',GradientType=0);
-	background-color:#ff0303;
+
+    .myButton:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff0303), color-stop(1, #ff0000));
+        background: -moz-linear-gradient(top, #ff0303 5%, #ff0000 100%);
+        background: -webkit-linear-gradient(top, #ff0303 5%, #ff0000 100%);
+        background: -o-linear-gradient(top, #ff0303 5%, #ff0000 100%);
+        background: -ms-linear-gradient(top, #ff0303 5%, #ff0000 100%);
+        background: linear-gradient(to bottom, #ff0303 5%, #ff0000 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0303', endColorstr='#ff0000',GradientType=0);
+        background-color: #ff0303;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+
+#Quizes {
+    float: none;
+    width: 540px;
+    height: 100px;
+    padding: 20px 20px 20px 40px;
 }
-.myButton:active {
-	position:relative;
-	top:1px;
+
+.ImgQuiz {
+    width: 150px;
+    height: 100px;
+    float: left;
+    padding-left: 20px;
+    margin-bottom: 40px;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+#QuizInfo {
+    float: right;
 }

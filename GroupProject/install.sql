@@ -1588,6 +1588,7 @@ GROUP BY
 end
 go
 --select * from SD18EXAM_tbQuizStudent
+--update SD18EXAM_tbQuizStudent set Status=2 where QuizStudentid=10
 --SD18EXAM_spGetStudentResponseDetails @QuizStudentid=10, @Userid=4
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null,
@@ -1625,7 +1626,8 @@ where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	  SD18EXAM_tbQuizStudent.Userid = ISNULL(@Userid, SD18EXAM_tbQuizStudent.Userid) and
 	  SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 	  SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
+	  SD18EXAM_tbQuizStudent.Status = 2
 
 	  GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, 
 	  Lastname, StatusName, Points, SD18EXAM_tbQuizStudent.QuizStudentid ,
@@ -1636,6 +1638,7 @@ go
 
 select * from SD18EXAM_tbIssuedQuiz
 select * from SD18EXAM_tbUser
+select * from SD18EXAM_tbQuizStudentStatus
 go
 create procedure SD18EXAM_spActionQuiz(
 @IssuedQuizId int,
