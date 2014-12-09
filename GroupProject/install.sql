@@ -109,7 +109,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Alexis','Sandra','Alexis1',10,1,'Alexis.jpg','Alexis@robertsoncollege.net'),
 ('Scott','Anderson','Scott1',10,1,'Scott.jpg','Scott@robertsoncollege.net'),
 ('Cassandra','Morlin','Cassandra1',10,1,'Cassandra.jpg','Cassandra@robertsoncollege.net'),
-('RoseMarie','','RoseMarie1',11,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
+('RoseMarie','Santiago','RoseMarie1',11,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
 ('Andrew','Ong','Andrew1',11,1,'Andrew.jpg','Andrew.Ong@robertsoncollege.net'),
 ('Jezel','De Jesus','Jezel1',12,1,'Jezel.jpg','Jezel@robertsoncollege.net'),
 ('Rogelio','Bentura','Rogelio1',12,1,'Rogelio.jpg','Rogelio@robertsoncollege.net'),
@@ -160,13 +160,13 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Butch','Portento','Butch1',39,1,'Butch.jpg','Butch@robertsoncollege.net'),
 ('Aileen Tolentino','Aileen','Aileen1',40,1,'Aileen.jpg','Aileen@robertsoncollege.net'),
 ('Cassey','Ordonez','Cassey1',41,1,'Cassey.jpg','Cassey@robertsoncollege.net'),
-('Chito','	Corea','Chito1',42,1,'Chito.jpg','Chito@robertsoncollege.net'),
+('Chito','Corea','Chito1',42,1,'Chito.jpg','Chito@robertsoncollege.net'),
 ('Marisa','Galzote','Marisa1',43,1,'Marisa.jpg','Marisa@robertsoncollege.net'),
 ('Jayson','Del Rosario','Jayson1',44,1,'Jayson.jpg','Jayson@robertsoncollege.net'),
 ('Mary Ann','Reymundo','Mary Ann1',45,1,'Marry Ann.jpg','MaryAnn@robertsoncollege.net'),
-('Elenn',' Dizon','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
+('Elenn',' Amor','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
 ('Andrea','Zoom','Andrea1',46,1,'Andrea.jpg','Andrea@robertsoncollege.net'),
-('Judy ann','	Santos','Judy Ann1',46,1,'Judy Ann.jpg','JudyAnn@robertsoncollege.net'),
+('Judy ann','Santos','Judy Ann1',46,1,'Judy Ann.jpg','JudyAnn@robertsoncollege.net'),
 ('Regine','Velasques','Regine1',47,1,'Regine.jpg','Regine@robertsoncollege.net'),
 ('Patrick','Garcia','Patrick1',47,1,'Patrick.jpg','Patrick@robertsoncollege.net')
 go
@@ -814,7 +814,7 @@ as begin
 	      SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid
 end
 go
--- SD18EXAM_spGetClass @Classid = 1
+-- SD18EXAM_spGetClass @Courseid = 1
 go
 --Loads Class
 create procedure SD18EXAM_spGetClass(
@@ -1425,22 +1425,32 @@ as begin
 	select * from SD18EXAM_tbTestSample
 end 
 go
-
-
+--SD18EXAM_spGetSortColumn @SortColumn='Firstname asc', @SearchUserByCourse=0
+--select * from SD18EXAM_tbUser
+select * from SD18EXAM_tbCourse
+select * from SD18EXAM_tbClass
+go
 create procedure SD18EXAM_spGetSortColumn(
-@SortColumn varchar (60)
+@SortColumn varchar (60),
+@SearchText varchar(60) = null,
+@SearchUserByCourse varchar(60) = null,
+@SearchUserByClass varchar(60) = null
 )
 as begin
 select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, SD18EXAM_tbClass.Classid, SecurityLevel,Email from SD18EXAM_tbUser, SD18EXAM_tbCourse, SD18EXAM_tbClass
-	where SD18EXAM_tbUser.Classid = SD18EXAM_tbClass.Classid and
-		  SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid 
+	where SD18EXAM_tbUser.Classid =SD18EXAM_tbClass.Classid and SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid and SD18EXAM_tbClass.Classid = ISNULL(@SearchUserByClass,SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbClass.Courseid) and SD18EXAM_tbUser.Userid = SD18EXAM_tbUser.Userid
+	--and SD18EXAM_tbUser.Firstname like '%' + ISNULL(@SearchText,SD18EXAM_tbUser.Firstname)  + '%'
+	--where SD18EXAM_tbUser.Classid = ISNULL(@SearchUserByClass, SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbCourse.Courseid )
+		  
+		  --and SD18EXAM_tbUser.Firstname like '%' + @SearchText  + '%'
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
 case when @SortColumn='Password asc' then Password end asc,
 case when @SortColumn='Classid asc' then Classname end asc,
+case when @SortColumn= 'Coursename asc' then Coursename end asc,
 case when @SortColumn='SecurityLevel asc' then SecurityLevel end asc,
 case when @SortColumn='UserPicture asc' then UserPicture end asc,
 case when @SortColumn='Email asc' then Email end asc,
@@ -1450,6 +1460,7 @@ case when @SortColumn='Firstname desc' then Firstname end desc,
 case when @SortColumn='Lastname desc' then Lastname end desc,
 case when @SortColumn='Password desc' then Password end desc,
 case when @SortColumn='Classid desc' then Classname end desc,
+case when @SortColumn='Coursename desc' then Coursename end desc,
 case when @SortColumn='SecurityLevel desc' then SecurityLevel end desc,
 case when @SortColumn='UserPicture desc' then UserPicture end desc,
 case when @SortColumn='Email desc' then Email end desc
@@ -1462,11 +1473,14 @@ go
 create procedure SD18EXAM_spGetIssuedQuizes
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-       convert (varchar(12),DateIssued,107) as DateIssued, 
+       convert (varchar(12),DateIssued,107) as DateIssued, Title ,
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, Classname
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass,
+     SD18EXAM_tbXMLQuizContent
+     
 where SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
@@ -1476,14 +1490,16 @@ create procedure SD18EXAM_spGetQuizesByStatus(
 )
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-        convert (varchar(12),DateIssued,107) as DateIssued, 
+        convert (varchar(12),DateIssued,107) as DateIssued, Title,
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, SD18EXAM_tbClass.Classname,
 	   SD18EXAM_tbIssuedQuiz.QuizStatus, SD18EXAM_tbQuizStatus.StatusName
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbQuizStatus, SD18EXAM_tbClass
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, 
+     SD18EXAM_tbQuizStatus, SD18EXAM_tbClass, SD18EXAM_tbXMLQuizContent
 where SD18EXAM_tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
       SD18EXAM_tbIssuedQuiz.QuizStatus = SD18EXAM_tbQuizStatus.StatusId and
       SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
@@ -1572,6 +1588,7 @@ GROUP BY
 end
 go
 --select * from SD18EXAM_tbQuizStudent
+--update SD18EXAM_tbQuizStudent set Status=2 where QuizStudentid=10
 --SD18EXAM_spGetStudentResponseDetails @QuizStudentid=10, @Userid=4
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null,
@@ -1609,7 +1626,8 @@ where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	  SD18EXAM_tbQuizStudent.Userid = ISNULL(@Userid, SD18EXAM_tbQuizStudent.Userid) and
 	  SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 	  SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
+	  SD18EXAM_tbQuizStudent.Status = 2
 
 	  GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, 
 	  Lastname, StatusName, Points, SD18EXAM_tbQuizStudent.QuizStudentid ,
@@ -1620,6 +1638,7 @@ go
 
 select * from SD18EXAM_tbIssuedQuiz
 select * from SD18EXAM_tbUser
+select * from SD18EXAM_tbQuizStudentStatus
 go
 create procedure SD18EXAM_spActionQuiz(
 @IssuedQuizId int,
@@ -1689,6 +1708,56 @@ select Userid,Lastname + ', ' + Firstname as Name,Email,CAST(
 end
 go
 
+--select * from SD18EXAM_tbQuizStudent
+--select * from SD18EXAM_tbQuizStudentStatus
+-- SD18EXAM_spGetStudentsFromIssuedQuizID @IssuedQuizId=0
+create procedure SD18EXAM_spGetStudentsFromIssuedQuizID(
+@IssuedQuizId int
+)
+as begin
+	select SD18EXAM_tbQuizStudent.QuizStudentid, SD18EXAM_tbUser.Userid,SD18EXAM_tbUser.Lastname + ', ' + SD18EXAM_tbUser.Firstname as Name, SD18EXAM_tbQuizStudentStatus.StatusName from SD18EXAM_tbUser
+	join SD18EXAM_tbQuizStudent on SD18EXAM_tbUser.Userid = SD18EXAM_tbQuizStudent.Userid
+	join SD18EXAM_tbQuizStudentStatus on SD18EXAM_tbQuizStudentStatus.StatusId = SD18EXAM_tbQuizStudent.Status
+	where SD18EXAM_tbQuizStudent.IssuedQuizId = @IssuedQuizId
+end
+go
+--SD18EXAM_spStudentQuizInfoUser @QuizStudentid=1
+create procedure SD18EXAM_spUpdateQuizStudentStatus(
+@QuizStudentid int,
+@StatusId int
+)
+as declare
+@msg varchar(60)
+ begin
+begin transaction
+	update SD18EXAM_tbQuizStudent set Status=@StatusId where QuizStudentid=@QuizStudentid
+	set @msg = 'success'
+if @@ERROR != 0
+        begin
+            ROLLBACK TRANSACTION
+			select 'Failed' as status
+		end
+else
+	begin
+        commit transaction
+		select @msg as status
+    end
+end
+
+go
+create procedure SD18EXAM_spStudentQuizInfoUser(
+@QuizStudentid int
+)
+as begin
+	select * from SD18EXAM_tbQuizStudent, SD18EXAM_tbQuizStudentStatus where QuizStudentid=@QuizStudentid and Status=StatusId
+end
+go
+
+create procedure SD18EXAM_spGetQuizStudentStatus
+as begin
+	select * from SD18EXAM_tbQuizStudentStatus
+end
+go
 
 create procedure SD18EXAM_spAllocateStudent(
 @UserID int,

@@ -83,5 +83,10 @@ namespace GroupProject
 
             }
         }
+
+        protected void dlPendingQuiz_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

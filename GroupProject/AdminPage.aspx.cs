@@ -29,10 +29,14 @@ namespace GroupProject
                 loadNewCourse();
             }
         }
-        private void loadSelect()
+        private void loadSelect(string Classid = null, string Courseid = null)
         {
             myDal.ClearParams();
             myDal.AddParam("@SortColumn", myState.SortColumn + " " + myState.Direction);
+            if (Classid != null)
+                myDal.AddParam("@SearchUserByClass", Classid);
+            if (Courseid != null)
+                myDal.AddParam("@SearchUserByCourse", Courseid);
             gvSettings.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetSortColumn");
             gvSettings.DataBind();
         }
@@ -65,7 +69,7 @@ namespace GroupProject
             ddlClass.DataBind();
         }
         private void loadUsers(StateCookies myState)
-            //StateCookies myState
+        //StateCookies myState
         {
             //Security mySecurity = new Security();
             DataSet ds = new DataSet();
@@ -205,6 +209,20 @@ namespace GroupProject
             pnlManageUsers.Visible = true;
             pnlManageClass.Visible = false;
             pnlManageCourse.Visible = false;
+            myDal.ClearParams();
+            DataSet ds1 = myDal.ExecuteProcedure("SD18EXAM_spGetCourse");
+            ddlCourseUser.DataSource = ds1;
+            ddlCourseUser.DataValueField = "Courseid";
+            ddlCourseUser.DataTextField = "Coursename";
+            ddlCourseUser.DataBind();
+
+            myDal.ClearParams();
+            DataSet ds2 = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
+            ddlClassUser.DataSource = ds2;
+            ddlClassUser.DataValueField = "Classid";
+            ddlClassUser.DataTextField = "Classname";
+            ddlClassUser.DataBind();
+
         }
         protected void lbCourse_Click(object sender, EventArgs e)
         {
@@ -415,6 +433,35 @@ namespace GroupProject
                 Response.Write("<SCRIPT>alert('Transaction Failed')</SCRIPT>");
             loadSelectClass();
 
+        }
+
+        protected void ddlSearchBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSearchBy.SelectedItem.ToString() == "Course")
+            {
+                ddlCourseUser.Visible = true;
+                ddlClassUser.Visible = false;
+            }
+            else if (ddlSearchBy.SelectedItem.ToString() == "Class")
+            {
+                ddlCourseUser.Visible = false;
+                ddlClassUser.Visible = true;
+            }
+            else
+            {
+                ddlCourseUser.Visible = false;
+                ddlClassUser.Visible = false;
+            }
+        }
+
+        protected void ddlCourseUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadSelect(null, ddlCourseUser.SelectedValue.ToString());
+        }
+
+        protected void ddlClassUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadSelect(ddlClassUser.SelectedValue.ToString());
         }
 
 

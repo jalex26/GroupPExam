@@ -41,6 +41,7 @@ namespace GroupProject
             {
                 loadXML();
                 pnlQuizResult.Style.Add(HtmlTextWriterStyle.Display, "none");   //hide the result panel
+                pnlQuizItem.Style.Add(HtmlTextWriterStyle.Display, "block");
             }
         }
         private void loadXML()
@@ -67,6 +68,15 @@ namespace GroupProject
             }
             XMLquiz.TransformSource = "Quiz.xsl";
 
+        }
+
+        protected void btnFinish_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
+            {
+
+            }
         }
 
     }

@@ -11,7 +11,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <script type="text/javascript" >
+    <script type="text/javascript">
 
         function HideMPE() {
             $find("mpeView").hide();
@@ -71,6 +71,8 @@
         <asp:Panel ID="Panel2" HorizontalAlign="Center" Font-Size="Medium" Font-Italic="true" runat="server">
             <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
         </asp:Panel>
+        <br />
+        <br />
 
         <asp:Panel ID="pnlIssuedQuizes" runat="server">
             <asp:GridView ID="gvIssuedQuizes"
@@ -92,6 +94,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="IssuedQuizId" HeaderText="Quiz ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Versionid" HeaderText="Version" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="DateIssued" HeaderText="Date Issued" />
@@ -242,33 +245,46 @@
                 <hr />
                 Part I: Multiple Choice
                 <hr />
-                <asp:DataList ID="DLViewResponseReport" width="100%" runat="server">
+                <asp:DataList ID="DLViewResponseReport" Width="100%" runat="server" Style="margin-bottom: 0px">
                     <HeaderTemplate>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>'>
+                        <asp:Repeater ID="rptMultiple" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question", ns) %>' OnItemDataBound="rptMultiple_ItemDataBound">
                             <ItemTemplate>
-                                <h4>QuestionID: <%# XPath("@ID") %><br />
+                                <asp:Panel ID="pnlQuestion" runat="server" BorderStyle="Solid">
+                                    <h4>QuestionID: <%# XPath("@ID") %><br />
 
-                                    Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                        Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
 
-                                </h4>
-                                <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
-                                    <ItemTemplate>
-                                        Option: <%# XPath(".") %>
-                                        <br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                                    </h4>
+                                    <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                        <ItemTemplate>
+                                            Option: <%# XPath(".") %>
+                                            <br />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
-                                    <ItemTemplate>
-                                        Correct Answer: <%# XPath("..") %>
-                                        <br />
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                                    <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>' OnItemDataBound="rpt3_ItemDataBound">
+                                        <ItemTemplate>
+                                            Correct Answer: 
+                                            <asp:Label ID="lblAnswer" runat="server" Text='<%# XPath("..") %>'></asp:Label>
+                                            <br />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                <h4>Student Answer: <%#XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%></h4>
+                                    <%--<h4>Student Answer: 
+                          <%# XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%> </h4>--%>
 
+                                    <asp:Repeater ID="rptStudentAnswer" runat="server" DataSource='<%# XPathSelect("ns:UserAnswer",ns) %>' OnItemDataBound="rptStudentAnswer_ItemDataBound">
+                                        <ItemTemplate>
+                                            <h4>Student Answer: 
+                                                <asp:Label ID="lblStudentAnswer" runat="server" Text='<%# XPath(".") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+
+
+                                    <%--<asp:Label ID="lblStuAnswer" runat="server" Text='<%# XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%> '></asp:Label>--%>
+                                </asp:Panel>
                             </ItemTemplate>
                             <SeparatorTemplate>
                                 <hr style="border: solid 2px #c0c0c0" />
@@ -282,26 +298,35 @@
                 <asp:DataList ID="DLViewResponseReportFillin" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
-                        <asp:Repeater ID="rptFillBlanks" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns) %>'>
+                        <asp:Repeater ID="rptFillBlanks" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:FillBlanks/ns:Question", ns) %>' OnItemDataBound="rptFillBlanks_ItemDataBound">
                             <ItemTemplate>
-                                <h4>QuestionID: <%# XPath("@ID") %><br />
-                                    Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
-                                </h4>
-                                <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                <asp:Panel ID="pnlQuestion" runat="server" BorderStyle="Solid">
+                                    <h4>QuestionID: <%# XPath("@ID") %><br />
+                                        Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                    </h4>
+                                    <asp:Repeater ID="rpt2" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option",ns) %>'>
+                                        <ItemTemplate>
+                                            Option: <%# XPath(".") %>
+                                            <br />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    Correct Answer(s): 
+                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>' OnItemDataBound="rpt3Fill_ItemDataBound">
                                     <ItemTemplate>
-                                        Option: <%# XPath(".") %>
-                                        <br />
+                                        <asp:Label ID="lblFillCorrectAns" runat="server" Text='<%# XPath("..") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:Repeater>
-                                Correct Answer(s): 
-                                <asp:Repeater ID="rpt3" runat="server" DataSource='<%# XPathSelect("ns:Options/ns:Option/@Correct",ns) %>'>
-                                    <ItemTemplate>
-                                        <%# XPath("..") %>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                                <h4>Student Answer: <%#XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%></h4>
 
-                                <br />
+                                    <asp:Repeater ID="rptFillInUserAns" runat="server" DataSource='<%# XPathSelect("ns:UserAnswer",ns) %>' OnItemDataBound="rptFillInUserAns_ItemDataBound">
+                                        <ItemTemplate>
+                                            <h4>Student Answer:
+                                                <asp:Label ID="lblFillInUserAns" runat="server" Text='<%# XPath(".") %>'></asp:Label></h4>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+
+
+                                    <br />
+                                </asp:Panel>
                             </ItemTemplate>
                             <SeparatorTemplate>
                                 <hr style="border: solid 2px #c0c0c0" />
@@ -318,16 +343,32 @@
                 <asp:DataList ID="DLViewResponseReportTrueFalse" Width="100%" runat="server">
                     <HeaderTemplate />
                     <ItemTemplate>
-                        <asp:Repeater ID="rptTrueFalse" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns) %>'>
+                        <asp:Repeater ID="rptTrueFalse" runat="server" DataSource='<%# XPathSelect("//ns:Quiz/ns:Questions/ns:TrueFalse/ns:Question", ns) %>' OnItemDataBound="rptTrueFalse_ItemDataBound">
                             <ItemTemplate>
-                                <h4>QuestionID: <%# XPath("@ID") %><br />
-                                    Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
-                                </h4>
+                                <asp:Panel ID="pnlQuestion" runat="server" BorderStyle="Solid">
+                                    <h4>QuestionID: <%# XPath("@ID") %><br />
+                                        Question: <%#XPath("*[local-name()='Questi' and namespace-uri()='urn:Question-Schema']")%>
+                                    </h4>
 
-                                Answer: <%#XPath("*[local-name()='Answer' and namespace-uri()='urn:Question-Schema']")%>
-                                <h4>Student Answer: <%#XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%></h4>
+                                    <asp:Repeater ID="rptTrueFalseCorAns" runat="server" DataSource='<%# XPathSelect("ns:Answer",ns) %>' OnItemDataBound="rptTrueFalseCorAns_ItemDataBound">
+                                        <ItemTemplate>
+                                            <h4>Answer :
+                                                <asp:Label ID="lblTrueFalseCorrecAns" runat="server" Text='<%# XPath(".") %>'></asp:Label></h4>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                <br />
+                                    <%--Answer: <%#XPath("*[local-name()='Answer' and namespace-uri()='urn:Question-Schema']")%>--%>
+
+                                    <asp:Repeater ID="rptTrueFalseUserAns" runat="server" DataSource='<%# XPathSelect("ns:UserAnswer",ns) %>' OnItemDataBound="rptTrueFalseUserAns_ItemDataBound">
+                                        <ItemTemplate>
+                                            <h4>Student Answer:
+                                                <asp:Label ID="lblTrueFalseUserAns" runat="server" Text='<%# XPath(".") %>'></asp:Label></h4>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <%--<h4>Student Answer: <%#XPath("*[local-name()='UserAnswer' and namespace-uri()='urn:Question-Schema']")%></h4>--%>
+
+                                    <br />
+                                </asp:Panel>
                             </ItemTemplate>
                             <SeparatorTemplate>
                                 <hr style="border: solid 2px #c0c0c0" />
@@ -337,7 +378,7 @@
                 </asp:DataList>
             </div>
             <asp:Button ID="btnClose2" Text="Close" OnClick="btnClose2_Click" OnClientClick="return HideMPE()" runat="server" />
-            
+
         </asp:Panel>
 
 

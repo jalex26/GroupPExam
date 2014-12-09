@@ -29,7 +29,8 @@ namespace GroupProject
             if (!IsPostBack)
             {
                 loadCourse();
-
+                loadStatus();
+                
             }
         }
         private void loadCourse()
@@ -41,6 +42,16 @@ namespace GroupProject
             ddlCourse.DataBind();
             ddlCourse.Items.Insert(0, new ListItem("-Select Course-", String.Empty));
             ddlCourse.SelectedIndex = 0;
+        }
+
+        private void loadStatus()
+        {
+            //load statuses
+            myDal.ClearParams();
+            ddlQuizStudentStatus.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetQuizStudentStatus");
+            ddlQuizStudentStatus.DataTextField = "StatusName";
+            ddlQuizStudentStatus.DataValueField = "StatusId";
+            ddlQuizStudentStatus.DataBind();
         }
 
         public void loadQuiz()
@@ -70,11 +81,13 @@ namespace GroupProject
 
         public void ViewQuiz()
         {
+            pnlViewQuiz.Visible = true; 
             DataSet ds = new DataSet();
             myDal.ClearParams();
             ds = myDal.ExecuteProcedure("SD18EXAM_spViewQuiz");
             gvViewQuiz.DataSource = ds;
             gvViewQuiz.DataBind();
+                   
         }
 
         protected void btnIssueQuiz_Click(object sender, EventArgs e)
@@ -92,6 +105,7 @@ namespace GroupProject
             //Response.Redirect("MentorPage.aspx");
             pnlUploadQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlDownload.Visible = false;
@@ -100,13 +114,18 @@ namespace GroupProject
 
         protected void btnViewQuiz_Click(object sender, EventArgs e)
         {
-            pnlDownload.Visible = false;
-            pnlViewQuiz.Visible = true;
+           
+            pnlDownload.Visible = false;           
             pnlIssueQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             pnlStartQuiz.Visible = false;
             pnlAllocateStudents.Visible = false;
+           
+            pnlViewQuiz.Visible = true;
+            pnlViewExam.Visible = true;
+            gvViewQuiz.Visible = true;
             ViewQuiz();
+          
         }
 
         // method to remove all namespaces from xml document
@@ -285,6 +304,7 @@ namespace GroupProject
             DLExamDemoTrueFalse.DataSource = QuizNode;
             DLExamDemoTrueFalse.DataBind();
             MPE1.Show();
+          
 
         }
 
@@ -394,9 +414,18 @@ namespace GroupProject
             pnlAllocateStudents.Visible = false;
             pnlStartQuiz.Visible = true;
             pnlIssueQuiz.Visible = false;
+            pnlViewQuiz.Visible = false;
             pnlUploadQuiz.Visible = false;
             gvViewQuiz.Visible = false;
             pnlDownload.Visible = false;
+            LoadQuizStatus();
+           
+        }
+
+        private void LoadQuizStatus()
+        {
+            gvQuizes.DataSource = null;
+
             myDal.ClearParams();
             myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetIssuedQuizByMentor");
@@ -406,8 +435,8 @@ namespace GroupProject
                 gvQuizes.DataSource = ds.Tables[0];
                 gvQuizes.DataBind();
 
-            }
 
+            }
         }
 
         protected void gvQuizes_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -435,6 +464,18 @@ namespace GroupProject
                     lblClass.Text = ds.Tables[0].Rows[0]["Classname"].ToString();
                     lblStatus.Text = ds.Tables[0].Rows[0]["StatusName"].ToString();
 
+                    //load Student
+                    //ddlActionQuizStudent
+                    myDal.ClearParams();
+                    myDal.AddParam("@IssuedQuizId", IssuedQuizId);
+                    ddlActionQuizStudent.DataSource = myDal.ExecuteProcedure("SD18EXAM_spGetStudentsFromIssuedQuizID");
+                    ddlActionQuizStudent.DataTextField = "Name";
+                    ddlActionQuizStudent.DataValueField = "QuizStudentid";
+                    ddlActionQuizStudent.DataBind();
+                    ddlActionQuizStudent.Items.Insert(0, new ListItem("Please select", "-1"));
+
+                    
+                    //SD18EXAM_spGetStudentResponseDetails
                     MPEQuizAction.Show();
                 }
             }
@@ -453,15 +494,21 @@ namespace GroupProject
         protected void btnClosePopUp_Click(object sender, EventArgs e)
         {
             MPEQuizAction.Hide();
+            
         }
 
         protected void btnStart_Click(object sender, EventArgs e)
         {
             //MPEQuizAction.Show();
+
             myDal.ClearParams();
             myDal.AddParam("@IssuedQuizId", lblIssuedQuizId.Text);
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStartQuiz");
             PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
+
+
+            LoadQuizStatus();
+           
 
         }
 
@@ -618,6 +665,43 @@ namespace GroupProject
                     Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
                 }
             }
+        }
+
+        protected void ddlActionQuizStudent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlActionQuizStudent.SelectedIndex != -1 || ddlActionQuizStudent.SelectedValue != "-1")
+            {
+                myDal.ClearParams();
+                myDal.AddParam("@QuizStudentid", ddlActionQuizStudent.SelectedValue.ToString());
+                DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spStudentQuizInfoUser");
+                ddlActionQuizStudent.SelectedIndex = ddlActionQuizStudent.Items.IndexOf(ddlActionQuizStudent.Items.FindByText(ds.Tables[0].Rows[0]["StatusName"].ToString()));
+
+            }
+            MPEQuizAction.Show();
+        }
+
+        protected void btnAcceptChanges_Click(object sender, EventArgs e)
+        {
+             string confirmValue = Request.Form["confirm_value"];
+             if (confirmValue == "Yes")
+             {
+                 myDal.ClearParams();
+                 myDal.AddParam("@QuizStudentid", ddlActionQuizStudent.SelectedValue.ToString());
+                 myDal.AddParam("@StatusId", ddlQuizStudentStatus.SelectedValue.ToString());
+                 DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spUpdateQuizStudentStatus");
+                 if (ds.Tables[0].Rows[0]["status"].ToString() == "success")
+                 {
+                     Response.Write("<SCRIPT>alert('Student quiz status change SUCCESSFULL')</SCRIPT>");
+                 }
+                 else
+                     Response.Write("<SCRIPT>alert('Student quiz status change FAILED')</SCRIPT>");
+             }
+
+        }
+
+        protected void btnCancelChanges_Click(object sender, EventArgs e)
+        {
+            MPEQuizAction.Hide();
         }
 
     }
