@@ -109,7 +109,7 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Alexis','Sandra','Alexis1',10,1,'Alexis.jpg','Alexis@robertsoncollege.net'),
 ('Scott','Anderson','Scott1',10,1,'Scott.jpg','Scott@robertsoncollege.net'),
 ('Cassandra','Morlin','Cassandra1',10,1,'Cassandra.jpg','Cassandra@robertsoncollege.net'),
-('RoseMarie','','RoseMarie1',11,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
+('RoseMarie','Santiago','RoseMarie1',11,1,'RoseMarie.jpg','RoseMarie@robertsoncollege.net'),
 ('Andrew','Ong','Andrew1',11,1,'Andrew.jpg','Andrew.Ong@robertsoncollege.net'),
 ('Jezel','De Jesus','Jezel1',12,1,'Jezel.jpg','Jezel@robertsoncollege.net'),
 ('Rogelio','Bentura','Rogelio1',12,1,'Rogelio.jpg','Rogelio@robertsoncollege.net'),
@@ -160,13 +160,13 @@ insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,Us
 ('Butch','Portento','Butch1',39,1,'Butch.jpg','Butch@robertsoncollege.net'),
 ('Aileen Tolentino','Aileen','Aileen1',40,1,'Aileen.jpg','Aileen@robertsoncollege.net'),
 ('Cassey','Ordonez','Cassey1',41,1,'Cassey.jpg','Cassey@robertsoncollege.net'),
-('Chito','	Corea','Chito1',42,1,'Chito.jpg','Chito@robertsoncollege.net'),
+('Chito','Corea','Chito1',42,1,'Chito.jpg','Chito@robertsoncollege.net'),
 ('Marisa','Galzote','Marisa1',43,1,'Marisa.jpg','Marisa@robertsoncollege.net'),
 ('Jayson','Del Rosario','Jayson1',44,1,'Jayson.jpg','Jayson@robertsoncollege.net'),
 ('Mary Ann','Reymundo','Mary Ann1',45,1,'Marry Ann.jpg','MaryAnn@robertsoncollege.net'),
-('Elenn',' Dizon','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
+('Elenn',' Amor','Elenn1',45,1,'Elenn.jpg','Elenn@robertsoncollege.net'),
 ('Andrea','Zoom','Andrea1',46,1,'Andrea.jpg','Andrea@robertsoncollege.net'),
-('Judy ann','	Santos','Judy Ann1',46,1,'Judy Ann.jpg','JudyAnn@robertsoncollege.net'),
+('Judy ann','Santos','Judy Ann1',46,1,'Judy Ann.jpg','JudyAnn@robertsoncollege.net'),
 ('Regine','Velasques','Regine1',47,1,'Regine.jpg','Regine@robertsoncollege.net'),
 ('Patrick','Garcia','Patrick1',47,1,'Patrick.jpg','Patrick@robertsoncollege.net')
 go
@@ -814,7 +814,7 @@ as begin
 	      SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid
 end
 go
--- SD18EXAM_spGetClass @Classid = 1
+-- SD18EXAM_spGetClass @Courseid = 1
 go
 --Loads Class
 create procedure SD18EXAM_spGetClass(
@@ -1425,22 +1425,32 @@ as begin
 	select * from SD18EXAM_tbTestSample
 end 
 go
-
-
+--SD18EXAM_spGetSortColumn @SortColumn='Firstname asc', @SearchUserByCourse=0
+--select * from SD18EXAM_tbUser
+select * from SD18EXAM_tbCourse
+select * from SD18EXAM_tbClass
+go
 create procedure SD18EXAM_spGetSortColumn(
-@SortColumn varchar (60)
+@SortColumn varchar (60),
+@SearchText varchar(60) = null,
+@SearchUserByCourse varchar(60) = null,
+@SearchUserByClass varchar(60) = null
 )
 as begin
 select './Pictures/' + UserPicture as UserPicture,
 	Userid,Lastname, Classname, Coursename,
 	Firstname,Password, SD18EXAM_tbClass.Classid, SecurityLevel,Email from SD18EXAM_tbUser, SD18EXAM_tbCourse, SD18EXAM_tbClass
-	where SD18EXAM_tbUser.Classid = SD18EXAM_tbClass.Classid and
-		  SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid 
+	where SD18EXAM_tbUser.Classid =SD18EXAM_tbClass.Classid and SD18EXAM_tbClass.Courseid = SD18EXAM_tbCourse.Courseid and SD18EXAM_tbClass.Classid = ISNULL(@SearchUserByClass,SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbClass.Courseid) and SD18EXAM_tbUser.Userid = SD18EXAM_tbUser.Userid
+	--and SD18EXAM_tbUser.Firstname like '%' + ISNULL(@SearchText,SD18EXAM_tbUser.Firstname)  + '%'
+	--where SD18EXAM_tbUser.Classid = ISNULL(@SearchUserByClass, SD18EXAM_tbClass.Classid) and SD18EXAM_tbClass.Courseid = ISNULL(@SearchUserByCourse,SD18EXAM_tbCourse.Courseid )
+		  
+		  --and SD18EXAM_tbUser.Firstname like '%' + @SearchText  + '%'
 order by
 case when @SortColumn='Firstname asc' then Firstname end asc,
 case when @SortColumn='Lastname asc' then Lastname end asc,
 case when @SortColumn='Password asc' then Password end asc,
 case when @SortColumn='Classid asc' then Classname end asc,
+case when @SortColumn= 'Coursename asc' then Coursename end asc,
 case when @SortColumn='SecurityLevel asc' then SecurityLevel end asc,
 case when @SortColumn='UserPicture asc' then UserPicture end asc,
 case when @SortColumn='Email asc' then Email end asc,
@@ -1450,6 +1460,7 @@ case when @SortColumn='Firstname desc' then Firstname end desc,
 case when @SortColumn='Lastname desc' then Lastname end desc,
 case when @SortColumn='Password desc' then Password end desc,
 case when @SortColumn='Classid desc' then Classname end desc,
+case when @SortColumn='Coursename desc' then Coursename end desc,
 case when @SortColumn='SecurityLevel desc' then SecurityLevel end desc,
 case when @SortColumn='UserPicture desc' then UserPicture end desc,
 case when @SortColumn='Email desc' then Email end desc
