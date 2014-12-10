@@ -38,26 +38,34 @@
 
             <br />
             <br />
+       
+            <asp:Panel ID="pnlAdditionalDetailsOuter" HorizontalAlign="Center" CssClass="pnlAdditionalDetails" runat="server">
 
-            <asp:Panel ID="pnlAdditionalDetails" Visible="false" runat="server">
+            <asp:Panel ID="pnlCourse" Visible="false" runat="server" Height="31px" Width="385px">
                 Select Course:
                 <asp:DropDownList ID="ddlCourse" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged" AutoPostBack="true" runat="server">
                 </asp:DropDownList>
-
+                   </asp:Panel>
+         
+                 <asp:Panel ID="pnlClass" Visible="false" runat="server" Height="35px" Width="250px">
                 <asp:Label ID="lblClass" runat="server" Text="Select Class:"></asp:Label>
                 <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server">
                 </asp:DropDownList>
+            </asp:Panel>
 
-                <br />
-                <br />
+             <asp:Panel ID="pnlQuiz" Visible="false" runat="server" Height="35px" Width="250px">
                 Select Quiz:
             <asp:DropDownList ID="ddlQuiz" OnSelectedIndexChanged="ddlQuiz_SelectedIndexChanged" AutoPostBack="true" runat="server">
             </asp:DropDownList>
-
+            </asp:Panel>
+            
+            <asp:Panel ID="pnlVersion" Visible="false" runat="server" Height="35px" Width="235px">
                 Select Version:
                    <asp:DropDownList ID="ddlVersion" runat="server">
                    </asp:DropDownList>
-            </asp:Panel>
+         </asp:Panel>
+                </asp:Panel>
+             
             <br />
             <br />
             Click the View Report Button to Get Data:
@@ -94,6 +102,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="IssuedQuizId" HeaderText="Quiz ID" />
+                    <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Title" HeaderText="Quiz Title" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Versionid" HeaderText="Version" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="DateIssued" HeaderText="Date Issued" />

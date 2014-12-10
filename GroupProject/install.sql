@@ -222,9 +222,8 @@ insert into SD18EXAM_tbQuizStudentStatus values
 ('Completed'),			--2
 ('Ongoing')				--3
 
-----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table SD18EXAM_tbXMLQuizContent(
-XMLQuizID int primary key,    --extracting it from the XML file    
+XMLQuizID int primary key,    --extracting from the XML file    
 Title varchar(60),
 Subject varchar(60),
 CourseID int foreign key references SD18EXAM_tbCourse(Courseid),
@@ -424,15 +423,6 @@ create procedure SD18EXAM_spIssueNewQuizStudent(
 as
  begin
 begin transaction
-
-	--set @getxml = (select SD18EXAM_tbQuizVersion.XmlFile from SD18EXAM_tbIssuedQuiz
-	--join SD18EXAM_tbQuizVersion on SD18EXAM_tbQuizVersion.Versionid = SD18EXAM_tbIssuedQuiz.Versionid
-	--where SD18EXAM_tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
-
-	--;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
-	--(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
-	--select @getxml as XML, @xmlMultipleCount as MultipleCount
-	
 	if not EXISTS(select * from SD18EXAM_tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId and Status != 0)
 	begin
 		insert into SD18EXAM_tbQuizStudent values (@IssuedQuizId,@UserId,@XMLStudentResponse,0,null, getdate())

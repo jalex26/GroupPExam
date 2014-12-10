@@ -188,7 +188,7 @@
                 PagerStyle-CssClass="pgr"
                 AutoGenerateColumns="false"
                 DataKeyNames="IssuedQuizId"
-                OnRowCommand="gvQuizes_RowCommand">
+                OnRowCommand="gvQuizes_RowCommand" Height="100px">
                 <Columns>
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="Classname" HeaderText="Class" />
                     <asp:BoundField HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataField="QuizId" HeaderText="Quiz ID" />
@@ -384,9 +384,12 @@
                 </Columns>
             </asp:GridView>
             <hr />
-            Assign to Class: &nbsp 
+            <asp:Panel ID="pnlAddToClass" runat="server" Visible="false">
+                Assign to Class: &nbsp 
             <asp:DropDownList ID="ddlAssignClass" runat="server" AutoPostBack="true"></asp:DropDownList>
             <asp:Button ID="btnAccept" runat="server" Text="Submit" OnClick="btnAccept_Click" OnClientClick="ConfirmAllocateStudents()" />
+            </asp:Panel>
+            
         </asp:Panel>
 
         <asp:Panel ID="pnlViewExam" ScrollBars="Auto" BorderColor="White" runat="server" CssClass="ModalPopUp">

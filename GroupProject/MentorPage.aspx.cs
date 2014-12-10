@@ -391,11 +391,11 @@ namespace GroupProject
 
             //string QuizTitle =  gvViewQuiz.SelectedRow.Cells[3].Text;
 
-            string filePath = Server.MapPath(DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml");
+            string filePath = Server.MapPath(DateTime.Now.ToString("yyyyMMddHHmmss") + ".xqz");
 
             XmlDoc.Save(filePath);
 
-            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml";
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".xqz";
 
             Response.AppendHeader("content-disposition", "attachment; filename=" + fileName);
 
@@ -425,6 +425,7 @@ namespace GroupProject
         private void LoadQuizStatus()
         {
             gvQuizes.DataSource = null;
+            gvQuizes.DataBind();
 
             myDal.ClearParams();
             myDal.AddParam("@Userid", HttpContext.Current.Session["Userid"].ToString());
@@ -542,8 +543,11 @@ namespace GroupProject
                         Response.Write("<SCRIPT>alert('Error(s) Found.')</SCRIPT>");
                         break;
                 }
+                
             }
+            PopUpQuizAction(Convert.ToInt32(lblIssuedQuizId.Text));
             MPEQuizAction.Show();
+            LoadQuizStatus();
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -571,24 +575,32 @@ namespace GroupProject
                             break;
                     }
                 }
+                
             }
             else
             {
                 MPEQuizAction.Show();
             }
-
+            LoadQuizStatus();
         }
-
-        protected void btnAllocateStudents_Click(object sender, EventArgs e)
+        private void refreshStudentGrid()
         {
-
+            pnlAddToClass.Visible = false;
+            gvAllocateStudents.DataSource = null;
+            gvAllocateStudents.DataBind();
             myDal.ClearParams();
             DataSet ds = myDal.ExecuteProcedure("SD18EXAM_spGetUnAssignedStudents");
             if (ds.Tables[0].Rows.Count != 0)
             {
                 gvAllocateStudents.DataSource = ds.Tables[0];
                 gvAllocateStudents.DataBind();
+                pnlAddToClass.Visible = true;
             }
+        }
+        protected void btnAllocateStudents_Click(object sender, EventArgs e)
+        {
+            refreshStudentGrid();
+            DataSet ds = new DataSet();
             myDal.ClearParams();
             ds.Clear();
             ds = myDal.ExecuteProcedure("SD18EXAM_spGetClass");
@@ -665,6 +677,7 @@ namespace GroupProject
                     Response.Write("<SCRIPT>alert('Please select class to assign')</SCRIPT>");
                 }
             }
+            refreshStudentGrid();
         }
 
         protected void ddlActionQuizStudent_SelectedIndexChanged(object sender, EventArgs e)

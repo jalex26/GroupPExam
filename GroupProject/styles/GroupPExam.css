@@ -219,7 +219,7 @@
 body {
     /*background:#fff url(images/body.gif) repeat-x 0 0;*/
     font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 14px;
+    font-size: 14px !important;
     line-height: 16px;
     color: #636363;
 }
@@ -563,6 +563,8 @@ box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);*/
     margin: 5px 0 10px 0;
     border: solid 1px #525252;
     border-collapse: collapse;
+    height: 100px !important;
+    /*display: inline !important;*/
 }
 
     .mGrid td {
@@ -577,7 +579,7 @@ box-shadow: 10px 10px 8px 3px rgba(61,61,61,1);*/
         background: #e3170d url(~/Pictures/grd_head.png) repeat-x top;
         border-left: solid 1px #525252;
         font-size: 0.9em;
-        box-shadow: 10px 10px 5px #424242;
+        /*box-shadow: 10px 10px 5px #424242;*/
     }
 
     .mGrid .alt {

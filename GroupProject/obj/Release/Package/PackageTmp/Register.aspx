@@ -68,7 +68,7 @@
             <tr>
                 <td>Password:</td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox> 
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox> 
                 </td>
                 <td>
                     <asp:RequiredFieldValidator
@@ -83,10 +83,12 @@
             <tr>
                 <td>Re-type Password:</td>
                 <td>
-                    <asp:TextBox ID="txtRePassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtRePassword" runat="server" TextMode="Password"></asp:TextBox>
                 </td>
                 <td>
                     <asp:CompareValidator ID="CMPPass" runat="server" ErrorMessage="*Password do not match" ControlToValidate="txtRePassword" ControlToCompare="txtPassword" ValidationGroup="ValGroupRegister" ForeColor="Red"></asp:CompareValidator>
+                    <asp:RequiredFieldValidator ID="rfvRePass" runat="server" ErrorMessage="*Required" ControlToValidate="txtRePassword" EnableClientScript="False"
+                        ForeColor="Red" ValidationGroup="ValGroupRegister"></asp:RequiredFieldValidator>
                 </td>
             </tr>
 
