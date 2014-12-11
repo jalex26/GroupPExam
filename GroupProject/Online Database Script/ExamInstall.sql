@@ -1,12 +1,3 @@
-﻿use master
-go
-drop database Exam
-go
-create database Exam
-go
-use Exam
-go
-
 create table SD18EXAM_tbCourse(
 Courseid int primary key identity(0,1),
 Coursename varchar(60)
@@ -71,7 +62,7 @@ IsActivated bit
 go
 
 insert into SD18EXAM_tbUser(Firstname,Lastname,Password,Classid,SecurityLevel,UserPicture,Email)values
-('Kevin','Coliat','Kevin1',null,3,'kevin.jpg','kevin.coliat@robertsoncollege.net'),
+('Kevin','Coliat','Kevin1',null,3,'kevin.jpg','kevin.coliat1@robertsoncollege.net'),
 ('Doug','Jackson','pass',null,2,'SamplePicture2.jpg','Doug@yahoo.com'),
 ('Scott','Wachal','pass',null,2,'SamplePicture2.jpg','Scott@yahoo.com'),
 ('Jane','Doe','pass',0,1,'SamplePicture2.jpg','Jane@yahoo.com'),

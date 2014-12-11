@@ -103,11 +103,8 @@
                     isDone = true;
                     $('input[name=back]').hide();
                     $('input[name=next]').hide();
-                    //$('input[id=XMLquiz]').hide();
                     $('#<%= pnlQuizItem.ClientID %>').toggle()
                     $('#<%= pnlQuizResult.ClientID %>').toggle()
-<%--                    $('#<%= lblTotal.ClientID %>').text(totalQuestions);
-                    $('#<%= lblScore.ClientID %>').text(result);--%>
                     SendToServerAndStatus();
                 }
 
@@ -161,6 +158,7 @@
                             $($questions.get(currentQuestion)).fadeIn();
                             //do stuff with the result
                             //alert(result);
+                            
                         } else {
                             $($questions.get(currentQuestion)).fadeIn();
                         }

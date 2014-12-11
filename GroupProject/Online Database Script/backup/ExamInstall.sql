@@ -1,11 +1,3 @@
-﻿use master
-go
-drop database Exam
-go
-create database Exam
-go
-use Exam
-go
 
 create table SD18EXAM_tbCourse(
 Courseid int primary key identity(0,1),
@@ -222,8 +214,9 @@ insert into SD18EXAM_tbQuizStudentStatus values
 ('Completed'),			--2
 ('Ongoing')				--3
 
+----testing xml datatype here to save uploaded quizzes----plz don't delete yet// thanks Nupur
 create table SD18EXAM_tbXMLQuizContent(
-XMLQuizID int primary key,    --extracting from the XML file    
+XMLQuizID int primary key,    --extracting it from the XML file    
 Title varchar(60),
 Subject varchar(60),
 CourseID int foreign key references SD18EXAM_tbCourse(Courseid),
@@ -331,22 +324,22 @@ else
 
 end
 go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /></Questions></Quiz>'
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /></Questions></Quiz>'
 go
 select * from SD18EXAM_tbDifficulty
 select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbCourse
 select * from SD18EXAM_tbQuizVersion
 go
--- SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="516992" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>NewTestData</Title><Subject>LOL</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Advanced</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>a1</Questi><Options><Option>a</Option><Option>b</Option><Option Correct="yes">c</Option><Option>d</Option></Options></Question><Question ID="2"><Questi>a2</Questi><Options><Option>b</Option><Option>a</Option><Option Correct="yes">a</Option><Option>se</Option></Options></Question><Question ID="3"><Questi>a4</Questi><Options><Option Correct="yes">123</Option><Option>123as</Option><Option>dase</Option><Option>weq</Option></Options></Question><Question ID="4"><Questi>a4</Questi><Options><Option>aa</Option><Option Correct="yes">raa</Option><Option>qwesa</Option><Option>12</Option></Options></Question><Question ID="5"><Questi>a5</Questi><Options><Option>31</Option><Option>115</Option><Option>2as</Option><Option Correct="yes">eaqe</Option></Options></Question></MultipleChoice><FillBlanks><Question ID="6"><Questi>123 + 1 =________________ </Questi><Options><Option Correct="yes">124</Option><Option Correct="yes">1</Option><Option>-1</Option><Option>-45</Option></Options></Question><Question ID="7"><Questi> ________________ is good</Questi><Options><Option Correct="yes">God</Option><Option>waesd</Option><Option>zxc</Option><Option>ad</Option><Option>zxczda</Option></Options></Question></FillBlanks><TrueFalse><Question ID="8"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="9"><Questi>false is correct</Questi><Answer>False</Answer></Question><Question ID="10"><Questi>true?</Questi><Answer>True</Answer></Question></TrueFalse></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+ SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="516992" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>NewTestData</Title><Subject>LOL</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Advanced</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>a1</Questi><Options><Option>a</Option><Option>b</Option><Option Correct="yes">c</Option><Option>d</Option></Options></Question><Question ID="2"><Questi>a2</Questi><Options><Option>b</Option><Option>a</Option><Option Correct="yes">a</Option><Option>se</Option></Options></Question><Question ID="3"><Questi>a4</Questi><Options><Option Correct="yes">123</Option><Option>123as</Option><Option>dase</Option><Option>weq</Option></Options></Question><Question ID="4"><Questi>a4</Questi><Options><Option>aa</Option><Option Correct="yes">raa</Option><Option>qwesa</Option><Option>12</Option></Options></Question><Question ID="5"><Questi>a5</Questi><Options><Option>31</Option><Option>115</Option><Option>2as</Option><Option Correct="yes">eaqe</Option></Options></Question></MultipleChoice><FillBlanks><Question ID="6"><Questi>123 + 1 =________________ </Questi><Options><Option Correct="yes">124</Option><Option Correct="yes">1</Option><Option>-1</Option><Option>-45</Option></Options></Question><Question ID="7"><Questi> ________________ is good</Questi><Options><Option Correct="yes">God</Option><Option>waesd</Option><Option>zxc</Option><Option>ad</Option><Option>zxczda</Option></Options></Question></FillBlanks><TrueFalse><Question ID="8"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="9"><Questi>false is correct</Questi><Answer>False</Answer></Question><Question ID="10"><Questi>true?</Questi><Answer>True</Answer></Question></TrueFalse></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
 go
 select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbCourse
@@ -371,7 +364,7 @@ create procedure SD18EXAM_spLogin(
 @Password varchar(60)
 )
 as begin
-	select * from SD18EXAM_tbUser where SD18EXAM_tbUser.Email = @Email and SD18EXAM_tbUser.Password = @Password and SD18EXAM_tbUser.isActivated = 1
+	select * from SD18EXAM_tbUser where SD18EXAM_tbUser.Email = @Email and SD18EXAM_tbUser.Password = @Password
 end
 go
 
@@ -423,6 +416,15 @@ create procedure SD18EXAM_spIssueNewQuizStudent(
 as
  begin
 begin transaction
+
+	--set @getxml = (select SD18EXAM_tbQuizVersion.XmlFile from SD18EXAM_tbIssuedQuiz
+	--join SD18EXAM_tbQuizVersion on SD18EXAM_tbQuizVersion.Versionid = SD18EXAM_tbIssuedQuiz.Versionid
+	--where SD18EXAM_tbIssuedQuiz.IssuedQuizId = @IssuedQuizId)
+
+	--;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+	--(select @xmlMultipleCount = (select @getxml.value('count(/ns:Quiz/ns:Questions/ns:MultipleChoice/ns:Question)','int') as Count))
+	--select @getxml as XML, @xmlMultipleCount as MultipleCount
+	
 	if not EXISTS(select * from SD18EXAM_tbQuizStudent where IssuedQuizId = @IssuedQuizId and Userid = @UserId and Status != 0)
 	begin
 		insert into SD18EXAM_tbQuizStudent values (@IssuedQuizId,@UserId,@XMLStudentResponse,0,null, getdate())
@@ -501,7 +503,7 @@ end
 go
 -- SD18EXAM_spIssueNewQuizStudent @IssuedQuizId=0, @UserId = 3
 go
---SD18EXAM_spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =0
+SD18EXAM_spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =0
 select * from SD18EXAM_tbQuizStatus 
 select * from SD18EXAM_tbIssuedQuiz
 select * from SD18EXAM_tbQuizStudent
@@ -512,9 +514,10 @@ select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbClass
 --SD18EXAM_spLoadAllStudentClass @Classid=0
 
---insert into SD18EXAM_tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0,null, getdate())
+insert into SD18EXAM_tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0,null, getdate())
 go
---insert into SD18EXAM_tbQuizStudent values (0,8,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0,null, getdate())
+insert into SD18EXAM_tbQuizStudent values (0,8,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0,null, getdate())
+
 go
 --select * from SD18EXAM_tbUser
 --select * from SD18EXAM_tbQuizStudentStatus
@@ -606,7 +609,7 @@ begin
 	end
 end
 go
---SD18EXAM_spGetIssuedQuizByMentor @Userid= 0
+SD18EXAM_spGetIssuedQuizByMentor @Userid= 0
 go
 
 create procedure SD18EXAM_spgetIssuedQuizDetails(
@@ -1288,8 +1291,8 @@ go
 --delete SD18EXAM_tbQuizStudent where Userid in (select Userid from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 0)) 
 --delete SD18EXAM_tbIssuedQuiz where ClassId in (select Classid from SD18EXAM_tbClass where Courseid = 0)
 --delete SD18EXAM_tbMentorCourse where CourseID=0
---select * from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 1)
---select * from SD18EXAM_tbIssuedQuiz
+select * from SD18EXAM_tbUser where Classid in (select Classid from SD18EXAM_tbClass where Courseid = 1)
+select * from SD18EXAM_tbIssuedQuiz
 --delete SD18EXAM_tbUser where SecurityLevel = 1 and Classid in (select Classid from SD18EXAM_tbClass where Courseid = 1)
 
 --delete SD18EXAM_tbClass where Courseid = 1
@@ -1359,8 +1362,56 @@ XMLQuiz xml
 )
 go
 
+insert into SD18EXAM_tbTestSample(XMLQuiz)values
+('<Quiz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema" QuizId="111230123">
+  <?xml-stylesheet type="text/xsl" href="Quiz.xsl"?>
+  <Details>
+    <Title>testtitle</Title>
+    <Subject>tsubh</Subject>
+    <Course>Software Developer</Course>
+    <Time>25</Time>
+    <Difficulty>Intermediate</Difficulty>
+  </Details>
+  <Questions>
+    <MultipleChoice>
+      <Question ID="1">
+        <Questi>What is the fastest mammal?</Questi>
+        <Options>
+          <Option>a.Lion </Option>
+          <Option Correct="yes">b. Cheetah</Option>
+          <Option>c. Kangaroo</Option>
+          <Option>d. Turtle</Option>
+        </Options>
+      </Question>
+	  <Question ID="2">
+        <Questi>Whats up?</Questi>
+        <Options>
+          <Option>a. Good</Option>
+          <Option Correct="yes">b. Great</Option>
+          <Option>c. Bad</Option>
+          <Option>d. Not feeling well</Option>
+        </Options>
+      </Question>
+	  <Question ID="3">
+        <Questi>Whats your name?</Questi>
+        <Options>
+          <Option>a. Kevin</Option>
+          <Option Correct="yes">b. Janry</Option>
+          <Option>c. Bebz</Option>
+          <Option>d. Adrian</Option>
+        </Options>
+      </Question>
+    </MultipleChoice>
+    <FillBlanks />
+    <TrueFalse />
+    <FillBlanks />
+  </Questions>
+</Quiz>')
+
 go
 
+select * from SD18EXAM_tbTestSample
+go
 create procedure spGetTestSample
 as begin
 	select * from SD18EXAM_tbTestSample
@@ -1414,14 +1465,11 @@ go
 create procedure SD18EXAM_spGetIssuedQuizes
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-       convert (varchar(12),DateIssued,107) as DateIssued, Title ,
+       convert (varchar(12),DateIssued,107) as DateIssued, 
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, Classname
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass,
-     SD18EXAM_tbXMLQuizContent
-     
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbClass
 where SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
@@ -1431,46 +1479,28 @@ create procedure SD18EXAM_spGetQuizesByStatus(
 )
 as begin
 select IssuedQuizId, SD18EXAM_tbIssuedQuiz.Versionid, SD18EXAM_tbIssuedQuiz.ClassId,
-        convert (varchar(12),DateIssued,107) as DateIssued, Title,
+        convert (varchar(12),DateIssued,107) as DateIssued, 
        Mentorid, Firstname + ' ' + Lastname as 'Mentor', XmlFile, SD18EXAM_tbClass.Classname,
 	   SD18EXAM_tbIssuedQuiz.QuizStatus, SD18EXAM_tbQuizStatus.StatusName
-from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, 
-     SD18EXAM_tbQuizStatus, SD18EXAM_tbClass, SD18EXAM_tbXMLQuizContent
+from SD18EXAM_tbIssuedQuiz, SD18EXAM_tbUser, SD18EXAM_tbQuizVersion, SD18EXAM_tbQuizStatus, SD18EXAM_tbClass
 where SD18EXAM_tbIssuedQuiz.QuizStatus = isnull(@QuizStatus, QuizStatus) and
       SD18EXAM_tbIssuedQuiz.QuizStatus = SD18EXAM_tbQuizStatus.StatusId and
       SD18EXAM_tbIssuedQuiz.Mentorid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
 	  SD18EXAM_tbIssuedQuiz.ClassId = SD18EXAM_tbClass.Classid
 end
 go
 
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="139037" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Programming Basics</Title><Subject>Software Development </Subject><Course>Software and Database Developer</Course><Time>60</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What does SQL stand for?</Questi><Options><Option Correct="yes">Structured Query Language</Option><Option>Structured Question Language</Option><Option>Strong Question Language</Option><Option>Stress Question Language</Option></Options></Question><Question ID="2"><Questi>Which SQL statement is used to extract data from a database?</Questi><Options><Option>EXTRACT</Option><Option>GET</Option><Option Correct="yes"> SELECT</Option><Option>OPEN</Option></Options></Question><Question ID="3"><Questi>Which SQL statement is used to update data in a database?</Questi><Options><Option>MODIFY</Option><Option>SAVE</Option><Option Correct="yes">UPDATE</Option><Option>SAVE AS</Option></Options></Question><Question ID="4"><Questi>Which SQL statement is used to delete data from a database?</Questi><Options><Option> COLLAPSE</Option><Option>EDIT</Option><Option>REMOVE</Option><Option Correct="yes">DELETE</Option></Options></Question><Question ID="5"><Questi>Which SQL statement is used to insert new data in a database?</Questi><Options><Option Correct="yes">INSERT INTO</Option><Option> ADD RECORD</Option><Option> INSERT NEW</Option><Option> ADD NEW</Option></Options></Question><Question ID="6"><Questi>With SQL, how do you select a column named "FirstName" from a table named "Persons"?</Questi><Options><Option Correct="yes">SELECT FirstName FROM Persons</Option><Option>EXTRACT FirstName FROM Persons</Option><Option> SELECT Persons.FirstName</Option><Option>GET FirstName from Persons</Option></Options></Question><Question ID="7"><Questi>With SQL, how do you select all the columns from a table named "Persons"?</Questi><Options><Option>SELECT Persons</Option><Option>SELECT [all] FROM Persons</Option><Option Correct="yes">SELECT * FROM Persons</Option><Option>SELECT *.Persons</Option></Options></Question><Question ID="9"><Questi>  Which SQL keyword is used to sort the result-set?</Questi><Options><Option>SORT BY</Option><Option>ORDER</Option><Option Correct="yes">ORDER BY</Option><Option>SORT</Option></Options></Question><Question ID="10"><Questi>What does HTML stand for?</Questi><Options><Option> Home Tool Markup Language</Option><Option Correct="yes">Hyper Text Markup Language</Option><Option>Hyperlinks and Text Markup Language</Option><Option>Hyper Text Mail List</Option></Options></Question><Question ID="11"><Questi>Who is making the Web standards?</Questi><Options><Option>Google</Option><Option>Microsoft</Option><Option>Firefox</Option><Option Correct="yes"> The World Wide Web Consortium</Option></Options></Question><Question ID="14"><Questi>What does XML stand for?</Questi><Options><Option> Example Markup Language</Option><Option Correct="yes">eXtensible Markup Language</Option><Option>eXtra Modern Link</Option><Option> X-Markup Language</Option></Options></Question><Question ID="19"><Questi>What is the correct HTML tag for a break?</Questi><Options><Option Correct="yes">"&lt;br /&gt;"</Option><Option>"&lt;break&gt;"</Option><Option>"&lt;lb&gt;"</Option><Option>"&lt;/b&gt;"</Option></Options></Question></MultipleChoice><FillBlanks></FillBlanks><TrueFalse><Question ID="8"><Questi>  The OR operator displays a record if ANY conditions listed are true. The AND operator displays a record if ALL of the conditions listed are true</Questi><Answer>True</Answer></Question><Question ID="17"><Questi>XML elements cannot be empty</Questi><Answer>False</Answer></Question><Question ID="18"><Questi>XML attribute values must always be enclosed in quotes</Questi><Answer>True</Answer></Question></TrueFalse></Questions></Quiz>'
-go
---SD18EXAM_spIssueNewQuiz @Versionid = 6, @ClassId = 0, @Mentorid =1
---select * from SD18EXAM_tbQuizStudent
---select * from SD18EXAM_tbIssuedQuiz 
---SD18EXAM_spGetStudentResponseReport @Versionid= 6, @Classid=0
-go
+
+
 create procedure SD18EXAM_spGetStudentResponseReport(
 @Userid int = null,
-@Versionid int =null,
-@Classid int = null
+@XMLQuizID int = null,
+@CourseID int = null
 )
 as begin
-declare @xmlvar XML,
-@IssuedQuizId int;
-
-set @IssuedQuizId = (select SD18EXAM_tbIssuedQuiz.IssuedQuizId from SD18EXAM_tbIssuedQuiz
-						 where SD18EXAM_tbIssuedQuiz.Versionid = @Versionid and SD18EXAM_tbIssuedQuiz.ClassId = @Classid)
-set     @xmlvar = (select top 1 XMLStudentResponse 
-                   from SD18EXAM_tbQuizStudent, SD18EXAM_tbIssuedQuiz,
-				        SD18EXAM_tbQuizVersion
-                   where SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
-				         SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-						 SD18EXAM_tbQuizStudent.IssuedQuizId in (select SD18EXAM_tbIssuedQuiz.IssuedQuizId from SD18EXAM_tbIssuedQuiz
-						 where SD18EXAM_tbIssuedQuiz.Versionid = @Versionid and SD18EXAM_tbIssuedQuiz.ClassId = @Classid)
-				  )			  
+declare @xmlvar XML;
+set     @xmlvar = (select top 1 XMLStudentResponse from SD18EXAM_tbQuizStudent)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
 
 select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'StudentID', 
@@ -1493,19 +1523,15 @@ select SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid as 'St
 		    
 from    SD18EXAM_tbQuizStudent, SD18EXAM_tbQuizStudentStatus, SD18EXAM_tbUser, 
         SD18EXAM_tbXMLQuizContent, SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz
-
 where   SD18EXAM_tbQuizStudent.Status = SD18EXAM_tbQuizStudentStatus.StatusId and
         SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
 	    SD18EXAM_tbQuizStudent.Userid = isnull(@Userid, SD18EXAM_tbQuizStudent.Userid) and
-		SD18EXAM_tbUser.Classid = isnull(@Classid, 	SD18EXAM_tbUser.Classid) and
-		--SD18EXAM_tbXMLQuizContent.XMLQuizID = isnull(@XMLQuizID, SD18EXAM_tbXMLQuizContent.XMLQuizID) and
-		--SD18EXAM_tbXMLQuizContent.CourseID = isnull(@CourseID, SD18EXAM_tbXMLQuizContent.CourseID) and
+		SD18EXAM_tbXMLQuizContent.XMLQuizID = isnull(@XMLQuizID, SD18EXAM_tbXMLQuizContent.XMLQuizID) and
+		SD18EXAM_tbXMLQuizContent.CourseID = isnull(@CourseID, SD18EXAM_tbXMLQuizContent.CourseID) and
 		-- 4 more tables here to get XMLQuizID
 		SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 		SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-		SD18EXAM_tbQuizStudent.IssuedQuizId = @IssuedQuizId
-		--SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
-
+		SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
 
 GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, Lastname, StatusName, Points,
          CAST([XMLStudentResponse] AS VARCHAR(MAX))
@@ -1520,6 +1546,9 @@ declare @xmlvar XML;
 set     @xmlvar = (select top 1 XmlFile from SD18EXAM_tbQuizVersion
                    where Versionid = @Versionid)
 ;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
+
+--select @xmlvar
+--;WITH XMLNAMESPACES (N'urn:Question-Schema' as ns)
 
 select  
 		-- casting xml as varchar as xml data type cannot be used in group by clause
@@ -1545,11 +1574,11 @@ GROUP BY
 
 end
 go
-
+--select * from SD18EXAM_tbQuizStudent
+--SD18EXAM_spGetStudentResponseDetails @QuizStudentid=10, @Userid=4
 create procedure SD18EXAM_spGetStudentResponseDetails(
 @QuizStudentid int = null,
-@Userid int = null,
-@Classid int = null
+@Userid int = null
 )
 as begin
 
@@ -1579,13 +1608,11 @@ from SD18EXAM_tbQuizStudent, SD18EXAM_tbUser, SD18EXAM_tbQuizStatus, SD18EXAM_tb
      SD18EXAM_tbQuizVersion, SD18EXAM_tbIssuedQuiz
 where SD18EXAM_tbQuizStudent.Userid = SD18EXAM_tbUser.Userid and
       SD18EXAM_tbQuizStudent.Status = SD18EXAM_tbQuizStatus.StatusId and
-	  SD18EXAM_tbUser.Classid = isnull(@Classid,   SD18EXAM_tbUser.Classid ) and
 	  SD18EXAM_tbQuizStudent.QuizStudentid = isnull(@QuizStudentid, SD18EXAM_tbQuizStudent.QuizStudentid ) and
 	  SD18EXAM_tbQuizStudent.Userid = ISNULL(@Userid, SD18EXAM_tbQuizStudent.Userid) and
 	  SD18EXAM_tbQuizStudent.IssuedQuizId = SD18EXAM_tbIssuedQuiz.IssuedQuizId and
 	  SD18EXAM_tbIssuedQuiz.Versionid = SD18EXAM_tbQuizVersion.Versionid and
-	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID and
-	  SD18EXAM_tbIssuedQuiz.QuizStatus = 2
+	  SD18EXAM_tbQuizVersion.Quizid = SD18EXAM_tbXMLQuizContent.XMLQuizID
 
 	  GROUP BY SD18EXAM_tbQuizStudent.IssuedQuizId, SD18EXAM_tbQuizStudent.Userid, Firstname, 
 	  Lastname, StatusName, Points, SD18EXAM_tbQuizStudent.QuizStudentid ,
@@ -1755,48 +1782,48 @@ go
 
 go
 --------------------------INSERTS FOR TESTING--------------------------
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>'
---go
---SD18EXAM_spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
---go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>15</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice> <Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="111230123" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testtitle</Title><Subject>tsubh</Subject><Course>Software and Database Developer</Course><Time>25</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0" encoding="utf-8"?><Quiz QuizId="9999" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>testNetwork</Title><Subject>tsubh</Subject><Course>Network Engineering</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>what is?</Questi><Options><Option>a</Option><Option Correct="yes">b</Option><Option>c</Option><Option>d</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml = '<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>'
+go
+SD18EXAM_spInsertXMLContent @xml ='<?xml version="1.0"?><Quiz QuizId="249747" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>test2</Title><Subject>test2</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>test2</Questi><Options><Option>test2</Option><Option>test2</Option><Option>test2</Option><Option Correct="yes">tewst</Option></Options></Question><Question ID="2"><Questi>xzcase</Questi><Options><Option Correct="yes">asdqweqweqw</Option><Option>asdase</Option><Option>eas</Option><Option>dqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse /><FillBlanks /></Questions></Quiz>'
+go
 
 -- inserts into SD18EXAM_tbIssuedQuiz
---SD18EXAM_spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
---go
---SD18EXAM_spIssueNewQuiz @Versionid = 1, @ClassId = 1, @Mentorid =1
---go
---SD18EXAM_spIssueNewQuiz @Versionid = 2, @ClassId = 2, @Mentorid =1
---go
---SD18EXAM_spIssueNewQuiz @Versionid = 3, @ClassId = 2, @Mentorid =1
---go
+SD18EXAM_spIssueNewQuiz @Versionid = 0, @ClassId = 1, @Mentorid =1
+go
+SD18EXAM_spIssueNewQuiz @Versionid = 1, @ClassId = 1, @Mentorid =1
+go
+SD18EXAM_spIssueNewQuiz @Versionid = 2, @ClassId = 2, @Mentorid =1
+go
+SD18EXAM_spIssueNewQuiz @Versionid = 3, @ClassId = 2, @Mentorid =1
+go
 
---insert into SD18EXAM_tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (0,8,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 2, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 3, getdate())
---go
+insert into SD18EXAM_tbQuizStudent values (0,9,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (0,8,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 2, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (0,7,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 3, getdate())
+go
 
---insert into SD18EXAM_tbQuizStudent values (1,5,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',1,6, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',1,5, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (2,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 5, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (3,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 8, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (0,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 2, getdate())
---go
---insert into SD18EXAM_tbQuizStudent values (2,10,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 4, getdate())
---go
+insert into SD18EXAM_tbQuizStudent values (1,5,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',1,6, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',1,5, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (2,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 5, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (3,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 8, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (0,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 7, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (1,4,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 2, getdate())
+go
+insert into SD18EXAM_tbQuizStudent values (2,10,'<?xml version="1.0"?><Quiz QuizId="570748" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:Question-Schema"><Details><Title>Yow </Title><Subject>YowS</Subject><Course>Software and Database Developer</Course><Time>31</Time><Difficulty>Intermediate</Difficulty></Details><Questions><MultipleChoice><Question ID="1"><Questi>What is ?</Questi><Options><Option>a</Option><Option>3b</Option><Option Correct="yes">4x</Option><Option>5a</Option></Options></Question><Question ID="2"><Questi>Who is</Questi><Options><Option Correct="yes">zxcasd</Option><Option>4asdasd</Option><Option>5qwe</Option><Option>6asda</Option></Options></Question><Question ID="3"><Questi>What kind of?</Questi><Options><Option>4zxc</Option><Option>5asd</Option><Option Correct="yes">6qw</Option><Option>7qe</Option></Options></Question><Question ID="4"><Questi>Where is?</Questi><Options><Option>1asd</Option><Option>2xzcasd</Option><Option Correct="yes">3asd</Option><Option>5qwe</Option></Options></Question><Question ID="5"><Questi>add ?</Questi><Options><Option Correct="yes">sad</Option><Option>asd</Option><Option>qw</Option><Option>qeqwe</Option></Options></Question></MultipleChoice><FillBlanks /><TrueFalse><Question ID="6"><Questi>true is correct</Questi><Answer>True</Answer></Question><Question ID="7"><Questi>false is correct</Questi><Answer>False</Answer></Question></TrueFalse><FillBlanks><Question ID="8"><Questi> ________________  is the most amazing thing in the world.</Questi><Options><Option Correct="yes">Love</Option><Option Correct="yes">Boots</Option><Option>Money</Option><Option>Weed</Option></Options></Question></FillBlanks></Questions></Quiz>',0, 4, getdate())
+go
 
 ----Logs--
 create table SD18EXAM_tblogStudents(
@@ -1861,3 +1888,4 @@ select * from SD18EXAM_tbXMLQuizContent
 select * from SD18EXAM_tbClass
 select * from SD18EXAM_tbCourse
 select * from SD18EXAM_tbQuizVersion
+

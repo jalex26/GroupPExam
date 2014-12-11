@@ -95,6 +95,12 @@
     <Content Include="NavigationXmlFiles\mentor_menu.xml" />
     <Content Include="NavigationXmlFiles\student_menu.xml" />
     <Content Include="NavigationXmlFiles\user_menu.xml" />
+    <Content Include="Online Database Script\backup\ExamInstall.sql" />
+    <Content Include="Online Database Script\backup\ExamUnInstall.sql" />
+    <Content Include="Online Database Script\backup\queries.sql" />
+    <Content Include="Online Database Script\ExamInstall.sql" />
+    <Content Include="Online Database Script\ExamUnInstall.sql" />
+    <Content Include="Online Database Script\queries.sql" />
     <Content Include="Pictures\1.jpg" />
     <Content Include="Pictures\2.jpg" />
     <Content Include="Pictures\allocate.png" />
@@ -163,7 +169,6 @@
     <Content Include="Pictures\robertson.png" />
     <Content Include="Quizes.aspx" />
     <Content Include="AdminPage.aspx" />
-    <Content Include="installBACKUP.sql" />
     <Content Include="styles\QuizActionStylePoP.css" />
     <Content Include="testxsl.aspx" />
     <Content Include="ViewQuizXSL.xsl" />
