@@ -115,7 +115,7 @@
 
               <panel class="options">
                 <div>
-                  <SELECT name ="Question{$QuestionID}" class="option">
+                  <SELECT name ="Question{$QuestionID}" class="option" id="FillIn">
                     <OPTION VALUE ="{t:Option}">
                       -Select your answer
                     </OPTION>

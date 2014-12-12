@@ -73,10 +73,35 @@
                         $this.data('activated', false)
                     }, 1000); // Freeze for 1000ms
 
-                    showNext();
+                    if (!GetCurrentPanel())
+                    {
+                        if (confirm("Leave this question unanswered?")) {
+                            showNext();
+                        }
+                    }
+                    else
+                        showNext();
+                    
                     //do_all_functions();
                     return false;
                 });
+
+                function GetCurrentPanel()
+                {
+                    var TRB = $('#<%= pnlQuizItem.ClientID %> .Question:visible').find('.option').is(':checked'); //test for RadioButtons
+                    var TDDL = $('#<%= pnlQuizItem.ClientID %> .Question:visible').find('.option').val() == '';// test for DropDownLists
+                    var isItemDropDown = $('#<%= pnlQuizItem.ClientID %> .Question:visible').find('#FillIn').val()!= undefined;// test for DropDownLists
+                    if (!TRB && !TDDL && !isItemDropDown)
+                        return false;
+                    else if (TRB && !TDDL && !isItemDropDown)
+                        return true;       //true means that current question has user answer
+                    else if (!TRB && TDDL && isItemDropDown)
+                        return false;
+                    else if (!TRB && !TDDL && isItemDropDown)
+                        return true;
+                    else
+                        return false;
+                }
 
                 function ConfirmEndQuiz() {
                     if (confirm("End Quiz?")) {
